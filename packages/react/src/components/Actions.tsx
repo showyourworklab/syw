@@ -1,6 +1,8 @@
 import type { ActionsProps } from 'syw-common/types/components'
 import { useI18nContext } from '$src/context/i18n'
 import { classNames } from 'syw-common/helpers'
+import Tooltip from './Tooltip'
+import Icon from './Icon'
 
 const Actions = ({
 	actions
@@ -18,7 +20,17 @@ const Actions = ({
 						key={index}
 						className={classNames('ActionsListItem')}
 					>
-						{getText('action', action)}
+						<span>
+							{getText('action', action)}
+						</span>
+						<Tooltip
+							content={getText("action", action, "definition")}
+						>
+							<Icon
+								type="info"
+								className={classNames('ActionsListItemTooltipIcon')}
+							/>
+						</Tooltip>
 					</li>
 				)}
 			</ul>

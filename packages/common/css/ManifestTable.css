@@ -25,14 +25,13 @@
 	margin-right: var(--syw-space-1);
 	font-size: var(--syw-text-xs);
 	font-weight: var(--syw-font-weight-bold);
-	letter-spacing: 0.1em;
+	letter-spacing: var(--syw-letter-spacing-caps);
 	text-transform: uppercase;
 }
 svg.Syw-ManifestTableRowLabelTooltipIcon {
-	width: var(--syw-space-3);
-	height: var(--syw-space-3);
-	opacity: 0.5;
+	
+	/* opacity: 0.5; */
 }
 svg.Syw-ManifestTableRowLabelTooltipIcon:hover {
-	opacity: 1;
+	/* opacity: 1; */
 }

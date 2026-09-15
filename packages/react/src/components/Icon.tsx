@@ -1,9 +1,9 @@
 import { useMemo } from 'react'
-import { BadgeInfo, Camera, Check, Ellipsis, SquarePen, Sparkles, TriangleAlert, ImageOff, X, ChevronDown, ChevronUp, Info } from 'lucide-react'
+import { BadgeInfo, Camera, Check, Ellipsis, SquarePen, Sparkles, TriangleAlert, ImageOff, X, ChevronDown, ChevronUp, CircleQuestionMark } from 'lucide-react'
 import {  ICON_DEFAULT_SIZE, ICON_DEFAULT_STROKE_WIDTH } from 'syw-common/constants'
-import { classNames } from 'syw-common/helpers'
 import type { IconProps } from 'syw-common/types/components'
 import type { IconType } from 'syw-common/types/ui'
+import { classNames } from 'syw-common/helpers'
 
 export const ICONS: Record<IconType, typeof BadgeInfo> = {
 	origin: BadgeInfo,
@@ -18,7 +18,7 @@ export const ICONS: Record<IconType, typeof BadgeInfo> = {
 	missing: ImageOff,
 	up: ChevronUp,
 	down: ChevronDown,
-	info: Info,
+	info: CircleQuestionMark,
 	close: X,
 }
 

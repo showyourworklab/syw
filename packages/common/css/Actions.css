@@ -24,5 +24,14 @@ li.Syw-ActionsListItem {
 	border-bottom-width: 1px;
 	border-bottom-style: solid;
 	border-color: rgba(0,0,0,0.1);
-	font-size: var(--syw-text-sm);	
+	font-size: var(--syw-text-sm);
+	display: flex;
+	align-items: center;
+}
+li.Syw-ActionsListItem span {
+	margin-right: var(--syw-space-1);
+}
+.Syw-ActionsListItemTooltipIcon {
+	
+	/* opacity: 0.5; */
 }

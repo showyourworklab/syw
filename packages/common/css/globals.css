@@ -76,7 +76,8 @@
 	--syw-text-sm: 12px;
 	--syw-text-xs: 10px;
 	--syw-text-xxs: 8px;
-
+	/* Typography > Letter Spacing */
+	--syw-letter-spacing-caps: 0.125em;
 	/* @media (max-width: 576px) {
 		--syw-space-1: 2px;
 		--syw-space-2: 4px;
