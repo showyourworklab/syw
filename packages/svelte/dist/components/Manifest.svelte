@@ -1,7 +1,8 @@
 <script lang="ts">
     import { Tabs, useTabs } from '@ark-ui/svelte/tabs';
-	import { classNames, getAvailableTabs } from 'syw-common/helpers'
+	import { classNames, getAvailableTabs, getObjectValue } from 'syw-common/helpers'
 	import { MANIFEST_CONTENT_TAB_KEYS } from 'syw-common/constants'
+    import type { ManifestFieldKey } from 'syw-common/types';
 	import type { Manifest as ManifestData } from 'syw-common/types/c2pa'
 	import { getUiContext } from '../store/ui.js'
 	import Collapse from './Collapse.svelte'
@@ -21,7 +22,7 @@
 	const open = $derived(String(manifest.id) in $openManifests)
 
 	const tabKeys = $derived(
-		(manifest?.type?.key ? MANIFEST_CONTENT_TAB_KEYS[manifest.type.key] : undefined) ?? []
+		((manifest?.type?.key ? getObjectValue(manifest.type.key, MANIFEST_CONTENT_TAB_KEYS) : undefined) ?? []) as ManifestFieldKey[]
 	)
 
 	const availableTabKeys = $derived(

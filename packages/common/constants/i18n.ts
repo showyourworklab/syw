@@ -78,6 +78,7 @@ export const DICTIONARY_EN_US = {
 	tab_location: 'Map',
 	tab_actions: 'Edits',
 	// Actions
+	action_ai: '(Generative AI)',
 	action_c2pa_created: 'Created',
 	action_c2pa_cropped: 'Cropped',
 	action_c2pa_deleted: 'Deletion',
@@ -179,6 +180,7 @@ export const DICTIONARY_NO_NO = {
 	tab_location: 'Kart',
 	tab_actions: 'Redigeringer',
 	// Actions
+	action_ai: '(Generative AI)',
 	action_c2pa_created: 'Opprettet',
 	action_c2pa_cropped: 'Beskåret',
 	action_c2pa_deleted: 'Sletting',
@@ -280,6 +282,7 @@ export const DICTIONARY_SV_SE = {
 	tab_location: 'Karta',
 	tab_actions: 'Redigeringar',
 	// Actions
+	action_ai: '(Generative AI)',
 	action_c2pa_created: 'Skapad',
 	action_c2pa_cropped: 'Beskuren',
 	action_c2pa_deleted: 'Radering',

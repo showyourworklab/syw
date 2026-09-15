@@ -15,7 +15,7 @@
 	{#each keys as key}
 		<ManifestTableRow
 			type={key}
-			value={manifest[key]}
+			manifest={manifest}
 		/>
 	{/each}
 </ul>

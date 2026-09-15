@@ -1,6 +1,7 @@
 import type { Manifest as C2paManifest, ManifestStore } from '@contentauth/c2pa-types'
 import type { Reader, Config } from '@contentauth/c2pa-web'
 import type { C2PA_PHASES, C2PA_STATUSES } from '../constants/c2pa.js'
+import { IPTC_DIGITAL_SOURCE_TYPE_KEYS } from '#constants/iptc'
 
 export type { C2paManifest }
 
@@ -15,18 +16,20 @@ export interface C2paProvenance {
 
 export type ManifestId = string
 
-export type ManifestTypeKey = 'camera' | 'edit' | 'ai'
+export type ManifestTypeKey = 'camera' | 'edit' | 'ai' | 'unknown'
+
+export type ManifestTypeIptc = typeof IPTC_DIGITAL_SOURCE_TYPE_KEYS[number] | undefined;
 
 export interface ManifestType {
 	key: ManifestTypeKey
-	iptc: ManifestTypeIptc
+	iptc?: ManifestTypeIptc
 }
 
-export interface ManifestTypeIptc {
-	key?: string
-	label?: string
-	definition?: string
-}
+// export interface ManifestTypeIptc {
+// 	key?: string | null
+// 	label?: string | null
+// 	definition?: string | null
+// }
 
 export type ManifestStatus = C2paStatus
 
@@ -48,7 +51,14 @@ export interface ManifestGeneratorEntry {
 }
 export type ManifestGenerator = ManifestGeneratorEntry[]
 
-export type ManifestActions = string[]
+export type ManifestActionIptc = typeof IPTC_DIGITAL_SOURCE_TYPE_KEYS[number] | undefined;
+
+export interface ManifestAction {
+	key: string,
+	iptc: ManifestActionIptc
+}
+
+export type ManifestActions = ManifestAction[]
 
 export type ManifestThumbnail = string | null
 

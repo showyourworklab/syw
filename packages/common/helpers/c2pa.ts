@@ -5,7 +5,7 @@ import TRUST_LISTS from '#trustlists'
 import { VERIFY_BASE_URL } from '#constants/index'
 import { C2PA_PHASES, C2PA_DATA_DEFAULT, C2PA_STATUSES, C2PA_WEB_WASM_CDN_URL } from '#constants/c2pa'
 import { convertJumbfToDataUri, getMediaType } from '#helpers/index'
-import { getIptcNewsCode, getIptcNewsCodeDefinition, getIptcNewsCodeKey, getIptcNewsCodeLabel } from '#helpers/iptc'
+import { getIptcDigitalSourceTypeKey, isIptcDigitalSourceTypeAi, isIptcDigitalSourceTypeCamera } from '#helpers/iptc'
 import type {
 	SywData,
 	C2paOptions,
@@ -237,19 +237,15 @@ export const getGenerator = (manifest: C2paManifest | null | undefined): Manifes
 export const getType = (manifest: C2paManifest | null | undefined): ManifestType | null => {
 	const hasExif = ifHasExif(manifest)
 	const createdAction = getC2paActions(manifest)?.find(a => a?.action === "c2pa.created")
-	let typeKey: ManifestTypeKey | undefined, typeLabel, typeDefinition
-	let iptcTypeKey, iptcTypeLabel, iptcTypeDefinition
+	let typeKey: ManifestTypeKey = "unknown";
+	let iptcDigitalSourceType
 	if(createdAction) {
-		const iptcNewsCodeUri = createdAction?.digitalSourceType
-		const iptcNewsCode = getIptcNewsCode(iptcNewsCodeUri)
-		iptcTypeKey = getIptcNewsCodeKey(iptcNewsCodeUri)
-		iptcTypeLabel = getIptcNewsCodeLabel(iptcNewsCode)
-		iptcTypeDefinition = getIptcNewsCodeDefinition(iptcNewsCode)
+		iptcDigitalSourceType = getIptcDigitalSourceTypeKey(createdAction?.digitalSourceType)
 		// TEMP: Not exhausted list of possible news codes
-		if(iptcTypeKey === "trainedAlgorithmicMedia") {
-			typeKey = "ai"
-		} else if(iptcTypeKey === "digitalCapture") {
+		if(isIptcDigitalSourceTypeCamera(iptcDigitalSourceType)) {
 			typeKey = "camera"
+		} else if(isIptcDigitalSourceTypeAi(iptcDigitalSourceType)) {
+			typeKey = "ai"
 		}
 	} else if(hasExif) {
 		// TEMP: Unsure if EXIF detection is a safe determinant
@@ -261,23 +257,10 @@ export const getType = (manifest: C2paManifest | null | undefined): ManifestType
 		// TEMP: Unsure if "Camera Bits, Inc." detection is a safe determinant
 		typeKey = "edit"
 	}
-	// console.log({
-	// 	iptcNewsCodeUri,
-	// 	iptcNewsCode,
-	// 	typeKey,
-	// 	typeLabel,
-	// 	typeDefinition,
-	// })
-	return typeKey ? {
+	return {
 		key: typeKey,
-		// label: typeLabel,
-		// definition: typeDefinition,
-		iptc: {
-			key: iptcTypeKey || undefined,
-			label: iptcTypeLabel,
-			definition: iptcTypeDefinition
-		}
-	} : null
+		iptc:  iptcDigitalSourceType
+	}
 }
 
 export const getTypes = (manifests: Manifest[] | undefined): ManifestType[] =>
@@ -399,10 +382,20 @@ export const getIngredients = (manifest: C2paManifest | null | undefined): unkno
  */
 export const getActions = (manifest: C2paManifest | null | undefined): ManifestActions | undefined => {
 	const c2paActions = getC2paActions(manifest)
-		?.map(action => action.action?.replace(".", "_"))
-		?.reduce((arr: string[], val) => !arr.includes(val)
-			? [...arr, val]
-			: arr
+		?.map(action => {
+			const actionKey = action.action?.replace(".", "_")
+			const iptcDigitalSourceType = getIptcDigitalSourceTypeKey(action?.digitalSourceType)
+			return {
+				key: actionKey,
+				iptc: iptcDigitalSourceType,
+			}
+		})
+		?.reduce((arr: ManifestActions, val) =>
+			!arr.some(v =>
+				v.key === val.key && v.iptc === val.iptc
+			)
+				? [...arr, val]
+				: arr
 		, [])
 	return c2paActions
 }

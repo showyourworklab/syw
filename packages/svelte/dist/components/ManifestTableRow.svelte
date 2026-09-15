@@ -14,17 +14,25 @@
 
 	const {
 		type,
-		value,
-	}: Pick<ManifestTableRowProps, 'type' | 'value'> = $props()
+		manifest,
+	}: ManifestTableRowProps = $props()
+
+	const value = $derived(() =>
+		manifest[type]
+	)
+
+	const manifestType = $derived(() =>
+		String(manifest?.type?.key)
+	)
 
 	const formattedValue = $derived(() => {
 		switch(type) {
 			case 'producer':
-				return (value as { name?: string | null }[] | undefined)?.map(v => v.name).join(', ')
+				return (value() as { name?: string | null }[] | undefined)?.map(v => v.name).join(', ')
 			case 'timestamp':
-				return getDateString($locale, value as { date?: Date, offset?: string | null } | undefined)
+				return getDateString($locale, value() as { date?: Date, offset?: string | null } | undefined)
 			default:
-				return value
+				return value()
 		}
 	})
 
@@ -38,10 +46,10 @@
 			class={classNames('ManifestTableRowLabel')}
 		>
 			<span>
-				{type ? getText($locale, type) : ''}
+				{type ? getText($locale, type, manifestType()) : ''}
 			</span>
 			<Tooltip
-				content={getText($locale, type, "definition")}
+				content={getText($locale, type, manifestType(), "definition")}
 			>
 				<Icon
 					type="info"
@@ -54,14 +62,14 @@
 		>
 			{#if type === 'location'}
 				<Map
-					location={value as ManifestLocation}
+					location={value() as ManifestLocation}
 				/>
 			{:else if type === 'actions'}
 				<Actions
-					actions={value as string[]}
+					actions={value() as string[]}
 				/>
 			{:else if type === 'generator'}
-				{#each value as ManifestGeneratorEntry[] as v}
+				{#each value() as ManifestGeneratorEntry[] as v}
 					<Generator
 						name={v.name}
 						icon={v.icon}

@@ -1,4 +1,4 @@
-import type { C2paStatus, Manifest, ManifestFieldKey, ManifestLocation, ManifestType } from './c2pa.js'
+import type { C2paStatus, Manifest, ManifestActions, ManifestFieldKey, ManifestLocation, ManifestType } from './c2pa.js'
 import type { IconType } from './ui.js'
 
 export interface ComponentProps {
@@ -7,7 +7,7 @@ export interface ComponentProps {
 }
 
 export interface ActionsProps extends ComponentProps {
-	actions: string[]
+	actions: ManifestActions
 }
 
 export interface BadgeProps extends ComponentProps {

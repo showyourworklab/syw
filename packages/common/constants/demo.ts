@@ -9,6 +9,20 @@ interface DemoImage {
 
 // Hosted at https://github.com/showyourworklab/c2pa-images
 export const DEMO_IMAGES: DemoImage[] = [
+	// {
+	// 	src: 'https://showyourworklab.github.io/c2pa-images/firefly-edit.jpg',
+	// 	title: {
+	// 		en_US: 'AI-edited',
+	// 		no_NO: 'AI-edited',
+	// 		sv_SE: 'AI-edited',
+	// 	},
+	// 	caption: {
+	// 		en_US: '',
+	// 		no_NO: '',
+	// 		sv_SE: '',
+	// 	},
+	// 	byline: 'Nora Savosnick'
+	// },
 	{
 		src: 'https://showyourworklab.github.io/c2pa-images/feedback-1.jpg',
 		title: {
@@ -65,18 +79,4 @@ export const DEMO_IMAGES: DemoImage[] = [
 		},
 		byline: 'NewsGuard'
 	},
-	// {
-	// 	src: 'https://showyourworklab.github.io/c2pa-images/sony-nora-1.jpg',
-	// 	title: {
-	// 		en_US: 'Roshni (Sony)',
-	// 		no_NO: 'Roshni (Sony)',
-	// 		sv_SE: 'Roshni (Sony)',
-	// 	},
-	// 	caption: {
-	// 		en_US: '',
-	// 		no_NO: '',
-	// 		sv_SE: '',
-	// 	},
-	// 	byline: 'Nora Savosnick'
-	// },
 ];

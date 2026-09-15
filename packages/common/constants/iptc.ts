@@ -1,4 +1,4 @@
-export interface IptcNewsCode {
+export interface IptcDigitalSourceType {
 	uri: string
 	qcode: string
 	type: string[]
@@ -11,9 +11,43 @@ export interface IptcNewsCode {
 	created: string
 }
 
-export const IPTC_NEWS_CODES_BASE_URI = "http://cv.iptc.org/newscodes/digitalsourcetype";
+export const IPTC_DIGITAL_SOURCE_TYPE_KEYS = [
+	"digitalCapture",
+	"computationalCapture",
+	"negativeFilm",
+	"positiveFilm",
+	"print",
+	"minorHumanEdits",
+	"humanEdits",
+	"compositeWithTrainedAlgorithmicMedia",
+	"algorithmicallyEnhanced",
+	"softwareImage",
+	"digitalArt",
+	"digitalCreation",
+	"dataDrivenMedia",
+	"trainedAlgorithmicMedia",
+	"algorithmicMedia",
+	"screenCapture",
+	"virtualRecording",
+	"composite",
+	"compositeCapture",
+	"compositeSynthetic",
+]
 
-export const IPTC_NEWS_CODES: IptcNewsCode[] = [
+export const IPTC_DIGITAL_SOURCE_TYPES_CAMERA = [
+	"digitalCapture",
+	"computationalCapture",
+]
+
+export const IPTC_DIGITAL_SOURCE_TYPES_AI = [
+	"compositeWithTrainedAlgorithmicMedia",
+	"trainedAlgorithmicMedia",
+	"compositeSynthetic",
+]
+
+export const IPTC_DIGITAL_SOURCE_TYPES_BASE_URI = "http://cv.iptc.org/newscodes/digitalsourcetype";
+
+export const IPTC_DIGITAL_SOURCE_TYPES: IptcDigitalSourceType[] = [
 	{
 		"uri": "http://cv.iptc.org/newscodes/digitalsourcetype/digitalCapture",
 		"qcode": "digsrctype:digitalCapture",

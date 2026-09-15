@@ -3,6 +3,7 @@ import { useI18nContext } from '$src/context/i18n'
 import { classNames } from 'syw-common/helpers'
 import Tooltip from './Tooltip'
 import Icon from './Icon'
+import { isIptcDigitalSourceTypeAi } from 'syw-common/helpers/iptc'
 
 const Actions = ({
 	actions
@@ -21,10 +22,15 @@ const Actions = ({
 						className={classNames('ActionsListItem')}
 					>
 						<span>
-							{getText('action', action)}
+							{getText('action', action.key)}
 						</span>
+						{isIptcDigitalSourceTypeAi(action.iptc) ?
+							<span>
+								{getText('action', 'ai')}
+							</span>
+						: null}
 						<Tooltip
-							content={getText("action", action, "definition")}
+							content={getText("action", action.key, "definition")}
 						>
 							<Icon
 								type="info"

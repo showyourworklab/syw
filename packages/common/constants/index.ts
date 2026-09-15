@@ -41,6 +41,7 @@ export const MANIFEST_CONTENT_TAB_KEYS = {
 	camera: ['thumbnail', 'location'],
 	edit: ['thumbnail', 'actions'],
 	ai: ['thumbnail', 'actions'],
+	unknown: []
 } as const
 
 export const MANIFEST_CONTENT_TAB_DEFAULT = 'thumbnail'
