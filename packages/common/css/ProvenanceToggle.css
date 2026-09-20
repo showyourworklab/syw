@@ -12,6 +12,7 @@
 	font-size: var(--syw-text-sm);
 	font-weight: var(--syw-font-weight-bold);
 	transition: all 200ms ease;
+	user-select: none;
 }
 /* Toggle Provenance > Badge */
 .Syw-Cutline button.Syw-ProvenanceToggle .Syw-Badge {
