@@ -1,0 +1,120 @@
+.Syw-Popover {
+	
+}
+.Syw-PopoverAnchor {
+	display: inline-flex;
+}
+.Syw-PopoverPositioner {
+	z-index: var(--syw-z-popover);
+	--arrow-background: var(--syw-color-primary);
+	--arrow-border: var(--syw-color-tertiary);
+	--arrow-size: 10px;
+}
+.Syw-PopoverContent {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 4px;
+	outline: 0;
+	padding: 20px;
+	/* width: 100%; */
+	width: 600px;
+	background: var(--syw-color-primary);
+	border-radius: var(--syw-radius-lg);
+	/* border-color: var(--syw-color-tertiary); */
+	/* border-style: solid; */
+	/* border-width: 1px; */
+	position: relative;
+	filter: drop-shadow(0 0 20px rgba(0, 0, 0, 0.5));
+	transform-origin: var(--transform-origin);
+	overflow-y: auto;
+	overscroll-behavior-y: contain;
+}
+.Syw-PopoverContent[data-state='open'] {
+	animation: syw-popover-scale-fade-in 0.15s ease-in-out;
+}
+.Syw-PopoverContent[data-state='closed'] {
+	animation: syw-popover-scale-fade-out 0.1s ease-in-out;
+}
+
+.Syw-PopoverArrow {
+	--arrow-background: var(--syw-color-primary);
+	--arrow-border: var(--syw-color-tertiary);
+	--arrow-shadow-color: var(--syw-color-tertiary);
+}
+
+.Syw-PopoverArrowTip {
+	border-top: 1px solid var(--arrow-border);
+	border-left: 1px solid var(--arrow-border);
+}
+
+.Syw-PopoverTitle {
+	margin: 0;
+	font-size: 15px;
+	font-weight: 600;
+	line-height: 19px;
+	color: var(--syw-color-secondary);
+}
+
+.Syw-PopoverDescription {
+	margin: 0;
+	font-size: 14px;
+	line-height: 1.5;
+	color: var(--syw-color-secondary);
+}
+
+.Syw-PopoverBody {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	padding-top: 12px;
+	font-size: 14px;
+}
+
+button.Syw-ModalClose {
+	width: var(--syw-space-6);
+	height: var(--syw-space-6);
+	display: flex;
+	position: absolute;
+	right: calc(var(--syw-space-1) * -1);
+	top: calc(var(--syw-space-1) * -1);
+	color: var(--syw-color-primary);
+	background-color: var(--syw-color-secondary);
+	border-radius: var(--syw-radius-full);
+	border-color: currentColor;
+	border-style: solid;
+	border-width: 1px;
+	cursor: pointer;
+	transition: all 200ms ease;
+}
+button.Syw-ModalClose svg {
+	margin: auto;
+	width: var(--syw-space-4);
+	height: var(--syw-space-4);
+}
+button.Syw-ModalClose:hover,
+button.Syw-ModalClose:focus {
+	color: var(--syw-color-quaternary);
+}
+
+@keyframes syw-popover-scale-fade-in {
+	from {
+		opacity: 0;
+		transform: scale(0.96);
+	}
+	to {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+
+@keyframes syw-popover-scale-fade-out {
+	from {
+		opacity: 1;
+		transform: scale(1);
+	}
+	to {
+		opacity: 0;
+		transform: scale(0.96);
+	}
+}

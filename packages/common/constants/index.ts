@@ -4,6 +4,7 @@ export const VERIFY_BASE_URL = 'verify.contentauthenticity.org'
 export const VARIANT_KEYS = [
 	'expand',
 	'modal',
+	'popover',
 	'drawer-bottom',
 	'drawer-left',
 	'drawer-right',

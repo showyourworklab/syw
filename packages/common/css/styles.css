@@ -20,9 +20,11 @@
 @import './ManifestTable.css';
 @import './Map.css';
 @import './Modal.css';
+@import './Popover.css';
 @import './Provenance.css';
 @import './ProvenanceDrawer.css';
 @import './ProvenanceModal.css';
+@import './ProvenancePopover.css';
 @import './ProvenanceToggle.css';
 @import './Tooltip.css';
 @import './Video.css';
