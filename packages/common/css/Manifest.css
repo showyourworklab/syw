@@ -38,7 +38,7 @@
 	display: none;
 }
 .Syw-App_active .Syw-Manifest {
-	background-color: var(--syw-color-primary);
+	/* background-color: var(--syw-color-primary); */
 }
 /* Manifest > Open */
 .Syw-Manifest.Syw-Manifest_open {

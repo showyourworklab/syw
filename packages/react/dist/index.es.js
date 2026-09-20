@@ -2928,7 +2928,7 @@ qozPYPP47f5XY2KfAnx5rV0mhVXIbQ==
     };
   })) == null ? void 0 : p.reduce(
     (y, T) => y.some(
-      (w) => w.key === T.key && w.key === T.iptc
+      (w) => w.key === T.key && w.iptc === T.iptc
     ) ? y : [...y, T],
     []
   );

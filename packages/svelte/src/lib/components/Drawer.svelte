@@ -7,7 +7,7 @@
 		open = false,
 		title,
 		description,
-		direction = 'right',
+		direction = 'bottom',
 		onOpenChange,
 		className,
 		children

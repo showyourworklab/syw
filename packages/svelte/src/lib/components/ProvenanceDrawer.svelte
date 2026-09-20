@@ -1,6 +1,7 @@
 <script>
-	import { getContext } from 'svelte'
 	import { classNames } from 'syw-common/helpers'
+    import { getUiContext } from '$lib/store/ui.js';
+    import { getI18nContext } from '$lib/store/i18n.js';
 	import Drawer from './Drawer.svelte'
 	import Provenance from './Provenance.svelte'
 
@@ -13,8 +14,11 @@
 		openProvenance,
 		closeProvenance,
 		closeExplainer
-	} = getContext('uiStoreContext')
-	const { locale, getText } = getContext('i18nStoreContext')
+	} = getUiContext()
+	const {
+		locale,
+		getText
+	} = getI18nContext()
 
 	const handleOpenChange = (newOpen, event) => {
 		const originalEvent = event

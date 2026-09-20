@@ -7,7 +7,7 @@ const Drawer = ({
 	open = false,
 	title,
 	description,
-	direction = 'right',
+	direction = 'bottom',
 	onOpenChange,
 	children,
 	className

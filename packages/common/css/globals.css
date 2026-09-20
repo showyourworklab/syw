@@ -29,7 +29,8 @@
 	--syw-color-status-unknown-light: var(--syw-color-secondary);
 	--syw-color-type: rgb(126, 126, 22);
 	--syw-color-type-light: rgb(245, 245, 205);
-	--syw-color-modal-backdrop: hsla(229, 29%, 11%, 0.85);
+	--syw-color-backdrop: hsla(229, 29%, 11%, 0.25);
+	/* --syw-color-backdrop: rgba(236, 242, 248, 0.25); */
 	/* Border Radii */
 	--syw-radius-sm: 2px;
 	--syw-radius-md: 4px;

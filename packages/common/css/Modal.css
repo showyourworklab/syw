@@ -6,7 +6,7 @@
 	position: fixed;
     inset: 0;
 	z-index: calc(var(--syw-z-modal) + var(--layer-index, 0));
-	background-color: var(--syw-color-modal-backdrop);
+	background-color: var(--syw-color-backdrop);
 }
 .Syw-ModalBackdrop[data-state="open"] {
 	animation: syw-modal-backdrop-in 200ms ease;
