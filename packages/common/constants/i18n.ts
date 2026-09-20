@@ -3,7 +3,7 @@ export const LOCALE_DEFAULT = 'en_US'
 export const LOCALE_DEFAULTS = {
 	en: 'en_US',
 	no: 'no_NO',
-	sv: 'sv_SE'
+	// sv: 'sv_SE'
 } as const
 export const DICTIONARY_EN_US = {
 	// Fields > Labels
@@ -24,9 +24,7 @@ export const DICTIONARY_EN_US = {
 	generator_edit: 'Software',
 	generator_ai: 'AI Tool',
 	location: 'Location',
-	location_definition: '',
 	actions: 'Actions',
-	actions_definition: 'A log of the specific edits made to the file.',
 	// Fields > Definitions
 	producer_definition: 'The name provided as the producer.',
 	producer_camera_definition: 'The name provided as the photographer.',
@@ -44,6 +42,7 @@ export const DICTIONARY_EN_US = {
 	generator_camera_definition: 'The camera model and software that captured this photo.',
 	generator_edit_definition: 'The software used to make this edit.',
 	generator_ai_definition: 'The tool or model that generated this content.',
+	actions_definition: 'A log of the specific edits made to the file.',
 	// Provenance
 	provenance_toggle: 'View Image Origin',
 	provenance_missing: 'No provenance found',
@@ -140,15 +139,46 @@ export const DICTIONARY_EN_US = {
 }
 
 export const DICTIONARY_NO_NO = {
+	// Fields > Labels
 	producer: 'Produsert av',
+	producer_camera: 'Foto av',
+	producer_edit: 'Redigert av',
+	producer_ai: 'Laget av',
 	timestamp: 'Tidsstempel',
+	timestamp_camera: 'Tidsstempel',
+	timestamp_edit: 'Tidsstempel',
+	timestamp_ai: 'Tidsstempel',
 	signator: 'Signert av',
+	signator_camera: 'Signert av',
+	signator_edit: 'Signert av',
+	signator_ai: 'Signert av',
 	generator: 'Produsert med',
+	generator_camera: 'Kamera',
+	generator_edit: 'Programvare',
+	generator_ai: 'KI-Programvare',
 	location: 'Sted',
 	actions: 'Handlinger',
 	ingredients: 'Ingredienser',
 	provenance_toggle: 'Se bildets opphav',
 	provenance_missing: 'No provenance found',
+	// Fields > Definitions
+	producer_definition: 'Navnet som er oppgitt som produsent.',
+	producer_camera_definition: 'Navnet som er oppgitt som fotograf.',
+	producer_edit_definition: 'Navnet som er oppgitt for den som har redigert bildet.',
+	producer_ai_definition: 'Navnet som er oppgitt for den som skapte innholdet.',
+	timestamp_definition: 'Dato og klokkeslett for når innholdet ble signert, som oppgitt av enhet eller app.',
+	timestamp_camera_definition: 'Dato og klokkeslett for når bildet ble tatt, som oppgitt av enhet.',
+	timestamp_edit_definition: 'Dato og klokkeslett for når redigeringen ble signert, som oppgitt av enhet eller app.',
+	timestamp_ai_definition: 'Dato og klokkeslett for når innholdet ble signert, som oppgitt av enhet eller app.',
+	signator_definition: 'Verktøyet eller programvaren som ble brukt til å lage innholdet.',
+	signator_camera_definition: 'Kameramodellen og programvaren som ble brukt til å ta bildet.',
+	signator_edit_definition: 'Programvaren som ble brukt til å gjøre denne redigeringen.',
+	signator_ai_definition: 'Verktøyet eller modellen som ble brukt til å generere innholdet.',
+	generator_definition: 'Aktøren som signerte opplysningene da bildet ble opprettet.',
+	generator_camera_definition: 'Aktøren som signerte opplysningene da bildet ble tatt.',
+	generator_edit_definition: 'Aktøren som signerte opplysningene da bildet ble redigert.',
+	generator_ai_definition: 'Aktøren som signerte opplysningene da bildet ble generert.',
+	actions_definition: 'A log of the specific edits made to the file.',
 	// Explainer
 	explainer_toggle: 'Hva er dette?',
 	explainer_toggle_close: 'Lukk',
