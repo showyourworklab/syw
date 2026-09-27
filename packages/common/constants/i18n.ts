@@ -376,7 +376,7 @@ export const DICTIONARY_DEFAULT = DICTIONARY_EN_US
 export const DICTIONARIES = {
 	en_US: DICTIONARY_EN_US,
 	no_NO: DICTIONARY_NO_NO,
-	sv_SE: DICTIONARY_SV_SE
+	// sv_SE: DICTIONARY_SV_SE
 }
 export const DATE_OPTIONS: Intl.DateTimeFormatOptions = {
 	year: 'numeric',

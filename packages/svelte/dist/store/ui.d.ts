@@ -1,14 +1,14 @@
 import type { Manifest } from 'syw-common/types/c2pa';
 import type { MapOptions, UiEventHandler, Variant } from 'syw-common/types/ui';
 export default function createUiStore(): {
-    elem: import("svelte/store").Writable<HTMLElement>;
+    elem: import("svelte/store").Writable<HTMLElement | null>;
     variant: import("svelte/store").Writable<string>;
-    mapOptions: import("svelte/store").Writable<Record<string, unknown>>;
+    mapOptions: import("svelte/store").Writable<MapOptions>;
     isHoverImage: import("svelte/store").Writable<boolean>;
     isProvenanceOpen: import("svelte/store").Writable<boolean>;
     isExplainerOpen: import("svelte/store").Writable<boolean>;
     openManifests: import("svelte/store").Writable<Record<string, Manifest>>;
-    eventHandler: import("svelte/store").Writable<UiEventHandler>;
+    eventHandler: import("svelte/store").Writable<UiEventHandler | null>;
     setElem: (value: HTMLElement | null) => void;
     setVariant: (value: Variant | string) => void;
     setMapOptions: (value: MapOptions) => void;
@@ -24,14 +24,14 @@ export default function createUiStore(): {
 };
 export type UiStore = ReturnType<typeof createUiStore>;
 export declare const setUiContext: (store: UiStore) => {
-    elem: import("svelte/store").Writable<HTMLElement>;
+    elem: import("svelte/store").Writable<HTMLElement | null>;
     variant: import("svelte/store").Writable<string>;
-    mapOptions: import("svelte/store").Writable<Record<string, unknown>>;
+    mapOptions: import("svelte/store").Writable<MapOptions>;
     isHoverImage: import("svelte/store").Writable<boolean>;
     isProvenanceOpen: import("svelte/store").Writable<boolean>;
     isExplainerOpen: import("svelte/store").Writable<boolean>;
     openManifests: import("svelte/store").Writable<Record<string, Manifest>>;
-    eventHandler: import("svelte/store").Writable<UiEventHandler>;
+    eventHandler: import("svelte/store").Writable<UiEventHandler | null>;
     setElem: (value: HTMLElement | null) => void;
     setVariant: (value: Variant | string) => void;
     setMapOptions: (value: MapOptions) => void;
@@ -46,14 +46,14 @@ export declare const setUiContext: (store: UiStore) => {
     setEventHandler: (val: UiEventHandler | null) => void;
 };
 export declare const getUiContext: () => {
-    elem: import("svelte/store").Writable<HTMLElement>;
+    elem: import("svelte/store").Writable<HTMLElement | null>;
     variant: import("svelte/store").Writable<string>;
-    mapOptions: import("svelte/store").Writable<Record<string, unknown>>;
+    mapOptions: import("svelte/store").Writable<MapOptions>;
     isHoverImage: import("svelte/store").Writable<boolean>;
     isProvenanceOpen: import("svelte/store").Writable<boolean>;
     isExplainerOpen: import("svelte/store").Writable<boolean>;
     openManifests: import("svelte/store").Writable<Record<string, Manifest>>;
-    eventHandler: import("svelte/store").Writable<UiEventHandler>;
+    eventHandler: import("svelte/store").Writable<UiEventHandler | null>;
     setElem: (value: HTMLElement | null) => void;
     setVariant: (value: Variant | string) => void;
     setMapOptions: (value: MapOptions) => void;
