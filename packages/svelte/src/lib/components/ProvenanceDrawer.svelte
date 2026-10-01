@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { classNames } from 'syw-common/helpers'
     import { getUiContext } from '$lib/store/ui.js';
     import { getI18nContext } from '$lib/store/i18n.js';
@@ -20,7 +20,7 @@
 		getText
 	} = getI18nContext()
 
-	const handleOpenChange = (newOpen, event) => {
+	const handleOpenChange = (newOpen: boolean, event: any) => {
 		const originalEvent = event
 		if(newOpen) {
 			openProvenance(originalEvent)
@@ -35,6 +35,7 @@
 <Drawer
 	open={$isProvenanceOpen}
 	title={getText($locale, 'provenance', 'toggle')}
+	description=""
 	direction={direction}
 	onOpenChange={handleOpenChange}
 	className={classNames('ProvenanceDrawer')}
