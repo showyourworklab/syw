@@ -92,7 +92,7 @@
 			let c2paInstance = $c2pa
 			if (!c2paInstance) c2paInstance = await c2paStore.init(c2paOptions)
 			const newData = await c2paStore.read({ src })
-			dataStore.setC2paData(newData)
+			if(newData) dataStore.setC2paData(newData)
 		})()
 	})
 

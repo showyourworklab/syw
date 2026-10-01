@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { Drawer as ArkDrawer } from '@ark-ui/svelte/drawer'
 	import { classNames } from 'syw-common/helpers'
 	import Icon from './Icon.svelte'
@@ -19,7 +19,7 @@
 		return safeSwipeDirection
 	})
 
-	const handleOpenChange = (event) => {
+	const handleOpenChange = (event: any) => {
 		onOpenChange(event.open)
 	}
 </script>
@@ -29,7 +29,6 @@
 	swipeDirection={swipeDirection}
 	modal={false}
 	lazyMount={true}
-	unmountOnExit={true}
 	closeOnInteractOutside={true}
 	onOpenChange={handleOpenChange}
 >

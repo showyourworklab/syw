@@ -4,7 +4,7 @@ import type { Manifest as C2paManifest, Action } from '@contentauth/c2pa-types'
 import TRUST_LISTS from '#trustlists'
 import { VERIFY_BASE_URL } from '#constants/index'
 import { C2PA_PHASES, C2PA_DATA_DEFAULT, C2PA_STATUSES, C2PA_WEB_WASM_CDN_URL } from '#constants/c2pa'
-import { convertJumbfToDataUri, getMediaType } from '#helpers/index'
+import { convertJumbfToBlobUrl, getMediaType, revokeManifestBlobUrls } from '#helpers/index'
 import { getIptcDigitalSourceTypeKey, isIptcDigitalSourceTypeAi, isIptcDigitalSourceTypeCamera } from '#helpers/iptc'
 import type {
 	SywData,
@@ -199,20 +199,22 @@ export const getProducer = (manifest: C2paManifest | null | undefined): unknown 
 
 /**
  * Gets a description of claim generator
+ * @async
  * @function
  * @param manifest - C2paManifest entry
- * @return List of generator names with version (i.e. Lightroom Classic 14.0)
+ * @param reader - C2PA reader instance
+ * @return List of generator names with version (i.e. Lightroom Classic 14.0) and icon URL
  */
-export const getGenerator = (manifest: C2paManifest | null | undefined): ManifestGenerator => {
+export const getGenerator = async (manifest: C2paManifest | null | undefined, reader: Reader | null | undefined): Promise<ManifestGenerator> => {
 	let generator: ManifestGenerator = []
 	if(manifest?.claim_generator_info) {
-		generator = manifest.claim_generator_info.map(d => ({
-			name: d.name,
-			// detail: d.version,
-			icon: {
-				identifier: (d?.icon as { identifier?: string } | null | undefined)?.identifier,
-				format: (d?.icon as { format?: string } | null | undefined)?.format,
-			},
+		generator = await Promise.all(manifest.claim_generator_info.map(async d => {
+			const icon = d?.icon as { identifier?: string, format?: string } | null | undefined
+			return {
+				name: d.name,
+				// detail: d.version,
+				icon: await convertJumbfToBlobUrl(reader, icon?.identifier, icon?.format),
+			}
 		}))
 	} else if(getExifValue(manifest, 'Make') || getExifValue(manifest, 'Model')) {
 		const exifModel = getExifValue(manifest, 'Model')
@@ -401,7 +403,7 @@ export const getActions = (manifest: C2paManifest | null | undefined): ManifestA
 }
 
 /**
- * Gets thumbnail data URI from manifest
+ * Gets thumbnail blob URL from manifest
  * @function
  * @param manifest - C2paManifest entry
  * @param reader - C2PA reader instance
@@ -409,7 +411,7 @@ export const getActions = (manifest: C2paManifest | null | undefined): ManifestA
  */
 export const getThumbnail = async (manifest: C2paManifest | null | undefined, reader: Reader | null | undefined): Promise<string | null> => {
 	const thumbnail = manifest?.thumbnail
-	return await convertJumbfToDataUri(reader, thumbnail?.identifier, thumbnail?.format)
+	return await convertJumbfToBlobUrl(reader, thumbnail?.identifier, thumbnail?.format)
 }
 
 /**
@@ -443,7 +445,7 @@ export const prepareManifest = async ({ src, manifest, provenance, reader }: {
 		timestamp: getTimestamp(manifest),
 		producer: getProducer(manifest),
 		signator: getSignator(manifest),
-		generator: getGenerator(manifest),
+		generator: await getGenerator(manifest, reader),
 		actions: getActions(manifest),
 		// ingredients: getIngredients(manifest),
 		thumbnail: await getThumbnail(manifest, reader),
@@ -557,4 +559,15 @@ export const parseSywData = async (
 	if(!cachedC2pa) cachedC2pa = await createC2pa(getC2paConfig(c2paOptions))
 	const preparedData = prepareData({ c2pa: cachedC2pa, src })
 	return preparedData
+}
+
+/**
+ * Disposes of prepared data that is no longer needed
+ * @function
+ * @param data - Prepared data
+ */
+export const disposeSywData = (data: SywData | null | undefined) => {
+	if(!data) return
+	revokeManifestBlobUrls(data.manifests)
+	data.reader?.free().catch(() => {})
 }

@@ -1,5 +1,5 @@
 import SywReact from './SywReact'
-import { parseSywData as parseSywDataInternal } from 'syw-common/helpers/c2pa'
+import { parseSywData as parseSywDataInternal, disposeSywData } from 'syw-common/helpers/c2pa'
 import type { SywData } from 'syw-common/types/c2pa'
 import type { SywReactProps } from './types'
 
@@ -11,4 +11,4 @@ const parseSywData = (
 ): Promise<SywData> => parseSywDataInternal(src, options)
 
 export type { SywReactProps }
-export { SywReact as default, SywReact, parseSywData }
+export { SywReact as default, SywReact, parseSywData, disposeSywData }

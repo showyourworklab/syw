@@ -29,7 +29,7 @@
 		getAvailableTabs(tabKeys, manifest)
 	)
 
-	const tabs = $derived(useTabs({
+	const tabs = useTabs(() => ({
 		defaultValue: availableTabKeys[0]
 	}))
 

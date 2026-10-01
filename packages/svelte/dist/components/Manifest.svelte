@@ -29,7 +29,7 @@
 		getAvailableTabs(tabKeys, manifest)
 	)
 
-	const tabs = $derived(useTabs({
+	const tabs = useTabs(() => ({
 		defaultValue: availableTabKeys[0]
 	}))
 
@@ -49,7 +49,6 @@
 	>
 		<Tabs.RootProvider
 			value={tabs}
-			keys={tabKeys}
 		>
 			<ManifestPreview
 				open={open}

@@ -24,4 +24,4 @@ export { default as Tooltip } from './components/Tooltip.svelte';
 export { default as TypeBadge } from './components/TypeBadge.svelte';
 export { default as Video } from './components/Video.svelte';
 export { default } from './components/App.svelte';
-export { parseSywData } from 'syw-common/helpers/c2pa';
+export { parseSywData, disposeSywData } from 'syw-common/helpers/c2pa';

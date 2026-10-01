@@ -9,10 +9,15 @@
 	import type { CollapseProps } from 'syw-common/types/components'
 
 	const id = $props.id();
-	const { open, children }: Pick<CollapseProps, 'open'> & { children: Snippet } = $props();
-	// Cast needed: @ark-ui/svelte's UseCollapsibleProps doesn't resolve cleanly
-	// against a plain { id, open } object literal despite both being valid fields.
-	const arkCollapsible = useArkCollapsible(() => ({ id, open }) as UseCollapsibleProps)
+	const {
+		open,
+		children
+	}: Pick<CollapseProps, 'open'> & { children: Snippet } = $props();
+	
+	const arkCollapsible = useArkCollapsible(() => ({
+		id,
+		open,
+	}) as UseCollapsibleProps)
 
 	const classes = $derived(
 		classNames(

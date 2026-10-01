@@ -79,14 +79,14 @@ export const getAvailableTabs = (keys: readonly string[] | undefined, data: Mani
 	})
 
 /**
- * Converts JUMBF URI to data URI for IMG src
+ * Converts JUMBF URI to blob URL for IMG src
  * @function
  * @param reader - C2PA reader instance
  * @param identifier - JUMBF URI string
  * @param format - Image format
- * @return Image data URI
+ * @return Image blob URL
  */
-export const convertJumbfToDataUri = async (reader: Reader | null | undefined, identifier: string | null | undefined, format: string | null | undefined): Promise<string | null> => {
+export const convertJumbfToBlobUrl = async (reader: Reader | null | undefined, identifier: string | null | undefined, format: string | null | undefined): Promise<string | null> => {
 	if (!reader || !identifier || !format) return null
 	try {
 		const bytes = await reader.resourceToBytes(identifier)
@@ -96,7 +96,21 @@ export const convertJumbfToDataUri = async (reader: Reader | null | undefined, i
 		}
 		return null
 	} catch (error) {
-		console.error('Failed to get thumbnail URL:', error)
+		console.error('Failed to convert JUMBF to blob URL:', error)
 		return null
+	}
+}
+
+/**
+ * Revokes blob URLs of prepared manifests
+ * @function
+ * @param manifests - Prepared manifests
+ */
+export const revokeManifestBlobUrls = (manifests: Manifest[] | null | undefined) => {
+	for(const manifest of manifests ?? []) {
+		if(manifest.thumbnail) URL.revokeObjectURL(manifest.thumbnail)
+		for(const generator of manifest.generator ?? []) {
+			if(generator.icon) URL.revokeObjectURL(generator.icon)
+		}
 	}
 }

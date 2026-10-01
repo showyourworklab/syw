@@ -15,6 +15,7 @@ export { default as ManifestTableRow } from './components/ManifestTableRow.svelt
 export { default as Map } from './components/Map.svelte';
 export { default as Modal } from './components/Modal.svelte';
 export { default as Provenance } from './components/Provenance.svelte';
+export { default as ProvenanceDrawer } from './components/ProvenanceDrawer.svelte';
 export { default as ProvenanceExpand } from './components/ProvenanceExpand.svelte';
 export { default as ProvenanceModal } from './components/ProvenanceModal.svelte';
 export { default as ProvenanceToggle } from './components/ProvenanceToggle.svelte';
@@ -23,4 +24,4 @@ export { default as Tooltip } from './components/Tooltip.svelte';
 export { default as TypeBadge } from './components/TypeBadge.svelte';
 export { default as Video } from './components/Video.svelte';
 export { default } from './components/App.svelte';
-export { parseSywData } from 'syw-common/helpers/c2pa';
+export { parseSywData, disposeSywData } from 'syw-common/helpers/c2pa';

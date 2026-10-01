@@ -28,12 +28,14 @@
 		<div
 			class={classNames('ProvenanceList')}
 		>
-			{#each $manifests as manifest, index}
-				<Manifest
-					manifest={manifest}
-					previewRef={index === 0 ? (el) => firstPreviewEl = el : null}
-				/>
-			{/each}
+			{#key $manifests}
+				{#each $manifests as manifest, index}
+					<Manifest
+						manifest={manifest}
+						previewRef={index === 0 ? (el) => firstPreviewEl = el : null}
+					/>
+				{/each}
+			{/key}
 		</div>
 	{:else}
 		<div

@@ -2,15 +2,27 @@ import { getContext, setContext } from 'svelte';
 import { writable, get } from 'svelte/store';
 import { createC2pa } from '@contentauth/c2pa-web';
 import { C2PA_DATA_DEFAULT, C2PA_PHASES, C2PA_STATUSES } from 'syw-common/constants/c2pa';
-import { getC2paConfig, prepareData } from 'syw-common/helpers/c2pa';
+import { getC2paConfig, prepareData, disposeSywData } from 'syw-common/helpers/c2pa';
 const C2PA_CONTEXT_KEY = Symbol('c2pa');
 const createC2paStore = () => {
     const c2pa = writable(null);
     const data = writable(C2PA_DATA_DEFAULT);
     let requestId = 0;
+    let disposed = false;
     const init = async (config = {}) => {
         try {
             const c2paInstance = await createC2pa(getC2paConfig(config));
+            // If disposed before init finished, dispose new instance
+            if (disposed) {
+                c2paInstance.dispose();
+                return null;
+            }
+            // If another init already set an instance, keep it and dispose new instance
+            const existing = get(c2pa);
+            if (existing) {
+                c2paInstance.dispose();
+                return existing;
+            }
             c2pa.set(c2paInstance);
             return c2paInstance;
         }
@@ -24,7 +36,7 @@ const createC2paStore = () => {
             return null;
         }
     };
-    const read = async ({ src, locale }) => {
+    const read = async ({ src }) => {
         const c2paInstance = get(c2pa);
         const id = ++requestId;
         if (!src) {
@@ -36,13 +48,26 @@ const createC2paStore = () => {
         const newData = await prepareData({
             c2pa: c2paInstance,
             src,
-            locale
         });
-        if (id === requestId)
-            data.set(newData);
+        // If another request started before this one finished, dispose new data
+        if (id !== requestId) {
+            disposeSywData(newData);
+            return null;
+        }
+        // If data is replaced, dispose old data
+        disposeSywData(get(data));
+        data.set(newData);
         return newData;
     };
-    return { c2pa, data, init, read };
+    const dispose = () => {
+        disposed = true;
+        requestId++;
+        disposeSywData(get(data));
+        data.set(C2PA_DATA_DEFAULT);
+        get(c2pa)?.dispose();
+        c2pa.set(null);
+    };
+    return { c2pa, data, init, read, dispose };
 };
 export default createC2paStore;
 export const setC2paContext = (store) => setContext(C2PA_CONTEXT_KEY, store);

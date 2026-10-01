@@ -44,10 +44,7 @@ export type ManifestSignator = string | null
 
 export interface ManifestGeneratorEntry {
 	name?: string | null
-	icon?: {
-		identifier?: string
-		format?: string
-	}
+	icon?: string | null
 }
 export type ManifestGenerator = ManifestGeneratorEntry[]
 

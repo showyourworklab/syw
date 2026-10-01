@@ -2,7 +2,6 @@ import { useMemo } from 'react'
 import type { ReactNode } from 'react'
 import type { SywMediaData } from 'syw-common/types/c2pa'
 import { DataContext } from '$src/context/data'
-import { useI18nContext } from '$src/context/i18n'
 import useC2pa from '$src/hooks/useC2pa'
 
 interface DataProviderProps extends Pick<SywMediaData, 'src' | 'alt' | 'caption' | 'byline'> {
@@ -16,8 +15,7 @@ const DataProvider = ({
 	byline,
 	children
 }: DataProviderProps) => {
-	const { locale } = useI18nContext()
-	const c2paData = useC2pa({ src, locale: locale ?? '' })
+	const c2paData = useC2pa({ src })
 
 	const value = useMemo(() => ({
 		...c2paData,

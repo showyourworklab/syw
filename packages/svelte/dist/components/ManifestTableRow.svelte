@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { classNames } from 'syw-common/helpers'
 	import { getDateString } from 'syw-common/helpers/i18n'
-	import type { ManifestGeneratorEntry, ManifestLocation } from 'syw-common/types/c2pa'
+	import type { ManifestActions, ManifestGeneratorEntry, ManifestLocation } from 'syw-common/types/c2pa'
 	import type { ManifestTableRowProps } from 'syw-common/types/components'
 	import { getI18nContext } from '../store/i18n.js'
     import Map from './Map.svelte'
@@ -66,7 +66,7 @@
 				/>
 			{:else if type === 'actions'}
 				<Actions
-					actions={value() as string[]}
+					actions={value() as ManifestActions}
 				/>
 			{:else if type === 'generator'}
 				{#each value() as ManifestGeneratorEntry[] as v}

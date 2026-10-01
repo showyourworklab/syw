@@ -3,7 +3,7 @@ import { writable, get } from 'svelte/store'
 import { createC2pa } from '@contentauth/c2pa-web'
 import type { C2paSdk } from '@contentauth/c2pa-web'
 import { C2PA_DATA_DEFAULT, C2PA_PHASES, C2PA_STATUSES } from 'syw-common/constants/c2pa'
-import { getC2paConfig, prepareData } from 'syw-common/helpers/c2pa'
+import { getC2paConfig, prepareData, disposeSywData } from 'syw-common/helpers/c2pa'
 import type { C2paOptions, SywData } from 'syw-common/types/c2pa'
 
 const C2PA_CONTEXT_KEY = Symbol('c2pa')
@@ -41,7 +41,7 @@ const createC2paStore = () => {
 		}
 	}
 
-	const read = async ({ src }: { src: string | null }): Promise<SywData> => {
+	const read = async ({ src }: { src: string | null }): Promise<SywData | null> => {
 		const c2paInstance = get(c2pa)
 		const id = ++requestId
 
@@ -58,7 +58,15 @@ const createC2paStore = () => {
 			src,
 		})
 
-		if (id === requestId) data.set(newData)
+		// If another request started before this one finished, dispose new data
+		if (id !== requestId) {
+			disposeSywData(newData)
+			return null
+		}
+
+		// If data is replaced, dispose old data
+		disposeSywData(get(data))
+		data.set(newData)
 
 		return newData
 	}
@@ -66,6 +74,8 @@ const createC2paStore = () => {
 	const dispose = () => {
 		disposed = true
 		requestId++
+		disposeSywData(get(data))
+		data.set(C2PA_DATA_DEFAULT)
 		get(c2pa)?.dispose()
 		c2pa.set(null)
 	}
