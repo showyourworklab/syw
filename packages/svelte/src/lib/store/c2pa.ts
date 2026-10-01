@@ -12,10 +12,22 @@ const createC2paStore = () => {
 	const c2pa = writable<C2paSdk | null>(null)
 	const data = writable<SywData>(C2PA_DATA_DEFAULT)
 	let requestId = 0
+	let disposed = false
 
 	const init = async (config: C2paOptions = {}): Promise<C2paSdk | null> => {
 		try {
 			const c2paInstance = await createC2pa(getC2paConfig(config))
+			// If disposed before init finished, dispose new instance
+			if(disposed) {
+				c2paInstance.dispose()
+				return null
+			}
+			// If another init already set an instance, keep it and dispose new instance
+			const existing = get(c2pa)
+			if(existing) {
+				c2paInstance.dispose()
+				return existing
+			}
 			c2pa.set(c2paInstance)
 			return c2paInstance
 		} catch (err) {
@@ -51,7 +63,14 @@ const createC2paStore = () => {
 		return newData
 	}
 
-	return { c2pa, data, init, read }
+	const dispose = () => {
+		disposed = true
+		requestId++
+		get(c2pa)?.dispose()
+		c2pa.set(null)
+	}
+
+	return { c2pa, data, init, read, dispose }
 }
 
 export default createC2paStore

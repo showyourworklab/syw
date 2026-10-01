@@ -17,11 +17,24 @@ const C2paProvider = ({
 }: C2paProviderProps) => {
 	const [c2pa, setC2pa] = useState<C2paSdk | null>(null)
 	useEffect(() => {
+		let disposed = false
+		let instance: C2paSdk | null = null
 		const initC2pa = async () => {
 			const c2paInstance = await createC2pa(getC2paConfig(c2paOptions))
+			// If another init already set an instance, keep it and dispose new instance
+			if(disposed) {
+				c2paInstance.dispose()
+				return
+			}
+			instance = c2paInstance
 			setC2pa(c2paInstance)
 		}
 		initC2pa()
+		return () => {
+			disposed = true
+			instance?.dispose()
+			setC2pa(null)
+		}
 	}, [])
 
 	return (

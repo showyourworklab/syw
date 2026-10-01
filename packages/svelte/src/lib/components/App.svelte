@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onMount } from 'svelte'
+	import { onMount, onDestroy } from 'svelte'
 	import type { HTMLAttributes } from 'svelte/elements'
 	import 'syw-common/css/styles.css'
 	import { classNames } from 'syw-common/helpers'
@@ -98,6 +98,10 @@
 
 	onMount(() => {
 		mounted = true
+	})
+
+	onDestroy(() => {
+		c2paStore.dispose()
 	})
 </script>
 
