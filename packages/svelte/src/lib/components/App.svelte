@@ -36,7 +36,6 @@
 	let mounted = $state(false)
 	let elemRef: HTMLElement | null = $state(null)
 	let prevSrc: string | null = $state(null)
-	let prevLocale: string | null = $state(null)
 
 	const c2paStore = createC2paStore()
 	const dataStore = createDataStore()
@@ -85,15 +84,14 @@
 
 	$effect(() => {
 		if (!mounted) return
-		if(src === prevSrc && locale === prevLocale) return
+		if(src === prevSrc) return
 		prevSrc = src
-		prevLocale = locale
 
 		;(async () => {
 			dataStore.setPhase(C2PA_PHASES.LOADING)
 			let c2paInstance = $c2pa
 			if (!c2paInstance) c2paInstance = await c2paStore.init(c2paOptions)
-			const newData = await c2paStore.read({ src, locale })
+			const newData = await c2paStore.read({ src })
 			dataStore.setC2paData(newData)
 		})()
 	})

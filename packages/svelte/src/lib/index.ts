@@ -15,6 +15,7 @@ export { default as ManifestTableRow } from './components/ManifestTableRow.svelt
 export { default as Map } from './components/Map.svelte';
 export { default as Modal } from './components/Modal.svelte';
 export { default as Provenance } from './components/Provenance.svelte';
+export { default as ProvenanceDrawer } from './components/ProvenanceDrawer.svelte';
 export { default as ProvenanceExpand } from './components/ProvenanceExpand.svelte';
 export { default as ProvenanceModal } from './components/ProvenanceModal.svelte';
 export { default as ProvenanceToggle } from './components/ProvenanceToggle.svelte';

@@ -6,10 +6,9 @@ import { useC2paContext } from '$src/context/c2pa'
 
 interface UseC2paProps {
 	src: string | null
-	locale: string
 }
 
-const useC2pa = ({ src, locale }: UseC2paProps): SywData => {
+const useC2pa = ({ src }: UseC2paProps): SywData => {
 	const { c2pa } = useC2paContext()
 	const [data, setData] = useState(C2PA_DATA_DEFAULT)
 	const requestIdRef = useRef(0)
@@ -28,13 +27,13 @@ const useC2pa = ({ src, locale }: UseC2paProps): SywData => {
 		}))
 
 		;(async () => {
-			const newData = await prepareData({ c2pa, src, locale })
+			const newData = await prepareData({ c2pa, src })
 			// if (import.meta.env.DEV) {
 			// 	console.log({ src, ...newData })
 			// }
 			if (id === requestIdRef.current) setData(newData)
 		})()
-	}, [src, locale, c2pa])
+	}, [src, c2pa])
 
 	return data
 }

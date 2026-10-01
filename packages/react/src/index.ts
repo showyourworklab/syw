@@ -6,7 +6,6 @@ import type { SywReactProps } from './types'
 const parseSywData = (
 	src: string,
 	options?: {
-		locale?: string,
 		c2paOptions?: SywReactProps['c2paOptions']
 	}
 ): Promise<SywData> => parseSywDataInternal(src, options)

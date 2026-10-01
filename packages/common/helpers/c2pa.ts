@@ -426,14 +426,12 @@ export const getVerifyUrl = (src: string) => `https://${VERIFY_BASE_URL}?source=
  * @function
  * @param props - Object of props
  * @param props.src - Image URL
- * @param props.locale - User's locale
  * @param props.manifest - C2paManifest entry
  * @param props.reader - C2PA reader instance
  * @return Prepared manifest object
  */
-export const prepareManifest = async ({ src, locale, manifest, provenance, reader }: {
+export const prepareManifest = async ({ src, manifest, provenance, reader }: {
 	src: string
-	locale: string
 	manifest: C2paManifest
 	provenance: C2paProvenance | null
 	reader: Reader | null | undefined
@@ -461,14 +459,12 @@ export const prepareManifest = async ({ src, locale, manifest, provenance, reade
  * @function
  * @param props - Object of props
  * @param props.src - Image URL
- * @param props.locale - User's locale
  * @param props.provenance - C2PA full provenance
  * @param props.reader - C2PA reader instance
  * @return Prepared manifest object
  */
-export const prepareManifests = async ({ src, locale, provenance, reader }: {
+export const prepareManifests = async ({ src, provenance, reader }: {
 	src: string
-	locale: string
 	provenance: C2paProvenance | null
 	reader: Reader | null | undefined
 }): Promise<Manifest[]> => {
@@ -477,7 +473,7 @@ export const prepareManifests = async ({ src, locale, provenance, reader }: {
         const manifests = Object.values(provenance.manifestStore.manifests ?? {})
         const preparedManifests = await Promise.all(
             manifests.map(manifest =>
-				prepareManifest({ src, locale, manifest, provenance, reader })
+				prepareManifest({ src, manifest, provenance, reader })
 			)
         )
 		preparedManifests.sort((a, b) =>
@@ -500,10 +496,9 @@ export const prepareManifests = async ({ src, locale, provenance, reader }: {
  * @param props.locale - User's locale
  * @return Prepared manifest object
  */
-export const prepareC2paData = async ({ c2pa, src, locale }: {
+export const prepareC2paData = async ({ c2pa, src }: {
 	c2pa: C2paSdk | null | undefined
 	src: string
-	locale: string
 }): Promise<SywData> => {
     if(!c2pa || !src) return C2PA_DATA_DEFAULT
 	let data: SywData
@@ -511,7 +506,7 @@ export const prepareC2paData = async ({ c2pa, src, locale }: {
         const c2paData = await readC2paFromUrl(c2pa, src)
 		const { manifestStore, reader } = c2paData
         const provenance = manifestStore ? { manifestStore } : null
-        const manifests = await prepareManifests({ src, locale, provenance, reader })
+        const manifests = await prepareManifests({ src, provenance, reader })
 		const status = await getC2paStatus(provenance)
         const types = getTypes(manifests)
         data = {
@@ -538,14 +533,12 @@ export const prepareC2paData = async ({ c2pa, src, locale }: {
 export const prepareData = async ({
 	c2pa,
 	src,
-	locale
 }: {
 	c2pa: C2paSdk | null | undefined
 	src: string
-	locale: string
 }): Promise<SywData> => {
 	if(!src) return C2PA_DATA_DEFAULT
-	const preparedData = await prepareC2paData({ c2pa, src, locale })
+	const preparedData = await prepareC2paData({ c2pa, src })
 	console.log(preparedData)
 	return preparedData;
 }
@@ -560,8 +553,8 @@ export const parseSywData = async (
 ): Promise<SywData> => {
 	if(!src) return C2PA_DATA_DEFAULT
 	if(typeof Worker === 'undefined') return C2PA_DATA_DEFAULT
-	const { locale = '', c2paOptions = {} } = options
+	const { c2paOptions = {} } = options
 	if(!cachedC2pa) cachedC2pa = await createC2pa(getC2paConfig(c2paOptions))
-	const preparedData = prepareData({ c2pa: cachedC2pa, src, locale })
+	const preparedData = prepareData({ c2pa: cachedC2pa, src })
 	return preparedData
 }

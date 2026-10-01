@@ -28,7 +28,7 @@ function ManifestTableRow({ type, manifest }: ManifestTableRowProps) {
 			default:
 				return value
 		}
-	}, [type, value]);
+	}, [type, value, locale]);
 
 	if(formattedValue === null || formattedValue === undefined || formattedValue === "") return
 

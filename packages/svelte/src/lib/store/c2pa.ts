@@ -29,7 +29,7 @@ const createC2paStore = () => {
 		}
 	}
 
-	const read = async ({ src, locale }: { src: string | null, locale: string }): Promise<SywData> => {
+	const read = async ({ src }: { src: string | null }): Promise<SywData> => {
 		const c2paInstance = get(c2pa)
 		const id = ++requestId
 
@@ -44,7 +44,6 @@ const createC2paStore = () => {
 		const newData = await prepareData({
 			c2pa: c2paInstance,
 			src,
-			locale
 		})
 
 		if (id === requestId) data.set(newData)
