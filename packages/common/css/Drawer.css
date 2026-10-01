@@ -62,6 +62,9 @@
 	background-color: inherit;
 	pointer-events: none;
 }
+.Syw-DrawerContent[hidden] {
+	display: none;
+}
 /* Drawer > Content > Bottom */
 .Syw-DrawerContent[data-swipe-direction="down"] {
 	height: auto;

@@ -29,7 +29,6 @@
 	swipeDirection={swipeDirection}
 	modal={false}
 	lazyMount={true}
-	unmountOnExit={true}
 	closeOnInteractOutside={true}
 	onOpenChange={handleOpenChange}
 >
