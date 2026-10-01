@@ -38,6 +38,10 @@ export interface ManifestTimestamp {
 	offset?: string | null
 }
 
+export interface ManifestIdentity {
+	name?: string | null
+}
+
 export type ManifestProducer = unknown
 
 export type ManifestSignator = string | null
@@ -76,6 +80,7 @@ export interface Manifest {
 	type: ManifestType | null
 	status: ManifestStatus
 	timestamp: ManifestTimestamp | null
+	identity: ManifestIdentity
 	producer: ManifestProducer
 	signator?: ManifestSignator
 	generator: ManifestGenerator

@@ -10,7 +10,7 @@
 	line-height: 1.3em;
 	cursor: text;
 	transition: all 200ms ease;
-	--syw-size-caption-before-top: calc((var(--syw-space-1) + 2px));
+	--syw-size-caption-before-top: calc((var(--syw-space-3) + 2px));
 }
 .Syw-Caption::before {
 	content: "";
@@ -33,7 +33,7 @@
 }
 /* Caption > Active > Expand */
 .Syw-App_active.Syw-App_expand .Syw-Caption::before {
-	height: calc(var(--syw-space-1) + 4px + 100% + calc(var(--syw-size-manifest-preview-height) / 2) - calc(var(--syw-size-badge) / 2));
+	height: calc(var(--syw-size-caption-before-top) + 100% + calc(var(--syw-size-manifest-preview-height) / 2) - calc(var(--syw-size-badge) / 2) + 3px);
 }
 .Syw-App_active.Syw-App_expand .Syw-Caption::after {
 	opacity: 1;

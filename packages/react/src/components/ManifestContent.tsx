@@ -2,6 +2,7 @@ import ManifestTable from './ManifestTable'
 import { classNames } from 'syw-common/helpers'
 import { MANIFEST_PRIMARY_KEYS } from 'syw-common/constants'
 import type { ManifestContentProps } from 'syw-common/types/components'
+import ManifestIdentity from './ManifestIdentity'
 import ManifestContentTabs from './ManifestContentTabs'
 import ManifestContentTabsToggle from './ManifestContentTabsToggle'
 
@@ -13,6 +14,9 @@ function ManifestContent({ tabKeys, manifest }: ManifestContentProps) {
 			<div
 				className={classNames('ManifestContentPrimary')}
 			>
+				<ManifestIdentity
+					manifest={manifest}
+				/>
 				<ManifestTable
 					keys={MANIFEST_PRIMARY_KEYS}
 					manifest={manifest}

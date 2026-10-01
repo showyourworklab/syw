@@ -31,6 +31,10 @@ export interface MapProps extends ComponentProps {
 	location: ManifestLocation
 }
 
+export interface ManifestIdentityProps extends ComponentProps {
+	manifest: Manifest
+}
+
 export interface ManifestContentProps extends ComponentProps {
 	tabKeys: readonly ManifestFieldKey[]
 	manifest: Manifest

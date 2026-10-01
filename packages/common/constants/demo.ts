@@ -9,6 +9,18 @@ interface DemoImage {
 
 // Hosted at https://github.com/showyourworklab/c2pa-images
 export const DEMO_IMAGES: DemoImage[] = [
+	{
+		src: 'https://showyourworklab.github.io/c2pa-images/proofmode-1.jpg',
+		title: {
+			en_US: 'Proofmode w/ CAWG',
+			no_NO: 'Proofmode w/ CAWG',
+		},
+		caption: {
+			en_US: '',
+			no_NO: '',
+		},
+		byline: 'Nathan Freitas'
+	},
 	// {
 	// 	src: 'https://showyourworklab.github.io/c2pa-images/leica-nora-syria-2.jpg',
 	// 	title: {
@@ -37,6 +49,18 @@ export const DEMO_IMAGES: DemoImage[] = [
 	// 	},
 	// 	byline: 'Nora Savosnick'
 	// },
+	{
+		src: 'https://showyourworklab.github.io/c2pa-images/sony-nora-1.jpg',
+		title: {
+			en_US: 'Roshni (Sony)',
+			no_NO: 'Roshni (Sony)',
+		},
+		caption: {
+			en_US: '',
+			no_NO: '',
+		},
+		byline: 'Nora Savosnick'
+	},
 	{
 		src: 'https://showyourworklab.github.io/c2pa-images/feedback-1.jpg',
 		title: {

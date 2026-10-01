@@ -2,9 +2,9 @@ import { createC2pa } from '@contentauth/c2pa-web'
 import type { Reader, C2paSdk, Config } from '@contentauth/c2pa-web'
 import type { Manifest as C2paManifest, Action } from '@contentauth/c2pa-types'
 import TRUST_LISTS from '#trustlists'
-import { VERIFY_BASE_URL } from '#constants/index'
+import { SIGNATURE_COMMON_NAME_BY_TYPE, VERIFY_BASE_URL } from '#constants/index'
 import { C2PA_PHASES, C2PA_DATA_DEFAULT, C2PA_STATUSES, C2PA_WEB_WASM_CDN_URL } from '#constants/c2pa'
-import { convertJumbfToDataUri, getMediaType } from '#helpers/index'
+import { convertJumbfToDataUri, getMediaType, getObjectValue } from '#helpers/index'
 import { getIptcDigitalSourceTypeKey, isIptcDigitalSourceTypeAi, isIptcDigitalSourceTypeCamera } from '#helpers/iptc'
 import type {
 	SywData,
@@ -18,6 +18,7 @@ import type {
 	ManifestType,
 	ManifestTypeKey,
 	Manifest,
+	ManifestIdentity,
 } from '#types/c2pa'
 
 /////////////// Initialize //////////////
@@ -89,26 +90,59 @@ export const getC2paStatus = async (provenance: C2paProvenance | null): Promise<
 /////////////// Utilities ///////////////
 
 /**
- * Gets an EXIF value from manifest
+ * Gets an assertion from manifest
  * @function
  * @param data - C2paManifest entry
- * @param key - EXIF value key
- * @return EXIF value
+ * @param key - Assertion key
+ * @return Assertion
  */
-export const getExifValue = (data: C2paManifest | null | undefined, key: string): unknown => {
-	const exifData = data?.assertions?.find(a => a.label === 'stds.exif')?.data as Record<string, unknown> | undefined
-	const exifValue = exifData && exifData[`exif:${key}`]
-	return exifValue;
+export const getAssertionData = (manifest: C2paManifest | null | undefined, label: string, fuzzyLabel?: boolean): Record<string, any> | undefined => {
+	const assertion = manifest?.assertions?.find(a =>
+		fuzzyLabel
+			? a.label.includes(label)
+			: a.label === label
+	) as Record<string, any> | undefined
+	const assertionData = assertion?.data
+	return assertionData;
+}
+
+// /**
+//  * Gets an assertion value from manifest
+//  * @function
+//  * @param data - C2paManifest entry
+//  * @param key - Assertion key
+//  * @return Assertion value
+//  */
+// export const getAssertionValue = (manifest: C2paManifest | null | undefined, label: string, key: string, fuzzyLabel?: boolean) => {
+// 	const assertionData = getAssertionData(manifest, label, fuzzyLabel)
+// 	const assertionValue = getObjectValue(key, assertionData)
+// 	return assertionValue;
+// }
+
+/**
+ * Gets an CAWG identity assertion value from manifest
+ * @function
+ * @param data - C2paManifest entry
+ * @param key - CAWG metadata value key
+ * @return CAWG identity value
+ */
+export const getCawgIdentityValue = (manifest: C2paManifest | null | undefined): string | undefined | null => {
+	const cawgIdentityData = getAssertionData(manifest, 'cawg.identity')
+	const cawgIdentityValue = cawgIdentityData?.signature_info?.issuer
+	return cawgIdentityValue;
 }
 
 /**
- * Checks if an EXIF value exists in manifest
+ * Gets an CAWG metadata assertion value from manifest
  * @function
  * @param data - C2paManifest entry
- * @return Boolean
+ * @param key - CAWG metadata value key
+ * @return CAWG metadata value
  */
-export const ifHasExif = (data: C2paManifest | null | undefined): boolean | undefined => {
-	return data?.assertions?.some(a => a.label === 'stds.exif')
+export const getCawgMetadataValue = (manifest: C2paManifest | null | undefined, key: string): string | unknown => {
+	const cawgMetadataData = getAssertionData(manifest, 'cawg.metadata')
+	const cawgMetadataValue = cawgMetadataData?.[key]
+	return cawgMetadataValue;
 }
 
 /**
@@ -118,11 +152,33 @@ export const ifHasExif = (data: C2paManifest | null | undefined): boolean | unde
  * @param key - Schema.org value key
  * @return Schema.org value
  */
-export const getSchemaOrgValue = (data: C2paManifest | null | undefined, key: string): unknown => {
-	const schema = data?.assertions?.find(a => a.label.includes('stds.schema-org'))?.data as Record<string, unknown> | undefined
-	const schemaValue = schema && schema[key]
-	return schemaValue
+export const getSchemaOrgValue = (manifest: C2paManifest | null | undefined, key: string): unknown => {
+	const schemaOrgData = getAssertionData(manifest, 'stds.schema-org', true)
+	const schemaOrgValue = schemaOrgData?.[key]
+	return schemaOrgValue
 }
+/**
+ * Gets an EXIF value from manifest
+ * @function
+ * @param data - C2paManifest entry
+ * @param key - EXIF value key
+ * @return EXIF value
+ */
+export const getExifValue = (manifest: C2paManifest | null | undefined, key: string): unknown => {
+	const exifData = getAssertionData(manifest, 'stds.exif')
+	const exifValue = exifData?.[`exif:${key}`]
+	return exifValue;
+}
+
+/**
+ * Checks if an EXIF value exists in manifest
+ * @function
+ * @param data - C2paManifest entry
+ * @return Boolean
+ */
+// export const ifHasExif = (manifest: C2paManifest | null | undefined): boolean | undefined => {
+// 	return data?.assertions?.some(a => a.label === 'stds.exif')
+// }
 
 /**
  * Gets a C2PA action value from manifest
@@ -130,9 +186,10 @@ export const getSchemaOrgValue = (data: C2paManifest | null | undefined, key: st
  * @param data - C2paManifest entry
  * @return C2PA actions
  */
-export const getC2paActions = (data: C2paManifest | null | undefined): Action[] | undefined => {
-	const actions = (data?.assertions?.find(a => a.label.includes('c2pa.actions'))?.data as { actions?: Action[] } | undefined)?.actions
-	return actions
+export const getC2paActionsValue = (manifest: C2paManifest | null | undefined): Action[] | undefined => {
+	const c2paActionsData = getAssertionData(manifest, 'c2pa.actions', true)
+	const c2paActionsValue = c2paActionsData?.actions
+	return c2paActionsValue
 }
 
 /**
@@ -184,7 +241,20 @@ const cleanPem = (pem: string): string => {
  * @param data - C2paManifest entry
  * @return Instance ID
  */
-export const getId = (data: C2paManifest | null | undefined) => data?.instance_id
+export const getId = (manifest: C2paManifest | null | undefined) => manifest?.instance_id
+
+/**
+ * Gets CAWG identity
+ * @function
+ * @param manifest - C2paManifest entry
+ * @return Identity
+ */
+export const getIdentity = (manifest: C2paManifest | null | undefined): ManifestIdentity => {
+	const identityName = getCawgIdentityValue(manifest)
+	return {
+		name: identityName,
+	}
+}
 
 /**
  * Gets producer name
@@ -234,9 +304,9 @@ export const getGenerator = (manifest: C2paManifest | null | undefined): Manifes
  * @param manifest - C2paManifest entry
  * @return Manifest type
  */
-export const getType = (manifest: C2paManifest | null | undefined): ManifestType | null => {
-	const hasExif = ifHasExif(manifest)
-	const createdAction = getC2paActions(manifest)?.find(a => a?.action === "c2pa.created")
+export const getType = (manifest: C2paManifest | undefined): ManifestType | null => {
+	// const hasExif = ifHasExif(manifest)
+	const createdAction = getC2paActionsValue(manifest)?.find(a => a?.action === "c2pa.created")
 	let typeKey: ManifestTypeKey = "unknown";
 	let iptcDigitalSourceType
 	if(createdAction) {
@@ -247,11 +317,9 @@ export const getType = (manifest: C2paManifest | null | undefined): ManifestType
 		} else if(isIptcDigitalSourceTypeAi(iptcDigitalSourceType)) {
 			typeKey = "ai"
 		}
-	} else if(hasExif) {
-		// TEMP: Unsure if EXIF detection is a safe determinant
+	} else if(getTypeBySignatureCommonName(manifest) === "camera") {
 		typeKey = "camera"
-	} else if(manifest?.signature_info?.issuer === "Adobe Inc.") {
-		// TEMP: Unsure if "Adobe Inc." detection is a safe determinant
+	} else if(getTypeBySignatureCommonName(manifest) === "edit") {
 		typeKey = "edit"
 	} else if(manifest?.signature_info?.issuer === "Camera Bits, Inc.") {
 		// TEMP: Unsure if "Camera Bits, Inc." detection is a safe determinant
@@ -265,6 +333,15 @@ export const getType = (manifest: C2paManifest | null | undefined): ManifestType
 
 export const getTypes = (manifests: Manifest[] | undefined): ManifestType[] =>
 	manifests?.map(m => m?.type)?.filter((m): m is ManifestType => Boolean(m)) ?? []
+
+export const getTypeBySignatureCommonName = (manifest?: C2paManifest): ManifestTypeKey | null | undefined => {
+	const signatureCommonName = manifest?.signature_info?.common_name
+	return signatureCommonName ?
+		Object.keys(SIGNATURE_COMMON_NAME_BY_TYPE).find(type =>
+			(getObjectValue(type, SIGNATURE_COMMON_NAME_BY_TYPE) as string[] | undefined)?.includes(signatureCommonName)
+		) as ManifestTypeKey
+	: null
+}
 
 /**
  * Gets a manifest's validation status
@@ -381,7 +458,7 @@ export const getIngredients = (manifest: C2paManifest | null | undefined): unkno
  * @return Array of action keys
  */
 export const getActions = (manifest: C2paManifest | null | undefined): ManifestActions | undefined => {
-	const c2paActions = getC2paActions(manifest)
+	const c2paActions = getC2paActionsValue(manifest)
 		?.map(action => {
 			const actionKey = action.action?.replace(".", "_")
 			const iptcDigitalSourceType = getIptcDigitalSourceTypeKey(action?.digitalSourceType)
@@ -443,6 +520,7 @@ export const prepareManifest = async ({ src, locale, manifest, provenance, reade
 		type: getType(manifest),
 		status: getStatus(manifest, provenance),
 		timestamp: getTimestamp(manifest),
+		identity: getIdentity(manifest),
 		producer: getProducer(manifest),
 		signator: getSignator(manifest),
 		generator: getGenerator(manifest),

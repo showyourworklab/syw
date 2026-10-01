@@ -1,0 +1,37 @@
+/* Manifest > Identity */
+.Syw-ManifestIdentity {
+	width: 100%;
+	padding: var(--syw-space-1) var(--syw-space-2);
+	margin-bottom: var(--syw-space-2);
+	border-radius: var(--syw-radius-lg);
+	position: relative;
+	overflow: hidden;
+	/* @media (min-width: 460px) and (max-width: 576px) {
+		display: grid;
+		gap: var(--syw-space-2);
+		grid-template-columns: 1fr 1fr;
+	} */
+}
+.Syw-ManifestIdentity::before {
+	content: '';
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: var(--syw-color-primary);
+    opacity: 0.0625;
+}
+dl.Syw-ManifestIdentityList {
+	margin: 0;
+}
+dt.Syw-ManifestIdentityLabel {
+	font-size: var(--syw-text-xs);
+	font-weight: var(--syw-font-weight-bold);
+	letter-spacing: var(--syw-letter-spacing-caps);
+	text-transform: uppercase;
+	margin-bottom: var(--syw-space-1);
+}
+dd.Syw-ManifestIdentityValue {
+	margin: 0;
+}
