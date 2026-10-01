@@ -49,7 +49,6 @@
 	>
 		<Tabs.RootProvider
 			value={tabs}
-			keys={tabKeys}
 		>
 			<ManifestPreview
 				open={open}

@@ -78,7 +78,7 @@ function Manifest({
 						previewRef={previewRef}
 					/>
 					<Collapse
-						open={open}
+						open={open && isProvenanceOpen}
 					>
 						<ManifestContent
 							manifest={manifest}
