@@ -18,8 +18,9 @@ const Map = ({
 	const [map, setMap] = useState<MapLibre.Map | null>(null)
 	const [loaded, setLoaded] = useState(false)
 	useEffect(() => {
+		let mapInstance: MapLibre.Map | null = null
 		try {
-			const mapInstance = new MapLibre.Map({
+			mapInstance = new MapLibre.Map({
 				container: classNames(id),
 				center: [location.lng, location.lat],
 				// interactive: false,
@@ -33,14 +34,19 @@ const Map = ({
 			mapInstance.on('load', () => {
 				const mapSource = createMapSource(location.lng, location.lat)
 				const mapLayer = createMapLayer()
-				mapInstance.addSource(MAP_SOURCE_ID, mapSource)
-				mapInstance.addLayer(mapLayer)
+				mapInstance?.addSource(MAP_SOURCE_ID, mapSource)
+				mapInstance?.addLayer(mapLayer)
 				setLoaded(true)
 			})
 		} catch(error) {
 			console.error(error)
 		}
-	}, [id])
+		return () => {
+			mapInstance?.remove()
+			setMap(null)
+			setLoaded(false)
+		}
+	}, [id, location.lng, location.lat])
 
 	useEffect(() => {
 		if(!loaded) return

@@ -18,25 +18,36 @@
 	const { location }: Pick<MapProps, 'location'> = $props()
 
 	$effect(() => {
-		if(loaded) return
-		const mapInstance = new MapLibre.Map({
-			container: classNames(id),
-			center: [location.lng, location.lat],
-			// interactive: false,
-			...MAP_PROPS,
-			...$mapOptions
-		})
-		// mapInstance.addControl(new MapLibre.AttributionControl({
-		// 	compact: true
-		// }))
-		map = mapInstance
-		mapInstance.on('load', () => {
-			loaded = true
-			const mapSource = createMapSource(location.lng, location.lat)
-			const mapLayer = createMapLayer()
-			mapInstance.addSource(MAP_SOURCE_ID, mapSource)
-			mapInstance.addLayer(mapLayer)
-		})
+		const { lat, lng } = location
+		const options = untrack(() => $mapOptions)
+		let mapInstance: MapLibre.Map | null = null
+		try {
+			mapInstance = new MapLibre.Map({
+				container: classNames(id),
+				center: [lng, lat],
+				// interactive: false,
+				...MAP_PROPS,
+				...options
+			})
+			// mapInstance.addControl(new MapLibre.AttributionControl({
+			// 	compact: true
+			// }))
+			map = mapInstance
+			mapInstance.on('load', () => {
+				const mapSource = createMapSource(lng, lat)
+				const mapLayer = createMapLayer()
+				mapInstance?.addSource(MAP_SOURCE_ID, mapSource)
+				mapInstance?.addLayer(mapLayer)
+				loaded = true
+			})
+		} catch(error) {
+			console.error(error)
+		}
+		return () => {
+			mapInstance?.remove()
+			map = null
+			loaded = false
+		}
 	})
 
 	$effect(() => {
