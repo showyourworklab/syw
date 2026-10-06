@@ -29,6 +29,7 @@ const ProvenanceDrawer = ({
 		<Drawer
 			open={isProvenanceOpen}
 			title={getText("provenance", "toggle")}
+			description=""
 			direction={direction}
 			onOpenChange={handleOpenChange}
 			className={classNames('ProvenanceDrawer')}

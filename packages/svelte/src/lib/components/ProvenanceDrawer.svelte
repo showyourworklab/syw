@@ -20,13 +20,12 @@
 		getText
 	} = getI18nContext()
 
-	const handleOpenChange = (newOpen: boolean, event: any) => {
-		const originalEvent = event
+	const handleOpenChange = (newOpen: boolean) => {
 		if(newOpen) {
-			openProvenance(originalEvent)
+			openProvenance()
 		} else {
-			closeProvenance(originalEvent)
-			closeExplainer(originalEvent)
+			closeProvenance()
+			closeExplainer()
 		}
 	}
 
