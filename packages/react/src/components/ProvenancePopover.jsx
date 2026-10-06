@@ -5,7 +5,6 @@ import Provenance from './Provenance'
 
 const ProvenancePopover = () => {
 	const {
-		isExplainerOpen,
 		isProvenanceOpen,
 		openProvenance,
 		closeProvenance,
@@ -15,12 +14,11 @@ const ProvenancePopover = () => {
 	const { getText } = useI18nContext()
 
 	const handleOpenChange = (newOpen, event) => {
-		const originalEvent = event
 		if(newOpen) {
-			openProvenance(originalEvent)
+			openProvenance(event)
 		} else {
-			closeProvenance(originalEvent)
-			closeExplainer(originalEvent)
+			closeProvenance(event)
+			closeExplainer(event)
 		}
 	}
 

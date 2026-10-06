@@ -1,21 +1,19 @@
 import { useMemo } from 'react'
 import { Popover as ArkPopover } from '@ark-ui/react/popover'
 import { classNames } from 'syw-common/helpers'
-import Icon from './Icon'
+import type { PopoverProps } from 'syw-common/types'
 
 const Popover = ({
 	open = false,
 	title,
 	description,
-	direction = 'bottom',
 	positioning,
 	onOpenChange,
 	children,
 	className
-}) => {
+} : PopoverProps) => {
 
-
-	const handleOpenChange = (event) => {
+	const handleOpenChange = (event: { open: boolean }) => {
 		onOpenChange(event.open)
 	}
 

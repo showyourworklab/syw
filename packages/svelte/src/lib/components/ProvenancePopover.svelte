@@ -1,14 +1,15 @@
 <script lang="ts">
 	import { getI18nContext } from '$lib/store/i18n.js'
 	import { getUiContext } from '$lib/store/ui.js'
-	import Modal from './Modal.svelte'
+	import Popover from './Popover.svelte'
 	import Provenance from './Provenance.svelte'
 
 	const {
 		isProvenanceOpen,
 		openProvenance,
 		closeProvenance,
-		closeExplainer
+		closeExplainer,
+		elem
 	} = getUiContext()
 	const { locale, getText } = getI18nContext()
 
@@ -23,11 +24,20 @@
 
 </script>
 
-<Modal
+<Popover
 	open={$isProvenanceOpen}
 	title={getText($locale, 'provenance', 'toggle')}
 	onOpenChange={handleOpenChange}
-	className='ProvenanceModal'
+	positioning={{
+		placement: 'right-start',
+		offset: {
+			// mainAxis: 12,
+			// crossAxis: -12
+		},
+		getAnchorRect: () =>
+			$elem?.querySelector('.Syw-ProvenanceToggle')?.getBoundingClientRect() ?? null
+	}}
+	className='ProvenancePopover'
 >
 	<Provenance />
-</Modal>
+</Popover>
