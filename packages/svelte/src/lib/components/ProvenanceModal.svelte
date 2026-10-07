@@ -1,8 +1,8 @@
 <script lang="ts">
-	import Modal from './Modal.svelte'
-	import Provenance from './Provenance.svelte'
 	import { getI18nContext } from '$lib/store/i18n.js'
 	import { getUiContext } from '$lib/store/ui.js'
+	import Modal from './Modal.svelte'
+	import Provenance from './Provenance.svelte'
 
 	const {
 		isProvenanceOpen,

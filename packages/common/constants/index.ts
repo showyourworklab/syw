@@ -9,7 +9,7 @@ export const VARIANT_KEYS = [
 	'drawer-left',
 	'drawer-right',
 ]
-export const VARIANT_DEFAULT = 'expand'
+export const VARIANT_DEFAULT = 'popover'
 // export const VARIANT_DEFAULT = 'drawer-right'
 
 /////////////// Manifests //////////////

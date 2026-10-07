@@ -19,6 +19,14 @@ export interface CollapseProps extends ComponentProps {
 	open?: boolean
 }
 
+export interface PopoverProps extends ComponentProps {
+	open?: boolean
+	positioning?: any
+	title?: string | null
+	description?: string | null
+	onOpenChange: (open: boolean) => void
+}
+
 export interface ExplainerToggleProps extends ComponentProps {}
 
 export interface IconProps extends ComponentProps {

@@ -15,8 +15,9 @@
 	import Media from './Media.svelte'
 	import Cutline from './Cutline.svelte'
 	import Caption from './Caption.svelte'
-	import ProvenanceModal from './ProvenanceModal.svelte'
 	import ProvenanceExpand from './ProvenanceExpand.svelte'
+	import ProvenanceModal from './ProvenanceModal.svelte'
+	import ProvenancePopover from './ProvenancePopover.svelte'
 	import ProvenanceDrawer from './ProvenanceDrawer.svelte'
 
 	const {
@@ -119,6 +120,8 @@
 		<ProvenanceExpand />
 	{:else if variant === 'modal'}
 		<ProvenanceModal />
+	{:else if variant === 'popover'}
+		<ProvenancePopover />
 	{:else if variant === 'drawer-left'}
 		<ProvenanceDrawer direction='left' />
 	{:else if variant === 'drawer-right'}
