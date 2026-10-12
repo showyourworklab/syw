@@ -14,6 +14,7 @@ const ProvenanceDrawer = ({
 		closeExplainer
 	} = useUiContext()
 	const { getText } = useI18nContext()
+	const { mediaType } = useDataContext()
 
 	const handleOpenChange = (newOpen, event) => {
 		const originalEvent = event
@@ -28,7 +29,7 @@ const ProvenanceDrawer = ({
 	return (
 		<Drawer
 			open={isProvenanceOpen}
-			title={getText("provenance", "toggle")}
+			title={getText("provenance", "toggle", mediaType)}
 			description=""
 			direction={direction}
 			onOpenChange={handleOpenChange}

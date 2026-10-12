@@ -6,14 +6,14 @@
 	border-radius: var(--syw-radius-lg);
 	border-color: var(--syw-color-tertiary);
 	border-style: solid;
-	border-width: 1px;
+	border-width: var(--syw-size-manifest-border);
 	transition: all 200ms ease;
 }
 .Syw-Manifest::after,
 .Syw-Manifest::before {
 	content: '';
 	display: block;
-	width: 3px;
+	width: var(--syw-size-connector-width);
 	height: calc(100% - (var(--syw-size-badge) / 2));
 	position: absolute;
 	z-index: 2;
@@ -24,10 +24,10 @@
 	border-width: 0 1px;
 }
 .Syw-Manifest::before {
-	left: calc(var(--syw-space-2) + (var(--syw-size-badge) / 2) - 1.5px);
+	left: var(--syw-size-connector-left);
 }
 .Syw-Manifest::after {
-	right: calc(var(--syw-space-3) - 1.5px);
+	right: calc(var(--syw-space-3) - (var(--syw-size-connector-width) / 2));
 	display: none;
 }
 .Syw-Manifest:last-of-type {

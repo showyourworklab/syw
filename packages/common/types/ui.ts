@@ -1,13 +1,21 @@
 import type { VARIANT_KEYS } from '#constants/index'
+import type { SYW_ICONS } from '#constants/ui'
 import type { C2paStatus, Manifest, ManifestThumbnail, ManifestTypeKey } from './c2pa.js'
 
 export type Variant = typeof VARIANT_KEYS[number]
 
 export type MapOptions = Record<string, unknown> | null
 
-export type MediaType = 'image' | 'video'
+export type SywIconNode = [
+	elementName: 'circle' | 'ellipse' | 'g' | 'line' | 'path' | 'polygon' | 'polyline' | 'rect',
+	attrs: Record<string, string>
+][]
 
-export type IconType = C2paStatus | ManifestTypeKey | 'origin' | 'missing' | 'up' | 'down' | 'close' | 'info'
+export type SywIconType = keyof typeof SYW_ICONS
+
+export type LucideIconType = C2paStatus | ManifestTypeKey | 'origin' | 'missing' | 'up' | 'down' | 'close' | 'info'
+
+export type IconType = LucideIconType | SywIconType
 
 export interface UiState {
 	variant: Variant | string

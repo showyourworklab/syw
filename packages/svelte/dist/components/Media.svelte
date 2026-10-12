@@ -1,18 +1,16 @@
 <script lang="ts">
-	import { classNames, handleA11yClick, getMediaType } from 'syw-common/helpers'
+	import { classNames, handleA11yClick } from 'syw-common/helpers'
     import Image from './Image.svelte';
     import Video from './Video.svelte';
 	import { getDataContext } from '../store/data.js'
 	import { getUiContext } from '../store/ui.js'
 
 	const {
-		src
+		mediaType
 	} = getDataContext()
 	const {
 		hoverImage, unhoverImage, isProvenanceOpen, openProvenance, closeProvenance
 	} = getUiContext()
-
-	const mediaType = $derived(getMediaType($src))
 
 	const isClickableElem = (event: Event) =>
 		["IMG", "VIDEO"].includes((event.target as HTMLElement)?.tagName)
@@ -54,10 +52,10 @@
 	onkeydown={handleKeyDown}
 	class={classNames('Media')}
 >
-	{#if mediaType === "image"}
-		<Image />
-	{/if}
-	{#if mediaType === "video"}
+	<!-- Fall back to an image when the media type is unknown -->
+	{#if $mediaType === "video"}
 		<Video />
+	{:else}
+		<Image />
 	{/if}
 </div>

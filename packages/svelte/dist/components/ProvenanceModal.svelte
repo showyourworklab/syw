@@ -1,8 +1,9 @@
 <script lang="ts">
-	import Modal from './Modal.svelte'
-	import Provenance from './Provenance.svelte'
+	import { getDataContext } from '../store/data.js'
 	import { getI18nContext } from '../store/i18n.js'
 	import { getUiContext } from '../store/ui.js'
+	import Modal from './Modal.svelte'
+	import Provenance from './Provenance.svelte'
 
 	const {
 		isProvenanceOpen,
@@ -11,6 +12,7 @@
 		closeExplainer
 	} = getUiContext()
 	const { locale, getText } = getI18nContext()
+	const { mediaType } = getDataContext()
 
 	const handleOpenChange = (newOpen: boolean) => {
 		if(newOpen) {
@@ -25,7 +27,7 @@
 
 <Modal
 	open={$isProvenanceOpen}
-	title={getText($locale, 'provenance', 'toggle')}
+	title={getText($locale, 'provenance', 'toggle', $mediaType)}
 	onOpenChange={handleOpenChange}
 	className='ProvenanceModal'
 >

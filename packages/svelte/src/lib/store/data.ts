@@ -1,19 +1,21 @@
 import { getContext, setContext } from 'svelte'
 import { writable } from 'svelte/store'
 import { C2PA_DATA_DEFAULT } from 'syw-common/constants/c2pa'
+import { resolveMediaType } from 'syw-common/helpers'
 import type { SywData, SywMediaData } from 'syw-common/types/c2pa'
 
 const DATA_CONTEXT_KEY = Symbol('data')
 
-export default function createDataStore() {
-	const src = writable<SywMediaData['src']>(null)
-	const alt = writable<SywMediaData['alt']>(null)
-	const caption = writable<SywMediaData['caption']>(null)
-	const byline = writable<SywMediaData['byline']>(null)
+export default function createDataStore(initial: Partial<Pick<SywMediaData, 'src' | 'alt' | 'caption' | 'byline' | 'mediaType'>> = {}) {
+	const src = writable<SywMediaData['src']>(initial.src ?? null)
+	const alt = writable<SywMediaData['alt']>(initial.alt ?? null)
+	const caption = writable<SywMediaData['caption']>(initial.caption ?? null)
+	const byline = writable<SywMediaData['byline']>(initial.byline ?? null)
 	const phase = writable(C2PA_DATA_DEFAULT.phase)
 	const status = writable(C2PA_DATA_DEFAULT.status)
-	const manifests = writable(C2PA_DATA_DEFAULT.manifests)
 	const types = writable(C2PA_DATA_DEFAULT.types)
+	const manifests = writable(C2PA_DATA_DEFAULT.manifests)
+	const mediaType = writable(resolveMediaType(initial.src, initial.mediaType))
 	const provenance = writable(C2PA_DATA_DEFAULT.provenance)
 	const reader = writable(C2PA_DATA_DEFAULT.reader)
 	const error = writable(C2PA_DATA_DEFAULT.error)
@@ -24,8 +26,9 @@ export default function createDataStore() {
 	const setByline = (val: SywMediaData['byline']) => byline.set(val)
 	const setPhase = (val: SywData['phase']) => phase.set(val)
 	const setStatus = (val: SywData['status']) => status.set(val)
-	const setManifests = (val?: SywData['manifests'] | null) => manifests.set(val ?? [])
 	const setTypes = (val?: SywData['types'] | null) => types.set(val ?? [])
+	const setMediaType = (val: SywData['mediaType']) => mediaType.set(val)
+	const setManifests = (val?: SywData['manifests'] | null) => manifests.set(val ?? [])
 	const setProvenance = (val?: SywData['provenance'] | null) => provenance.set(val ?? null)
 	const setReader = (val?: SywData['reader'] | null) => reader.set(val ?? null)
 	const setError = (val?: SywData['error'] | null) => error.set(val ?? null)
@@ -35,6 +38,7 @@ export default function createDataStore() {
 		setStatus(c2paData.status)
 		setManifests(c2paData.manifests)
 		setTypes(c2paData.types)
+		setMediaType(c2paData.mediaType)
 		setProvenance(c2paData.provenance)
 		setReader(c2paData.reader)
 		setError(c2paData.error)
@@ -47,8 +51,9 @@ export default function createDataStore() {
 		byline,
 		phase,
 		status,
-		manifests,
 		types,
+		manifests,
+		mediaType,
 		provenance,
 		reader,
 		error,
@@ -58,8 +63,9 @@ export default function createDataStore() {
 		setByline,
 		setPhase,
 		setStatus,
-		setManifests,
 		setTypes,
+		setManifests,
+		setMediaType,
 		setProvenance,
 		setReader,
 		setError,

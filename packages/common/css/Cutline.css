@@ -3,7 +3,7 @@
 	display: flex;
 	align-content: center;
 	justify-content: space-between;
-	margin: var(--syw-space-2) auto var(--syw-space-2) auto;
+	margin: var(--syw-size-cutline-margin) auto var(--syw-size-cutline-margin) auto;
 }
 /* Cutline > Toggles */
 .Syw-CutlineToggles {

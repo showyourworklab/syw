@@ -1,12 +1,12 @@
 <script lang="ts">
 	import { classNames } from 'syw-common/helpers'
-	import Badge from './Badge.svelte';
 	import { getDataContext } from '$lib/store/data.js'
 	import { getI18nContext } from '$lib/store/i18n.js'
 	import { getUiContext } from '$lib/store/ui.js'
+	import Icon from './Icon.svelte'
 
 	const { locale, getText } = getI18nContext();
-	const { status, types } = getDataContext();
+	const { mediaType } = getDataContext();
 	const { isProvenanceOpen, openProvenance, closeProvenance } = getUiContext();
 
 	const handleClick = (event: MouseEvent) => {
@@ -24,13 +24,10 @@
 	class={classNames('ProvenanceToggle')}
 	onclick={handleClick}
 >
-	<Badge
-		status={$status}
-		TooltipProps={{
-			disabled: true
-		}}
+	<Icon
+		type="signal"
 	/>
 	<span>
-		{$isProvenanceOpen ? getText($locale, 'provenance', 'toggle') : getText($locale, 'provenance', 'toggle')}
+		{getText($locale, 'provenance', 'toggle', $mediaType)}
 	</span>
 </button>

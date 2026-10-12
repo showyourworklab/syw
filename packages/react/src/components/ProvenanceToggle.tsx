@@ -1,11 +1,11 @@
 import type { MouseEvent } from 'react'
 import { classNames } from 'syw-common/helpers'
-import { useI18nContext, useDataContext, useUiContext } from '$src/context'
-import Badge from './Badge'
+import { useDataContext, useI18nContext, useUiContext } from '$src/context'
+import Icon from './Icon'
 
 const ProvenanceToggle = () => {
 	const { getText } = useI18nContext()
-	const { status } = useDataContext()
+	const { mediaType } = useDataContext()
 	const { isProvenanceOpen, openProvenance, closeProvenance } = useUiContext()
 
 	const onClick = (event: MouseEvent<HTMLButtonElement>) => isProvenanceOpen
@@ -18,15 +18,11 @@ const ProvenanceToggle = () => {
 			className={classNames('ProvenanceToggle')}
 			onClick={onClick}
 		>
-			<Badge
-				// type={types[0]}
-				status={status}
-				TooltipProps={{
-					disabled: true
-				}}
+			<Icon
+				type="signal"
 			/>
 			<span>
-				{isProvenanceOpen ? getText('provenance', 'toggle') : getText('provenance', 'toggle')}
+				{getText('provenance', 'toggle', mediaType)}
 			</span>
 		</button>
 	)

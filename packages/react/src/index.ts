@@ -7,6 +7,7 @@ const parseSywData = (
 	src: string,
 	options?: {
 		c2paOptions?: SywReactProps['c2paOptions']
+		mediaType?: SywReactProps['mediaType']
 	}
 ): Promise<SywData> => parseSywDataInternal(src, options)
 

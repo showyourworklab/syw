@@ -1,4 +1,5 @@
 import type { FC } from 'react'
+import { C2PA_MEDIA_TYPES } from 'syw-common/constants/c2pa'
 import { LOCALE_DEFAULT } from 'syw-common/constants/i18n'
 import type { SywReactProps } from './types'
 import { C2paProvider, I18nProvider, DataProvider, UiProvider } from './providers'
@@ -10,6 +11,7 @@ const SywReact: FC<SywReactProps> = ({
 	alt = null,
 	caption = null,
 	byline = null,
+	mediaType,
 	variant,
 	c2paOptions,
 	mapOptions = null,
@@ -29,6 +31,7 @@ const SywReact: FC<SywReactProps> = ({
 					alt={alt}
 					caption={caption}
 					byline={byline}
+					mediaType={mediaType ?? C2PA_MEDIA_TYPES.UNKNOWN}
 				>
 					<UiProvider
 						variant={variant}

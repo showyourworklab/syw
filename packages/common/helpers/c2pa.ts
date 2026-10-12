@@ -3,11 +3,13 @@ import type { Reader, C2paSdk, Config } from '@contentauth/c2pa-web'
 import type { Manifest as C2paManifest, Action } from '@contentauth/c2pa-types'
 import TRUST_LISTS from '#trustlists'
 import { VERIFY_BASE_URL } from '#constants/index'
-import { C2PA_PHASES, C2PA_DATA_DEFAULT, C2PA_STATUSES, C2PA_WEB_WASM_CDN_URL } from '#constants/c2pa'
-import { convertJumbfToBlobUrl, getMediaType, revokeManifestBlobUrls } from '#helpers/index'
+import { C2PA_PHASES, C2PA_DATA_DEFAULT, C2PA_MEDIA_TYPES, C2PA_STATUSES, C2PA_WEB_WASM_CDN_URL } from '#constants/c2pa'
+import { convertJumbfToBlobUrl, getMediaType, getMediaTypeFromMimeType, isKnownMediaType, resolveMediaType, revokeManifestBlobUrls } from '#helpers/index'
 import { getIptcDigitalSourceTypeKey, isIptcDigitalSourceTypeAi, isIptcDigitalSourceTypeCamera } from '#helpers/iptc'
 import type {
 	SywData,
+	KnownMediaType,
+	MediaType,
 	C2paOptions,
 	C2paProvenance,
 	C2paStatus,
@@ -41,24 +43,28 @@ export const getC2paConfig = (c2paOptions: C2paOptions = {}): Config => ({
 })
 
 /**
- * Reads C2PA data from an image source
+ * Fetches a media source
+ * @async
+ * @param src - Media URL
+ * @return Blob and MIME type of the fetched file
+ */
+export const fetchMedia = async (src: string) => {
+	const response = await fetch(src)
+	const blob = await response.blob()
+	const mimeType = blob.type || response.headers.get('content-type') || ''
+	return { blob, mimeType }
+}
+
+/**
+ * Reads C2PA data from a fetched media blob
  * @async
  * @param c2pa - C2PA instance
- * @param src - Image URL
+ * @param blob - Fetched media file
+ * @param mimeType - MIME type of the fetched file
  * @return Manifest store and reader
  */
-export const readC2paFromUrl = async (c2pa: C2paSdk, src: string) => {
-	let reader: Reader | null | undefined
-	const mediaType = getMediaType(src)
-	if(mediaType === "image") {
-		const response = await fetch(src)
-		const blob = await response.blob()
-		reader = await c2pa.reader.fromBlob(blob.type, blob)
-	} else if(mediaType === "video") {
-		const response = await fetch(src)
-		const blob = await response.blob()
-		reader = await c2pa.reader.fromBlob(blob.type, blob)
-	}
+export const readC2paFromBlob = async (c2pa: C2paSdk, blob: Blob, mimeType: string) => {
+	const reader: Reader | null | undefined = await c2pa.reader.fromBlob(mimeType, blob)
     const manifestStore = await reader?.manifestStore()
     return { manifestStore, reader }
 }
@@ -498,15 +504,23 @@ export const prepareManifests = async ({ src, provenance, reader }: {
  * @param props.locale - User's locale
  * @return Prepared manifest object
  */
-export const prepareC2paData = async ({ c2pa, src }: {
+export const prepareC2paData = async ({ c2pa, src, mediaType: userMediaType }: {
 	c2pa: C2paSdk | null | undefined
 	src: string
+	mediaType: MediaType
 }): Promise<SywData> => {
-    if(!c2pa || !src) return C2PA_DATA_DEFAULT
+	// Take the user's media type as fact, otherwise detect it from src, the fetched file's MIME type and the C2PA manifest's format
+	const isUserMediaType = isKnownMediaType(userMediaType)
+	let mediaType = isUserMediaType ? userMediaType : getMediaType(src)
+    if(!c2pa || !src) return { ...C2PA_DATA_DEFAULT, mediaType }
 	let data: SywData
     try {
-        const c2paData = await readC2paFromUrl(c2pa, src)
-		const { manifestStore, reader } = c2paData
+		const { blob, mimeType } = await fetchMedia(src)
+		const mimeMediaType = getMediaTypeFromMimeType(mimeType)
+		if(!isUserMediaType) mediaType = resolveMediaType(src, mimeMediaType)
+		const { manifestStore, reader } = await readC2paFromBlob(c2pa, blob, mimeType)
+		const activeManifest = manifestStore?.manifests?.[manifestStore.active_manifest ?? '']
+		if(!isUserMediaType) mediaType = resolveMediaType(src, mimeMediaType, getMediaTypeFromMimeType(activeManifest?.format))
         const provenance = manifestStore ? { manifestStore } : null
         const manifests = await prepareManifests({ src, provenance, reader })
 		const status = await getC2paStatus(provenance)
@@ -516,6 +530,7 @@ export const prepareC2paData = async ({ c2pa, src }: {
             status,
             types,
             // provenance,
+			mediaType,
 			manifests,
             reader: reader ?? null,
             error: null,
@@ -526,6 +541,7 @@ export const prepareC2paData = async ({ c2pa, src }: {
             ...C2PA_DATA_DEFAULT,
             phase: C2PA_PHASES.ERROR,
             status: C2PA_STATUSES.UNKNOWN,
+			mediaType,
             error: error as Error,
         }
     }
@@ -535,12 +551,14 @@ export const prepareC2paData = async ({ c2pa, src }: {
 export const prepareData = async ({
 	c2pa,
 	src,
+	mediaType,
 }: {
 	c2pa: C2paSdk | null | undefined
 	src: string
+	mediaType: MediaType
 }): Promise<SywData> => {
 	if(!src) return C2PA_DATA_DEFAULT
-	const preparedData = await prepareC2paData({ c2pa, src })
+	const preparedData = await prepareC2paData({ c2pa, src, mediaType })
 	console.log(preparedData)
 	return preparedData;
 }
@@ -550,14 +568,15 @@ export const parseSywData = async (
 	src: string,
 	options: {
 		locale?: string,
-		c2paOptions?: C2paOptions
+		c2paOptions?: C2paOptions,
+		mediaType?: KnownMediaType
 	} = {}
 ): Promise<SywData> => {
 	if(!src) return C2PA_DATA_DEFAULT
 	if(typeof Worker === 'undefined') return C2PA_DATA_DEFAULT
-	const { c2paOptions = {} } = options
+	const { c2paOptions = {}, mediaType = C2PA_MEDIA_TYPES.UNKNOWN } = options
 	if(!cachedC2pa) cachedC2pa = await createC2pa(getC2paConfig(c2paOptions))
-	const preparedData = prepareData({ c2pa: cachedC2pa, src })
+	const preparedData = prepareData({ c2pa: cachedC2pa, src, mediaType })
 	return preparedData
 }
 

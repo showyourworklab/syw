@@ -44,7 +44,9 @@ export const DICTIONARY_EN_US = {
 	generator_ai_definition: 'The tool or model that generated this content.',
 	actions_definition: 'A log of the specific edits made to the file.',
 	// Provenance
-	provenance_toggle: 'View Image Origin',
+	provenance_toggle_image: 'More info on this image',
+	provenance_toggle_video: 'More info on this video',
+	provenance_toggle_unknown: 'More info on this media',
 	provenance_missing: 'No provenance found',
 	// Explainer
 	explainer_toggle: 'What is this?',
@@ -159,8 +161,10 @@ export const DICTIONARY_NO_NO = {
 	location: 'Sted',
 	actions: 'Handlinger',
 	ingredients: 'Ingredienser',
-	provenance_toggle: 'Se bildets opphav',
-	provenance_missing: 'No provenance found',
+	provenance_toggle_image: 'Mer informasjon om dette bildet',
+	provenance_toggle_video: 'Mer informasjon om denne videoen',
+	provenance_toggle_unknown: 'Mer informasjon om dette mediet',
+	provenance_missing: 'Ingen opprinnelse funnet',
 	// Fields > Definitions
 	producer_definition: 'Navnet som er oppgitt som produsent.',
 	producer_camera_definition: 'Navnet som er oppgitt som fotograf.',
@@ -279,8 +283,10 @@ export const DICTIONARY_SV_SE = {
 	location: 'Plats',
 	actions: 'Åtgärder',
 	ingredients: 'Ingredienser',
-	provenance_toggle: 'Se bildens ursprung',
-	provenance_missing: 'No provenance found',
+	provenance_toggle_image: 'Mer information om den här bilden',
+	provenance_toggle_video: 'Mer information om den här videon',
+	provenance_toggle_unknown: 'Mer information om detta medie',
+	provenance_missing: 'Ingen proveniens funnen',
 	// Explainer
 	explainer_toggle: 'Vad är detta?',
 	explainer_toggle_close: 'Stäng',

@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { onMount, onDestroy } from 'svelte'
+	import { onMount, onDestroy, untrack } from 'svelte'
 	import type { HTMLAttributes } from 'svelte/elements'
 	import 'syw-common/css/styles.css'
-	import { classNames } from 'syw-common/helpers'
+	import { classNames, resolveMediaType } from 'syw-common/helpers'
 	import { VARIANT_DEFAULT } from 'syw-common/constants'
 	import { LOCALE_DEFAULT } from 'syw-common/constants/i18n'
-	import { C2PA_PHASES } from 'syw-common/constants/c2pa'
+	import { C2PA_MEDIA_TYPES, C2PA_PHASES } from 'syw-common/constants/c2pa'
 	import type { SywEmbedProps } from 'syw-common/types/embed'
 	import createC2paStore, { setC2paContext } from '../store/c2pa.js'
 	import createDataStore, { setDataContext } from '../store/data.js'
@@ -15,8 +15,9 @@
 	import Media from './Media.svelte'
 	import Cutline from './Cutline.svelte'
 	import Caption from './Caption.svelte'
-	import ProvenanceModal from './ProvenanceModal.svelte'
 	import ProvenanceExpand from './ProvenanceExpand.svelte'
+	import ProvenanceModal from './ProvenanceModal.svelte'
+	import ProvenancePopover from './ProvenancePopover.svelte'
 	import ProvenanceDrawer from './ProvenanceDrawer.svelte'
 
 	const {
@@ -25,6 +26,7 @@
 		alt = '',
 		caption = '',
 		byline = '',
+		mediaType: mediaTypeProp,
 		locale = LOCALE_DEFAULT,
 		c2paOptions = {},
 		mapOptions = null,
@@ -33,12 +35,15 @@
 		...props
 	}: SywEmbedProps & Omit<HTMLAttributes<HTMLDivElement>, 'class'> & { class?: string | null } = $props()
 
+	const mediaType = $derived(mediaTypeProp ?? C2PA_MEDIA_TYPES.UNKNOWN)
+
 	let mounted = $state(false)
 	let elemRef: HTMLElement | null = $state(null)
 	let prevSrc: string | null = $state(null)
 
 	const c2paStore = createC2paStore()
-	const dataStore = createDataStore()
+	// Seed with initial props so SSR renders real data; the $effect below keeps it in sync
+	const dataStore = createDataStore(untrack(() => ({ src, alt, caption, byline, mediaType })))
 	const i18nStore = createI18nStore()
 	const uiStore = createUiStore()
 
@@ -64,8 +69,13 @@
 		)
 	)
 
+	// Separate from other props so their changes don't replace a media type confirmed by the C2PA read
 	$effect(() => {
 		dataStore.setSrc(src)
+		dataStore.setMediaType(resolveMediaType(src, mediaType))
+	})
+
+	$effect(() => {
 		dataStore.setAlt(alt)
 		dataStore.setCaption(caption)
 		dataStore.setByline(byline)
@@ -91,7 +101,7 @@
 			dataStore.setPhase(C2PA_PHASES.LOADING)
 			let c2paInstance = $c2pa
 			if (!c2paInstance) c2paInstance = await c2paStore.init(c2paOptions)
-			const newData = await c2paStore.read({ src })
+			const newData = await c2paStore.read({ src, mediaType })
 			if(newData) dataStore.setC2paData(newData)
 		})()
 	})
@@ -121,6 +131,8 @@
 		<ProvenanceExpand />
 	{:else if variant === 'modal'}
 		<ProvenanceModal />
+	{:else if variant === 'popover'}
+		<ProvenancePopover />
 	{:else if variant === 'drawer-left'}
 		<ProvenanceDrawer direction='left' />
 	{:else if variant === 'drawer-right'}

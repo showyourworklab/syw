@@ -12,6 +12,7 @@ const ProvenancePopover = () => {
 		elem
 	} = useUiContext()
 	const { getText } = useI18nContext()
+	const { mediaType } = useDataContext()
 
 	const handleOpenChange = (newOpen, event) => {
 		if(newOpen) {
@@ -25,7 +26,7 @@ const ProvenancePopover = () => {
 	return (
 		<Popover
 			open={isProvenanceOpen}
-			title={getText("provenance", "toggle")}
+			title={getText("provenance", "toggle", mediaType)}
 			onOpenChange={handleOpenChange}
 			positioning={{
 				placement: 'right-start',

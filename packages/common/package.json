@@ -1,6 +1,6 @@
 {
   "name": "syw-common",
-  "version": "0.0.34",
+  "version": "0.0.35",
   "license": "MIT",
   "private": false,
   "type": "module",
@@ -21,6 +21,7 @@
     "./constants/c2pa": "./constants/c2pa.ts",
     "./constants/demo": "./constants/demo.ts",
     "./constants/i18n": "./constants/i18n.ts",
+    "./constants/ui": "./constants/ui.ts",
     "./constants/iptc": "./constants/iptc.ts",
     "./constants/map": "./constants/map.ts",
     "./helpers": "./helpers/index.ts",
@@ -48,6 +49,7 @@
     "#constants/c2pa": "./constants/c2pa.ts",
     "#constants/demo": "./constants/demo.ts",
     "#constants/i18n": "./constants/i18n.ts",
+    "#constants/ui": "./constants/ui.ts",
     "#constants/iptc": "./constants/iptc.ts",
     "#constants/map": "./constants/map.ts",
     "#helpers/index": "./helpers/index.ts",

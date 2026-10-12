@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { getDataContext } from '$lib/store/data.js'
 	import { getI18nContext } from '$lib/store/i18n.js'
 	import { getUiContext } from '$lib/store/ui.js'
 	import Popover from './Popover.svelte'
@@ -12,6 +13,7 @@
 		elem
 	} = getUiContext()
 	const { locale, getText } = getI18nContext()
+	const { mediaType } = getDataContext()
 
 	const handleOpenChange = (newOpen: boolean) => {
 		if(newOpen) {
@@ -26,7 +28,7 @@
 
 <Popover
 	open={$isProvenanceOpen}
-	title={getText($locale, 'provenance', 'toggle')}
+	title={getText($locale, 'provenance', 'toggle', $mediaType)}
 	onOpenChange={handleOpenChange}
 	positioning={{
 		placement: 'right-start',

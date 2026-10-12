@@ -4,7 +4,7 @@ import { createC2pa } from '@contentauth/c2pa-web'
 import type { C2paSdk } from '@contentauth/c2pa-web'
 import { C2PA_DATA_DEFAULT, C2PA_PHASES, C2PA_STATUSES } from 'syw-common/constants/c2pa'
 import { getC2paConfig, prepareData, disposeSywData } from 'syw-common/helpers/c2pa'
-import type { C2paOptions, SywData } from 'syw-common/types/c2pa'
+import type { C2paOptions, MediaType, SywData } from 'syw-common/types/c2pa'
 
 const C2PA_CONTEXT_KEY = Symbol('c2pa')
 
@@ -41,7 +41,7 @@ const createC2paStore = () => {
 		}
 	}
 
-	const read = async ({ src }: { src: string | null }): Promise<SywData | null> => {
+	const read = async ({ src, mediaType }: { src: string | null, mediaType: MediaType }): Promise<SywData | null> => {
 		const c2paInstance = get(c2pa)
 		const id = ++requestId
 
@@ -49,13 +49,11 @@ const createC2paStore = () => {
 			return C2PA_DATA_DEFAULT
 		}
 
-		if (!c2paInstance) {
-			return C2PA_DATA_DEFAULT
-		}
-
+		// Without a C2PA instance, prepareData still resolves the media type from the user or src
 		const newData = await prepareData({
 			c2pa: c2paInstance,
 			src,
+			mediaType,
 		})
 
 		// If another request started before this one finished, dispose new data

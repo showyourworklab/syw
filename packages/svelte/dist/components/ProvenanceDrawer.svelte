@@ -2,6 +2,7 @@
 	import { classNames } from 'syw-common/helpers'
     import { getUiContext } from '../store/ui.js';
     import { getI18nContext } from '../store/i18n.js';
+    import { getDataContext } from '../store/data.js';
 	import Drawer from './Drawer.svelte'
 	import Provenance from './Provenance.svelte'
 
@@ -19,14 +20,14 @@
 		locale,
 		getText
 	} = getI18nContext()
+	const { mediaType } = getDataContext()
 
-	const handleOpenChange = (newOpen: boolean, event: any) => {
-		const originalEvent = event
+	const handleOpenChange = (newOpen: boolean) => {
 		if(newOpen) {
-			openProvenance(originalEvent)
+			openProvenance()
 		} else {
-			closeProvenance(originalEvent)
-			closeExplainer(originalEvent)
+			closeProvenance()
+			closeExplainer()
 		}
 	}
 
@@ -34,7 +35,7 @@
 
 <Drawer
 	open={$isProvenanceOpen}
-	title={getText($locale, 'provenance', 'toggle')}
+	title={getText($locale, 'provenance', 'toggle', $mediaType)}
 	description=""
 	direction={direction}
 	onOpenChange={handleOpenChange}

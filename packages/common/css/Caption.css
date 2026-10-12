@@ -2,23 +2,23 @@
 .Syw-Caption {
 	margin: 0;
 	padding: 0;
-	border: 0;
 	width: calc(100% - var(--syw-size-caption-indent));
-	border: 1px solid transparent;
+	border: var(--syw-size-caption-border) solid transparent;
 	position: relative;
 	pointer-events: all;
 	line-height: 1.3em;
 	cursor: text;
 	transition: all 200ms ease;
-	--syw-size-caption-before-top: calc((var(--syw-space-1) + 2px));
+	--syw-size-caption-before-top: calc(var(--syw-size-cutline-margin) + var(--syw-size-caption-border) - 1.5px);
+	--syw-size-caption-before-bottom: calc(var(--syw-size-caption-border) + var(--syw-size-manifest-border) + ((var(--syw-size-manifest-preview-height) - var(--syw-size-badge)) / 2));
 }
 .Syw-Caption::before {
 	content: "";
 	display: block;
-	width: 3px;
+	width: var(--syw-size-connector-width);
 	z-index: 2;
 	position: absolute;
-	left: calc(var(--syw-space-2) + (var(--syw-size-badge) / 2) - 1.5px);
+	left: var(--syw-size-connector-left);
 	top: calc(var(--syw-size-caption-before-top) * -1);
 	height: 0;
 	background-color: var(--syw-color-primary);
@@ -33,7 +33,7 @@
 }
 /* Caption > Active > Expand */
 .Syw-App_active.Syw-App_expand .Syw-Caption::before {
-	height: calc(var(--syw-space-1) + 4px + 100% + calc(var(--syw-size-manifest-preview-height) / 2) - calc(var(--syw-size-badge) / 2));
+	height: calc(var(--syw-size-caption-before-top) + 100% + var(--syw-size-caption-before-bottom));
 }
 .Syw-App_active.Syw-App_expand .Syw-Caption::after {
 	opacity: 1;

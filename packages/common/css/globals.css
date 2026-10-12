@@ -57,6 +57,11 @@
 	--syw-size-manifest-preview-height: 53px;
 	--syw-size-manifest-preview-indent: calc(var(--syw-size-badge) + var(--syw-space-4));
 	--syw-size-caption-indent: calc(var(--syw-size-badge) + var(--syw-space-5));
+	--syw-size-caption-border: 1px;
+	--syw-size-cutline-margin: var(--syw-space-2);
+	--syw-size-manifest-border: 1px;
+	--syw-size-connector-width: 3px;
+	--syw-size-connector-left: calc(var(--syw-space-2) + ((var(--syw-size-badge) - var(--syw-size-connector-width)) / 2));
 	--syw-size-paragraph-max-width: 85ch;
 	--syw-size-drawer-grabber-size: 36px;
 	--syw-size-drawer-grabber-indicator-length: 40px;

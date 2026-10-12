@@ -14,6 +14,10 @@ export interface C2paProvenance {
 	manifestStore: ManifestStore
 }
 
+export type KnownMediaType = 'image' | 'video'
+
+export type MediaType = KnownMediaType | 'unknown'
+
 export type ManifestId = string
 
 export type ManifestTypeKey = 'camera' | 'edit' | 'ai' | 'unknown'
@@ -86,8 +90,9 @@ export interface Manifest {
 export interface SywData {
 	phase: C2paPhase
 	status: C2paStatus
-	manifests: Manifest[]
 	types: ManifestType[]
+	mediaType: MediaType
+	manifests: Manifest[]
 	provenance?: C2paProvenance | null
 	reader: Reader | null
 	error: Error | null

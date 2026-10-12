@@ -36,18 +36,17 @@ const createC2paStore = () => {
             return null;
         }
     };
-    const read = async ({ src }) => {
+    const read = async ({ src, mediaType }) => {
         const c2paInstance = get(c2pa);
         const id = ++requestId;
         if (!src) {
             return C2PA_DATA_DEFAULT;
         }
-        if (!c2paInstance) {
-            return C2PA_DATA_DEFAULT;
-        }
+        // Without a C2PA instance, prepareData still resolves the media type from the user or src
         const newData = await prepareData({
             c2pa: c2paInstance,
             src,
+            mediaType,
         });
         // If another request started before this one finished, dispose new data
         if (id !== requestId) {

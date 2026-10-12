@@ -18,11 +18,19 @@ export const C2PA_STATUSES = {
 	VALID: 'valid',
 	INVALID: 'invalid',
 } as const
+export const C2PA_MEDIA_TYPES = {
+	IMAGE: 'image',
+	VIDEO: 'video',
+	UNKNOWN: 'unknown',
+} as const
+export const C2PA_IMAGE_EXTENSIONS: readonly string[] = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'avif', 'heic', 'heif', 'tif', 'tiff', 'svg', 'bmp']
+export const C2PA_VIDEO_EXTENSIONS: readonly string[] = ['mp4', 'm4v', 'mov', 'webm', 'ogv', 'avi', 'mkv']
 export const C2PA_DATA_DEFAULT: SywData = {
 	phase: C2PA_PHASES.IDLE,
 	status: C2PA_STATUSES.VALIDATING,
-	manifests: [],
 	types: [],
+	manifests: [],
+	mediaType: C2PA_MEDIA_TYPES.UNKNOWN,
 	provenance: null,
 	reader: null,
 	error: null,

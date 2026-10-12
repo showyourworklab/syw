@@ -1,6 +1,6 @@
-import { useMemo, useCallback } from 'react'
+import { useCallback } from 'react'
 import type { KeyboardEvent, MouseEvent } from 'react'
-import { classNames, handleA11yClick, getMediaType } from 'syw-common/helpers'
+import { classNames, handleA11yClick } from 'syw-common/helpers'
 import { useUiContext } from '$src/context/ui'
 import { useDataContext } from '$src/context/data'
 import Image from './Image'
@@ -11,7 +11,7 @@ const isClickableElem = (event: { target: EventTarget | null }) =>
 
 const Media = () => {
 	const {
-		src,
+		mediaType,
 	} = useDataContext()
 	const {
 		hoverImage,
@@ -20,10 +20,6 @@ const Media = () => {
 		closeProvenance,
 		isProvenanceOpen,
 	} = useUiContext()
-
-	const mediaType = useMemo(() =>
-		getMediaType(src)
-	, [src])
 
 	const onClick = useCallback((event: MouseEvent<HTMLDivElement>) => {
 		if(isClickableElem(event)) {
@@ -64,12 +60,11 @@ const Media = () => {
 			onMouseLeave={onMouseLeave}
 			className={classNames('Media')}
 		>
-			{mediaType === "image" ?
-				<Image />
-			: null}
-			{mediaType === "video" ?
-				<Video />
-			: null}
+			{/* Fall back to an image when the media type is unknown */}
+			{mediaType === "video"
+				? <Video />
+				: <Image />
+			}
 		</div>
 	)
 }

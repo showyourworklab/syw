@@ -41,7 +41,7 @@
 		<div
 			class={classNames('ProvenanceNone')}
 		>
-			{getText($locale, 'provenance', 'toggle')}
+			{getText($locale, 'provenance', 'missing')}
 		</div>
 	{/if}
 	<div
