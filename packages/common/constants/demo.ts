@@ -2,13 +2,27 @@ import type { Locale } from '#types/i18n'
 
 interface DemoImage {
 	src: string
-	title: Record<Locale, string>
-	caption: Record<Locale, string>
-	byline: string
+	title?: Record<Locale, string>
+	caption?: Record<Locale, string>
+	byline?: string
 }
 
 // Hosted at https://github.com/showyourworklab/c2pa-images
 export const DEMO_IMAGES: DemoImage[] = [
+	{
+		src: 'https://iptc.org/std/MediaProvenance/SampleContent/IPTC/christmas-market-iptc-signed.jpg',
+		title: {
+			en_US: 'IPTC sample',
+			no_NO: 'IPTC sample'
+		}
+	},
+	{
+		src: 'https://iptc.org/wp-content/uploads/2026/09/Bergen-2026-attendees-cropped-2048x970.png',
+		title: {
+			en_US: 'IPTC Bergen',
+			no_NO: 'IPTC Bergen'
+		}
+	},
 	// {
 	// 	src: 'https://showyourworklab.github.io/c2pa-images/leica-nora-syria-2.jpg',
 	// 	title: {

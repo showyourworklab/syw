@@ -102,7 +102,7 @@ export const getDictionary = (locale: string): Record<string, string> => {
  */
 export const getLocaleText = (locale: string, ...keys: DictionaryKey[]): string => {
 	const dictionary = getDictionary(locale)
-	const text = dictionary[keys.filter(k => k !== null).join('_')]
+	const text = dictionary[keys.filter(k => k !== null && k !== undefined).join('_')]
 	return text
 }
 

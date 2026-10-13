@@ -16,63 +16,6 @@
 	pointer-events: none;
 	transition: all 200ms ease;	
 }
-/* Badge > Statuses */
-.Syw-Badge.Syw-Badge_trusted {
-	/* color: var(--syw-color-status-trusted); */
-	/* background-color: var(--syw-color-status-trusted-light); */
-	color: var(--syw-color-primary);
-	background-color: var(--syw-color-secondary);
-}
-.Syw-Badge.Syw-Badge_valid {
-	/* color: var(--syw-color-status-valid); */
-	/* background-color: var(--syw-color-status-valid-light); */
-	color: var(--syw-color-primary);
-	background-color: var(--syw-color-secondary);
-}
-.Syw-Badge.Syw-Badge_invalid {
-	/* color: var(--syw-color-status-invalid);
-	background-color: var(--syw-color-status-invalid-light); */
-	color: var(--syw-color-primary);
-	background-color: var(--syw-color-secondary);
-}
-.Syw-Badge.Syw-Badge_unknown {
-	/* color: var(--syw-color-status-unknown);
-	background-color: var(--syw-color-status-unknown-light); */
-	color: var(--syw-color-primary);
-	background-color: var(--syw-color-secondary);
-}
-.Syw-App_active .Syw-Badge_unknown {
-	/* color: var(--syw-color-status-unknown-light);
-	background-color: var(--syw-color-status-unknown); */
-	color: var(--syw-color-primary);
-	background-color: var(--syw-color-secondary);
-}
-/* Badge > Statuses > Tooltip */
-.Syw-TooltipContent.Syw-BadgeTooltipContent_trusted {
-	/* --syw-tooltip-text: var(--syw-color-status-trusted); */
-	/* --syw-tooltip-background: var(--syw-color-status-trusted-light); */
-	--syw-tooltip-text: var(--syw-color-primary);
-	--syw-tooltip-background: var(--syw-color-secondary);
-}
-.Syw-TooltipContent.Syw-BadgeTooltipContent_valid {
-	/* --syw-tooltip-text: var(--syw-color-status-valid); */
-	/* --syw-tooltip-background: var(--syw-color-status-valid-light); */
-	--syw-tooltip-text: var(--syw-color-primary);
-	--syw-tooltip-background: var(--syw-color-secondary);
-}
-.Syw-TooltipContent.Syw-BadgeTooltipContent_invalid {
-	--syw-tooltip-text: var(--syw-color-status-invalid);
-	--syw-tooltip-background: var(--syw-color-status-invalid-light);
-}
-.Syw-TooltipContent.Syw-BadgeTooltipContent_unknown {
-	--syw-tooltip-text: var(--syw-color-status-unknown);
-	--syw-tooltip-background: var(--syw-color-status-unknown-light);
-}
-/* Badge > Icon */
-/* .Syw-Badge_icon {
-	padding: var(--syw-space-1);
-	border-radius: var(--syw-radius-full);
-} */
 .Syw-BadgeIcon {
 	width: var(--syw-size-badge-icon);
 	height: var(--syw-size-badge-icon);

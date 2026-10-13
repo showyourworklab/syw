@@ -30,6 +30,7 @@
 		origin: BadgeInfo,
 		validating: Ellipsis,
 		trusted: Check,
+		trusted_legacy: Check,
 		valid: Check,
 		invalid: X,
 		unknown: TriangleAlert,

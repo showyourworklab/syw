@@ -10,6 +10,7 @@ const LUCIDE_ICONS: Record<LucideIconType, LucideIcon> = {
 	origin: BadgeInfo,
 	validating: Ellipsis,
 	trusted: Check,
+	trusted_legacy: Check,
 	valid: Check,
 	invalid: X,
 	unknown: TriangleAlert,

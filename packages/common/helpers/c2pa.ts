@@ -1,10 +1,11 @@
 import { createC2pa } from '@contentauth/c2pa-web'
-import type { Reader, C2paSdk, Config } from '@contentauth/c2pa-web'
-import type { Manifest as C2paManifest, Action } from '@contentauth/c2pa-types'
-import TRUST_LISTS from '#trustlists'
+import type { Reader, C2pa, Config, Settings } from '@contentauth/c2pa-web'
+import type { Manifest as C2paManifest, ManifestStore, Action } from '@contentauth/c2pa-types'
 import { VERIFY_BASE_URL } from '#constants/index'
-import { C2PA_PHASES, C2PA_DATA_DEFAULT, C2PA_MEDIA_TYPES, C2PA_STATUSES, C2PA_WEB_WASM_CDN_URL } from '#constants/c2pa'
+import { C2PA_PHASES, C2PA_DATA_DEFAULT, C2PA_MEDIA_TYPES, C2PA_TRUST_VALUES, C2PA_WEB_WASM_CDN_URL } from '#constants/c2pa'
 import { convertJumbfToBlobUrl, getMediaType, getMediaTypeFromMimeType, isKnownMediaType, resolveMediaType, revokeManifestBlobUrls } from '#helpers/index'
+import { getLegacyTrustSettings, getManifestTrust, getManifestValidation, getTrustListSettings, isFullyTrusted } from '#helpers/trust'
+import { TRUST_LIST_SCOPES } from '#constants/trust'
 import { getIptcDigitalSourceTypeKey, isIptcDigitalSourceTypeAi, isIptcDigitalSourceTypeCamera } from '#helpers/iptc'
 import type {
 	SywData,
@@ -12,7 +13,7 @@ import type {
 	MediaType,
 	C2paOptions,
 	C2paProvenance,
-	C2paStatus,
+	C2paTrustValue,
 	ManifestActions,
 	ManifestGenerator,
 	ManifestLocation,
@@ -21,23 +22,30 @@ import type {
 	ManifestTypeKey,
 	Manifest,
 } from '#types/c2pa'
+import type { ManifestTrust } from '#types/trust'
 
 /////////////// Initialize //////////////
 
 /**
  * Creates C2PA instance configuration
+ * @async
  * @param c2paOptions - Optional overrides
  * @param c2paOptions.wasmSrc - Custom WASM source URL
- * @param c2paOptions.trustLists - Custom trust anchors file
+ * @param c2paOptions.settings.trust - Custom C2PA trust anchors, user anchors and allowed list
+ * @param c2paOptions.settings.cawgTrust - Custom CAWG trust anchors, user anchors and allowed list
  * @return C2PA configuration object
  */
-export const getC2paConfig = (c2paOptions: C2paOptions = {}): Config => ({
+export const getC2paConfig = async (c2paOptions: C2paOptions = {}): Promise<Config> => ({
 	wasmSrc: c2paOptions.wasmSrc || C2PA_WEB_WASM_CDN_URL,
 	settings: {
 		...(c2paOptions?.settings || {}),
 		trust: {
 			...(c2paOptions?.settings?.trust || {}),
-			trustAnchors: c2paOptions?.settings?.trust?.trustAnchors || joinPem(Object.values(TRUST_LISTS)),
+			...(await getTrustListSettings(TRUST_LIST_SCOPES.C2PA, c2paOptions?.settings?.trust)),
+		},
+		cawgTrust: {
+			...(c2paOptions?.settings?.cawgTrust || {}),
+			...(await getTrustListSettings(TRUST_LIST_SCOPES.CAWG, c2paOptions?.settings?.cawgTrust)),
 		}
 	}
 })
@@ -61,25 +69,28 @@ export const fetchMedia = async (src: string) => {
  * @param c2pa - C2PA instance
  * @param blob - Fetched media file
  * @param mimeType - MIME type of the fetched file
+ * @param settings - Settings merged over the C2PA instance's settings for this read
  * @return Manifest store and reader
  */
-export const readC2paFromBlob = async (c2pa: C2paSdk, blob: Blob, mimeType: string) => {
-	const reader: Reader | null | undefined = await c2pa.reader.fromBlob(mimeType, blob)
+export const readC2paFromBlob = async (c2pa: C2pa, blob: Blob, mimeType: string, settings?: Settings) => {
+	const reader: Reader | null | undefined = await c2pa.reader.fromBlob(mimeType, blob, settings)
     const manifestStore = await reader?.manifestStore()
     return { manifestStore, reader }
 }
 
 /**
- * Reads C2PA validity status
+ * Reads C2PA trust
  * @async
  * @param provenance - C2PA provenance
- * @return Validation status
+ * @return Trust
  */
-export const getC2paStatus = async (provenance: C2paProvenance | null): Promise<C2paStatus> => {
+export const getC2paTrust = async (provenance: C2paProvenance | null): Promise<C2paTrustValue> => {
 	if(provenance) {
 		const validationStatus = provenance?.manifestStore?.validation_state;
 		if(validationStatus === "Trusted") {
 			return "trusted";
+		} else if(provenance.legacyManifestStore?.validation_state === "Trusted") {
+			return "trusted_legacy";
 		} else if(validationStatus === "Valid") {
 			return "valid";
 		} else if(validationStatus === "Invalid") {
@@ -161,27 +172,6 @@ const convertDmsToDd = (dms: string | null | undefined, dir: string | null | und
     return decimalDegrees
 }
 
-/**
- * Joins strings of PEM file contents
- * @function
- * @param pems - Array of raw string of PEM file contents
- * @returns Compined string of PEM file contents
- */
-const joinPem = (pems: string[]): string => {
-	return pems.map(cleanPem).join("\n")
-}
-
-/**
- * Cleans string of PEM file contents
- * @function
- * @param pem - Raw string of PEM file contents
- * @returns Cleaned string of PEM file contents
- */
-const cleanPem = (pem: string): string => {
-	const certs = pem.match(/-----BEGIN CERTIFICATE-----[\s\S]+?-----END CERTIFICATE-----/g);
-	return certs ? certs.join("\n") : "";
-}
-
 /////////////// Manifest Creation ///////////////
 
 /**
@@ -243,8 +233,8 @@ export const getGenerator = async (manifest: C2paManifest | null | undefined, re
  * @return Manifest type
  */
 export const getType = (manifest: C2paManifest | null | undefined): ManifestType | null => {
-	const hasExif = ifHasExif(manifest)
 	const createdAction = getC2paActions(manifest)?.find(a => a?.action === "c2pa.created")
+	console.log(manifest, createdAction)
 	let typeKey: ManifestTypeKey = "unknown";
 	let iptcDigitalSourceType
 	if(createdAction) {
@@ -255,7 +245,7 @@ export const getType = (manifest: C2paManifest | null | undefined): ManifestType
 		} else if(isIptcDigitalSourceTypeAi(iptcDigitalSourceType)) {
 			typeKey = "ai"
 		}
-	} else if(hasExif) {
+	} else if(ifHasExif(manifest)) {
 		// TEMP: Unsure if EXIF detection is a safe determinant
 		typeKey = "camera"
 	} else if(manifest?.signature_info?.issuer === "Adobe Inc.") {
@@ -275,34 +265,32 @@ export const getTypes = (manifests: Manifest[] | undefined): ManifestType[] =>
 	manifests?.map(m => m?.type)?.filter((m): m is ManifestType => Boolean(m)) ?? []
 
 /**
- * Gets a manifest's validation status
+ * Gets a manifest's trust
  * @function
  * @param manifest - C2paManifest entry
  * @param provenance - C2PA provenance
- * @return Validation status
+ * @return Manifest trust
  */
-export const getStatus = (manifest: C2paManifest, provenance: C2paProvenance | null): C2paStatus => {
-	const { validation_results, active_manifest } = provenance?.manifestStore ?? {};
-	let validation;
+export const getTrust = (manifest: C2paManifest, provenance: C2paProvenance | null): ManifestTrust => {
+	const validation = getManifestValidation(manifest, provenance?.manifestStore)
+	const legacyValidation = getManifestValidation(manifest, provenance?.legacyManifestStore)
+	return getManifestTrust(manifest, validation, legacyValidation)
+}
 
-	if(manifest.label === active_manifest) {
-		validation = validation_results?.activeManifest ?? null;
-	} else {
-		const ingredientDelta = validation_results?.ingredientDeltas?.find(
-		({ validationDeltas }) =>
-			validationDeltas.success.some(({ url }) =>
-				url?.includes(manifest.label ?? '')
-			) ||
-			validationDeltas.failure.some(({ url }) =>
-				url?.includes(manifest.label ?? '')
-			)
-		);
-		validation = ingredientDelta?.validationDeltas ?? null;
-	}
-	const status = validation !== null && validation.failure.length === 0
-		? C2PA_STATUSES.TRUSTED
-		: C2PA_STATUSES.INVALID;
-	return status;
+/**
+ * Reads C2PA data again with legacy trust lists, when it isn't trusted by the other lists
+ * @async
+ * @param c2pa - C2PA instance
+ * @param blob - Fetched media file
+ * @param mimeType - MIME type of the fetched file
+ * @param manifestStore - Manifest store read without legacy trust lists
+ * @return Manifest store read with legacy trust lists
+ */
+const readLegacyManifestStore = async (c2pa: C2pa, blob: Blob, mimeType: string, manifestStore: ManifestStore | null | undefined) => {
+	if(!manifestStore || isFullyTrusted(manifestStore)) return null
+	const { manifestStore: legacyManifestStore, reader } = await readC2paFromBlob(c2pa, blob, mimeType, await getLegacyTrustSettings())
+	await reader?.free()
+	return legacyManifestStore ?? null
 }
 
 /**
@@ -447,7 +435,7 @@ export const prepareManifest = async ({ src, manifest, provenance, reader }: {
 	return {
 		id: getId(manifest),
 		type: getType(manifest),
-		status: getStatus(manifest, provenance),
+		trust: getTrust(manifest, provenance),
 		timestamp: getTimestamp(manifest),
 		producer: getProducer(manifest),
 		signator: getSignator(manifest),
@@ -505,7 +493,7 @@ export const prepareManifests = async ({ src, provenance, reader }: {
  * @return Prepared manifest object
  */
 export const prepareC2paData = async ({ c2pa, src, mediaType: userMediaType }: {
-	c2pa: C2paSdk | null | undefined
+	c2pa: C2pa | null | undefined
 	src: string
 	mediaType: MediaType
 }): Promise<SywData> => {
@@ -519,15 +507,16 @@ export const prepareC2paData = async ({ c2pa, src, mediaType: userMediaType }: {
 		const mimeMediaType = getMediaTypeFromMimeType(mimeType)
 		if(!isUserMediaType) mediaType = resolveMediaType(src, mimeMediaType)
 		const { manifestStore, reader } = await readC2paFromBlob(c2pa, blob, mimeType)
+		const legacyManifestStore = await readLegacyManifestStore(c2pa, blob, mimeType, manifestStore)
 		const activeManifest = manifestStore?.manifests?.[manifestStore.active_manifest ?? '']
 		if(!isUserMediaType) mediaType = resolveMediaType(src, mimeMediaType, getMediaTypeFromMimeType(activeManifest?.format))
-        const provenance = manifestStore ? { manifestStore } : null
+        const provenance = manifestStore ? { manifestStore, legacyManifestStore } : null
         const manifests = await prepareManifests({ src, provenance, reader })
-		const status = await getC2paStatus(provenance)
+		const trust = await getC2paTrust(provenance)
         const types = getTypes(manifests)
         data = {
             phase: C2PA_PHASES.READY,
-            status,
+            trust,
             types,
             // provenance,
 			mediaType,
@@ -540,7 +529,7 @@ export const prepareC2paData = async ({ c2pa, src, mediaType: userMediaType }: {
         data = {
             ...C2PA_DATA_DEFAULT,
             phase: C2PA_PHASES.ERROR,
-            status: C2PA_STATUSES.UNKNOWN,
+            trust: C2PA_TRUST_VALUES.UNKNOWN,
 			mediaType,
             error: error as Error,
         }
@@ -553,7 +542,7 @@ export const prepareData = async ({
 	src,
 	mediaType,
 }: {
-	c2pa: C2paSdk | null | undefined
+	c2pa: C2pa | null | undefined
 	src: string
 	mediaType: MediaType
 }): Promise<SywData> => {
@@ -563,7 +552,7 @@ export const prepareData = async ({
 	return preparedData;
 }
 
-let cachedC2pa: C2paSdk | null = null
+let cachedC2pa: C2pa | null = null
 export const parseSywData = async (
 	src: string,
 	options: {
@@ -575,7 +564,7 @@ export const parseSywData = async (
 	if(!src) return C2PA_DATA_DEFAULT
 	if(typeof Worker === 'undefined') return C2PA_DATA_DEFAULT
 	const { c2paOptions = {}, mediaType = C2PA_MEDIA_TYPES.UNKNOWN } = options
-	if(!cachedC2pa) cachedC2pa = await createC2pa(getC2paConfig(c2paOptions))
+	if(!cachedC2pa) cachedC2pa = await createC2pa(await getC2paConfig(c2paOptions))
 	const preparedData = prepareData({ c2pa: cachedC2pa, src, mediaType })
 	return preparedData
 }

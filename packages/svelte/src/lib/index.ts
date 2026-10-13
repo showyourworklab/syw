@@ -19,7 +19,6 @@ export { default as ProvenanceDrawer } from './components/ProvenanceDrawer.svelt
 export { default as ProvenanceExpand } from './components/ProvenanceExpand.svelte';
 export { default as ProvenanceModal } from './components/ProvenanceModal.svelte';
 export { default as ProvenanceToggle } from './components/ProvenanceToggle.svelte';
-export { default as StatusBadge } from './components/StatusBadge.svelte';
 export { default as Tooltip } from './components/Tooltip.svelte';
 export { default as TypeBadge } from './components/TypeBadge.svelte';
 export { default as Video } from './components/Video.svelte';

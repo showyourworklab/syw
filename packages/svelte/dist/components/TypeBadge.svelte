@@ -6,17 +6,15 @@
 
 	const { locale, getText } = getI18nContext();
 
-	const { value, status }: TypeBadgeProps = $props()
+	const { value }: TypeBadgeProps = $props()
 
 	const label = $derived(getText($locale, "type", value?.key ?? ''))
 </script>
 
 <Badge
 	type={value}
-	status={status}
 	className={classNames(
-		"TypeBadge",
-		status ? `Badge_status_${status}` : null
+		"TypeBadge"
 	)}
 >
 	{label}

@@ -11,7 +11,6 @@
 
 	const {
 		type,
-		status,
 		TooltipProps: tooltipProps = {},
 		children,
 		className
@@ -27,7 +26,6 @@
 			tooltipProps?.ContentProps?.className,
 			'BadgeTooltipContent',
 			type?.key ? `BadgeTooltipContent_${type?.key}` : null,
-			status ? `BadgeTooltipContent_${status}` : null,
 		),
 	}}
 	className={classNames(
@@ -40,11 +38,10 @@
 			'Badge',
 			className,
 			type?.key ? `Badge_${type?.key}` : null,
-			status ? `Badge_${status}` : null,
 		)}
 	>
 		<Icon
-			type={type?.key ?? status}
+			type={type?.key}
 			className={classNames('BadgeIcon')}
 		/>
 		<span

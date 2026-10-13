@@ -89,7 +89,7 @@ Available as a named export from `syw-react` and `syw-svelte` to read and parse 
 	- `src: string`
 	- `options?: { locale?: string; c2paOptions?: { wasmSrc?: string; settings?: { trust?: { trustAnchors?: string | string[] }}}}`
 - Returns:
-	- `Promise<{ src; phase; status; manifests; types; provenance; reader; error }>`
+	- `Promise<{ src; phase; trust; manifests; types; provenance; reader; error }>`
 
 
 ## Shared internal utilities `syw-common`

@@ -1,4 +1,4 @@
-import type { C2paStatus, Manifest, ManifestActions, ManifestFieldKey, ManifestLocation, ManifestType } from './c2pa.js'
+import type { C2paTrustValue, Manifest, ManifestActions, ManifestFieldKey, ManifestLocation, ManifestType } from './c2pa.js'
 import type { IconType } from './ui.js'
 
 export interface ComponentProps {
@@ -12,7 +12,7 @@ export interface ActionsProps extends ComponentProps {
 
 export interface BadgeProps extends ComponentProps {
 	type?: ManifestType | null
-	status?: C2paStatus
+	status?: C2paTrustValue
 }
 
 export interface CollapseProps extends ComponentProps {
@@ -83,11 +83,10 @@ export interface ModalProps extends ComponentProps {
 	onOpenChange: (open: boolean) => void
 }
 
-export interface StatusBadgeProps extends ComponentProps {
-	value: C2paStatus
+export interface TrustProps extends ComponentProps {
+	manifest: Manifest
 }
 
 export interface TypeBadgeProps extends ComponentProps {
 	value: ManifestType | null | undefined
-	status?: C2paStatus
 }

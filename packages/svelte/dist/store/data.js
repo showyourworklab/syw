@@ -9,7 +9,7 @@ export default function createDataStore(initial = {}) {
     const caption = writable(initial.caption ?? null);
     const byline = writable(initial.byline ?? null);
     const phase = writable(C2PA_DATA_DEFAULT.phase);
-    const status = writable(C2PA_DATA_DEFAULT.status);
+    const trust = writable(C2PA_DATA_DEFAULT.trust);
     const types = writable(C2PA_DATA_DEFAULT.types);
     const manifests = writable(C2PA_DATA_DEFAULT.manifests);
     const mediaType = writable(resolveMediaType(initial.src, initial.mediaType));
@@ -21,7 +21,7 @@ export default function createDataStore(initial = {}) {
     const setCaption = (val) => caption.set(val);
     const setByline = (val) => byline.set(val);
     const setPhase = (val) => phase.set(val);
-    const setStatus = (val) => status.set(val);
+    const setTrust = (val) => trust.set(val);
     const setTypes = (val) => types.set(val ?? []);
     const setMediaType = (val) => mediaType.set(val);
     const setManifests = (val) => manifests.set(val ?? []);
@@ -30,7 +30,7 @@ export default function createDataStore(initial = {}) {
     const setError = (val) => error.set(val ?? null);
     const setC2paData = (c2paData = C2PA_DATA_DEFAULT) => {
         setPhase(c2paData.phase);
-        setStatus(c2paData.status);
+        setTrust(c2paData.trust);
         setManifests(c2paData.manifests);
         setTypes(c2paData.types);
         setMediaType(c2paData.mediaType);
@@ -44,7 +44,7 @@ export default function createDataStore(initial = {}) {
         caption,
         byline,
         phase,
-        status,
+        trust,
         types,
         manifests,
         mediaType,
@@ -56,7 +56,7 @@ export default function createDataStore(initial = {}) {
         setCaption,
         setByline,
         setPhase,
-        setStatus,
+        setTrust,
         setTypes,
         setManifests,
         setMediaType,
