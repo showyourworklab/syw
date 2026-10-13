@@ -5,7 +5,6 @@ import { DEMO_IMAGES } from 'syw-common/constants/demo'
 import { LOCALE_DEFAULT, DICTIONARIES } from 'syw-common/constants/i18n'
 import { VARIANT_KEYS, VARIANT_DEFAULT } from 'syw-common/constants'
 import SywLogo from 'syw-common/images/logo-dark.svg'
-import C2PA_INTERIM_TRUST_LIST from '../../common/trustlists/c2pa-interim'
 import SywReact from '$src/index'
 import type { Locale } from 'syw-common/types/i18n'
 import type { UiEventHandler } from 'syw-common/types/ui'
@@ -150,13 +149,6 @@ const Demo = () => {
 					variant={variant}
 					mapOptions={{
 						// style: 'https://tiles.openfreemap.org/styles/positron'
-					}}
-					c2paOptions={{
-						settings: {
-							trust: {
-								trustAnchors: C2PA_INTERIM_TRUST_LIST
-							}
-						}
 					}}
 					onEvent={handleEvent}
 				/>

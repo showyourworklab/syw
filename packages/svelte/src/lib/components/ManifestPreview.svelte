@@ -61,7 +61,6 @@
 		>
 			<Badge
 				type={manifest.type}
-				status={manifest.status}
 			/>
 		</div>
 		<div

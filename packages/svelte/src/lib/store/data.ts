@@ -12,7 +12,7 @@ export default function createDataStore(initial: Partial<Pick<SywMediaData, 'src
 	const caption = writable<SywMediaData['caption']>(initial.caption ?? null)
 	const byline = writable<SywMediaData['byline']>(initial.byline ?? null)
 	const phase = writable(C2PA_DATA_DEFAULT.phase)
-	const status = writable(C2PA_DATA_DEFAULT.status)
+	const trust = writable(C2PA_DATA_DEFAULT.trust)
 	const types = writable(C2PA_DATA_DEFAULT.types)
 	const manifests = writable(C2PA_DATA_DEFAULT.manifests)
 	const mediaType = writable(resolveMediaType(initial.src, initial.mediaType))
@@ -25,7 +25,7 @@ export default function createDataStore(initial: Partial<Pick<SywMediaData, 'src
 	const setCaption = (val: SywMediaData['caption']) => caption.set(val)
 	const setByline = (val: SywMediaData['byline']) => byline.set(val)
 	const setPhase = (val: SywData['phase']) => phase.set(val)
-	const setStatus = (val: SywData['status']) => status.set(val)
+	const setTrust = (val: SywData['trust']) => trust.set(val)
 	const setTypes = (val?: SywData['types'] | null) => types.set(val ?? [])
 	const setMediaType = (val: SywData['mediaType']) => mediaType.set(val)
 	const setManifests = (val?: SywData['manifests'] | null) => manifests.set(val ?? [])
@@ -35,7 +35,7 @@ export default function createDataStore(initial: Partial<Pick<SywMediaData, 'src
 
 	const setC2paData = (c2paData: SywData = C2PA_DATA_DEFAULT) => {
 		setPhase(c2paData.phase)
-		setStatus(c2paData.status)
+		setTrust(c2paData.trust)
 		setManifests(c2paData.manifests)
 		setTypes(c2paData.types)
 		setMediaType(c2paData.mediaType)
@@ -50,7 +50,7 @@ export default function createDataStore(initial: Partial<Pick<SywMediaData, 'src
 		caption,
 		byline,
 		phase,
-		status,
+		trust,
 		types,
 		manifests,
 		mediaType,
@@ -62,7 +62,7 @@ export default function createDataStore(initial: Partial<Pick<SywMediaData, 'src
 		setCaption,
 		setByline,
 		setPhase,
-		setStatus,
+		setTrust,
 		setTypes,
 		setManifests,
 		setMediaType,

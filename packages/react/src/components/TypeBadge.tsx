@@ -5,17 +5,14 @@ import Badge from './Badge'
 
 const TypeBadge = ({
 	value,
-	status
 }: TypeBadgeProps) => {
 	const { getText } = useI18nContext()
 	const label = getText("type", value?.key ?? '')
 	return (
 		<Badge
 			type={value}
-			status={status}
 			className={classNames(
-				"TypeBadge",
-				status ? `Badge_status_${status}` : null
+				"TypeBadge"
 			)}
 		>
 			{label}

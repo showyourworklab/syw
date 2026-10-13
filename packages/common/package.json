@@ -24,6 +24,7 @@
     "./constants/ui": "./constants/ui.ts",
     "./constants/iptc": "./constants/iptc.ts",
     "./constants/map": "./constants/map.ts",
+    "./constants/trust": "./constants/trust.ts",
     "./helpers": "./helpers/index.ts",
     "./helpers/index": "./helpers/index.ts",
     "./helpers/c2pa": "./helpers/c2pa.ts",
@@ -31,6 +32,7 @@
     "./helpers/iptc": "./helpers/iptc.ts",
     "./helpers/map": "./helpers/map.ts",
     "./helpers/markdown": "./helpers/markdown.ts",
+    "./helpers/trust": "./helpers/trust.ts",
     "./trustlists": "./trustlists/index.ts",
     "./types": "./types/index.ts",
     "./types/index": "./types/index.ts",
@@ -38,7 +40,7 @@
     "./types/components": "./types/components.ts",
     "./types/embed": "./types/embed.ts",
     "./types/i18n": "./types/i18n.ts",
-    "./types/trustlists": "./types/trustlists.ts",
+    "./types/trust": "./types/trust.ts",
     "./types/ui": "./types/ui.ts",
     "./css": "./css/styles.css",
     "./css/*": "./css/*",
@@ -52,30 +54,33 @@
     "#constants/ui": "./constants/ui.ts",
     "#constants/iptc": "./constants/iptc.ts",
     "#constants/map": "./constants/map.ts",
+    "#constants/trust": "./constants/trust.ts",
     "#helpers/index": "./helpers/index.ts",
     "#helpers/c2pa": "./helpers/c2pa.ts",
     "#helpers/i18n": "./helpers/i18n.ts",
     "#helpers/iptc": "./helpers/iptc.ts",
     "#helpers/map": "./helpers/map.ts",
     "#helpers/markdown": "./helpers/markdown.ts",
+    "#helpers/trust": "./helpers/trust.ts",
     "#trustlists": "./trustlists/index.ts",
     "#types/index": "./types/index.ts",
     "#types/c2pa": "./types/c2pa.ts",
     "#types/components": "./types/components.ts",
     "#types/embed": "./types/embed.ts",
     "#types/i18n": "./types/i18n.ts",
-    "#types/trustlists": "./types/trustlists.ts",
+    "#types/trust": "./types/trust.ts",
     "#types/ui": "./types/ui.ts"
   },
   "scripts": {
     "release": "npm publish",
+    "trustlists": "node scripts/update-trustlists.js",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
     "typescript": "^5.9.3"
   },
   "dependencies": {
-    "@contentauth/c2pa-web": "^0.6.1",
+    "@contentauth/c2pa-web": "0.15.3",
     "dompurify": "^3.2.4",
     "marked": "^15.0.7"
   }

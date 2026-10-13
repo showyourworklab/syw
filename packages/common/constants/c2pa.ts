@@ -1,6 +1,8 @@
+import c2paWebPackage from '@contentauth/c2pa-web/package.json' with { type: 'json' }
 import type { SywData } from '#types/c2pa'
 
-export const C2PA_WEB_VERSION = '0.6.1'
+// Read from the installed package so the WASM always matches c2pa-web's integrity check
+export const C2PA_WEB_VERSION = c2paWebPackage.version
 export const C2PA_WEB_WASM_CDN_URL = `https://cdn.jsdelivr.net/npm/@contentauth/c2pa-web@${C2PA_WEB_VERSION}/dist/resources/c2pa_bg.wasm`
 export const C2PA_CREATED_IPTC = [
 	"http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia"
@@ -11,10 +13,11 @@ export const C2PA_PHASES = {
 	READY: 'ready',
 	ERROR: 'error',
 } as const
-export const C2PA_STATUSES = {
+export const C2PA_TRUST_VALUES = {
 	VALIDATING: 'validating',
 	UNKNOWN: 'unknown',
 	TRUSTED: 'trusted',
+	TRUSTED_LEGACY: 'trusted_legacy',
 	VALID: 'valid',
 	INVALID: 'invalid',
 } as const
@@ -27,7 +30,7 @@ export const C2PA_IMAGE_EXTENSIONS: readonly string[] = ['jpg', 'jpeg', 'png', '
 export const C2PA_VIDEO_EXTENSIONS: readonly string[] = ['mp4', 'm4v', 'mov', 'webm', 'ogv', 'avi', 'mkv']
 export const C2PA_DATA_DEFAULT: SywData = {
 	phase: C2PA_PHASES.IDLE,
-	status: C2PA_STATUSES.VALIDATING,
+	trust: C2PA_TRUST_VALUES.VALIDATING,
 	types: [],
 	manifests: [],
 	mediaType: C2PA_MEDIA_TYPES.UNKNOWN,

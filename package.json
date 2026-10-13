@@ -38,7 +38,7 @@
     "typescript": "^6.0.3"
   },
   "dependencies": {
-    "@contentauth/c2pa-web": "^0.6.1",
+    "@contentauth/c2pa-web": "0.15.3",
     "@videojs/react": "^10.0.0-beta.5"
   }
 }

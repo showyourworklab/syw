@@ -1,17 +1,20 @@
 import type { Manifest as C2paManifest, ManifestStore } from '@contentauth/c2pa-types'
 import type { Reader, Config } from '@contentauth/c2pa-web'
-import type { C2PA_PHASES, C2PA_STATUSES } from '../constants/c2pa.js'
+import type { C2PA_PHASES, C2PA_TRUST_VALUES } from '../constants/c2pa.js'
 import { IPTC_DIGITAL_SOURCE_TYPE_KEYS } from '#constants/iptc'
+import type { ManifestTrust } from './trust.js'
 
 export type { C2paManifest }
 
 export type C2paPhase = typeof C2PA_PHASES[keyof typeof C2PA_PHASES]
-export type C2paStatus = typeof C2PA_STATUSES[keyof typeof C2PA_STATUSES]
+export type C2paTrustValue = typeof C2PA_TRUST_VALUES[keyof typeof C2PA_TRUST_VALUES]
 
 export type C2paOptions = Partial<Config>
 
 export interface C2paProvenance {
 	manifestStore: ManifestStore
+	// Read again with legacy trust lists when the manifest store isn't trusted
+	legacyManifestStore?: ManifestStore | null
 }
 
 export type KnownMediaType = 'image' | 'video'
@@ -34,8 +37,6 @@ export interface ManifestType {
 // 	label?: string | null
 // 	definition?: string | null
 // }
-
-export type ManifestStatus = C2paStatus
 
 export interface ManifestTimestamp {
 	date: Date
@@ -75,7 +76,7 @@ export type ManifestFieldKey = 'timestamp' | 'producer' | 'signator' | 'generato
 export interface Manifest {
 	id?: ManifestId
 	type: ManifestType | null
-	status: ManifestStatus
+	trust: ManifestTrust
 	timestamp: ManifestTimestamp | null
 	producer: ManifestProducer
 	signator?: ManifestSignator
@@ -89,7 +90,7 @@ export interface Manifest {
 
 export interface SywData {
 	phase: C2paPhase
-	status: C2paStatus
+	trust: C2paTrustValue
 	types: ManifestType[]
 	mediaType: MediaType
 	manifests: Manifest[]

@@ -2,6 +2,7 @@ import ManifestTable from './ManifestTable'
 import { classNames } from 'syw-common/helpers'
 import { MANIFEST_PRIMARY_KEYS } from 'syw-common/constants'
 import type { ManifestContentProps } from 'syw-common/types/components'
+import Trust from './Trust'
 import ManifestContentTabs from './ManifestContentTabs'
 import ManifestContentTabsToggle from './ManifestContentTabsToggle'
 
@@ -10,26 +11,33 @@ function ManifestContent({ tabKeys, manifest }: ManifestContentProps) {
 		<div
 			className={classNames('ManifestContent')}
 		>
+			<Trust
+				manifest={manifest}
+			/>
 			<div
-				className={classNames('ManifestContentPrimary')}
+				className={classNames('ManifestContentInner')}
 			>
-				<ManifestTable
-					keys={MANIFEST_PRIMARY_KEYS}
-					manifest={manifest}
-				/>
-			</div>
-			<div
-				className={classNames('ManifestContentSecondary')}
-			>
-				<ManifestContentTabsToggle
-					keys={tabKeys}
-					manifest={manifest}
-					className={classNames('ManifestContentSecondaryTabsToggle')}
-				/>
-				<ManifestContentTabs
-					keys={tabKeys}
-					manifest={manifest}
-				/>
+				<div
+					className={classNames('ManifestContentPrimary')}
+				>
+					<ManifestTable
+						keys={MANIFEST_PRIMARY_KEYS}
+						manifest={manifest}
+					/>
+				</div>
+				<div
+					className={classNames('ManifestContentSecondary')}
+				>
+					<ManifestContentTabsToggle
+						keys={tabKeys}
+						manifest={manifest}
+						className={classNames('ManifestContentSecondaryTabsToggle')}
+					/>
+					<ManifestContentTabs
+						keys={tabKeys}
+						manifest={manifest}
+					/>
+				</div>
 			</div>
 		</div>
 	)

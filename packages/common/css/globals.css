@@ -20,10 +20,12 @@
 	/* --syw-color-quaternary-dark: rgb(0, 46, 196); */
 	/* Colors > Components */
 	--syw-color-status-trusted: rgb(22, 126, 22);
+	--syw-color-status-trusted-legacy: rgb(126, 126, 22);
 	--syw-color-status-valid: rgb(126, 126, 22);
 	--syw-color-status-invalid: rgb(255, 0, 0);
 	--syw-color-status-unknown: var(--syw-color-primary);
 	--syw-color-status-trusted-light: rgb(205, 245, 205);
+	--syw-color-status-trusted-legacy-light: rgb(245, 245, 205);
 	--syw-color-status-valid-light: rgb(245, 245, 205);
 	--syw-color-status-invalid-light: rgb(255, 221, 221);
 	--syw-color-status-unknown-light: var(--syw-color-secondary);
