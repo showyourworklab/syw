@@ -1,5 +1,6 @@
 import type { C2pa } from '@contentauth/c2pa-web';
-import type { C2paOptions, MediaType, SywData } from 'syw-common/types/c2pa';
+import type { C2paOptions } from 'syw-common/types/c2pa';
+import type { MediaType, SywData } from 'syw-common/types/data';
 declare const createC2paStore: () => {
     c2pa: import("svelte/store").Writable<C2pa | null>;
     data: import("svelte/store").Writable<SywData>;

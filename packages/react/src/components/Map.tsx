@@ -1,7 +1,7 @@
 import 'maplibre-gl/dist/maplibre-gl.css'
 import { useEffect, useId, useState } from 'react'
 import MapLibre from 'maplibre-gl'
-import { classNames } from 'syw-common/helpers'
+import { classNames } from 'syw-common/helpers/ui'
 import { getLangFromLocale } from 'syw-common/helpers/i18n'
 import { createMapLayer, createMapSource, updateMapLang } from 'syw-common/helpers/map'
 import { MAP_PROPS, MAP_SOURCE_ID } from 'syw-common/constants/map'

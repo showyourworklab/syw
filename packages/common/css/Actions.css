@@ -5,7 +5,7 @@
 	border-style: solid;
 	border-color: var(--syw-color-tertiary);
 	border-radius: var(--syw-radius-lg);
-	background-color: var(--syw-color-secondary);
+	background-color: var(--syw-color-quaternary);
 	@media (min-width: 576px) {
 		max-width: 300px;
 	}

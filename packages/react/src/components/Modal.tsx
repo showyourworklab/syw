@@ -1,5 +1,5 @@
 import { Dialog } from '@ark-ui/react/dialog'
-import { classNames } from 'syw-common/helpers'
+import { classNames } from 'syw-common/helpers/ui'
 import type { ModalProps } from 'syw-common/types/components'
 import Icon from './Icon'
 

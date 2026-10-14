@@ -1,4 +1,5 @@
-import type { C2paOptions, KnownMediaType } from './c2pa.js'
+import type { C2paOptions } from './c2pa.js'
+import type { KnownMediaType } from './data.js'
 import type { MapOptions, UiEventHandler, Variant } from './ui.js'
 
 export interface SywEmbedProps {

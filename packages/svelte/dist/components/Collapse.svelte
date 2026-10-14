@@ -5,7 +5,7 @@
 		useCollapsible as useArkCollapsible
 	} from '@ark-ui/svelte/collapsible'
 	import type { UseCollapsibleProps } from '@ark-ui/svelte/collapsible'
-	import { classNames } from 'syw-common/helpers'
+	import { classNames } from 'syw-common/helpers/ui'
 	import type { CollapseProps } from 'syw-common/types/components'
 
 	const id = $props.id();

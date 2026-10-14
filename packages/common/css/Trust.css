@@ -1,19 +1,36 @@
 /* Trust */
 .Syw-Trust {
-	padding: var(--syw-space-2);
-	margin-bottom: var(--syw-space-5);
+	padding: var(--syw-space-1) var(--syw-space-2);
+	margin-bottom: var(--syw-space-2);
 	border-width: 1px;
 	border-style: solid;
 	border-color: currentColor;
 	border-radius: var(--syw-radius-lg);
 }
-.Syw-Trust > strong {
-	display: block;
-	margin-bottom: var(--syw-space-1);
+.Syw-TrustLabel {
+	display: flex;
+	align-items: center;
+	font-size: var(--syw-text-sm);
+	font-weight: var(--syw-font-weight-bold);
+	/* letter-spacing: var(--syw-letter-spacing-caps); */
+	/* text-transform: uppercase; */
 }
-.Syw-Trust p:last-of-type {
-	margin-top: 0;
+p.Syw-TrustDefinition {
+	font-size: var(--syw-text-xs);
+	margin-top: var(--syw-space-1);
 	margin-bottom: 0;
+}
+.Syw-Trust .Syw-TooltipTrigger {
+	margin: auto 0;
+	display: flex;
+}
+.Syw-TrustIcon {
+	width: var(--syw-space-4);
+	height: var(--syw-space-4);
+	margin-right: var(--syw-space-1);
+}
+.Syw-TrustLabelTooltipIcon {
+	
 }
 /* Trust > Values */
 .Syw-Trust.Syw-Trust_trusted {
@@ -36,7 +53,7 @@
 	color: var(--syw-color-status-unknown);
 	background-color: var(--syw-color-status-unknown-light);
 }
-.Syw-App_active .Syw-Trust_unknown {
-	color: var(--syw-color-status-unknown-light);
-	background-color: var(--syw-color-status-unknown);
+.Syw-Trust.Syw-Trust_none {
+	color: var(--syw-color-status-none);
+	background-color: var(--syw-color-status-none-light);
 }

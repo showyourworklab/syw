@@ -1,5 +1,5 @@
 import type { MutableRefObject } from 'react';
-import type { Manifest } from 'syw-common/types/c2pa';
+import type { Manifest } from 'syw-common/types/data';
 import type { UiState, UiEventHandler } from 'syw-common/types/ui';
 interface UiContextValue extends UiState {
     setElem: (elem: HTMLElement | null) => void;

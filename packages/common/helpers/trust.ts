@@ -1,6 +1,6 @@
 import type { Settings } from '@contentauth/c2pa-web'
 import type { Manifest as C2paManifest, ManifestStore, StatusCodes, ValidationStatus } from '@contentauth/c2pa-types'
-import { C2PA_TRUST_VALUES } from '#constants/c2pa'
+import { TRUST_KEYS } from '#constants/data'
 import { CAWG_IDENTITY_LABEL, TRUST_LIST_FETCH_TIMEOUT, TRUST_LIST_SCOPES, TRUST_LIST_EKUS, TRUST_LIST_REQUESTS_KEY, TRUST_LIST_SOURCES, TRUST_LIST_TYPES, TRUSTED_CODES, UNTRUSTED_CODES } from '#constants/trust'
 import type { ManifestSignatureTrustValue, ManifestTrust, TrustListScope, TrustListSettings, TrustListSource, TrustListType } from '#types/trust'
 
@@ -114,23 +114,23 @@ export const getManifestTrust = (
 	validation: Pick<StatusCodes, 'success' | 'failure'> | null,
 	legacyValidation: Pick<StatusCodes, 'success' | 'failure'> | null = null
 ): ManifestTrust => {
-	if(!validation) return { value: C2PA_TRUST_VALUES.UNKNOWN, identity: null }
+	if(!validation) return { value: TRUST_KEYS.UNKNOWN, identity: null }
 	const hasSuccess = (codes: Pick<StatusCodes, 'success'> | null, code: string) =>
 		Boolean(codes?.success.some(status => status.code === code))
 	const getValue = (codes: Pick<StatusCodes, 'success' | 'failure'>) =>
-		codes.failure.some(({ code }) => !UNTRUSTED_CODES.includes(code)) ? C2PA_TRUST_VALUES.INVALID
-		: hasSuccess(codes, TRUSTED_CODES.CLAIM) ? C2PA_TRUST_VALUES.TRUSTED
-		: C2PA_TRUST_VALUES.VALID
+		codes.failure.some(({ code }) => !UNTRUSTED_CODES.includes(code)) ? TRUST_KEYS.INVALID
+		: hasSuccess(codes, TRUSTED_CODES.CLAIM) ? TRUST_KEYS.TRUSTED
+		: TRUST_KEYS.VALID
 	// The legacy read has more trust lists, so it decides anything the first read didn't trust
 	const value = getValue(validation)
-	const legacyValue = value !== C2PA_TRUST_VALUES.TRUSTED && legacyValidation ? getValue(legacyValidation) : null
+	const legacyValue = value !== TRUST_KEYS.TRUSTED && legacyValidation ? getValue(legacyValidation) : null
 	const hasIdentity = manifest.assertions?.some(({ label }) => label.startsWith(CAWG_IDENTITY_LABEL))
 	const identity: ManifestSignatureTrustValue =
-		hasSuccess(validation, TRUSTED_CODES.IDENTITY) ? C2PA_TRUST_VALUES.TRUSTED
-		: hasSuccess(legacyValidation, TRUSTED_CODES.IDENTITY) ? C2PA_TRUST_VALUES.TRUSTED_LEGACY
-		: C2PA_TRUST_VALUES.VALID
+		hasSuccess(validation, TRUSTED_CODES.IDENTITY) ? TRUST_KEYS.TRUSTED
+		: hasSuccess(legacyValidation, TRUSTED_CODES.IDENTITY) ? TRUST_KEYS.TRUSTED_LEGACY
+		: TRUST_KEYS.VALID
 	return {
-		value: legacyValue === C2PA_TRUST_VALUES.TRUSTED ? C2PA_TRUST_VALUES.TRUSTED_LEGACY : legacyValue ?? value,
+		value: legacyValue === TRUST_KEYS.TRUSTED ? TRUST_KEYS.TRUSTED_LEGACY : legacyValue ?? value,
 		identity: hasIdentity ? identity : null,
 	}
 }

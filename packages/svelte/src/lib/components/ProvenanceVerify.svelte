@@ -1,7 +1,7 @@
 <script lang="ts">
-    import { classNames } from 'syw-common/helpers'
-    import { getVerifyUrl } from 'syw-common/helpers/c2pa'
-    import { VERIFY_BASE_URL } from 'syw-common/constants'
+    import { classNames } from 'syw-common/helpers/ui'
+    import { getVerifyUrl } from 'syw-common/helpers/data'
+    import { VERIFY_BASE_URL } from 'syw-common/constants/ui'
     import { getI18nContext } from '$lib/store/i18n.js'
     import { getDataContext } from '$lib/store/data.js'
 

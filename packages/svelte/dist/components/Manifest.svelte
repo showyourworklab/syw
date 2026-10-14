@@ -1,9 +1,9 @@
 <script lang="ts">
     import { Tabs, useTabs } from '@ark-ui/svelte/tabs';
-	import { classNames, getAvailableTabs, getObjectValue } from 'syw-common/helpers'
-	import { MANIFEST_CONTENT_TAB_KEYS } from 'syw-common/constants'
-    import type { ManifestFieldKey } from 'syw-common/types';
-	import type { Manifest as ManifestData } from 'syw-common/types/c2pa'
+	import { classNames, getAvailableTabs } from 'syw-common/helpers/ui'
+	import { getObjectValue } from 'syw-common/helpers/utils'
+	import { MANIFEST_CONTENT_TAB_KEYS } from 'syw-common/constants/ui'
+	import type { Manifest as ManifestData, ManifestFieldKey } from 'syw-common/types/data'
 	import { getUiContext } from '../store/ui.js'
 	import Collapse from './Collapse.svelte'
 	import ManifestPreview from './ManifestPreview.svelte'

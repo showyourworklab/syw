@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { classNames } from 'syw-common/helpers'
+import { classNames } from 'syw-common/helpers/ui'
 import { useI18nContext } from '$src/context/i18n'
 import { useDataContext } from '$src/context/data'
 import { useUiContext } from '$src/context/ui'

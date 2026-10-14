@@ -27,7 +27,7 @@
 	padding: var(--syw-space-1) var(--syw-space-1) var(--syw-space-1) var(--syw-size-manifest-preview-indent);
 }
 .Syw-ManifestPreviewToggle:hover * {
-	color: var(--syw-color-quaternary);
+	color: var(--syw-color-quinary);
 }
 /* Manifest > Preview > Badge */
 .Syw-ManifestPreviewBadge {
@@ -87,7 +87,7 @@
 }
 .Syw-ManifestPreviewCell_thumb_hover,
 .Syw-ManifestPreview:hover .Syw-ManifestPreviewCell_thumb_hover {
-	border-color: var(--syw-color-quaternary);
+	border-color: var(--syw-color-quinary);
 }
 .Syw-ManifestPreviewCell_thumb img {
 	width: 100%;

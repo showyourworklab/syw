@@ -1,7 +1,7 @@
 import { getContext, setContext } from 'svelte';
 import { writable } from 'svelte/store';
-import { C2PA_DATA_DEFAULT } from 'syw-common/constants/c2pa';
-import { resolveMediaType } from 'syw-common/helpers';
+import { C2PA_DATA_DEFAULT } from 'syw-common/constants/data';
+import { resolveMediaType } from 'syw-common/helpers/data';
 const DATA_CONTEXT_KEY = Symbol('data');
 export default function createDataStore(initial = {}) {
     const src = writable(initial.src ?? null);

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { classNames } from 'syw-common/helpers'
+	import { classNames } from 'syw-common/helpers/ui'
     import Markdown from './Markdown.svelte';
 	import { getDataContext } from '../store/data.js'
 

@@ -1,6 +1,8 @@
 import { useMemo } from 'react'
 import { Drawer as ArkDrawer } from '@ark-ui/react/drawer'
-import { classNames } from 'syw-common/helpers'
+import type { DrawerRootProps } from '@ark-ui/react/drawer'
+import { classNames } from 'syw-common/helpers/ui'
+import type { DrawerProps } from 'syw-common/types/components'
 import Icon from './Icon'
 
 const Drawer = ({
@@ -11,15 +13,16 @@ const Drawer = ({
 	onOpenChange,
 	children,
 	className
-}) => {
-	const handleOpenChange = (event) => {
+}: DrawerProps) => {
+	const handleOpenChange = (event: { open: boolean }) => {
 		onOpenChange(event.open)
 	}
 
+	// Ark only types logical directions, but physical left and right are passed through as is
 	const swipeDirection = useMemo(() => {
-		let safeSwipeDirection = direction
+		let safeSwipeDirection: string = direction
 		if(direction === 'bottom') safeSwipeDirection = 'down'
-		return safeSwipeDirection
+		return safeSwipeDirection as DrawerRootProps['swipeDirection']
 	}, [direction])
 
 	return (

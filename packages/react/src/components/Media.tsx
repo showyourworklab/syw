@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 import type { KeyboardEvent, MouseEvent } from 'react'
-import { classNames, handleA11yClick } from 'syw-common/helpers'
+import { classNames, handleA11yClick } from 'syw-common/helpers/ui'
 import { useUiContext } from '$src/context/ui'
 import { useDataContext } from '$src/context/data'
 import Image from './Image'

@@ -1,6 +1,6 @@
 import SywReact from './SywReact'
-import { parseSywData as parseSywDataInternal, disposeSywData } from 'syw-common/helpers/c2pa'
-import type { SywData } from 'syw-common/types/c2pa'
+import { parseSywData as parseSywDataInternal, disposeSywData } from 'syw-common/helpers/data'
+import type { SywData } from 'syw-common/types/data'
 import type { SywReactProps } from './types'
 
 const parseSywData = (

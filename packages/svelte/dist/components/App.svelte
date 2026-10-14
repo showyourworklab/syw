@@ -2,10 +2,11 @@
 	import { onMount, onDestroy, untrack } from 'svelte'
 	import type { HTMLAttributes } from 'svelte/elements'
 	import 'syw-common/css/styles.css'
-	import { classNames, resolveMediaType } from 'syw-common/helpers'
-	import { VARIANT_DEFAULT } from 'syw-common/constants'
+	import { classNames } from 'syw-common/helpers/ui'
+	import { resolveMediaType } from 'syw-common/helpers/data'
+	import { VARIANT_DEFAULT } from 'syw-common/constants/ui'
 	import { LOCALE_DEFAULT } from 'syw-common/constants/i18n'
-	import { C2PA_MEDIA_TYPES, C2PA_PHASES } from 'syw-common/constants/c2pa'
+	import { MEDIA_TYPES, PHASE_KEYS } from 'syw-common/constants/data'
 	import type { SywEmbedProps } from 'syw-common/types/embed'
 	import createC2paStore, { setC2paContext } from '../store/c2pa.js'
 	import createDataStore, { setDataContext } from '../store/data.js'
@@ -35,7 +36,7 @@
 		...props
 	}: SywEmbedProps & Omit<HTMLAttributes<HTMLDivElement>, 'class'> & { class?: string | null } = $props()
 
-	const mediaType = $derived(mediaTypeProp ?? C2PA_MEDIA_TYPES.UNKNOWN)
+	const mediaType = $derived(mediaTypeProp ?? MEDIA_TYPES.UNKNOWN)
 
 	let mounted = $state(false)
 	let elemRef: HTMLElement | null = $state(null)
@@ -98,7 +99,7 @@
 		prevSrc = src
 
 		;(async () => {
-			dataStore.setPhase(C2PA_PHASES.LOADING)
+			dataStore.setPhase(PHASE_KEYS.LOADING)
 			let c2paInstance = $c2pa
 			if (!c2paInstance) c2paInstance = await c2paStore.init(c2paOptions)
 			const newData = await c2paStore.read({ src, mediaType })

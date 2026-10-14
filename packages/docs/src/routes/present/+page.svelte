@@ -53,8 +53,8 @@
 		--syw-color-secondary-light: #faf7f0;
 		--syw-color-secondary-dark: #877a54;
 		--syw-color-tertiary: rgba(255,229,217,1);
-		--syw-color-quaternary: rgba(153,1,1,1);
-		--syw-color-quaternary-light: rgba(250,246,245,1); */
+		--syw-color-quinary: rgba(153,1,1,1);
+		--syw-color-quinary-light: rgba(250,246,245,1); */
 	}
 	:global(#root) {
 		width: 100%;

@@ -1,6 +1,6 @@
 import ManifestTable from './ManifestTable'
-import { classNames } from 'syw-common/helpers'
-import { MANIFEST_PRIMARY_KEYS } from 'syw-common/constants'
+import { classNames } from 'syw-common/helpers/ui'
+import { MANIFEST_PRIMARY_KEYS } from 'syw-common/constants/ui'
 import type { ManifestContentProps } from 'syw-common/types/components'
 import Trust from './Trust'
 import ManifestContentTabs from './ManifestContentTabs'
@@ -11,15 +11,15 @@ function ManifestContent({ tabKeys, manifest }: ManifestContentProps) {
 		<div
 			className={classNames('ManifestContent')}
 		>
-			<Trust
-				manifest={manifest}
-			/>
 			<div
 				className={classNames('ManifestContentInner')}
 			>
 				<div
 					className={classNames('ManifestContentPrimary')}
 				>
+					<Trust
+						manifest={manifest}
+					/>
 					<ManifestTable
 						keys={MANIFEST_PRIMARY_KEYS}
 						manifest={manifest}

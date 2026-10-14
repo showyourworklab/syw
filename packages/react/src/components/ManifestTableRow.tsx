@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
-import { classNames } from 'syw-common/helpers'
+import { classNames } from 'syw-common/helpers/ui'
 import { getDateString } from 'syw-common/helpers/i18n'
-import type { ManifestGeneratorEntry, ManifestTimestamp } from 'syw-common/types/c2pa'
+import type { ManifestGeneratorEntry, ManifestTimestamp } from 'syw-common/types/data'
 import type { ManifestTableRowProps } from 'syw-common/types/components'
 import { useI18nContext } from '$src/context/i18n'
 import Generator from './Generator'
@@ -15,7 +15,7 @@ function ManifestTableRow({ type, manifest }: ManifestTableRowProps) {
 		manifest[type]
 	, [manifest, type]);
 
-	const manifestType = useMemo(() =>
+	const manifestTypeTextKey = useMemo(() =>
 		String(manifest?.type?.key)
 	, [manifest]);
 
@@ -30,7 +30,7 @@ function ManifestTableRow({ type, manifest }: ManifestTableRowProps) {
 		}
 	}, [type, value, locale]);
 
-	if(formattedValue === null || formattedValue === undefined || formattedValue === "") return
+	if(formattedValue === null || formattedValue === undefined || formattedValue === "" || (Array.isArray(formattedValue) && !formattedValue.length)) return
 
 	return (
 		<li
@@ -40,10 +40,10 @@ function ManifestTableRow({ type, manifest }: ManifestTableRowProps) {
 				className={classNames('ManifestTableRowLabel')}
 			>
 				<span>
-					{getText(type, manifestType)}
+					{getText(type, manifestTypeTextKey)}
 				</span>
 				<Tooltip
-					content={getText(type, manifestType, "definition")}
+					content={getText(type, manifestTypeTextKey, "definition")}
 				>
 					<Icon
 						type="info"

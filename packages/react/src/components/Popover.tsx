@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { Popover as ArkPopover } from '@ark-ui/react/popover'
-import { classNames } from 'syw-common/helpers'
-import type { PopoverProps } from 'syw-common/types'
+import { classNames } from 'syw-common/helpers/ui'
+import type { PopoverProps } from 'syw-common/types/components'
 
 const Popover = ({
 	open = false,

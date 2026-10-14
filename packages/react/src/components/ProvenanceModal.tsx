@@ -1,4 +1,4 @@
-import { classNames } from 'syw-common/helpers'
+import { classNames } from 'syw-common/helpers/ui'
 import { useDataContext, useI18nContext, useUiContext } from '$src/context'
 import Modal from './Modal'
 import Provenance from './Provenance'

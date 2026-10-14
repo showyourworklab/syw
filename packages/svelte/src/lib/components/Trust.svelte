@@ -1,14 +1,15 @@
 <script lang="ts">
 	import type { TrustProps } from 'syw-common/types/components'
-	import { C2PA_TRUST_VALUES } from 'syw-common/constants/c2pa'
-	import { classNames } from 'syw-common/helpers'
+	import { classNames } from 'syw-common/helpers/ui'
+    import { TRUST_KEYS } from 'syw-common/constants/data';
 	import { getI18nContext } from '$lib/store/i18n.js'
+    import Icon from './Icon.svelte';
 
 	const { locale, getText } = getI18nContext();
 
 	const { manifest }: TrustProps = $props()
 
-	const isNotTrusted = $derived(manifest.trust.value !== C2PA_TRUST_VALUES.TRUSTED)
+	const isNotTrusted = $derived(manifest.trust.value !== TRUST_KEYS.TRUSTED)
 </script>
 
 {#if isNotTrusted}
@@ -18,13 +19,27 @@
 			`Trust_${manifest.trust.value}`,
 		)}
 	>
-		<strong
-			class={'TrustLabel'}
+		<div
+			class={classNames('TrustLabel')}
 		>
-			{getText($locale, 'trust', manifest.trust.value)}
-		</strong>
+			<Icon
+				type={manifest.trust.value}
+				className={classNames('TrustIcon')}
+			/>
+			<span>
+				{getText($locale, 'trust', manifest.trust.value)}
+			</span>
+		</div>
+		<!-- <Tooltip
+			content={getText('trust', manifest.trust.value, 'definition')}
+		>
+			<Icon
+				type="info"
+				class={classNames('TrustLabelTooltipIcon')}
+			/>
+		</Tooltip> -->
 		<p
-			class={'TrustDefinition'}
+			class={classNames('TrustDefinition')}
 		>
 			{getText($locale, 'trust', manifest.trust.value, 'definition')}
 		</p>

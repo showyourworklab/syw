@@ -1,4 +1,4 @@
-import { classNames } from 'syw-common/helpers'
+import { classNames } from 'syw-common/helpers/ui'
 import { useI18nContext } from '$src/context/i18n'
 import { useUiContext } from '$src/context/ui'
 import Collapse from './Collapse'

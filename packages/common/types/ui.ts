@@ -1,6 +1,5 @@
-import type { VARIANT_KEYS } from '#constants/index'
-import type { SYW_ICONS } from '#constants/ui'
-import type { C2paTrustValue, Manifest, ManifestThumbnail, ManifestTypeKey } from './c2pa.js'
+import type { VARIANT_KEYS, SYW_ICONS } from '#constants/ui'
+import type { TrustKey, Manifest, ManifestTypeKey } from './data.js'
 
 export type Variant = typeof VARIANT_KEYS[number]
 
@@ -13,7 +12,7 @@ export type SywIconNode = [
 
 export type SywIconType = keyof typeof SYW_ICONS
 
-export type LucideIconType = C2paTrustValue | ManifestTypeKey | 'origin' | 'missing' | 'up' | 'down' | 'close' | 'info'
+export type LucideIconType = TrustKey | ManifestTypeKey | 'missing' | 'up' | 'down' | 'close' | 'info'
 
 export type IconType = LucideIconType | SywIconType
 

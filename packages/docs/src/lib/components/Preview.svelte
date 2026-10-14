@@ -3,7 +3,7 @@
 	import 'syw-docs/src/styles.css'
 	import { DEMO_IMAGES } from 'syw-common/constants/demo'
 	import { LOCALE_DEFAULT, DICTIONARIES } from 'syw-common/constants/i18n'
-	import { VARIANT_DEFAULT, VARIANT_KEYS } from 'syw-common/constants'
+	import { VARIANT_DEFAULT, VARIANT_KEYS } from 'syw-common/constants/ui'
 	const locales = Object.keys(DICTIONARIES)
 
 	const { SywSvelte } = $props();

@@ -1,7 +1,7 @@
 /* Tooltip > Content */
 .Syw-TooltipContent {
-	--syw-tooltip-text: var(--syw-color-secondary);
-	--syw-tooltip-background: var(--syw-color-primary);
+	--syw-tooltip-text: var(--syw-color-primary);
+	--syw-tooltip-background: var(--syw-color-quaternary);
 	--arrow-background: var(--syw-tooltip-text);
 	--arrow-size: 6px;
 	max-width: 300px;

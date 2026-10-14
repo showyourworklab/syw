@@ -1,8 +1,8 @@
 import { useMemo } from 'react'
 import type { ReactNode } from 'react'
-import { C2PA_PHASES } from 'syw-common/constants/c2pa'
-import { resolveMediaType } from 'syw-common/helpers'
-import type { MediaType, SywMediaData } from 'syw-common/types/c2pa'
+import { PHASE_KEYS } from 'syw-common/constants/data'
+import { resolveMediaType } from 'syw-common/helpers/data'
+import type { MediaType, SywMediaData } from 'syw-common/types/data'
 import { DataContext } from '$src/context/data'
 import useC2pa from '$src/hooks/useC2pa'
 
@@ -27,7 +27,7 @@ const DataProvider = ({
 		mediaType: resolveMediaType(
 			src,
 			mediaType,
-			c2paData.phase === C2PA_PHASES.READY || c2paData.phase === C2PA_PHASES.ERROR
+			c2paData.phase === PHASE_KEYS.READY || c2paData.phase === PHASE_KEYS.ERROR
 				? c2paData.mediaType
 				: null
 		),

@@ -1,6 +1,6 @@
-import { classNames } from 'syw-common/helpers'
-import { getVerifyUrl } from 'syw-common/helpers/c2pa'
-import { VERIFY_BASE_URL } from 'syw-common/constants'
+import { classNames } from 'syw-common/helpers/ui'
+import { getVerifyUrl } from 'syw-common/helpers/data'
+import { VERIFY_BASE_URL } from 'syw-common/constants/ui'
 import { useDataContext, useI18nContext } from '$src/context'
 
 const ProvenanceVerify = () => {

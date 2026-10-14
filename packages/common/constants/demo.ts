@@ -9,20 +9,20 @@ interface DemoImage {
 
 // Hosted at https://github.com/showyourworklab/c2pa-images
 export const DEMO_IMAGES: DemoImage[] = [
-	{
-		src: 'https://iptc.org/std/MediaProvenance/SampleContent/IPTC/christmas-market-iptc-signed.jpg',
-		title: {
-			en_US: 'IPTC sample',
-			no_NO: 'IPTC sample'
-		}
-	},
-	{
-		src: 'https://iptc.org/wp-content/uploads/2026/09/Bergen-2026-attendees-cropped-2048x970.png',
-		title: {
-			en_US: 'IPTC Bergen',
-			no_NO: 'IPTC Bergen'
-		}
-	},
+	// {
+	// 	src: 'https://iptc.org/std/MediaProvenance/SampleContent/IPTC/christmas-market-iptc-signed.jpg',
+	// 	title: {
+	// 		en_US: 'IPTC sample',
+	// 		no_NO: 'IPTC sample'
+	// 	}
+	// },
+	// {
+	// 	src: 'https://iptc.org/wp-content/uploads/2026/09/Bergen-2026-attendees-cropped-2048x970.png',
+	// 	title: {
+	// 		en_US: 'IPTC Bergen',
+	// 		no_NO: 'IPTC Bergen'
+	// 	}
+	// },
 	// {
 	// 	src: 'https://showyourworklab.github.io/c2pa-images/leica-nora-syria-2.jpg',
 	// 	title: {
@@ -42,12 +42,12 @@ export const DEMO_IMAGES: DemoImage[] = [
 	// 	title: {
 	// 		en_US: 'AI-edited',
 	// 		no_NO: 'AI-edited',
-	// 		sv_SE: 'AI-edited',
+	// 		// sv_SE: 'AI-edited',
 	// 	},
 	// 	caption: {
 	// 		en_US: '',
 	// 		no_NO: '',
-	// 		sv_SE: '',
+	// 		// sv_SE: '',
 	// 	},
 	// 	byline: 'Nora Savosnick'
 	// },

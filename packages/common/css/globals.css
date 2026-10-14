@@ -15,20 +15,24 @@
 	/* --syw-color-tertiary-light: rgb(255, 255, 255); */
 	/* --syw-color-tertiary-dark: rgb(163, 163, 163); */
 	/* Colors > Quaternary */
-	--syw-color-quaternary: rgb(5, 51, 255);
-	/* --syw-color-quaternary-light: rgb(223, 227, 252); */
-	/* --syw-color-quaternary-dark: rgb(0, 46, 196); */
+	--syw-color-quaternary: rgb(222, 227, 236);
+	/* Colors > Quinary */
+	--syw-color-quinary: rgb(5, 51, 255);
+	/* --syw-color-quinary-light: rgb(223, 227, 252); */
+	/* --syw-color-quinary-dark: rgb(0, 46, 196); */
 	/* Colors > Components */
 	--syw-color-status-trusted: rgb(22, 126, 22);
 	--syw-color-status-trusted-legacy: rgb(126, 126, 22);
 	--syw-color-status-valid: rgb(126, 126, 22);
 	--syw-color-status-invalid: rgb(255, 0, 0);
-	--syw-color-status-unknown: var(--syw-color-primary);
+	--syw-color-status-unknown: rgb(255, 0, 0);
+	--syw-color-status-none: rgb(255, 0, 0);
 	--syw-color-status-trusted-light: rgb(205, 245, 205);
 	--syw-color-status-trusted-legacy-light: rgb(245, 245, 205);
 	--syw-color-status-valid-light: rgb(245, 245, 205);
 	--syw-color-status-invalid-light: rgb(255, 221, 221);
-	--syw-color-status-unknown-light: var(--syw-color-secondary);
+	--syw-color-status-unknown-light: rgb(255, 221, 221);
+	--syw-color-status-none-light: rgb(255, 221, 221);
 	--syw-color-type: rgb(126, 126, 22);
 	--syw-color-type-light: rgb(245, 245, 205);
 	--syw-color-backdrop: hsla(229, 29%, 11%, 0.25);

@@ -1,4 +1,4 @@
-import { classNames } from 'syw-common/helpers'
+import { classNames } from 'syw-common/helpers/ui'
 import type { BadgeProps } from 'syw-common/types/components'
 import Tooltip from './Tooltip'
 import type { TooltipProps } from './Tooltip'

@@ -1,4 +1,4 @@
-import type { Manifest as ManifestData } from 'syw-common/types/c2pa';
+import type { Manifest as ManifestData } from 'syw-common/types/data';
 type $$ComponentProps = {
     manifest: ManifestData;
     previewRef?: ((el: HTMLElement | null) => void) | null;

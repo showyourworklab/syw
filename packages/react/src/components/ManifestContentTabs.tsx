@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { Tabs } from '@ark-ui/react/tabs'
-import { classNames, getAvailableTabs } from 'syw-common/helpers'
+import { classNames, getAvailableTabs } from 'syw-common/helpers/ui'
 import type { ManifestContentTabsProps } from 'syw-common/types/components'
 import Map from './Map'
 import Actions from './Actions'

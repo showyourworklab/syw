@@ -1,8 +1,8 @@
 import { getContext, setContext } from 'svelte'
 import { writable } from 'svelte/store'
-import { C2PA_DATA_DEFAULT } from 'syw-common/constants/c2pa'
-import { resolveMediaType } from 'syw-common/helpers'
-import type { SywData, SywMediaData } from 'syw-common/types/c2pa'
+import { C2PA_DATA_DEFAULT } from 'syw-common/constants/data'
+import { resolveMediaType } from 'syw-common/helpers/data'
+import type { SywData, SywMediaData } from 'syw-common/types/data'
 
 const DATA_CONTEXT_KEY = Symbol('data')
 

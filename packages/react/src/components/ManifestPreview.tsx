@@ -1,6 +1,6 @@
 import type { KeyboardEvent, RefObject } from 'react'
-import { MANIFEST_PREVIEW_TITLE_KEYS } from 'syw-common/constants'
-import { handleA11yClick, classNames } from 'syw-common/helpers'
+import { MANIFEST_PREVIEW_TITLE_KEYS } from 'syw-common/constants/ui'
+import { handleA11yClick, classNames } from 'syw-common/helpers/ui'
 import { getDateString } from 'syw-common/helpers/i18n'
 import type { ManifestPreviewProps } from 'syw-common/types/components'
 import { useI18nContext } from '$src/context/i18n'

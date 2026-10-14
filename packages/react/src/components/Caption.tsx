@@ -1,4 +1,4 @@
-import { classNames } from 'syw-common/helpers'
+import { classNames } from 'syw-common/helpers/ui'
 import { useDataContext } from '$src/context/data'
 import Markdown from './Markdown'
 

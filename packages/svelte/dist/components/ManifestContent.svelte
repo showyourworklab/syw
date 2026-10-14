@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { classNames } from 'syw-common/helpers'
-	import { MANIFEST_PRIMARY_KEYS } from 'syw-common/constants'
+	import { classNames } from 'syw-common/helpers/ui'
+	import { MANIFEST_PRIMARY_KEYS } from 'syw-common/constants/ui'
 	import type { ManifestContentProps } from 'syw-common/types/components'
     import Trust from './Trust.svelte';
 	import ManifestTable from './ManifestTable.svelte'

@@ -1,21 +1,21 @@
 <script lang="ts">
-	import { Icon as LucideGenericIconComponent } from '@lucide/svelte'
+	import { Icon as LucideGenericIconComponent, ShieldAlert, ShieldCheck, ShieldQuestionMark, ShieldX } from '@lucide/svelte'
 	import type { LucideIcon } from '@lucide/svelte'
-	import BadgeInfo from '@lucide/svelte/icons/badge-info'
 	import Camera from '@lucide/svelte/icons/camera'
 	import Check from '@lucide/svelte/icons/check'
 	import Ellipsis from '@lucide/svelte/icons/ellipsis'
 	import SquarePen from '@lucide/svelte/icons/square-pen'
 	import Sparkles from '@lucide/svelte/icons/sparkles'
+	import WandSparkles from '@lucide/svelte/icons/wand-sparkles'
 	import TriangleAlert from '@lucide/svelte/icons/triangle-alert'
+	import Slash from '@lucide/svelte/icons/slash'
 	import ImageOff from '@lucide/svelte/icons/image-off'
 	import ChevronUp from '@lucide/svelte/icons/chevron-up'
 	import ChevronDown from '@lucide/svelte/icons/chevron-down'
 	import CircleQuestionMark from '@lucide/svelte/icons/circle-question-mark'
 	import X from '@lucide/svelte/icons/x'
-	import { ICON_DEFAULT_SIZE, ICON_DEFAULT_STROKE_WIDTH } from 'syw-common/constants'
-	import { SYW_ICONS } from 'syw-common/constants/ui'
-	import { classNames, isSywIcon } from 'syw-common/helpers'
+	import { ICON_DEFAULT_SIZE, ICON_DEFAULT_STROKE_WIDTH, SYW_ICONS } from 'syw-common/constants/ui'
+	import { classNames, isSywIcon } from 'syw-common/helpers/ui'
 	import type { IconProps } from 'syw-common/types/components'
 	import type { LucideIconType } from 'syw-common/types/ui'
 
@@ -27,16 +27,21 @@
 	}: IconProps = $props()
 
 	const LUCIDE_ICONS: Record<LucideIconType, LucideIcon> = {
-		origin: BadgeInfo,
+		// Trust
 		validating: Ellipsis,
-		trusted: Check,
-		trusted_legacy: Check,
-		valid: Check,
-		invalid: X,
-		unknown: TriangleAlert,
+		trusted: ShieldCheck,
+		trusted_legacy: ShieldAlert,
+		valid: ShieldAlert,
+		invalid: ShieldX,
+		unknown: ShieldQuestionMark,
+		none: ShieldX,
+		// Type
 		camera: Camera,
 		edit: SquarePen,
-		ai: Sparkles,
+		ai_create: Sparkles,
+		ai_edit: WandSparkles,
+		unknown_create: Slash,
+		// Misc.
 		missing: ImageOff,
 		up: ChevronUp,
 		down: ChevronDown,

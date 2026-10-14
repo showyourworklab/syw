@@ -1,14 +1,16 @@
 import type { TrustProps } from 'syw-common/types/components'
-import { C2PA_TRUST_VALUES } from 'syw-common/constants/c2pa'
-import { classNames } from 'syw-common/helpers'
+import { TRUST_KEYS } from 'syw-common/constants/data'
+import { classNames } from 'syw-common/helpers/ui'
 import { useI18nContext } from '$src/context'
+// import Tooltip from './Tooltip'
+import Icon from './Icon'
 
 function Trust({
 	manifest
 }: TrustProps) {
 	const { getText } = useI18nContext()
 
-	const isNotTrusted = manifest.trust.value !== C2PA_TRUST_VALUES.TRUSTED
+	const isNotTrusted = manifest.trust.value !== TRUST_KEYS.TRUSTED
 
 	return (
 		isNotTrusted ?
@@ -19,13 +21,27 @@ function Trust({
 				)}
 				
 			>
-				<strong
-					className={'TrustLabel'}
+				<div
+					className={classNames('TrustLabel')}
 				>
-					{getText('trust', manifest.trust.value)}
-				</strong>
+					<Icon
+						type={manifest.trust.value}
+						className={classNames('TrustIcon')}
+					/>
+					<span>
+						{getText('trust', manifest.trust.value)}
+					</span>
+				</div>
+				{/* <Tooltip
+					content={getText('trust', manifest.trust.value, 'definition')}
+				>
+					<Icon
+						type="info"
+						className={classNames('TrustLabelTooltipIcon')}
+					/>
+				</Tooltip> */}
 				<p
-					className={'TrustDefinition'}
+					className={classNames('TrustDefinition')}
 				>
 					{getText('trust', manifest.trust.value, 'definition')}
 				</p>

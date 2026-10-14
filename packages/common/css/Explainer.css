@@ -47,7 +47,7 @@ button.Syw-ExplainerClose svg {
     height: var(--syw-space-3);
 }
 button.Syw-ExplainerClose:hover {
-	color: var(--syw-color-quaternary);
+	color: var(--syw-color-quinary);
 }
 /* Explainer > Lede */
 p.Syw-ExplainerLede {

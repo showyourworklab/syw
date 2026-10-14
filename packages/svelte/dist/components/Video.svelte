@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { classNames } from 'syw-common/helpers'
+	import { classNames } from 'syw-common/helpers/ui'
 	import { getDataContext } from '../store/data.js'
 
 	let mounted = $state(false);

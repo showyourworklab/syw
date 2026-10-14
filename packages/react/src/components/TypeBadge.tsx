@@ -1,4 +1,4 @@
-import { classNames } from 'syw-common/helpers'
+import { classNames } from 'syw-common/helpers/ui'
 import type { TypeBadgeProps } from 'syw-common/types/components'
 import { useI18nContext } from '$src/context/i18n'
 import Badge from './Badge'

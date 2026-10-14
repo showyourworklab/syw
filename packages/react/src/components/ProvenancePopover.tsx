@@ -1,4 +1,4 @@
-import { classNames } from 'syw-common/helpers'
+import { classNames } from 'syw-common/helpers/ui'
 import { useI18nContext, useUiContext, useDataContext } from '$src/context'
 import Popover from './Popover'
 import Provenance from './Provenance'
@@ -14,7 +14,7 @@ const ProvenancePopover = () => {
 	const { getText } = useI18nContext()
 	const { mediaType } = useDataContext()
 
-	const handleOpenChange = (newOpen, event) => {
+	const handleOpenChange = (newOpen: boolean, event?: unknown) => {
 		if(newOpen) {
 			openProvenance(event)
 		} else {

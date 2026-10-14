@@ -2,9 +2,11 @@ import { getContext, setContext } from 'svelte'
 import { writable, get } from 'svelte/store'
 import { createC2pa } from '@contentauth/c2pa-web'
 import type { C2pa } from '@contentauth/c2pa-web'
-import { C2PA_DATA_DEFAULT, C2PA_PHASES, C2PA_TRUST_VALUES } from 'syw-common/constants/c2pa'
-import { getC2paConfig, prepareData, disposeSywData } from 'syw-common/helpers/c2pa'
-import type { C2paOptions, MediaType, SywData } from 'syw-common/types/c2pa'
+import { C2PA_DATA_DEFAULT, PHASE_KEYS, TRUST_KEYS } from 'syw-common/constants/data'
+import { getC2paConfig } from 'syw-common/helpers/c2pa'
+import { prepareData, disposeSywData } from 'syw-common/helpers/data'
+import type { C2paOptions } from 'syw-common/types/c2pa'
+import type { MediaType, SywData } from 'syw-common/types/data'
 
 const C2PA_CONTEXT_KEY = Symbol('c2pa')
 
@@ -33,8 +35,8 @@ const createC2paStore = () => {
 		} catch (err) {
 			data.set({
 				...C2PA_DATA_DEFAULT,
-				phase: C2PA_PHASES.ERROR,
-				trust: C2PA_TRUST_VALUES.UNKNOWN,
+				phase: PHASE_KEYS.ERROR,
+				trust: TRUST_KEYS.UNKNOWN,
 				error: err as Error
 			})
 			return null

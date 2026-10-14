@@ -1,4 +1,3 @@
+import type { ProvenanceDrawerProps } from 'syw-common/types/components';
+declare const ProvenanceDrawer: ({ direction }: ProvenanceDrawerProps) => import("react").JSX.Element;
 export default ProvenanceDrawer;
-declare function ProvenanceDrawer({ direction }: {
-    direction: any;
-}): import("react").JSX.Element;

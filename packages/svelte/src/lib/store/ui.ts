@@ -1,7 +1,7 @@
 import { getContext, setContext } from 'svelte'
 import { writable, get } from 'svelte/store'
-import { VARIANT_DEFAULT } from 'syw-common/constants/index'
-import type { Manifest } from 'syw-common/types/c2pa'
+import { VARIANT_DEFAULT } from 'syw-common/constants/ui'
+import type { Manifest } from 'syw-common/types/data'
 import type { MapOptions, UiEventHandler, Variant } from 'syw-common/types/ui'
 
 const UI_CONTEXT_KEY = Symbol('ui')

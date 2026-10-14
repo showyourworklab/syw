@@ -1,5 +1,5 @@
 import type { IptcDigitalSourceType } from "#constants/iptc";
-import { IPTC_DIGITAL_SOURCE_TYPES, IPTC_DIGITAL_SOURCE_TYPES_AI, IPTC_DIGITAL_SOURCE_TYPES_BASE_URI, IPTC_DIGITAL_SOURCE_TYPES_CAMERA } from "#constants/iptc";
+import { IPTC_DIGITAL_SOURCE_TYPES, IPTC_DIGITAL_SOURCE_TYPES_AI, IPTC_DIGITAL_SOURCE_TYPES_AI_COMPOSITE, IPTC_DIGITAL_SOURCE_TYPES_BASE_URI, IPTC_DIGITAL_SOURCE_TYPES_CAMERA } from "#constants/iptc";
 
 // export const getIptcDigitalSourceType = (value: string | null | undefined): IptcDigitalSourceType | undefined => {
 // 	const iptcDigitalSourceType = getIptcDigitalSourceTypeData(value)
@@ -31,3 +31,6 @@ export const isIptcDigitalSourceTypeCamera = (digitalSourceTypeKey?: string | nu
 
 export const isIptcDigitalSourceTypeAi = (digitalSourceTypeKey?: string | null) =>
 	digitalSourceTypeKey && IPTC_DIGITAL_SOURCE_TYPES_AI.includes(digitalSourceTypeKey)
+
+export const isIptcDigitalSourceTypeAiComposite = (digitalSourceTypeKey?: string | null) =>
+	digitalSourceTypeKey && IPTC_DIGITAL_SOURCE_TYPES_AI_COMPOSITE.includes(digitalSourceTypeKey)

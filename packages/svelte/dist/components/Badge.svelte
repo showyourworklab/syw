@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { classNames } from 'syw-common/helpers'
+	import { classNames } from 'syw-common/helpers/ui'
 	import type { BadgeProps } from 'syw-common/types/components'
     import Tooltip from './Tooltip.svelte'
 	import type { TooltipProps } from './Tooltip.svelte'

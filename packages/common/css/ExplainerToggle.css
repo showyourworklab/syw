@@ -14,7 +14,7 @@ button.Syw-ExplainerToggle {
 	align-items: center;
 }
 button.Syw-ExplainerToggle:hover {
-	color: var(--syw-color-quaternary);
+	color: var(--syw-color-quinary);
 	background-color: var(--syw-color-secondary);
 	border-color: var(--syw-color-secondary);
 }
@@ -26,7 +26,7 @@ button.Syw-ExplainerToggle[aria-pressed="true"] {
     border-bottom-left-radius: 0;
 }
 button.Syw-ExplainerToggle[aria-pressed="true"]:hover {
-	color: var(--syw-color-quaternary);
+	color: var(--syw-color-quinary);
 }
 button.Syw-ExplainerToggle svg {
 	width: var(--syw-space-4);

@@ -1,13 +1,13 @@
-import type { SywData, SywMediaData } from 'syw-common/types/c2pa';
+import type { SywData, SywMediaData } from 'syw-common/types/data';
 export default function createDataStore(initial?: Partial<Pick<SywMediaData, 'src' | 'alt' | 'caption' | 'byline' | 'mediaType'>>): {
     src: import("svelte/store").Writable<string | null>;
     alt: import("svelte/store").Writable<string | null>;
     caption: import("svelte/store").Writable<string | null>;
     byline: import("svelte/store").Writable<string | null>;
     phase: import("svelte/store").Writable<"idle" | "loading" | "ready" | "error">;
-    trust: import("svelte/store").Writable<"validating" | "unknown" | "trusted" | "trusted_legacy" | "valid" | "invalid">;
-    types: import("svelte/store").Writable<import("syw-common/types/c2pa").ManifestType[]>;
-    manifests: import("svelte/store").Writable<import("syw-common/types/c2pa").Manifest[]>;
+    trust: import("svelte/store").Writable<"unknown" | "validating" | "trusted" | "trusted_legacy" | "valid" | "invalid" | "none">;
+    types: import("svelte/store").Writable<import("syw-common/types/data").ManifestType[]>;
+    manifests: import("svelte/store").Writable<import("syw-common/types/data").Manifest[]>;
     mediaType: import("svelte/store").Writable<"unknown" | "image" | "video">;
     provenance: import("svelte/store").Writable<import("syw-common/types/c2pa").C2paProvenance | null>;
     reader: import("svelte/store").Writable<import("@contentauth/c2pa-web").Reader | null>;
@@ -33,9 +33,9 @@ export declare const setDataContext: (store: DataStore) => {
     caption: import("svelte/store").Writable<string | null>;
     byline: import("svelte/store").Writable<string | null>;
     phase: import("svelte/store").Writable<"idle" | "loading" | "ready" | "error">;
-    trust: import("svelte/store").Writable<"validating" | "unknown" | "trusted" | "trusted_legacy" | "valid" | "invalid">;
-    types: import("svelte/store").Writable<import("syw-common/types/c2pa").ManifestType[]>;
-    manifests: import("svelte/store").Writable<import("syw-common/types/c2pa").Manifest[]>;
+    trust: import("svelte/store").Writable<"unknown" | "validating" | "trusted" | "trusted_legacy" | "valid" | "invalid" | "none">;
+    types: import("svelte/store").Writable<import("syw-common/types/data").ManifestType[]>;
+    manifests: import("svelte/store").Writable<import("syw-common/types/data").Manifest[]>;
     mediaType: import("svelte/store").Writable<"unknown" | "image" | "video">;
     provenance: import("svelte/store").Writable<import("syw-common/types/c2pa").C2paProvenance | null>;
     reader: import("svelte/store").Writable<import("@contentauth/c2pa-web").Reader | null>;
@@ -60,9 +60,9 @@ export declare const getDataContext: () => {
     caption: import("svelte/store").Writable<string | null>;
     byline: import("svelte/store").Writable<string | null>;
     phase: import("svelte/store").Writable<"idle" | "loading" | "ready" | "error">;
-    trust: import("svelte/store").Writable<"validating" | "unknown" | "trusted" | "trusted_legacy" | "valid" | "invalid">;
-    types: import("svelte/store").Writable<import("syw-common/types/c2pa").ManifestType[]>;
-    manifests: import("svelte/store").Writable<import("syw-common/types/c2pa").Manifest[]>;
+    trust: import("svelte/store").Writable<"unknown" | "validating" | "trusted" | "trusted_legacy" | "valid" | "invalid" | "none">;
+    types: import("svelte/store").Writable<import("syw-common/types/data").ManifestType[]>;
+    manifests: import("svelte/store").Writable<import("syw-common/types/data").Manifest[]>;
     mediaType: import("svelte/store").Writable<"unknown" | "image" | "video">;
     provenance: import("svelte/store").Writable<import("syw-common/types/c2pa").C2paProvenance | null>;
     reader: import("svelte/store").Writable<import("@contentauth/c2pa-web").Reader | null>;

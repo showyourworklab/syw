@@ -1,6 +1,6 @@
 import { getContext, setContext } from 'svelte';
 import { writable, get } from 'svelte/store';
-import { VARIANT_DEFAULT } from 'syw-common/constants/index';
+import { VARIANT_DEFAULT } from 'syw-common/constants/ui';
 const UI_CONTEXT_KEY = Symbol('ui');
 export default function createUiStore() {
     const elem = writable(null);

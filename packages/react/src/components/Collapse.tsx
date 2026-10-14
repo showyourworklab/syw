@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from 'react'
 import { Collapsible as ArkCollapsible, useCollapsible as useArkCollapsible } from '@ark-ui/react/collapsible'
-import { classNames } from 'syw-common/helpers'
+import { classNames } from 'syw-common/helpers/ui'
 import type { CollapseProps } from 'syw-common/types/components'
 
 const Collapse = ({

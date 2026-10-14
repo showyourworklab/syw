@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Drawer as ArkDrawer } from '@ark-ui/svelte/drawer'
-	import { classNames } from 'syw-common/helpers'
+	import { classNames } from 'syw-common/helpers/ui'
 	import Icon from './Icon.svelte'
 
 	let {

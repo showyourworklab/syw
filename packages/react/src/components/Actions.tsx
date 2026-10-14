@@ -1,9 +1,9 @@
 import type { ActionsProps } from 'syw-common/types/components'
 import { useI18nContext } from '$src/context/i18n'
-import { classNames } from 'syw-common/helpers'
+import { classNames } from 'syw-common/helpers/ui'
+import { isIptcDigitalSourceTypeAi } from 'syw-common/helpers/iptc'
 import Tooltip from './Tooltip'
 import Icon from './Icon'
-import { isIptcDigitalSourceTypeAi } from 'syw-common/helpers/iptc'
 
 const Actions = ({
 	actions

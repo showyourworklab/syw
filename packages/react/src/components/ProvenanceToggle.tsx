@@ -1,5 +1,5 @@
 import type { MouseEvent } from 'react'
-import { classNames } from 'syw-common/helpers'
+import { classNames } from 'syw-common/helpers/ui'
 import { useDataContext, useI18nContext, useUiContext } from '$src/context'
 import Icon from './Icon'
 

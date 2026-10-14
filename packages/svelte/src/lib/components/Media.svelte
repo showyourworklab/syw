@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { classNames, handleA11yClick } from 'syw-common/helpers'
+	import { classNames, handleA11yClick } from 'syw-common/helpers/ui'
     import Image from './Image.svelte';
     import Video from './Video.svelte';
 	import { getDataContext } from '$lib/store/data.js'

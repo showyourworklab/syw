@@ -1,5 +1,5 @@
 import type { RefObject } from 'react';
-import type { Manifest as ManifestData } from 'syw-common/types/c2pa';
+import type { Manifest as ManifestData } from 'syw-common/types/data';
 interface ManifestProps {
     manifest: ManifestData;
     previewRef: RefObject<HTMLDivElement> | null;

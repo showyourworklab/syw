@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 import type { ReactNode } from 'react'
-import { VARIANT_DEFAULT } from 'syw-common/constants'
-import type { Manifest } from 'syw-common/types/c2pa'
+import { VARIANT_DEFAULT } from 'syw-common/constants/ui'
+import type { Manifest } from 'syw-common/types/data'
 import type { MapOptions, UiEventHandler, UiState } from 'syw-common/types/ui'
 import { UiContext } from '$src/context/ui'
 

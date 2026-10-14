@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { classNames } from 'syw-common/helpers'
+import { classNames } from 'syw-common/helpers/ui'
 import { convertMarkupToSafeHtml } from 'syw-common/helpers/markdown'
 import type { MarkdownProps } from 'syw-common/types/components'
 

@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { classNames } from 'syw-common/helpers'
+	import { classNames } from 'syw-common/helpers/ui'
+	import { isIptcDigitalSourceTypeAi } from 'syw-common/helpers/iptc'
 	import type { ActionsProps } from 'syw-common/types/components'
-    import { isIptcDigitalSourceTypeAi } from 'syw-common/helpers/iptc';
 	import { getI18nContext } from '$lib/store/i18n.js'
     import Tooltip from './Tooltip.svelte';
     import Icon from './Icon.svelte';

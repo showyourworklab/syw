@@ -1,4 +1,4 @@
-import type { MediaType, SywData } from 'syw-common/types/c2pa';
+import type { MediaType, SywData } from 'syw-common/types/data';
 interface UseC2paProps {
     src: string | null;
     mediaType: MediaType;

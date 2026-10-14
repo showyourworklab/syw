@@ -1,4 +1,4 @@
-import type { C2paTrustValue, Manifest, ManifestActions, ManifestFieldKey, ManifestLocation, ManifestType } from './c2pa.js'
+import type { TrustKey, Manifest, ManifestActions, ManifestFieldKey, ManifestLocation, ManifestType } from './data.js'
 import type { IconType } from './ui.js'
 
 export interface ComponentProps {
@@ -12,7 +12,7 @@ export interface ActionsProps extends ComponentProps {
 
 export interface BadgeProps extends ComponentProps {
 	type?: ManifestType | null
-	status?: C2paTrustValue
+	status?: TrustKey
 }
 
 export interface CollapseProps extends ComponentProps {
@@ -25,6 +25,20 @@ export interface PopoverProps extends ComponentProps {
 	title?: string | null
 	description?: string | null
 	onOpenChange: (open: boolean) => void
+}
+
+export type DrawerDirection = 'bottom' | 'left' | 'right'
+
+export interface DrawerProps extends ComponentProps {
+	open?: boolean
+	title?: string | null
+	description?: string | null
+	direction?: DrawerDirection
+	onOpenChange: (open: boolean) => void
+}
+
+export interface ProvenanceDrawerProps {
+	direction?: DrawerDirection
 }
 
 export interface ExplainerToggleProps extends ComponentProps {}

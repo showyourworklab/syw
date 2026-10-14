@@ -1,4 +1,4 @@
-import type { Manifest } from 'syw-common/types/c2pa';
+import type { Manifest } from 'syw-common/types/data';
 import type { MapOptions, UiEventHandler, Variant } from 'syw-common/types/ui';
 export default function createUiStore(): {
     elem: import("svelte/store").Writable<HTMLElement | null>;

@@ -1,4 +1,4 @@
-import { classNames } from 'syw-common/helpers'
+import { classNames } from 'syw-common/helpers/ui'
 import type { ExplainerToggleProps } from 'syw-common/types/components'
 import { useUiContext, useI18nContext } from '$src/context'
 import Icon from './Icon'

@@ -1,7 +1,7 @@
 import { createContext, useContext } from 'react'
 import type { MutableRefObject } from 'react'
-import { VARIANT_DEFAULT } from 'syw-common/constants';
-import type { Manifest } from 'syw-common/types/c2pa'
+import { VARIANT_DEFAULT } from 'syw-common/constants/ui';
+import type { Manifest } from 'syw-common/types/data'
 import type { UiState, UiEventHandler } from 'syw-common/types/ui'
 
 interface UiContextValue extends UiState {

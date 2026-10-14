@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Tabs } from '@ark-ui/svelte/tabs'
-	import { classNames, getAvailableTabs } from 'syw-common/helpers'
+	import { classNames, getAvailableTabs } from 'syw-common/helpers/ui'
 	import type { ManifestContentTabsProps } from 'syw-common/types/components'
 	import Map from './Map.svelte'
 	import Actions from './Actions.svelte'

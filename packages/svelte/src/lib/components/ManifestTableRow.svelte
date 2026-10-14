@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { classNames } from 'syw-common/helpers'
+	import { classNames } from 'syw-common/helpers/ui'
 	import { getDateString } from 'syw-common/helpers/i18n'
-	import type { ManifestActions, ManifestGeneratorEntry, ManifestLocation } from 'syw-common/types/c2pa'
+	import type { ManifestActions, ManifestGeneratorEntry, ManifestLocation } from 'syw-common/types/data'
 	import type { ManifestTableRowProps } from 'syw-common/types/components'
 	import { getI18nContext } from '$lib/store/i18n.js'
     import Map from './Map.svelte'
@@ -36,9 +36,14 @@
 		}
 	})
 
+	const isEmpty = $derived(() => {
+		const v = formattedValue()
+		return v === null || v === undefined || v === "" || (Array.isArray(v) && !v.length)
+	})
+
 </script>
 
-{#if formattedValue() !== null && formattedValue() !== undefined && formattedValue() !== ""}
+{#if !isEmpty()}
 	<li
 		class={classNames('ManifestTableRow')}
 	>

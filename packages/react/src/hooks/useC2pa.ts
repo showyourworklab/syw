@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
-import { C2PA_DATA_DEFAULT, C2PA_PHASES } from 'syw-common/constants/c2pa'
-import { prepareData, disposeSywData } from 'syw-common/helpers/c2pa'
-import type { MediaType, SywData } from 'syw-common/types/c2pa'
+import { C2PA_DATA_DEFAULT, PHASE_KEYS } from 'syw-common/constants/data'
+import { prepareData, disposeSywData } from 'syw-common/helpers/data'
+import type { MediaType, SywData } from 'syw-common/types/data'
 import { useC2paContext } from '$src/context/c2pa'
 
 interface UseC2paProps {
@@ -28,7 +28,7 @@ const useC2pa = ({ src, mediaType }: UseC2paProps): SywData => {
 
 		setData(prev => ({
 			...prev,
-			phase: C2PA_PHASES.LOADING
+			phase: PHASE_KEYS.LOADING
 		}))
 
 		;(async () => {

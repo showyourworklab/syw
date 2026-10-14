@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { classNames } from 'syw-common/helpers'
-	import type { ManifestGeneratorEntry } from 'syw-common/types/c2pa'
+	import { classNames } from 'syw-common/helpers/ui'
+	import type { ManifestGeneratorEntry } from 'syw-common/types/data'
 
 	const {
 		name,

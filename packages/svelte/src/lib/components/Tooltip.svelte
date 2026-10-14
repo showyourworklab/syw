@@ -2,7 +2,7 @@
 	import type { ComponentProps, Snippet } from 'svelte'
 	import { Portal as ArkPortal } from '@ark-ui/svelte/portal'
 	import { Tooltip as ArkTooltip } from '@ark-ui/svelte/tooltip'
-	import { classNames } from 'syw-common/helpers'
+	import { classNames } from 'syw-common/helpers/ui'
 
 	export interface TooltipProps {
 		content?: string

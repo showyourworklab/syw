@@ -1,4 +1,4 @@
-import { classNames } from 'syw-common/helpers'
+import { classNames } from 'syw-common/helpers/ui'
 import type { ManifestTableProps } from 'syw-common/types/components'
 import ManifestTableRow from './ManifestTableRow'
 

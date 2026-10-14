@@ -1,7 +1,7 @@
 import '@videojs/react/video/skin.css'
 import { createPlayer, videoFeatures } from '@videojs/react'
 import { VideoSkin, Video as VideoJs } from '@videojs/react/video'
-import { classNames } from 'syw-common/helpers'
+import { classNames } from 'syw-common/helpers/ui'
 import { useDataContext } from '$src/context/data'
 
 const Player = createPlayer({

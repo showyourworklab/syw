@@ -94,7 +94,7 @@ button.Syw-ModalClose svg {
 }
 button.Syw-ModalClose:hover,
 button.Syw-ModalClose:focus {
-	color: var(--syw-color-quaternary);
+	color: var(--syw-color-quinary);
 }
 
 @keyframes syw-popover-scale-fade-in {

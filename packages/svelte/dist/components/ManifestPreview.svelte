@@ -1,8 +1,7 @@
 <script lang="ts">
-	import { classNames } from 'syw-common/helpers'
-	import { MANIFEST_PREVIEW_TITLE_KEYS } from 'syw-common/constants'
-	import { handleA11yClick } from 'syw-common/helpers'
+	import { classNames, handleA11yClick } from 'syw-common/helpers/ui'
 	import { getDateString } from 'syw-common/helpers/i18n'
+	import { MANIFEST_PREVIEW_TITLE_KEYS } from 'syw-common/constants/ui'
 	import type { ManifestPreviewProps } from 'syw-common/types/components'
 	import { getI18nContext } from '../store/i18n.js'
 	import { getUiContext } from '../store/ui.js'

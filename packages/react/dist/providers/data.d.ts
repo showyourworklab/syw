@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import type { MediaType, SywMediaData } from 'syw-common/types/c2pa';
+import type { MediaType, SywMediaData } from 'syw-common/types/data';
 interface DataProviderProps extends Pick<SywMediaData, 'src' | 'alt' | 'caption' | 'byline'> {
     mediaType: MediaType;
     children: ReactNode;
