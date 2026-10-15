@@ -32,7 +32,7 @@
     "common:release": "npm run common:lerna release",
     "common:trustlists": "npm run common:lerna trustlists",
     "common:typecheck": "npm run common:lerna typecheck",
-    "build": "npm run react:build && npm run svelte:build && npm run docs:build",
+    "build": "npm run svelte:package && npm run docs:build && npm run react:build && npm run svelte:build",
     "typecheck": "npm run react:typecheck && npm run svelte:typecheck && npm run common:typecheck",
     "bump": "lerna version --no-git-tag-version --no-push --yes"
   },

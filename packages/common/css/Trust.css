@@ -34,26 +34,26 @@ p.Syw-TrustDefinition {
 }
 /* Trust > Values */
 .Syw-Trust.Syw-Trust_trusted {
-	color: var(--syw-color-status-trusted);
+	/* color: var(--syw-color-status-trusted); */
 	background-color: var(--syw-color-status-trusted-light);
 }
 .Syw-Trust.Syw-Trust_trusted_legacy {
-	color: var(--syw-color-status-trusted-legacy);
+	/* color: var(--syw-color-status-trusted-legacy); */
 	background-color: var(--syw-color-status-trusted-legacy-light);
 }
 .Syw-Trust.Syw-Trust_valid {
-	color: var(--syw-color-status-valid);
+	/* color: var(--syw-color-status-valid); */
 	background-color: var(--syw-color-status-valid-light);
 }
 .Syw-Trust.Syw-Trust_invalid {
-	color: var(--syw-color-status-invalid);
+	/* color: var(--syw-color-status-invalid); */
 	background-color: var(--syw-color-status-invalid-light);
 }
 .Syw-Trust.Syw-Trust_unknown {
-	color: var(--syw-color-status-unknown);
+	/* color: var(--syw-color-status-unknown); */
 	background-color: var(--syw-color-status-unknown-light);
 }
 .Syw-Trust.Syw-Trust_none {
-	color: var(--syw-color-status-none);
+	/* color: var(--syw-color-status-none); */
 	background-color: var(--syw-color-status-none-light);
 }

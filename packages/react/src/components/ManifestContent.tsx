@@ -11,34 +11,36 @@ function ManifestContent({ tabKeys, manifest }: ManifestContentProps) {
 		<div
 			className={classNames('ManifestContent')}
 		>
-			<div
-				className={classNames('ManifestContentInner')}
-			>
+			{manifest?.type?.key !== "unknown_create" ?
 				<div
-					className={classNames('ManifestContentPrimary')}
+					className={classNames('ManifestContentInner')}
 				>
-					<Trust
-						manifest={manifest}
-					/>
-					<ManifestTable
-						keys={MANIFEST_PRIMARY_KEYS}
-						manifest={manifest}
-					/>
+					<div
+						className={classNames('ManifestContentPrimary')}
+					>
+						<Trust
+							manifest={manifest}
+						/>
+						<ManifestTable
+							keys={MANIFEST_PRIMARY_KEYS}
+							manifest={manifest}
+						/>
+					</div>
+					<div
+						className={classNames('ManifestContentSecondary')}
+					>
+						<ManifestContentTabsToggle
+							keys={tabKeys}
+							manifest={manifest}
+							className={classNames('ManifestContentSecondaryTabsToggle')}
+						/>
+						<ManifestContentTabs
+							keys={tabKeys}
+							manifest={manifest}
+						/>
+					</div>
 				</div>
-				<div
-					className={classNames('ManifestContentSecondary')}
-				>
-					<ManifestContentTabsToggle
-						keys={tabKeys}
-						manifest={manifest}
-						className={classNames('ManifestContentSecondaryTabsToggle')}
-					/>
-					<ManifestContentTabs
-						keys={tabKeys}
-						manifest={manifest}
-					/>
-				</div>
-			</div>
+			: <Trust manifest={manifest} />}
 		</div>
 	)
 }

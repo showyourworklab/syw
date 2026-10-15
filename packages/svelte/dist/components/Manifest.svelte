@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { untrack } from 'svelte'
     import { Tabs, useTabs } from '@ark-ui/svelte/tabs';
 	import { classNames, getAvailableTabs } from 'syw-common/helpers/ui'
 	import { getObjectValue } from 'syw-common/helpers/utils'
@@ -29,9 +30,22 @@
 		getAvailableTabs(tabKeys, manifest)
 	)
 
+	let tabValue = $state<string | undefined>(untrack(() =>
+		availableTabKeys[0])
+	)
+
 	const tabs = useTabs(() => ({
-		defaultValue: availableTabKeys[0]
+		value: tabValue,
+		onValueChange: (details: { value: string }) =>
+			tabValue = details.value
 	}))
+
+	$effect(() => {
+		const firstTabKey = availableTabKeys[0]
+		if(firstTabKey && !availableTabKeys.includes(tabValue ?? '')) {
+			tabValue = firstTabKey
+		}
+	})
 
 	const classes = $derived(
 		classNames(

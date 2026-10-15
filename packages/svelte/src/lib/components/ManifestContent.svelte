@@ -16,32 +16,38 @@
 <div
 	class={classNames('ManifestContent')}
 >
-	<Trust
-		manifest={manifest}
-	/>
-	<div
-		class={classNames('ManifestContentInner')}
-	>
+	{#if manifest?.type?.key !== "unknown_create"}
 		<div
-			class={classNames('ManifestContentPrimary')}
+			class={classNames('ManifestContentInner')}
 		>
-			<ManifestTable
-				keys={MANIFEST_PRIMARY_KEYS}
-				manifest={manifest}
-			/>
+			<div
+				class={classNames('ManifestContentPrimary')}
+			>
+				<Trust
+					manifest={manifest}
+				/>
+				<ManifestTable
+					keys={MANIFEST_PRIMARY_KEYS}
+					manifest={manifest}
+				/>
+			</div>
+			<div
+				class={classNames('ManifestContentSecondary')}
+			>
+				<ManifestContentTabsToggle
+					keys={tabKeys}
+					manifest={manifest}
+					class={classNames('ManifestContentSecondaryTabsToggle')}
+				/>
+				<ManifestContentTabs
+					keys={tabKeys}
+					manifest={manifest}
+				/>
+			</div>
 		</div>
-		<div
-			class={classNames('ManifestContentSecondary')}
-		>
-			<ManifestContentTabsToggle
-				keys={tabKeys}
-				manifest={manifest}
-				class={classNames('ManifestContentSecondaryTabsToggle')}
-			/>
-			<ManifestContentTabs
-				keys={tabKeys}
-				manifest={manifest}
-			/>
-		</div>
-	</div>
+	{:else}
+		<Trust
+			manifest={manifest}
+		/>
+	{/if}
 </div>

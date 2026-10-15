@@ -19,6 +19,7 @@
 	z-index: calc(var(--syw-z-tooltip) + var(--layer-index, 0));
 	transform-origin: var(--transform-origin);
 	position: relative;
+	filter: drop-shadow(0 5px 5px rgba(0, 0, 0, 0.125));
 }
 .Syw-TooltipContent[data-state="open"] {
 	animation: syw-tooltip-in 150ms ease-out;
