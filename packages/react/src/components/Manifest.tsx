@@ -58,6 +58,12 @@ function Manifest({
 		if(!isProvenanceOpen) setOpen(false)
 	}, [isProvenanceOpen])
 
+	// Select the first available tab when the selected one isn't available, like after the source changes
+	useEffect(() => {
+		const firstTabKey = availableTabKeys[0]
+		if(firstTabKey && !availableTabKeys.includes(tabs.value ?? '')) tabs.setValue(firstTabKey)
+	}, [availableTabKeys])
+
 	return (
 		<div
 			className={className}

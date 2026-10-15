@@ -45,8 +45,8 @@ export const MANIFEST_CONTENT_TAB_KEYS = {
 	edit: ['thumbnail', 'actions'],
 	ai_create: ['thumbnail', 'actions'],
 	ai_edit: ['thumbnail', 'actions'],
-	unknown_create: ['thumbnail'],
-	unknown: ['thumbnail']
+	unknown: ['thumbnail', 'actions'],
+	unknown_create: [],
 } as const
 
 export const MANIFEST_CONTENT_TAB_DEFAULT = 'thumbnail'

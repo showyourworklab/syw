@@ -197,6 +197,23 @@ export const getSchemaOrgValue = (data: C2paManifest | null | undefined, key: st
 /////////////// Resources ///////////////
 
 /**
+ * Trims any bytes before an SVG's XML declaration or root element
+ * c2pa-web can return an SVG stored in a data box with the manifest store's bytes before it (i.e. a generator icon)
+ * @function
+ * @param bytes - Resource bytes
+ * @return SVG bytes
+ */
+export const trimSvgBytes = (bytes: Uint8Array): Uint8Array => {
+	// Single-byte decoding keeps text indexes equal to byte indexes
+	const text = new TextDecoder('latin1').decode(bytes)
+	const svgIndex = text.indexOf('<svg')
+	if (svgIndex <= 0) return bytes
+	const xmlIndex = text.lastIndexOf('<?xml', svgIndex)
+	const startIndex = xmlIndex >= 0 ? xmlIndex : svgIndex
+	return startIndex > 0 ? bytes.subarray(startIndex) : bytes
+}
+
+/**
  * Converts JUMBF URI to blob URL for IMG src
  * @function
  * @param reader - C2PA reader instance
@@ -209,7 +226,8 @@ export const convertJumbfToBlobUrl = async (reader: Reader | null | undefined, i
 	try {
 		const bytes = await reader.resourceToBytes(identifier)
 		if (bytes) {
-			const blob = new Blob([bytes as BlobPart], { type: format })
+			const resourceBytes = format === 'image/svg+xml' ? trimSvgBytes(bytes) : bytes
+			const blob = new Blob([resourceBytes as BlobPart], { type: format })
 			return URL.createObjectURL(blob)
 		}
 		return null

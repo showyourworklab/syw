@@ -524,16 +524,19 @@ export const hasUnknownCreate = (manifests: Manifest[]): boolean =>
 	&& !manifests.some(m => hasC2paAction(m.original, C2PA_ACTIONS.CREATED))
 
 /**
- * Gets manifest's type key from known claim generators
+ * Gets manifest's type key from known claim generators, then the signing certificate's common name
  * @function
  * @param data - C2paManifest entry
  * @return Manifest type key
  */
 export const getGeneratorTypeKey = (data: C2paManifest | null | undefined): ManifestTypeKey | undefined => {
 	const knownNames = Object.keys(KNOWN_GENERATORS_BY_MANIFEST_TYPE)
-	const generatorName = data?.claim_generator_info
-		?.map(g => g?.name)
-		?.find((name): name is string => Boolean(name) && knownNames.includes(name as string))
+	// Cameras like Leica's sign with a certificate named after the model, even without claim generator info
+	const names = [
+		...(data?.claim_generator_info?.map(g => g?.name) ?? []),
+		data?.signature_info?.common_name,
+	]
+	const generatorName = names.find((name): name is string => Boolean(name) && knownNames.includes(name as string))
 	return generatorName ? KNOWN_GENERATORS_BY_MANIFEST_TYPE[generatorName] : undefined
 }
 
