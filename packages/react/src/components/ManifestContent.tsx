@@ -2,12 +2,15 @@ import ManifestTable from './ManifestTable'
 import { classNames } from 'syw-common/helpers/ui'
 import { MANIFEST_PRIMARY_KEYS } from 'syw-common/constants/ui'
 import type { ManifestContentProps } from 'syw-common/types/components'
+import { useDataContext } from '$src/context'
 import ManifestTrust from './ManifestTrust'
 import ManifestContentTabs from './ManifestContentTabs'
 import ManifestContentTabsToggle from './ManifestContentTabsToggle'
 import ManifestIdentity from './ManifestIdentity'
 
 function ManifestContent({ tabKeys, manifest }: ManifestContentProps) {
+	const { mediaType } = useDataContext()
+
 	return (
 		<div
 			className={classNames('ManifestContent')}
@@ -23,10 +26,10 @@ function ManifestContent({ tabKeys, manifest }: ManifestContentProps) {
 							keys={MANIFEST_PRIMARY_KEYS}
 							manifest={manifest}
 						/>
-						<ManifestTrust
+						<ManifestIdentity
 							manifest={manifest}
 						/>
-						<ManifestIdentity
+						<ManifestTrust
 							manifest={manifest}
 						/>
 					</div>
@@ -44,7 +47,7 @@ function ManifestContent({ tabKeys, manifest }: ManifestContentProps) {
 						/>
 					</div>
 				</div>
-			: <ManifestTrust manifest={manifest} />}
+			: `There is no verifiable origin for this ${mediaType}`}
 		</div>
 	)
 }

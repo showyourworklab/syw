@@ -2,7 +2,7 @@ import type { Reader, C2pa, Config, Settings } from '@contentauth/c2pa-web'
 import type { Manifest as C2paManifest, ManifestStore, Action } from '@contentauth/c2pa-types'
 import { C2PA_ACTIONS, C2PA_INGREDIENT_RELATIONSHIPS, C2PA_WEB_WASM_CDN_URL } from '#constants/c2pa'
 import { getLegacyTrustSettings, getTrustListSettings, isFullyTrusted } from '#helpers/trust'
-import { TRUST_LIST_SCOPES } from '#constants/trust'
+import { CAWG_IDENTITY_LABEL, TRUST_LIST_SCOPES } from '#constants/trust'
 import { getIptcDigitalSourceTypeKey, isIptcDigitalSourceTypeAi, isIptcDigitalSourceTypeAiComposite, isIptcDigitalSourceTypeCamera } from '#helpers/iptc'
 import type { C2paOptions } from '#types/c2pa'
 import type { ManifestTypeIptc } from '#types/data'
@@ -85,10 +85,8 @@ export const readLegacyManifestStore = async (c2pa: C2pa, blob: Blob, mimeType: 
  * @param data - C2paManifest entry
  * @return C2PA actions
  */
-export const getC2paActions = (data: C2paManifest | null | undefined): Action[] | undefined => {
-	const actions = (data?.assertions?.find(a => a.label.includes('c2pa.actions'))?.data as { actions?: Action[] } | undefined)?.actions
-	return actions
-}
+export const getC2paActions = (data: C2paManifest | null | undefined): Action[] | undefined =>
+	getAssertionData(data, 'c2pa.actions', true)?.actions as Action[] | undefined
 
 /**
  * Gets the first C2PA action of a name from manifest
@@ -159,6 +157,23 @@ export const isAiEditedManifest = (data: C2paManifest | null | undefined, iptc: 
 /////////////// Assertions ///////////////
 
 /**
+ * Gets an assertion's data from manifest
+ * @function
+ * @param data - C2paManifest entry
+ * @param label - Assertion label
+ * @param fuzzyLabel - Match labels containing the label (i.e. c2pa.actions.v2, cawg.identity__1)
+ * @return Assertion data
+ */
+export const getAssertionData = (data: C2paManifest | null | undefined, label: string, fuzzyLabel?: boolean): Record<string, any> | undefined => {
+	const assertion = data?.assertions?.find(a =>
+		fuzzyLabel
+			? a.label.includes(label)
+			: a.label === label
+	)
+	return assertion?.data as Record<string, any> | undefined
+}
+
+/**
  * Gets an EXIF value from manifest
  * @function
  * @param data - C2paManifest entry
@@ -166,8 +181,8 @@ export const isAiEditedManifest = (data: C2paManifest | null | undefined, iptc: 
  * @return EXIF value
  */
 export const getExifValue = (data: C2paManifest | null | undefined, key: string): unknown => {
-	const exifData = data?.assertions?.find(a => a.label === 'stds.exif')?.data as Record<string, unknown> | undefined
-	const exifValue = exifData && exifData[`exif:${key}`]
+	const exifData = getAssertionData(data, 'stds.exif')
+	const exifValue = exifData?.[`exif:${key}`]
 	return exifValue;
 }
 
@@ -189,9 +204,41 @@ export const ifHasExif = (data: C2paManifest | null | undefined): boolean | unde
  * @return Schema.org value
  */
 export const getSchemaOrgValue = (data: C2paManifest | null | undefined, key: string): unknown => {
-	const schema = data?.assertions?.find(a => a.label.includes('stds.schema-org'))?.data as Record<string, unknown> | undefined
-	const schemaValue = schema && schema[key]
+	const schemaData = getAssertionData(data, 'stds.schema-org', true)
+	const schemaValue = schemaData?.[key]
 	return schemaValue
+}
+
+/**
+ * Gets the name of manifest's first CAWG identity assertion
+ * X.509 identities name the certificate's issuer
+ * Identity claims aggregation identities name the first verified identity (i.e. a social media account)
+ * @function
+ * @param data - C2paManifest entry
+ * @return CAWG identity name
+ */
+export const getCawgIdentityValue = (data: C2paManifest | null | undefined): string | null | undefined => {
+	const cawgIdentityData = getAssertionData(data, CAWG_IDENTITY_LABEL, true)
+	// The credential may be flattened into the assertion or nested under named_actor
+	const verifiedIdentities = (cawgIdentityData?.verifiedIdentities ?? cawgIdentityData?.named_actor?.verifiedIdentities) as { name?: string, username?: string }[] | undefined
+	const verifiedIdentity = verifiedIdentities?.find(i => i?.name || i?.username)
+	const cawgIdentityValue = cawgIdentityData?.signature_info?.issuer
+		?? verifiedIdentity?.name
+		?? verifiedIdentity?.username
+	return cawgIdentityValue
+}
+
+/**
+ * Gets a CAWG metadata value from manifest
+ * @function
+ * @param data - C2paManifest entry
+ * @param key - CAWG metadata value key
+ * @return CAWG metadata value
+ */
+export const getCawgMetadataValue = (data: C2paManifest | null | undefined, key: string): unknown => {
+	const cawgMetadataData = getAssertionData(data, 'cawg.metadata')
+	const cawgMetadataValue = cawgMetadataData?.[key]
+	return cawgMetadataValue
 }
 
 /////////////// Resources ///////////////

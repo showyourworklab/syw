@@ -3,7 +3,7 @@
 	import { TRUST_KEYS } from 'syw-common/constants/data'
 	import { classNames } from 'syw-common/helpers/ui'
 	import { getI18nContext } from '$lib/store/i18n.js'
-	import Icon from './Icon.svelte'
+	import Detail from './Detail.svelte'
 	import ManifestSection from './ManifestSection.svelte'
 
 	const { locale, getText } = getI18nContext()
@@ -17,37 +17,14 @@
 	title={getText($locale, 'section', 'trust')}
 	className={classNames('ManifestTrust')}
 >
-	{#if isNotTrusted}
-		<div
-			class={classNames(
-				'ManifestTrustFlag',
-				`ManifestTrustFlag_${manifest.trust.value}`,
-			)}
-		>
-			<div
-				class={classNames('ManifestTrustFlagLabel')}
-			>
-				<Icon
-					type={manifest.trust.value}
-					className={classNames('ManifestTrustFlagIcon')}
-				/>
-				<span>
-					{getText($locale, 'trust', manifest.trust.value)}
-				</span>
-			</div>
-			<!-- <Tooltip
-				content={getText($locale, 'trust', manifest.trust.value, 'definition')}
-			>
-				<Icon
-					type="info"
-					className={classNames('ManifestTrustLabelTooltipIcon')}
-				/>
-			</Tooltip> -->
-			<p
-				class={classNames('ManifestTrustFlagDefinition')}
-			>
-				{getText($locale, 'trust', manifest.trust.value, 'definition')}
-			</p>
-		</div>
-	{/if}
+	<Detail
+		title={getText($locale, 'trust', manifest.trust.value)}
+		titleIcon={manifest.trust.value}
+		footer={getText($locale, 'trust', manifest.trust.value, 'definition')}
+		hasBackground
+		className={classNames(
+			'ManifestTrustDetail',
+			`ManifestTrustDetail_${manifest.trust.value}`,
+		)}
+	/>
 </ManifestSection>

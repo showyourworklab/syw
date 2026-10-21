@@ -1,7 +1,7 @@
 import { classNames } from 'syw-common/helpers/ui'
 import type { ManifestTableProps } from 'syw-common/types/components'
 import { useI18nContext } from '$src/context'
-import ManifestTableRow from './ManifestTableRow'
+import ManifestTableDetail from './ManifestTableDetail'
 import ManifestSection from './ManifestSection'
 
 function ManifestTable({ keys = [], manifest }: ManifestTableProps) {
@@ -11,17 +11,17 @@ function ManifestTable({ keys = [], manifest }: ManifestTableProps) {
 			title={getText('section', 'table')}
 			className={classNames('ManifestTable')}
 		>
-			<ul
-				className={classNames('ManifestTableRows')}
+			<div
+				className={classNames('ManifestTableDetails')}
 			>
 				{keys.map(key =>
-					<ManifestTableRow
+					<ManifestTableDetail
 						key={key}
 						type={key}
 						manifest={manifest}
 					/>
 				)}
-			</ul>
+			</div>
 		</ManifestSection>
 	)
 }

@@ -3,15 +3,23 @@
 	import { classNames } from 'syw-common/helpers/ui'
 	import { getI18nContext } from '$lib/store/i18n.js'
 	import ManifestSection from './ManifestSection.svelte'
+	import Detail from './Detail.svelte'
 
 	const { locale, getText } = getI18nContext()
 
 	const { manifest }: ManifestIdentityProps = $props()
 </script>
 
-<ManifestSection
-	title={getText($locale, 'section', 'identity')}
-	className={classNames('ManifestIdentity')}
->
-	<!-- TODO: identity content -->
-</ManifestSection>
+{#if manifest.identity}
+	<ManifestSection
+		title={getText($locale, 'section', 'identity')}
+		className={classNames('ManifestIdentity')}
+	>
+		<Detail
+			title={getText($locale, 'identity', 'name')}
+			className={classNames('ManifestIdentityName')}
+		>
+			{manifest.identity.name}
+		</Detail>
+	</ManifestSection>
+{/if}

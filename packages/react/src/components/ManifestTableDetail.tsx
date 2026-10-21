@@ -2,13 +2,12 @@ import { useMemo } from 'react'
 import { classNames } from 'syw-common/helpers/ui'
 import { getDateString } from 'syw-common/helpers/i18n'
 import type { ManifestGeneratorEntry, ManifestTimestamp } from 'syw-common/types/data'
-import type { ManifestTableRowProps } from 'syw-common/types/components'
+import type { ManifestTableDetailProps } from 'syw-common/types/components'
 import { useI18nContext } from '$src/context/i18n'
 import Generator from './Generator'
-import Tooltip from './Tooltip'
-import Icon from './Icon'
+import Detail from './Detail'
 
-function ManifestTableRow({ type, manifest }: ManifestTableRowProps) {
+function ManifestTableDetail({ type, manifest }: ManifestTableDetailProps) {
 	const { locale, getText } = useI18nContext()
 
 	const value = useMemo(() =>
@@ -33,39 +32,22 @@ function ManifestTableRow({ type, manifest }: ManifestTableRowProps) {
 	if(formattedValue === null || formattedValue === undefined || formattedValue === "" || (Array.isArray(formattedValue) && !formattedValue.length)) return
 
 	return (
-		<li
-			className={classNames('ManifestTableRow')}
+		<Detail
+			title={getText(type, manifestTypeTextKey)}
+			titleTooltip={getText(type, manifestTypeTextKey, "definition")}
+			className={classNames('ManifestTableDetail')}
 		>
-			<div
-				className={classNames('ManifestTableRowLabel')}
-			>
-				<span>
-					{getText(type, manifestTypeTextKey)}
-				</span>
-				<Tooltip
-					content={getText(type, manifestTypeTextKey, "definition")}
-				>
-					<Icon
-						type="info"
-						className={classNames('ManifestTableRowLabelTooltipIcon')}
+			{type === 'generator' ?
+				(value as ManifestGeneratorEntry[]).map((v, index) =>
+					<Generator
+						key={index}
+						name={v.name}
+						icon={v.icon}
 					/>
-				</Tooltip>
-			</div>
-			<div
-				className={classNames('ManifestTableRowValue')}
-			>
-				{type === 'generator' ?
-					(value as ManifestGeneratorEntry[]).map((v, index) =>
-						<Generator
-							key={index}
-							name={v.name}
-							icon={v.icon}
-						/>
-					)
-				: formattedValue as string}
-			</div>
-		</li>
+				)
+			: formattedValue as string}
+		</Detail>
 	)
 }
 
-export default ManifestTableRow
+export default ManifestTableDetail
