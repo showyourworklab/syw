@@ -17,7 +17,7 @@
 	title={getText($locale, 'section', 'table')}
 	className={classNames('ManifestTable')}
 >
-	<ul
+	<div
 		class={classNames('ManifestTableDetails')}
 	>
 		{#each keys as key}
@@ -26,5 +26,5 @@
 				manifest={manifest}
 			/>
 		{/each}
-	</ul>
+</div>
 </ManifestSection>

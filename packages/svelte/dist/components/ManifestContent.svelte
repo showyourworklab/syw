@@ -2,6 +2,7 @@
 	import { classNames } from 'syw-common/helpers/ui'
 	import { MANIFEST_PRIMARY_KEYS } from 'syw-common/constants/ui'
 	import type { ManifestContentProps } from 'syw-common/types/components'
+	import { getDataContext } from '../store/data.js'
     import ManifestTrust from './ManifestTrust.svelte';
 	import ManifestTable from './ManifestTable.svelte'
 	import ManifestIdentity from './ManifestIdentity.svelte'
@@ -12,6 +13,8 @@
 		tabKeys = [],
 		manifest,
 	}: ManifestContentProps = $props()
+
+	const { mediaType } = getDataContext()
 </script>
 
 <div
@@ -28,10 +31,10 @@
 					keys={MANIFEST_PRIMARY_KEYS}
 					manifest={manifest}
 				/>
-				<ManifestTrust
+				<ManifestIdentity
 					manifest={manifest}
 				/>
-				<ManifestIdentity
+				<ManifestTrust
 					manifest={manifest}
 				/>
 			</div>
@@ -50,8 +53,6 @@
 			</div>
 		</div>
 	{:else}
-		<ManifestTrust
-			manifest={manifest}
-		/>
+		There is no verifiable origin for this {mediaType}
 	{/if}
 </div>

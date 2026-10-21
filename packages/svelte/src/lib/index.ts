@@ -15,7 +15,7 @@ export { default as ManifestPreview } from './components/ManifestPreview.svelte'
 export { default as ManifestSection } from './components/ManifestSection.svelte';
 export { default as ManifestTable } from './components/ManifestTable.svelte';
 export { default as ManifestTableDetail } from './components/ManifestTableDetail.svelte';
-export { default as Map } from './components/./components/ManifestTableDetail.svelte
+export { default as Map } from './components/ManifestTableDetail.svelte';
 export { default as Modal } from './components/Modal.svelte';
 export { default as Provenance } from './components/Provenance.svelte';
 export { default as ProvenanceDrawer } from './components/ProvenanceDrawer.svelte';

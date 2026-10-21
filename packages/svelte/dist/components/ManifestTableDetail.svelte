@@ -43,32 +43,28 @@
 </script>
 
 {#if !isEmpty()}
-	<li
-		class={classNames('ManifestTableDetail')}
+	<Detail
+		title={type ? getText($locale, type, manifestType()) : ''}
+		titleTooltip={getText($locale, type, manifestType(), "definition")}
+		className={classNames('ManifestTableDetail')}
 	>
-		<Detail
-			title={type ? getText($locale, type, manifestType()) : ''}
-			titleTooltip={getText($locale, type, manifestType(), "definition")}
-			className={classNames('ManifestTableDetailDetail')}
-		>
-			{#if type === 'location'}
-				<Map
-					location={value() as ManifestLocation}
+		{#if type === 'location'}
+			<Map
+				location={value() as ManifestLocation}
+			/>
+		{:else if type === 'actions'}
+			<Actions
+				actions={value() as ManifestActions}
+			/>
+		{:else if type === 'generator'}
+			{#each value() as ManifestGeneratorEntry[] as v}
+				<Generator
+					name={v.name}
+					icon={v.icon}
 				/>
-			{:else if type === 'actions'}
-				<Actions
-					actions={value() as ManifestActions}
-				/>
-			{:else if type === 'generator'}
-				{#each value() as ManifestGeneratorEntry[] as v}
-					<Generator
-						name={v.name}
-						icon={v.icon}
-					/>
-				{/each}
-			{:else}
-				{formattedValue()}
-			{/if}
-		</Detail>
-	</li>
+			{/each}
+		{:else}
+			{formattedValue()}
+		{/if}
+	</Detail>
 {/if}

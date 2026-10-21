@@ -17,16 +17,14 @@
 	title={getText($locale, 'section', 'trust')}
 	className={classNames('ManifestTrust')}
 >
-	{#if isNotTrusted}
-		<Detail
-			title={getText($locale, 'trust', manifest.trust.value)}
-			titleIcon={manifest.trust.value}
-			footer={getText($locale, 'trust', manifest.trust.value, 'definition')}
-			hasBackground
-			className={classNames(
-				'ManifestTrustDetail',
-				`ManifestTrustDetail_${manifest.trust.value}`,
-			)}
-		/>
-	{/if}
+	<Detail
+		title={getText($locale, 'trust', manifest.trust.value)}
+		titleIcon={manifest.trust.value}
+		footer={getText($locale, 'trust', manifest.trust.value, 'definition')}
+		hasBackground
+		className={classNames(
+			'ManifestTrustDetail',
+			`ManifestTrustDetail_${manifest.trust.value}`,
+		)}
+	/>
 </ManifestSection>
