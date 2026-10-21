@@ -3,6 +3,7 @@ export { default as Badge } from './components/Badge.svelte';
 export { default as Caption } from './components/Caption.svelte';
 export { default as Collapse } from './components/Collapse.svelte';
 export { default as Cutline } from './components/Cutline.svelte';
+export { default as Detail } from './components/Detail.svelte';
 export { default as Explainer } from './components/Explainer.svelte';
 export { default as ExplainerToggle } from './components/ExplainerToggle.svelte';
 export { default as Figure } from './components/Figure.svelte';
@@ -13,8 +14,8 @@ export { default as ManifestIdentity } from './components/ManifestIdentity.svelt
 export { default as ManifestPreview } from './components/ManifestPreview.svelte';
 export { default as ManifestSection } from './components/ManifestSection.svelte';
 export { default as ManifestTable } from './components/ManifestTable.svelte';
-export { default as ManifestTableRow } from './components/ManifestTableRow.svelte';
-export { default as Map } from './components/Map.svelte';
+export { default as ManifestTableDetail } from './components/ManifestTableDetail.svelte';
+export { default as Map } from './components/./components/ManifestTableDetail.svelte
 export { default as Modal } from './components/Modal.svelte';
 export { default as Provenance } from './components/Provenance.svelte';
 export { default as ProvenanceDrawer } from './components/ProvenanceDrawer.svelte';

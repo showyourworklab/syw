@@ -2,7 +2,7 @@
 	import { classNames } from 'syw-common/helpers/ui'
 	import type { ManifestTableProps } from 'syw-common/types/components'
 	import { getI18nContext } from '$lib/store/i18n.js'
-	import ManifestTableRow from './ManifestTableRow.svelte'
+	import ManifestTableDetail from './ManifestTableDetail.svelte'
 	import ManifestSection from './ManifestSection.svelte'
 
 	const { locale, getText } = getI18nContext()
@@ -17,14 +17,14 @@
 	title={getText($locale, 'section', 'table')}
 	className={classNames('ManifestTable')}
 >
-	<ul
-		class={classNames('ManifestTableRows')}
+	<div
+		class={classNames('ManifestTableDetails')}
 	>
 		{#each keys as key}
-			<ManifestTableRow
+			<ManifestTableDetail
 				type={key}
 				manifest={manifest}
 			/>
 		{/each}
-	</ul>
+</div>
 </ManifestSection>

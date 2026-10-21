@@ -15,6 +15,15 @@ export interface BadgeProps extends ComponentProps {
 	status?: TrustKey
 }
 
+export interface DetailProps extends ComponentProps {
+	title: string | null
+	titleTooltip?: string | null
+	titleIcon?: IconType | null
+	// Adds a background color and vertical padding
+	hasBackground?: boolean
+	footer?: string | null
+}
+
 export interface CollapseProps extends ComponentProps {
 	open?: boolean
 }
@@ -88,7 +97,7 @@ export interface ManifestTableProps extends ComponentProps {
 	manifest: Manifest
 }
 
-export interface ManifestTableRowProps extends ComponentProps {
+export interface ManifestTableDetailProps extends ComponentProps {
 	type: ManifestFieldKey
 	manifest: Manifest
 }

@@ -52,20 +52,6 @@ export const DEMO_IMAGES: DemoImage[] = [
 	// 	byline: 'Nora Savosnick'
 	// },
 	{
-		src: 'https://showyourworklab.github.io/c2pa-images/sony-nora-2.jpg',
-		title: {
-			en_US: 'Washington Square Park',
-			no_NO: 'Washington Square Park',
-			// sv_SE: 'AI-edited',
-		},
-		caption: {
-			en_US: '',
-			no_NO: '',
-			// sv_SE: '',
-		},
-		byline: 'Nora Savosnick'
-	},
-	{
 		src: 'https://showyourworklab.github.io/c2pa-images/feedback-1.jpg',
 		title: {
 			en_US: 'Viking row (Leica)',
@@ -76,6 +62,20 @@ export const DEMO_IMAGES: DemoImage[] = [
 			en_US: 'More than a thousand Norwegian football fans gathered in New York’s Times Square to take part in the “Viking row” two days before Norway’s match against Brazil.',
 			no_NO: 'Over tusen norske supportere samlet seg på Times Square i New York for å være med på «Viking-roingen» to dager før Norges kamp mot Brasil.',
 			// sv_SE: 'Över tusen norska fotbollssupportrar samlades på Times Square i New York för att delta i ”Vikingrodden” två dagar före Norges match mot Brasilien.',
+		},
+		byline: 'Nora Savosnick'
+	},
+	{
+		src: 'https://showyourworklab.github.io/c2pa-images/sony-nora-2.jpg',
+		title: {
+			en_US: 'Washington Square Park (Leica)',
+			no_NO: 'Washington Square Park (Leica)',
+			// sv_SE: 'AI-edited',
+		},
+		caption: {
+			en_US: '',
+			no_NO: '',
+			// sv_SE: '',
 		},
 		byline: 'Nora Savosnick'
 	},

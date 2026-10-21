@@ -61,11 +61,17 @@ export interface ManifestLocation {
 
 export type ManifestFieldKey = 'timestamp' | 'producer' | 'signator' | 'generator' | 'actions' | 'thumbnail' | 'location'
 
+export interface ManifestIdentity {
+	name: string
+}
+
 export interface Manifest {
 	id?: ManifestId
 	type: ManifestType | null
 	trust: ManifestTrust
 	timestamp: ManifestTimestamp | null
+	// Null when the manifest has no CAWG identity
+	identity: ManifestIdentity | null
 	producer: ManifestProducer
 	signator?: ManifestSignator
 	generator: ManifestGenerator

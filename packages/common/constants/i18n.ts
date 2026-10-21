@@ -72,6 +72,8 @@ export const DICTIONARY_EN_US = {
 	section_table: 'How this image was made',
 	section_trust: 'How to trust this',
 	section_identity: 'Who made this',
+	// Identity
+	identity_name: 'Verified identity',
 	// Explainer
 	explainer_toggle: 'What is this?',
 	explainer_toggle_close: 'Close',
@@ -89,9 +91,9 @@ export const DICTIONARY_EN_US = {
 	trust_unknown: 'Unknown',
 	trust_none: 'Not recorded',
 	trust_validating: 'Validating...',
-	trust_trusted_definition: 'All information below is valid and trusted',
-	trust_trusted_legacy_definition: 'The information below comes from a source trusted under a legacy system, before conformance certification began',
-	trust_valid_definition: 'All information below is valid',
+	trust_trusted_definition: 'All information displayed is valid and trusted',
+	trust_trusted_legacy_definition: 'The information displayed comes from a source trusted under a legacy system, before conformance certification began',
+	trust_valid_definition: 'All information displayed is valid',
 	trust_invalid_definition: 'We found some invalid information',
 	trust_unknown_definition: 'We cannot find any information to validate',
 	trust_none_definition: 'This step was not recorded, so there is no information to validate',
@@ -229,6 +231,8 @@ export const DICTIONARY_NO_NO = {
 	section_table: 'Slik ble bildet laget',
 	section_trust: 'Slik kan du stole på dette',
 	section_identity: 'Hvem laget dette',
+	// Identity
+	identity_name: 'Verifisert organisasjon',
 	// Explainer
 	explainer_toggle: 'Hva er dette?',
 	explainer_toggle_close: 'Lukk',

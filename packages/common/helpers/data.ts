@@ -4,7 +4,7 @@ import type { Manifest as C2paManifest } from '@contentauth/c2pa-types'
 import { VERIFY_BASE_URL } from '#constants/ui'
 import { C2PA_ACTIONS } from '#constants/c2pa'
 import { PHASE_KEYS, C2PA_DATA_DEFAULT, KNOWN_GENERATORS_BY_MANIFEST_TYPE, MANIFEST_TYPES, MEDIA_TYPES, MEDIA_TYPE_EXTENSIONS_IMAGE, MEDIA_TYPE_EXTENSIONS_VIDEO, TRUST_KEYS } from '#constants/data'
-import { convertJumbfToBlobUrl, fetchMedia, getC2paActions, getC2paConfig, getExifValue, getManifestIptc, getSchemaOrgValue, hasC2paAction, isAiEditedManifest, isEditedManifest, readC2paFromBlob, readLegacyManifestStore } from '#helpers/c2pa'
+import { convertJumbfToBlobUrl, fetchMedia, getC2paActions, getC2paConfig, getCawgIdentityValue, getExifValue, getManifestIptc, getSchemaOrgValue, hasC2paAction, isAiEditedManifest, isEditedManifest, readC2paFromBlob, readLegacyManifestStore } from '#helpers/c2pa'
 import { getManifestTrust, getManifestValidation } from '#helpers/trust'
 import { getIptcDigitalSourceTypeKey, isIptcDigitalSourceTypeAi, isIptcDigitalSourceTypeCamera } from '#helpers/iptc'
 import type {
@@ -18,6 +18,7 @@ import type {
 	TrustKey,
 	ManifestActions,
 	ManifestGenerator,
+	ManifestIdentity,
 	ManifestLocation,
 	ManifestTimestamp,
 	ManifestType,
@@ -222,6 +223,7 @@ export const prepareManifest = async ({ manifest, provenance, reader }: {
 		type: getType(manifest),
 		trust: getTrust(manifest, provenance),
 		timestamp: getTimestamp(manifest),
+		identity: getIdentity(manifest),
 		producer: getProducer(manifest),
 		signator: getSignator(manifest),
 		generator: await getGenerator(manifest, reader),
@@ -243,6 +245,7 @@ export const prepareUnknownCreateManifest = (): Manifest => ({
 	type: { key: MANIFEST_TYPES.UNKNOWN_CREATE },
 	trust: { value: TRUST_KEYS.NONE, identity: null },
 	timestamp: null,
+	identity: null,
 	producer: [],
 	generator: [],
 	thumbnail: null,
@@ -329,6 +332,17 @@ export const getTimestamp = (manifest: C2paManifest | null | undefined): Manifes
 		date,
 		offset
 	} : null
+}
+
+/**
+ * Gets a manifest's CAWG identity
+ * @function
+ * @param manifest - C2paManifest entry
+ * @return Identity, or null when manifest has no CAWG identity
+ */
+export const getIdentity = (manifest: C2paManifest | null | undefined): ManifestIdentity | null => {
+	const name = getCawgIdentityValue(manifest)
+	return name ? { name } : null
 }
 
 /**

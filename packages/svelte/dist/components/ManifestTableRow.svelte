@@ -2,20 +2,19 @@
 	import { classNames } from 'syw-common/helpers/ui'
 	import { getDateString } from 'syw-common/helpers/i18n'
 	import type { ManifestActions, ManifestGeneratorEntry, ManifestLocation } from 'syw-common/types/data'
-	import type { ManifestTableRowProps } from 'syw-common/types/components'
+	import type { ManifestTableDetailProps } from 'syw-common/types/components'
 	import { getI18nContext } from '../store/i18n.js'
     import Map from './Map.svelte'
 	import Actions from './Actions.svelte'
 	import Generator from './Generator.svelte'
-    import Tooltip from './Tooltip.svelte';
-    import Icon from './Icon.svelte';
+	import Detail from './Detail.svelte'
 
 	const { locale, getText } = getI18nContext();
 
 	const {
 		type,
 		manifest,
-	}: ManifestTableRowProps = $props()
+	}: ManifestTableDetailProps = $props()
 
 	const value = $derived(() =>
 		manifest[type]
@@ -45,25 +44,12 @@
 
 {#if !isEmpty()}
 	<li
-		class={classNames('ManifestTableRow')}
+		class={classNames('ManifestTableDetail')}
 	>
-		<div
-			class={classNames('ManifestTableRowLabel')}
-		>
-			<span>
-				{type ? getText($locale, type, manifestType()) : ''}
-			</span>
-			<Tooltip
-				content={getText($locale, type, manifestType(), "definition")}
-			>
-				<Icon
-					type="info"
-					className={classNames('ManifestTableRowLabelTooltipIcon')}
-				/>
-			</Tooltip>
-		</div>
-		<div
-			class={classNames('ManifestTableRowValue')}
+		<Detail
+			title={type ? getText($locale, type, manifestType()) : ''}
+			titleTooltip={getText($locale, type, manifestType(), "definition")}
+			className={classNames('ManifestTableDetailDetail')}
 		>
 			{#if type === 'location'}
 				<Map
@@ -83,6 +69,6 @@
 			{:else}
 				{formattedValue()}
 			{/if}
-		</div>
+		</Detail>
 	</li>
 {/if}

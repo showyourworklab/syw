@@ -16623,20 +16623,20 @@ function Y5({
   }, [r, y, c]);
   if (!(w == null || w === "" || Array.isArray(w) && !w.length))
     return /* @__PURE__ */ at("li", {
-      className: We("ManifestTableRow"),
+      className: We("ManifestTableDetail"),
       children: [/* @__PURE__ */ at("div", {
-        className: We("ManifestTableRowLabel"),
+        className: We("ManifestTableDetailLabel"),
         children: [/* @__PURE__ */ H("span", {
           children: d(r, E)
         }), /* @__PURE__ */ H(Ab, {
           content: d(r, E, "definition"),
           children: /* @__PURE__ */ H(Ko, {
             type: "info",
-            className: We("ManifestTableRowLabelTooltipIcon")
+            className: We("ManifestTableDetailLabelTooltipIcon")
           })
         })]
       }), /* @__PURE__ */ H("div", {
-        className: We("ManifestTableRowValue"),
+        className: We("ManifestTableDetailValue"),
         children: r === "generator" ? y.map((l, D) => /* @__PURE__ */ H(j5, {
           name: l.name,
           icon: l.icon
