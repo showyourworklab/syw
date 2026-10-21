@@ -52,6 +52,20 @@ export const DEMO_IMAGES: DemoImage[] = [
 	// 	byline: 'Nora Savosnick'
 	// },
 	{
+		src: 'https://showyourworklab.github.io/c2pa-images/sony-nora-2.jpg',
+		title: {
+			en_US: 'Washington Square Park',
+			no_NO: 'Washington Square Park',
+			// sv_SE: 'AI-edited',
+		},
+		caption: {
+			en_US: '',
+			no_NO: '',
+			// sv_SE: '',
+		},
+		byline: 'Nora Savosnick'
+	},
+	{
 		src: 'https://showyourworklab.github.io/c2pa-images/feedback-1.jpg',
 		title: {
 			en_US: 'Viking row (Leica)',

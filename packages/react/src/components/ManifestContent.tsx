@@ -2,9 +2,10 @@ import ManifestTable from './ManifestTable'
 import { classNames } from 'syw-common/helpers/ui'
 import { MANIFEST_PRIMARY_KEYS } from 'syw-common/constants/ui'
 import type { ManifestContentProps } from 'syw-common/types/components'
-import Trust from './Trust'
+import ManifestTrust from './ManifestTrust'
 import ManifestContentTabs from './ManifestContentTabs'
 import ManifestContentTabsToggle from './ManifestContentTabsToggle'
+import ManifestIdentity from './ManifestIdentity'
 
 function ManifestContent({ tabKeys, manifest }: ManifestContentProps) {
 	return (
@@ -18,11 +19,14 @@ function ManifestContent({ tabKeys, manifest }: ManifestContentProps) {
 					<div
 						className={classNames('ManifestContentPrimary')}
 					>
-						<Trust
-							manifest={manifest}
-						/>
 						<ManifestTable
 							keys={MANIFEST_PRIMARY_KEYS}
+							manifest={manifest}
+						/>
+						<ManifestTrust
+							manifest={manifest}
+						/>
+						<ManifestIdentity
 							manifest={manifest}
 						/>
 					</div>
@@ -40,7 +44,7 @@ function ManifestContent({ tabKeys, manifest }: ManifestContentProps) {
 						/>
 					</div>
 				</div>
-			: <Trust manifest={manifest} />}
+			: <ManifestTrust manifest={manifest} />}
 		</div>
 	)
 }

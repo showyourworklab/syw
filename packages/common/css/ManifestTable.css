@@ -1,6 +1,5 @@
-/* Manifest > Table */
-.Syw-ManifestTable {
-	width: 100%;
+/* Manifest > Table > Rows */
+ul.Syw-ManifestTableRows {
 	padding: 0;
 	margin: 0;
 	list-style: none;
@@ -11,11 +10,13 @@
 	}
 }
 /* Manifest > Table > Row */
-.Syw-ManifestTableRow {
-	margin-bottom: var(--syw-space-3);
+li.Syw-ManifestTableRow {
+	margin: 0 0 var(--syw-space-2) 0 !important;
+	padding: 0 0 0 var(--syw-space-2) !important;
+	border-left: 2px solid var(--syw-color-quaternary);
 }
-.Syw-ManifestTableRow:last-of-type {
-	margin-bottom: 0;
+li.Syw-ManifestTableRow:last-of-type {
+	margin-bottom: 0 !important;
 }
 .Syw-ManifestTableRowLabel {
 	display: flex;

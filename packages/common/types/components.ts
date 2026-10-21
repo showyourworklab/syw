@@ -75,6 +75,14 @@ export interface ManifestPreviewProps extends ComponentProps {
 	onToggle: (event?: unknown) => void
 }
 
+export interface ManifestSectionProps extends ComponentProps {
+	title?: string | null
+}
+
+export interface ManifestIdentityProps extends ComponentProps {
+	manifest: Manifest
+}
+
 export interface ManifestTableProps extends ComponentProps {
 	keys: readonly ManifestFieldKey[]
 	manifest: Manifest
@@ -97,7 +105,7 @@ export interface ModalProps extends ComponentProps {
 	onOpenChange: (open: boolean) => void
 }
 
-export interface TrustProps extends ComponentProps {
+export interface ManifestTrustProps extends ComponentProps {
 	manifest: Manifest
 }
 

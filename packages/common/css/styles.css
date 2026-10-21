@@ -16,8 +16,11 @@
 @import './ManifestContent.css';
 @import './ManifestContentTabs.css';
 @import './ManifestContentTabsToggle.css';
+@import './ManifestIdentity.css';
 @import './ManifestPreview.css';
+@import './ManifestSection.css';
 @import './ManifestTable.css';
+@import './ManifestTrust.css';
 @import './Map.css';
 @import './Modal.css';
 @import './Popover.css';
@@ -27,5 +30,4 @@
 @import './ProvenancePopover.css';
 @import './ProvenanceToggle.css';
 @import './Tooltip.css';
-@import './Trust.css';
 @import './Video.css';

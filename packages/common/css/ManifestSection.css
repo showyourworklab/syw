@@ -1,0 +1,17 @@
+/* Manifest > Section */
+section.Syw-ManifestSection {
+	width: 100%;
+	padding: 0 !important;
+	margin: 0px 0px var(--syw-space-4) 0px !important;
+}
+section.Syw-ManifestSection + section.Syw-ManifestSection {
+	margin-top: var(--syw-space-4);
+}
+/* Manifest > Section > Title */
+.Syw-ManifestSectionTitle {
+	display: inline-block;
+	font-weight: var(--syw-font-weight-bold);
+	/* border-bottom: 2px solid var(--syw-color-quaternary); */
+	padding-bottom: var(--syw-space-2);
+	/* margin-bottom: var(--syw-space-2); */
+}

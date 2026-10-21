@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { TrustProps } from 'syw-common/types/components'
+	import type { ManifestTrustProps } from 'syw-common/types/components'
 	import { classNames } from 'syw-common/helpers/ui'
     import { TRUST_KEYS } from 'syw-common/constants/data';
 	import { getI18nContext } from '../store/i18n.js'
@@ -7,7 +7,7 @@
 
 	const { locale, getText } = getI18nContext();
 
-	const { manifest }: TrustProps = $props()
+	const { manifest }: ManifestTrustProps = $props()
 
 	const isNotTrusted = $derived(manifest.trust.value !== TRUST_KEYS.TRUSTED)
 </script>

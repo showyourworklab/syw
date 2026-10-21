@@ -68,6 +68,10 @@ export const DICTIONARY_EN_US = {
 	provenance_toggle_video: 'More info on this video',
 	provenance_toggle_unknown: 'More info on this media',
 	provenance_missing: 'No provenance found',
+	// Sections
+	section_table: 'How this image was made',
+	section_trust: 'How to trust this',
+	section_identity: 'Who made this',
 	// Explainer
 	explainer_toggle: 'What is this?',
 	explainer_toggle_close: 'Close',
@@ -221,6 +225,10 @@ export const DICTIONARY_NO_NO = {
 	provenance_toggle_video: 'Mer informasjon om denne videoen',
 	provenance_toggle_unknown: 'Mer informasjon om dette mediet',
 	provenance_missing: 'Ingen opprinnelse funnet',
+	// Sections
+	section_table: 'Slik ble bildet laget',
+	section_trust: 'Slik kan du stole på dette',
+	section_identity: 'Hvem laget dette',
 	// Explainer
 	explainer_toggle: 'Hva er dette?',
 	explainer_toggle_close: 'Lukk',

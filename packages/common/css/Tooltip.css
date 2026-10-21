@@ -1,8 +1,9 @@
 /* Tooltip > Content */
 .Syw-TooltipContent {
-	--syw-tooltip-text: var(--syw-color-primary);
-	--syw-tooltip-background: var(--syw-color-quaternary);
-	--arrow-background: var(--syw-tooltip-text);
+	--tooltip-text: var(--syw-color-primary);
+	--tooltip-background: var(--syw-color-quaternary);
+	--tooltip-border: var(--syw-color-tertiary);
+	--arrow-background: var(--tooltip-border);
 	--arrow-size: 6px;
 	max-width: 300px;
 	padding: var(--syw-space-3);
@@ -11,15 +12,18 @@
 	font-size: var(--syw-text-sm);
 	line-height: 1.3em;
 	border-radius: var(--syw-radius-lg);
-	border-color: currentColor;
+	border-color: var(--tooltip-border);
 	border-style: solid;
 	border-width: 1px;
-	color: var(--syw-tooltip-text);
-	background-color: var(--syw-tooltip-background);
+	color: var(--tooltip-text);
+	background-color: var(--tooltip-background);
 	z-index: calc(var(--syw-z-tooltip) + var(--layer-index, 0));
 	transform-origin: var(--transform-origin);
 	position: relative;
-	filter: drop-shadow(0 5px 5px rgba(0, 0, 0, 0.125));
+	/* box-shadow:
+		0 0px 2px 0px rgba(0, 0, 0, 0.25),
+		0 1px 10px 0px rgba(0, 0, 0, 0.125); */
+	/* filter: drop-shadow(0 5px 5px rgba(0, 0, 0, 0.125)); */
 }
 .Syw-TooltipContent[data-state="open"] {
 	animation: syw-tooltip-in 150ms ease-out;
@@ -31,13 +35,14 @@
 /* Tooltip > Trigger */
 .Syw-TooltipTrigger {
 	cursor: default;
+	display: inline-flex;
 }
 /* Tooltip > Arrow */
 .Syw-TooltipArrow {
 
 }
 .Syw-TooltipArrowTip {
-	
+
 }
 .Syw-TooltipArrowTip::before {
 	content: "";
@@ -46,7 +51,7 @@
 	top: 1px;
 	width: 100%;
 	height: 100%;
-	background-color: var(--syw-tooltip-background);
+	background-color: var(--tooltip-background);
 }
 /* Tooltip > Transition */
 @keyframes syw-tooltip-in {

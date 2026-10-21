@@ -2,8 +2,9 @@
 	import { classNames } from 'syw-common/helpers/ui'
 	import { MANIFEST_PRIMARY_KEYS } from 'syw-common/constants/ui'
 	import type { ManifestContentProps } from 'syw-common/types/components'
-    import Trust from './Trust.svelte';
+    import ManifestTrust from './ManifestTrust.svelte';
 	import ManifestTable from './ManifestTable.svelte'
+	import ManifestIdentity from './ManifestIdentity.svelte'
 	import ManifestContentTabs from './ManifestContentTabs.svelte'
 	import ManifestContentTabsToggle from './ManifestContentTabsToggle.svelte'
 
@@ -23,11 +24,14 @@
 			<div
 				class={classNames('ManifestContentPrimary')}
 			>
-				<Trust
-					manifest={manifest}
-				/>
 				<ManifestTable
 					keys={MANIFEST_PRIMARY_KEYS}
+					manifest={manifest}
+				/>
+				<ManifestTrust
+					manifest={manifest}
+				/>
+				<ManifestIdentity
 					manifest={manifest}
 				/>
 			</div>
@@ -46,7 +50,7 @@
 			</div>
 		</div>
 	{:else}
-		<Trust
+		<ManifestTrust
 			manifest={manifest}
 		/>
 	{/if}

@@ -8,6 +8,7 @@
 .Syw-ManifestContentTabsContent {
 	outline: none;
 	margin-top: var(--syw-space-2);
+	margin-bottom: var(--syw-space-2);
 }
 .Syw-ManifestContentTabsContent:focus-visible {
 	outline: 2px solid var(--syw-color-quinary);
