@@ -40,16 +40,17 @@ export const MANIFEST_PREVIEW_TITLE_KEYS = [
 	'generator',
 	'signator',
 ] as const
+// Views of a manifest's content, toggled by tabs
 export const MANIFEST_CONTENT_TAB_KEYS = {
-	camera: ['thumbnail', 'location'],
-	edit: ['thumbnail', 'actions'],
-	ai_create: ['thumbnail', 'actions'],
-	ai_edit: ['thumbnail', 'actions'],
-	unknown: ['thumbnail', 'actions'],
+	camera: ['info', 'image'],
+	edit: ['info', 'image'],
+	ai_create: ['info', 'image'],
+	ai_edit: ['info', 'image'],
+	unknown: ['info', 'image'],
 	unknown_create: [],
 } as const
 
-export const MANIFEST_CONTENT_TAB_DEFAULT = 'thumbnail'
+export const MANIFEST_CONTENT_TAB_DEFAULT = 'info'
 ///////////////// Icons ////////////////
 export const ICON_DEFAULT_SIZE = 24
 export const ICON_DEFAULT_STROKE_WIDTH = 2

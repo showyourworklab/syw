@@ -1,6 +1,9 @@
 import type { TrustKey, Manifest, ManifestActions, ManifestFieldKey, ManifestLocation, ManifestType } from './data.js'
 import type { IconType } from './ui.js'
 
+// Views of a manifest's content, toggled by tabs
+export type ManifestContentTabKey = 'info' | 'image'
+
 export interface ComponentProps {
 	className?: string | null
 	children?: any
@@ -63,24 +66,32 @@ export interface MapProps extends ComponentProps {
 }
 
 export interface ManifestContentProps extends ComponentProps {
-	tabKeys: readonly ManifestFieldKey[]
+	tabKeys: readonly ManifestContentTabKey[]
 	manifest: Manifest
 }
 
 export interface ManifestContentTabsProps extends ComponentProps {
 	manifest: Manifest
-	keys: readonly ManifestFieldKey[]
+	keys: readonly ManifestContentTabKey[]
 }
 
 export interface ManifestContentTabsToggleProps extends ComponentProps {
 	manifest: Manifest
-	keys: readonly ManifestFieldKey[]
+	keys: readonly ManifestContentTabKey[]
+}
+
+export interface ManifestImageProps extends ComponentProps {
+	manifest: Manifest
+}
+
+export interface ManifestLocationProps extends ComponentProps {
+	manifest: Manifest
 }
 
 export interface ManifestPreviewProps extends ComponentProps {
 	open: boolean
 	manifest: Manifest
-	tabKeys: readonly ManifestFieldKey[]
+	tabKeys: readonly ManifestContentTabKey[]
 	onToggle: (event?: unknown) => void
 }
 

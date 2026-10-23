@@ -1,0 +1,43 @@
+/* Manifest > Image */
+.Syw-ManifestImage {
+	--syw-manifest-image-padding: var(--syw-space-3);
+	--syw-manifest-image-border: 1px;
+	/* Tallest the image can be inside the frame */
+	--syw-manifest-image-inner-max-height: calc(var(--syw-size-manifest-image-max-height) - (var(--syw-manifest-image-padding) * 2) - (var(--syw-manifest-image-border) * 2));
+	/* Shrink to the image so the padding stays even on all sides */
+	width: fit-content;
+	max-width: 100%;
+	margin: 0 auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	box-sizing: border-box;
+	padding: var(--syw-manifest-image-padding);
+	overflow: hidden;
+	border: var(--syw-manifest-image-border) dotted var(--syw-color-primary);
+	border-radius: var(--syw-radius-lg);
+	background-color: var(--syw-color-quaternary);
+}
+img.Syw-ManifestImageThumbnail {
+	display: block;
+	width: auto;
+	height: auto;
+	max-width: 100%;
+	max-height: var(--syw-manifest-image-inner-max-height);
+}
+/* Once the image's aspect ratio is known, fill the full width unless that would pass the max height */
+.Syw-ManifestImage.Syw-ManifestImage_sized {
+	width: min(100%, calc((var(--syw-manifest-image-inner-max-height) * var(--syw-manifest-image-ratio)) + (var(--syw-manifest-image-padding) * 2) + (var(--syw-manifest-image-border) * 2)));
+}
+.Syw-ManifestImage_sized img.Syw-ManifestImageThumbnail {
+	width: 100%;
+}
+.Syw-ManifestImage_missing {
+	width: 100%;
+	opacity: 0.625;
+	aspect-ratio: 16 / 9;
+	max-height: var(--syw-size-manifest-image-max-height);
+}
+.Syw-ManifestImage_missing svg {
+	margin: auto;
+}

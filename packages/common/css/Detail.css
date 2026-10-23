@@ -4,8 +4,12 @@
 	--syw-detail-border: var(--syw-color-quaternary);
 	--syw-detail-background: var(--syw-color-quaternary);
 	padding: 0 0 0 var(--syw-space-2);
+	margin: 0 0 var(--syw-space-3) 0 !important;
 	color: var(--syw-detail-text);
 	border-left: 2px solid var(--syw-detail-border);
+}
+.Syw-Detail:last-of-type {
+	margin-bottom: 0 !important;
 }
 .Syw-Detail.Syw-Detail_background {
 	--syw-detail-border: var(--syw-color-tertiary);

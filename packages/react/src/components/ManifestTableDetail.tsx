@@ -10,7 +10,7 @@ import Detail from './Detail'
 function ManifestTableDetail({ type, manifest }: ManifestTableDetailProps) {
 	const { locale, getText } = useI18nContext()
 
-	const value = useMemo(() =>
+	const value: any = useMemo(() =>
 		manifest[type]
 	, [manifest, type]);
 

@@ -40,6 +40,10 @@ export const DICTIONARY_EN_US = {
 	generator_ai_edit: 'AI Tool',
 	generator_unknown: 'Produced with',
 	location: 'Location',
+	location_coordinates: 'Coordinates',
+	location_coordinates_definition: 'Where this image was made, as reported by the device or software.',
+	location_map_show: 'Show map',
+	location_map_hide: 'Hide map',
 	actions: 'Actions',
 	// Fields > Definitions
 	producer_camera_definition: 'The name provided as the photographer.',
@@ -72,6 +76,7 @@ export const DICTIONARY_EN_US = {
 	section_table: 'How this image was made',
 	section_trust: 'How to trust this',
 	section_identity: 'Who made this',
+	section_location: 'Where this image was made',
 	// Identity
 	identity_name: 'Verified identity',
 	// Explainer
@@ -98,7 +103,8 @@ export const DICTIONARY_EN_US = {
 	trust_unknown_definition: 'We cannot find any information to validate',
 	trust_none_definition: 'This step was not recorded, so there is no information to validate',
 	// Tabs
-	tab_thumbnail: 'Image',
+	tab_info: 'Info',
+	tab_image: 'Image',
 	tab_location: 'Map',
 	tab_actions: 'Edits',
 	// Actions
@@ -199,6 +205,10 @@ export const DICTIONARY_NO_NO = {
 	generator_ai_edit: 'KI-Programvare',
 	generator_unknown: 'Produsert med',
 	location: 'Sted',
+	location_coordinates: 'Koordinater',
+	location_coordinates_definition: 'Hvor bildet ble laget, som oppgitt av enheten eller programvaren.',
+	location_map_show: 'Vis kart',
+	location_map_hide: 'Skjul kart',
 	actions: 'Handlinger',
 	// Fields > Definitions
 	producer_camera_definition: 'Navnet som er oppgitt som fotograf.',
@@ -231,6 +241,7 @@ export const DICTIONARY_NO_NO = {
 	section_table: 'Slik ble bildet laget',
 	section_trust: 'Slik kan du stole på dette',
 	section_identity: 'Hvem laget dette',
+	section_location: 'Hvor bildet ble laget',
 	// Identity
 	identity_name: 'Verifisert organisasjon',
 	// Explainer
@@ -257,7 +268,8 @@ export const DICTIONARY_NO_NO = {
 	trust_unknown_definition: 'Vi finner ingen opplysninger å validere',
 	trust_none_definition: 'Dette trinnet ble ikke registrert, så det finnes ingen opplysninger å validere',
 	// Tabs
-	tab_thumbnail: 'Bilde',
+	tab_info: 'Info',
+	tab_image: 'Bilde',
 	tab_location: 'Kart',
 	tab_actions: 'Redigeringer',
 	// Actions

@@ -1,10 +1,13 @@
 import { useMemo } from 'react'
 import { Tabs } from '@ark-ui/react/tabs'
 import { classNames, getAvailableTabs } from 'syw-common/helpers/ui'
+import { MANIFEST_PRIMARY_KEYS } from 'syw-common/constants/ui'
 import type { ManifestContentTabsProps } from 'syw-common/types/components'
-import Map from './Map'
-import Actions from './Actions'
-import Icon from './Icon'
+import ManifestIdentity from './ManifestIdentity'
+import ManifestTable from './ManifestTable'
+import ManifestTrust from './ManifestTrust'
+import ManifestLocation from './ManifestLocation'
+import ManifestImage from './ManifestImage'
 
 function ManifestContentTabs({
 	manifest,
@@ -13,7 +16,7 @@ function ManifestContentTabs({
 	const availableTabs = useMemo(() =>
 		getAvailableTabs(keys, manifest)
 	, [keys, manifest])
-	
+
 	return (
 		<div
 			className={classNames('ManifestContentTabs')}
@@ -30,28 +33,33 @@ function ManifestContentTabs({
 					<div
 						className={classNames('ManifestContentTabsContentInner')}
 					>
-						{key === "thumbnail" ?
-							<div
-								className={classNames(
-									'ManifestContentTabsThumbnail',
-									!manifest?.thumbnail ? 'ManifestContentTabsThumbnail_missing' : null,
-								)}
-							>
-								{manifest?.thumbnail ?
-									<img
-										alt=''
-										src={manifest?.thumbnail ?? undefined}
-										className={classNames('ManifestContentTabsThumbnailImage')}
+						{key === "info" ?
+							<>
+								<div
+									className={classNames('ManifestContentTabsColumn', 'ManifestContentTabsColumn_primary')}
+								>
+									<ManifestTable
+										keys={MANIFEST_PRIMARY_KEYS}
+										manifest={manifest}
 									/>
-								: <Icon type="missing" />}
-							</div>
-						: key === "location" && manifest?.location ?
-							<Map
-								location={manifest?.location}
-							/>
-						: key === "actions" ?
-							<Actions
-								actions={manifest?.actions ?? []}
+									<ManifestLocation
+										manifest={manifest}
+									/>
+								</div>
+								<div
+									className={classNames('ManifestContentTabsColumn', 'ManifestContentTabsColumn_secondary')}
+								>
+									<ManifestIdentity
+										manifest={manifest}
+									/>
+									<ManifestTrust
+										manifest={manifest}
+									/>
+								</div>
+							</>
+						: key === "image" ?
+							<ManifestImage
+								manifest={manifest}
 							/>
 						: null}
 					</div>

@@ -18,6 +18,8 @@
 @import './ManifestContentTabs.css';
 @import './ManifestContentTabsToggle.css';
 @import './ManifestIdentity.css';
+@import './ManifestImage.css';
+@import './ManifestLocation.css';
 @import './ManifestPreview.css';
 @import './ManifestSection.css';
 @import './ManifestTable.css';

@@ -9,48 +9,48 @@ interface DemoImage {
 
 // Hosted at https://github.com/showyourworklab/c2pa-images
 export const DEMO_IMAGES: DemoImage[] = [
-	// {
-	// 	src: 'https://iptc.org/std/MediaProvenance/SampleContent/IPTC/christmas-market-iptc-signed.jpg',
-	// 	title: {
-	// 		en_US: 'IPTC sample',
-	// 		no_NO: 'IPTC sample'
-	// 	}
-	// },
-	// {
-	// 	src: 'https://iptc.org/wp-content/uploads/2026/09/Bergen-2026-attendees-cropped-2048x970.png',
-	// 	title: {
-	// 		en_US: 'IPTC Bergen',
-	// 		no_NO: 'IPTC Bergen'
-	// 	}
-	// },
-	// {
-	// 	src: 'https://showyourworklab.github.io/c2pa-images/leica-nora-syria-2.jpg',
-	// 	title: {
-	// 		en_US: 'Pilot Presentation',
-	// 		no_NO: 'Pilot Presentation',
-	// 		// sv_SE: 'Pilot Presentation',
-	// 	},
-	// 	caption: {
-	// 		en_US: 'Sara Melhem, 28, works as a forensic pathologist in Damascus, Syria, examining bodies and investigating mass graves one year after the fall of Assad.',
-	// 		no_NO: 'Post mortem: Syrias rettsmedisinere skal få lik til å snakke og avdekke sannheten om hvordan de døde. Slik kan landet forhåpentligvis heles. 28 år gamle Sara Melhem ble kastet inn i en ny epoke etter årtier med systematiske løgner fra regimet.',
-	// 		// sv_SE: '',
-	// 	},
-	// 	byline: 'Nora Savosnick'
-	// },
-	// {
-	// 	src: 'https://showyourworklab.github.io/c2pa-images/firefly-edit.jpg',
-	// 	title: {
-	// 		en_US: 'AI-edited',
-	// 		no_NO: 'AI-edited',
-	// 		// sv_SE: 'AI-edited',
-	// 	},
-	// 	caption: {
-	// 		en_US: '',
-	// 		no_NO: '',
-	// 		// sv_SE: '',
-	// 	},
-	// 	byline: 'Nora Savosnick'
-	// },
+	{
+		src: 'https://iptc.org/std/MediaProvenance/SampleContent/IPTC/christmas-market-iptc-signed.jpg',
+		title: {
+			en_US: 'IPTC sample',
+			no_NO: 'IPTC sample'
+		}
+	},
+	{
+		src: 'https://iptc.org/wp-content/uploads/2026/09/Bergen-2026-attendees-cropped-2048x970.png',
+		title: {
+			en_US: 'IPTC Bergen',
+			no_NO: 'IPTC Bergen'
+		}
+	},
+	{
+		src: 'https://showyourworklab.github.io/c2pa-images/leica-nora-syria-2.jpg',
+		title: {
+			en_US: 'Pilot Presentation',
+			no_NO: 'Pilot Presentation',
+			// sv_SE: 'Pilot Presentation',
+		},
+		caption: {
+			en_US: 'Sara Melhem, 28, works as a forensic pathologist in Damascus, Syria, examining bodies and investigating mass graves one year after the fall of Assad.',
+			no_NO: 'Post mortem: Syrias rettsmedisinere skal få lik til å snakke og avdekke sannheten om hvordan de døde. Slik kan landet forhåpentligvis heles. 28 år gamle Sara Melhem ble kastet inn i en ny epoke etter årtier med systematiske løgner fra regimet.',
+			// sv_SE: '',
+		},
+		byline: 'Nora Savosnick'
+	},
+	{
+		src: 'https://showyourworklab.github.io/c2pa-images/firefly-edit.jpg',
+		title: {
+			en_US: 'AI-edited',
+			no_NO: 'AI-edited',
+			// sv_SE: 'AI-edited',
+		},
+		caption: {
+			en_US: '',
+			no_NO: '',
+			// sv_SE: '',
+		},
+		byline: 'Nora Savosnick'
+	},
 	{
 		src: 'https://showyourworklab.github.io/c2pa-images/feedback-1.jpg',
 		title: {

@@ -10,9 +10,3 @@
 	}
 }
 /* Manifest > Table > Row */
-.Syw-ManifestTableDetail {
-	margin: 0 0 var(--syw-space-2) 0 !important;
-}
-.Syw-ManifestTableDetail:last-of-type {
-	margin-bottom: 0 !important;
-}

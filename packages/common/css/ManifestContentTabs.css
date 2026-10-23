@@ -2,13 +2,10 @@
 .Syw-ManifestContentTabs {
 	display: flex;
 	flex-direction: column;
-	margin-top: calc(var(--syw-space-2) * -1);
 }
 /* Manifest > Content > Tabs > Content */
 .Syw-ManifestContentTabsContent {
 	outline: none;
-	margin-top: var(--syw-space-2);
-	margin-bottom: var(--syw-space-2);
 }
 .Syw-ManifestContentTabsContent:focus-visible {
 	outline: 2px solid var(--syw-color-quinary);
@@ -17,42 +14,26 @@
 }
 .Syw-ManifestContentTabsContentInner {
 	display: flex;
+}
+/* Manifest > Content > Tabs > Info */
+.Syw-ManifestContentTabsContent_info .Syw-ManifestContentTabsContentInner {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: var(--syw-space-4);
 	@media (min-width: 576px) {
-		height: 200px;
-		justify-content: flex-end;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: var(--syw-space-6);
 	}
 }
-/* Manifest > Content > Tabs > Actions */
-.Syw-ManifestContentTabsContent_actions {
-	
+/* Stack the columns in side drawers, which are too narrow for two */
+.Syw-DrawerPositioner[data-swipe-direction="left"] .Syw-ManifestContentTabsContent_info .Syw-ManifestContentTabsContentInner,
+.Syw-DrawerPositioner[data-swipe-direction="right"] .Syw-ManifestContentTabsContent_info .Syw-ManifestContentTabsContentInner {
+	grid-template-columns: 1fr;
+	gap: var(--syw-space-4);
 }
-/* Manifest > Content > Tabs > Thumbnail */
-.Syw-ManifestContentTabsThumbnail {
-	width: 100%;
+/* Manifest > Content > Tabs > Info > Column */
+.Syw-ManifestContentTabsColumn {
 	display: flex;
-	align-items: center;
-	justify-content: flex-end;
-	overflow: hidden;
-	border-width: 1px;
-	border-style: solid;
-	border-color: var(--syw-color-primary);
-	border-radius: var(--syw-radius-lg);
-	background-color: var(--syw-color-secondary);
-	@media (min-width: 576px) {
-		width: auto;
-	}
-}
-img.Syw-ManifestContentTabsThumbnailImage {
-	width: 100%;
-	height: auto;
-	@media (min-width: 576px) {
-		width: auto;
-		height: 100%;
-	}
-}
-.Syw-ManifestContentTabsThumbnail_missing {
-	aspect-ratio: 1 / 1;
-}
-.Syw-ManifestContentTabsThumbnail_missing svg {
-	margin: auto
+	flex-direction: column;
+	min-width: 0;
 }

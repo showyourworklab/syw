@@ -62,6 +62,7 @@
 	--syw-size-badge-icon: 12px;
 	--syw-size-manifest-preview-height: 53px;
 	--syw-size-manifest-preview-indent: calc(var(--syw-size-badge) + var(--syw-space-4));
+	--syw-size-manifest-image-max-height: 320px;
 	--syw-size-caption-indent: calc(var(--syw-size-badge) + var(--syw-space-5));
 	--syw-size-caption-border: 1px;
 	--syw-size-cutline-margin: var(--syw-space-2);

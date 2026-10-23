@@ -1,10 +1,9 @@
 <script lang="ts">
 	import { classNames } from 'syw-common/helpers/ui'
 	import { getDateString } from 'syw-common/helpers/i18n'
-	import type { ManifestActions, ManifestGeneratorEntry, ManifestLocation } from 'syw-common/types/data'
+	import type { ManifestActions, ManifestGeneratorEntry } from 'syw-common/types/data'
 	import type { ManifestTableDetailProps } from 'syw-common/types/components'
 	import { getI18nContext } from '$lib/store/i18n.js'
-    import Map from './Map.svelte'
 	import Actions from './Actions.svelte'
 	import Generator from './Generator.svelte'
 	import Detail from './Detail.svelte'
@@ -48,11 +47,7 @@
 		titleTooltip={getText($locale, type, manifestType(), "definition")}
 		className={classNames('ManifestTableDetail')}
 	>
-		{#if type === 'location'}
-			<Map
-				location={value() as ManifestLocation}
-			/>
-		{:else if type === 'actions'}
+		{#if type === 'actions'}
 			<Actions
 				actions={value() as ManifestActions}
 			/>

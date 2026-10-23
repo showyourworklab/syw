@@ -11,6 +11,8 @@ export { default as Icon } from './components/Icon.svelte';
 export { default as Image } from './components/Image.svelte';
 export { default as Manifest } from './components/Manifest.svelte';
 export { default as ManifestIdentity } from './components/ManifestIdentity.svelte';
+export { default as ManifestImage } from './components/ManifestImage.svelte';
+export { default as ManifestLocation } from './components/ManifestLocation.svelte';
 export { default as ManifestPreview } from './components/ManifestPreview.svelte';
 export { default as ManifestSection } from './components/ManifestSection.svelte';
 export { default as ManifestTable } from './components/ManifestTable.svelte';

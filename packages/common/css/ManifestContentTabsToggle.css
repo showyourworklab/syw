@@ -5,7 +5,7 @@
 	transition: all 200ms ease;
 }
 /* Manifest > Content > Tabs > Toggle > In Content */
-.Syw-ManifestContentTabsToggle.Syw-ManifestContentSecondaryTabsToggle {
+.Syw-ManifestContentTabsToggle.Syw-ManifestContentInnerTabsToggle {
 	margin-bottom: var(--syw-space-2);
 	@media (min-width: 576px) {
 		display: none;

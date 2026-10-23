@@ -1,10 +1,13 @@
 <script lang="ts">
 	import { Tabs } from '@ark-ui/svelte/tabs'
 	import { classNames, getAvailableTabs } from 'syw-common/helpers/ui'
+	import { MANIFEST_PRIMARY_KEYS } from 'syw-common/constants/ui'
 	import type { ManifestContentTabsProps } from 'syw-common/types/components'
-	import Map from './Map.svelte'
-	import Actions from './Actions.svelte'
-	import Icon from './Icon.svelte'
+	import ManifestIdentity from './ManifestIdentity.svelte'
+	import ManifestTable from './ManifestTable.svelte'
+	import ManifestTrust from './ManifestTrust.svelte'
+	import ManifestLocation from './ManifestLocation.svelte'
+	import ManifestImage from './ManifestImage.svelte'
 
 	const {
 		manifest,
@@ -30,30 +33,31 @@
 			<div
 				class={classNames('ManifestContentTabsContentInner')}
 			>
-				{#if key === "thumbnail"}
+				{#if key === "info"}
 					<div
-						class={classNames(
-							'ManifestContentTabsThumbnail',
-							!manifest?.thumbnail ? 'ManifestContentTabsThumbnail_missing' : null,
-						)}
+						class={classNames('ManifestContentTabsColumn', 'ManifestContentTabsColumn_primary')}
 					>
-						{#if manifest?.thumbnail}
-							<img
-								alt=''
-								src={manifest?.thumbnail}
-								class={classNames('ManifestContentTabsThumbnailImage')}
-							/>
-						{:else}
-							<Icon type="missing" />
-						{/if}
+						<ManifestTable
+							keys={MANIFEST_PRIMARY_KEYS}
+							manifest={manifest}
+						/>
+						<ManifestLocation
+							manifest={manifest}
+						/>
 					</div>
-				{:else if key === "location" && manifest?.location}
-					<Map
-						location={manifest?.location}
-					/>
-				{:else if key === "actions"}
-					<Actions
-						actions={manifest?.actions ?? []}
+					<div
+						class={classNames('ManifestContentTabsColumn', 'ManifestContentTabsColumn_secondary')}
+					>
+						<ManifestIdentity
+							manifest={manifest}
+						/>
+						<ManifestTrust
+							manifest={manifest}
+						/>
+					</div>
+				{:else if key === "image"}
+					<ManifestImage
+						manifest={manifest}
 					/>
 				{/if}
 			</div>

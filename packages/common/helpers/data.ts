@@ -454,19 +454,19 @@ export const getThumbnail = async (manifest: C2paManifest | null | undefined, re
  */
 export const getLocation = (manifest: C2paManifest | null | undefined): ManifestLocation | null => {
 	// Test coordinates
-	// return { lat: 40.754544782093724, lng: -73.91208171708277 }
-	const exifLat = getExifValue(manifest, 'GPSLatitude') as string
-	const exifLatDir = getExifValue(manifest, 'GPSLatitudeRef') as string
-	const lat = isNaN(exifLat as unknown as number)
-		? convertDmsToDd(exifLat, exifLatDir)
-		: parseFloat(exifLat)
-	const exifLng = getExifValue(manifest, 'GPSLongitude') as string
-	const exifLngDir = getExifValue(manifest, 'GPSLongitudeRef') as string
-	const lng = isNaN(exifLng as unknown as number)
-		? convertDmsToDd(exifLng, exifLngDir)
-		: parseFloat(exifLng)
-	if(lat === undefined || lng === undefined || isNaN(lat) || isNaN(lng)) return null
-	return { lat, lng }
+	return { lat: 40.754544782093724, lng: -73.91208171708277 }
+	// const exifLat = getExifValue(manifest, 'GPSLatitude') as string
+	// const exifLatDir = getExifValue(manifest, 'GPSLatitudeRef') as string
+	// const lat = isNaN(exifLat as unknown as number)
+	// 	? convertDmsToDd(exifLat, exifLatDir)
+	// 	: parseFloat(exifLat)
+	// const exifLng = getExifValue(manifest, 'GPSLongitude') as string
+	// const exifLngDir = getExifValue(manifest, 'GPSLongitudeRef') as string
+	// const lng = isNaN(exifLng as unknown as number)
+	// 	? convertDmsToDd(exifLng, exifLngDir)
+	// 	: parseFloat(exifLng)
+	// if(lat === undefined || lng === undefined || isNaN(lat) || isNaN(lng)) return null
+	// return { lat, lng }
 }
 
 /////////////// Media Types ///////////////
