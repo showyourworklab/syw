@@ -9,7 +9,7 @@
 	import Collapse from '$lib/components/shared/Collapse.svelte'
 	import Map from '$lib/components/shared/Map.svelte'
 
-	const { locale, getText, getMediaText } = getI18nContext()
+	const { locale, getText } = getI18nContext()
 	const { mediaType } = getDataContext()
 
 	const { manifest }: ManifestDetailLocationProps = $props()
@@ -28,7 +28,7 @@
 	<ManifestDetail
 		title={getText($locale, 'location', 'coordinates')}
 		titleIcon="location"
-		titleTooltip={getMediaText($locale, $mediaType, 'location', 'coordinates', 'definition')}
+		titleTooltip={getText($locale, 'location', 'coordinates', 'definition', $mediaType)}
 		className={classNames('ManifestDetailLocation')}
 	>
 		<DetailToggle

@@ -5,11 +5,11 @@ import type { ManifestTimestamp } from 'syw-common/types/data'
 import type { ManifestDetailPrimaryProps } from 'syw-common/types/components'
 import { useI18nContext } from '$src/context/i18n'
 import ManifestDetail from '$src/components/manifest/ManifestDetail'
-import { useMediaText } from '$src/hooks'
+import { useDataContext } from '$src/context'
 
 function ManifestDetailPrimary({ type, manifest }: ManifestDetailPrimaryProps) {
-	const { locale } = useI18nContext()
-	const getMediaText = useMediaText()
+	const { locale, getText } = useI18nContext()
+	const { mediaType } = useDataContext()
 
 	const value: any = useMemo(() =>
 		manifest[type]
@@ -34,9 +34,9 @@ function ManifestDetailPrimary({ type, manifest }: ManifestDetailPrimaryProps) {
 
 	return (
 		<ManifestDetail
-			title={getMediaText(type, manifestTypeTextKey)}
+			title={getText(type, manifestTypeTextKey, mediaType)}
 			titleIcon={getManifestDetailIcon(type)}
-			titleTooltip={getMediaText(type, manifestTypeTextKey, "definition")}
+			titleTooltip={getText(type, manifestTypeTextKey, "definition", mediaType)}
 			className={classNames('ManifestDetailPrimary')}
 		>
 			{formattedValue as string}

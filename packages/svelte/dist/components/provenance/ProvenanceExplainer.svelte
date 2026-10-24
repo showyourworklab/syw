@@ -7,7 +7,7 @@
 	import { getDataContext } from '../../store/data.js'
 	import { getUiContext } from '../../store/ui.js'
 
-	const { locale, getText, getMediaText } = getI18nContext();
+	const { locale, getText } = getI18nContext();
 	const { mediaType } = getDataContext()
 	const { isExplainerOpen, closeExplainer } = getUiContext();
 
@@ -43,7 +43,7 @@
 					<p
 						class={classNames('ProvenanceExplainerLede')}
 					>
-						{getMediaText($locale, $mediaType, 'explainer', 'lede')}
+						{getText($locale, 'explainer', 'lede', $mediaType)}
 					</p>
 				</div>
 				<dl
@@ -61,7 +61,7 @@
 							<Markdown
 								tag="dd"
 								class={classNames('ProvenanceExplainerSectionBody')}
-								content={getMediaText($locale, $mediaType, 'explainer', 'section', index, 'body')}
+								content={getText($locale, 'explainer', 'section', index, 'body', $mediaType)}
 							/>
 						</div>
 					{/each}

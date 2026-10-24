@@ -19,6 +19,7 @@
 		<ManifestDetail
 			title={getText($locale, 'identity', 'name')}
 			titleIcon="identity"
+			titleTooltip={getText($locale, 'identity', 'name', 'definition')}
 			className={classNames('ManifestSectionIdentityName')}
 		>
 			{manifest.identity.name}

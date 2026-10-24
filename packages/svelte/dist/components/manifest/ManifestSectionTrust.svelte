@@ -6,7 +6,7 @@
 	import ManifestDetail from './ManifestDetail.svelte'
 	import ManifestSection from './ManifestSection.svelte'
 
-	const { locale, getText, getMediaText } = getI18nContext()
+	const { locale, getText } = getI18nContext()
 	const { mediaType } = getDataContext()
 
 	const { manifest }: ManifestSectionTrustProps = $props()
@@ -17,7 +17,7 @@
 <ManifestSection
 	title={getText($locale, 'section', 'trust')}
 	titleIcon="section_trust"
-	definition={getMediaText($locale, $mediaType, 'section', 'trust', 'definition')}
+	definition={getText($locale, 'section', 'trust', 'definition', $mediaType)}
 	className={classNames('ManifestSectionTrust')}
 >
 	<ManifestDetail
@@ -34,7 +34,7 @@
 		<ManifestDetail
 			title={getText($locale, 'signator', typeKey)}
 			titleIcon="signator"
-			titleTooltip={getMediaText($locale, $mediaType, 'signator', typeKey, 'definition')}
+			titleTooltip={getText($locale, 'signator', typeKey, 'definition', $mediaType)}
 			className={classNames('ManifestSectionTrustSignator')}
 		>
 			{manifest.signator}

@@ -2,8 +2,7 @@ import { useState } from 'react'
 import { classNames } from 'syw-common/helpers/ui'
 import { formatCoordinates } from 'syw-common/helpers/map'
 import type { ManifestDetailLocationProps } from 'syw-common/types/components'
-import { useMediaText } from '$src/hooks'
-import { useI18nContext } from '$src/context'
+import { useI18nContext, useDataContext } from '$src/context'
 import ManifestDetail from '$src/components/manifest/ManifestDetail'
 import DetailToggle from '$src/components/shared/DetailToggle'
 import Collapse from '$src/components/shared/Collapse'
@@ -11,7 +10,7 @@ import Map from '$src/components/shared/Map'
 
 function ManifestDetailLocation({ manifest }: ManifestDetailLocationProps) {
 	const { getText } = useI18nContext()
-	const getMediaText = useMediaText()
+	const { mediaType } = useDataContext()
 	const [mapOpen, setMapOpen] = useState(false)
 	// Mount the map on first open, then keep it so it isn't rebuilt on every toggle
 	const [mapMounted, setMapMounted] = useState(false)
@@ -27,7 +26,7 @@ function ManifestDetailLocation({ manifest }: ManifestDetailLocationProps) {
 		<ManifestDetail
 			title={getText('location', 'coordinates')}
 			titleIcon="location"
-			titleTooltip={getMediaText('location', 'coordinates', 'definition')}
+			titleTooltip={getText('location', 'coordinates', 'definition', mediaType)}
 			className={classNames('ManifestDetailLocation')}
 		>
 			<DetailToggle

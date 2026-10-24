@@ -6,7 +6,7 @@
 	import { getDataContext } from '$lib/store/data.js'
 	import ManifestDetail from '$lib/components/manifest/ManifestDetail.svelte'
 
-	const { locale, getMediaText } = getI18nContext();
+	const { locale, getText } = getI18nContext();
 	const { mediaType } = getDataContext()
 
 	const {
@@ -42,9 +42,9 @@
 
 {#if !isEmpty()}
 	<ManifestDetail
-		title={type ? getMediaText($locale, $mediaType, type, manifestType()) : ''}
+		title={type ? getText($locale, type, manifestType(), $mediaType) : ''}
 		titleIcon={getManifestDetailIcon(type)}
-		titleTooltip={getMediaText($locale, $mediaType, type, manifestType(), "definition")}
+		titleTooltip={getText($locale, type, manifestType(), "definition", $mediaType)}
 		className={classNames('ManifestDetailPrimary')}
 	>
 		{formattedValue()}

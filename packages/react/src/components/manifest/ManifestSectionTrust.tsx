@@ -1,15 +1,14 @@
 import type { ManifestSectionTrustProps } from 'syw-common/types/components'
 import { classNames } from 'syw-common/helpers/ui'
-import { useI18nContext } from '$src/context'
+import { useI18nContext, useDataContext } from '$src/context'
 import ManifestDetail from '$src/components/manifest/ManifestDetail'
 import ManifestSection from '$src/components/manifest/ManifestSection'
-import { useMediaText } from '$src/hooks'
 
 function ManifestSectionTrust({
 	manifest
 }: ManifestSectionTrustProps) {
 	const { getText } = useI18nContext()
-	const getMediaText = useMediaText()
+	const { mediaType } = useDataContext()
 
 	const typeKey = manifest.type?.key ?? 'unknown'
 
@@ -17,7 +16,7 @@ function ManifestSectionTrust({
 		<ManifestSection
 			title={getText('section', 'trust')}
 			titleIcon="section_trust"
-			definition={getMediaText('section', 'trust', 'definition')}
+			definition={getText('section', 'trust', 'definition', mediaType)}
 			className={classNames('ManifestSectionTrust')}
 		>
 			<ManifestDetail
@@ -34,7 +33,7 @@ function ManifestSectionTrust({
 				<ManifestDetail
 					title={getText('signator', typeKey)}
 					titleIcon="signator"
-					titleTooltip={getMediaText('signator', typeKey, 'definition')}
+					titleTooltip={getText('signator', typeKey, 'definition', mediaType)}
 					className={classNames('ManifestSectionTrustSignator')}
 				>
 					{manifest.signator}

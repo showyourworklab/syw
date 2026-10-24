@@ -1,8 +1,7 @@
 import { classNames } from 'syw-common/helpers/ui'
-import { useUiContext } from '$src/context'
+import { useUiContext, useI18nContext, useDataContext } from '$src/context'
 import Popover from '$src/components/shared/Popover'
 import Provenance from '$src/components/provenance/Provenance'
-import { useMediaText } from '$src/hooks'
 
 const ProvenancePopover = () => {
 	const {
@@ -12,7 +11,8 @@ const ProvenancePopover = () => {
 		closeExplainer,
 		elem
 	} = useUiContext()
-	const getMediaText = useMediaText()
+	const { getText } = useI18nContext()
+	const { mediaType } = useDataContext()
 
 	const handleOpenChange = (newOpen: boolean, event?: unknown) => {
 		if(newOpen) {
@@ -26,7 +26,7 @@ const ProvenancePopover = () => {
 	return (
 		<Popover
 			open={isProvenanceOpen}
-			title={getMediaText("provenance", "toggle")}
+			title={getText("provenance", "toggle", mediaType)}
 			onOpenChange={handleOpenChange}
 			positioning={{
 				placement: 'right-start',

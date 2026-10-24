@@ -5,7 +5,7 @@
 	import { getDataContext } from '../../store/data.js'
 	import ManifestDetail from './ManifestDetail.svelte'
 
-	const { locale, getText, getMediaText } = getI18nContext()
+	const { locale, getText } = getI18nContext()
 	const { mediaType } = getDataContext()
 
 	const { manifest }: ManifestDetailGeneratorProps = $props()
@@ -17,7 +17,7 @@
 	<ManifestDetail
 		title={getText($locale, 'generator', typeKey)}
 		titleIcon={getManifestTypeIcon(typeKey)}
-		titleTooltip={getMediaText($locale, $mediaType, 'generator', typeKey, 'definition')}
+		titleTooltip={getText($locale, 'generator', typeKey, 'definition', $mediaType)}
 		className={classNames('ManifestDetailGenerator')}
 	>
 		{#each manifest.generator as entry}

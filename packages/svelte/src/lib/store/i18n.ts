@@ -1,9 +1,8 @@
 import { getContext, setContext } from 'svelte'
 import { writable } from 'svelte/store'
 import type { DictionaryArgs } from 'syw-common/types/i18n'
-import type { MediaType } from 'syw-common/types/data'
 import { LOCALE_DEFAULT } from 'syw-common/constants/i18n'
-import { getLocaleText, getLocaleMediaText, getLangFromLocale } from 'syw-common/helpers/i18n'
+import { getLocaleText, getLangFromLocale } from 'syw-common/helpers/i18n'
 
 const I18N_CONTEXT_KEY = Symbol('i18n')
 
@@ -19,17 +18,12 @@ export default function createI18nStore() {
 	const getText = (locale: string, ...args: DictionaryArgs) => {
 		return getLocaleText(locale, ...args)
 	}
-	// Like getText, but uses the _<mediaType> version of the text when there is one (i.e. video wording for videos)
-	const getMediaText = (locale: string, mediaType: MediaType | null | undefined, ...args: DictionaryArgs) => {
-		return getLocaleMediaText(locale, mediaType, ...args)
-	}
 
 	return {
 		locale,
 		lang,
 		setLocale,
-		getText,
-		getMediaText
+		getText
 	}
 }
 

@@ -4,11 +4,11 @@ import { useUiContext } from '$src/context/ui'
 import Collapse from '$src/components/shared/Collapse'
 import Icon from '$src/components/shared/Icon'
 import Markdown from '$src/components/shared/Markdown'
-import { useMediaText } from '$src/hooks'
+import { useDataContext } from '$src/context'
 
 const ProvenanceExplainer = () => {
 	const { getText } = useI18nContext()
-	const getMediaText = useMediaText()
+	const { mediaType } = useDataContext()
 	const { isExplainerOpen, closeExplainer } = useUiContext()
 
 	const onCloseClick = closeExplainer
@@ -42,7 +42,7 @@ const ProvenanceExplainer = () => {
 							<p
 								className={classNames('ProvenanceExplainerLede')}
 							>
-								{getMediaText('explainer', 'lede')}
+								{getText('explainer', 'lede', mediaType)}
 							</p>
 						</div>
 						<dl
@@ -61,7 +61,7 @@ const ProvenanceExplainer = () => {
 									<Markdown
 										tag="dd"
 										className={classNames('ProvenanceExplainerSectionBody')}
-										content={getMediaText('explainer', 'section', index, 'body')}
+										content={getText('explainer', 'section', index, 'body', mediaType)}
 									/>
 								</div>
 							)}

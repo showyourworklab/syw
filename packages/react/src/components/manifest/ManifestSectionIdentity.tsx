@@ -17,6 +17,7 @@ function ManifestSectionIdentity({ manifest }: ManifestSectionIdentityProps) {
 				<ManifestDetail
 					title={getText('identity', 'name')}
 					titleIcon="identity"
+					titleTooltip={getText('identity', 'name', 'definition')}
 					className={classNames('ManifestSectionIdentityName')}
 				>
 					{manifest.identity.name}

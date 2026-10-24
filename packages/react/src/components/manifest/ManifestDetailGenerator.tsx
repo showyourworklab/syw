@@ -1,12 +1,11 @@
 import { classNames, getManifestTypeIcon } from 'syw-common/helpers/ui'
 import type { ManifestDetailGeneratorProps } from 'syw-common/types/components'
-import { useMediaText } from '$src/hooks'
-import { useI18nContext } from '$src/context'
+import { useI18nContext, useDataContext } from '$src/context'
 import ManifestDetail from '$src/components/manifest/ManifestDetail'
 
 function ManifestDetailGenerator({ manifest }: ManifestDetailGeneratorProps) {
 	const { getText } = useI18nContext()
-	const getMediaText = useMediaText()
+	const { mediaType } = useDataContext()
 
 	if(!manifest.generator?.length) return null
 
@@ -16,7 +15,7 @@ function ManifestDetailGenerator({ manifest }: ManifestDetailGeneratorProps) {
 		<ManifestDetail
 			title={getText('generator', typeKey)}
 			titleIcon={getManifestTypeIcon(typeKey)}
-			titleTooltip={getMediaText('generator', typeKey, 'definition')}
+			titleTooltip={getText('generator', typeKey, 'definition', mediaType)}
 			className={classNames('ManifestDetailGenerator')}
 		>
 			{manifest.generator.map((entry, index) =>
