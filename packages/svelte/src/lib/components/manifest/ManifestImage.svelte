@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { classNames } from 'syw-common/helpers/ui'
 	import type { ManifestImageProps } from 'syw-common/types/components'
-	import Icon from '../shared/Icon.svelte'
+	import Icon from '$lib/components/shared/Icon.svelte'
 
 	const { manifest, className }: ManifestImageProps = $props()
 

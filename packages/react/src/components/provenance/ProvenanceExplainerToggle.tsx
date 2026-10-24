@@ -1,7 +1,7 @@
 import { classNames } from 'syw-common/helpers/ui'
 import type { ProvenanceExplainerToggleProps } from 'syw-common/types/components'
 import { useUiContext, useI18nContext } from '$src/context'
-import Icon from '../shared/Icon'
+import Icon from '$src/components/shared/Icon'
 
 const ProvenanceExplainerToggle = ({
 	className

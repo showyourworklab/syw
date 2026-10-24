@@ -2,10 +2,12 @@
 	import type { Snippet } from 'svelte'
 	import { classNames } from 'syw-common/helpers/ui'
 	import type { ManifestSectionProps } from 'syw-common/types/components'
-    import Detail from '../shared/Detail.svelte'
+	import ManifestDetail from './ManifestDetail.svelte'
+	import Icon from '../shared/Icon.svelte'
 
 	const {
 		title,
+		titleIcon,
 		definition,
 		className,
 		children
@@ -23,15 +25,23 @@
 				<div
 					class={classNames('ManifestSectionTitle')}
 				>
-					{title}
+					{#if titleIcon}
+						<Icon
+							type={titleIcon}
+							className={classNames('ManifestSectionTitleIcon')}
+						/>
+					{/if}
+					<span>
+						{title}
+					</span>
 				</div>
 			{/if}
 			{#if definition}
-				<Detail
+				<ManifestDetail
 					className={classNames('ManifestSectionDefinition')}
 				>
 					{definition}
-				</Detail>
+				</ManifestDetail>
 			{/if}
 		</div>
 	{/if}

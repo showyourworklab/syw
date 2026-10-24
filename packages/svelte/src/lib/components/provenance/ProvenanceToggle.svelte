@@ -3,9 +3,9 @@
 	import { getDataContext } from '$lib/store/data.js'
 	import { getI18nContext } from '$lib/store/i18n.js'
 	import { getUiContext } from '$lib/store/ui.js'
-	import Icon from '../shared/Icon.svelte'
+	import Icon from '$lib/components/shared/Icon.svelte'
 
-	const { locale, getText } = getI18nContext();
+	const { locale, getMediaText } = getI18nContext();
 	const { mediaType } = getDataContext();
 	const { isProvenanceOpen, openProvenance, closeProvenance } = getUiContext();
 
@@ -28,6 +28,6 @@
 		type="signal"
 	/>
 	<span>
-		{getText($locale, 'provenance', 'toggle', $mediaType)}
+		{getMediaText($locale, $mediaType, 'provenance', 'toggle')}
 	</span>
 </button>

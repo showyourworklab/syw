@@ -7,9 +7,9 @@
 	import type { Manifest as ManifestData } from 'syw-common/types/data'
 	import type { ManifestContentTabKey } from 'syw-common/types/components'
 	import { getUiContext } from '$lib/store/ui.js'
-	import Collapse from '../shared/Collapse.svelte'
-	import ManifestPreview from './ManifestPreview.svelte'
-    import ManifestContent from './ManifestContent.svelte';
+	import Collapse from '$lib/components/shared/Collapse.svelte'
+	import ManifestPreview from '$lib/components/manifest/ManifestPreview.svelte'
+    import ManifestContent from '$lib/components/manifest/ManifestContent.svelte';
 
 	const { openManifests } = getUiContext();
 

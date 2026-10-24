@@ -3,12 +3,14 @@
 	import { formatCoordinates } from 'syw-common/helpers/map'
 	import type { ManifestDetailLocationProps } from 'syw-common/types/components'
 	import { getI18nContext } from '$lib/store/i18n.js'
-	import ManifestDetail from './ManifestDetail.svelte'
-	import DetailToggle from '../shared/DetailToggle.svelte'
-	import Collapse from '../shared/Collapse.svelte'
-	import Map from '../shared/Map.svelte'
+	import { getDataContext } from '$lib/store/data.js'
+	import ManifestDetail from '$lib/components/manifest/ManifestDetail.svelte'
+	import DetailToggle from '$lib/components/shared/DetailToggle.svelte'
+	import Collapse from '$lib/components/shared/Collapse.svelte'
+	import Map from '$lib/components/shared/Map.svelte'
 
-	const { locale, getText } = getI18nContext()
+	const { locale, getText, getMediaText } = getI18nContext()
+	const { mediaType } = getDataContext()
 
 	const { manifest }: ManifestDetailLocationProps = $props()
 
@@ -26,7 +28,7 @@
 	<ManifestDetail
 		title={getText($locale, 'location', 'coordinates')}
 		titleIcon="location"
-		titleTooltip={getText($locale, 'location', 'coordinates', 'definition')}
+		titleTooltip={getMediaText($locale, $mediaType, 'location', 'coordinates', 'definition')}
 		className={classNames('ManifestDetailLocation')}
 	>
 		<DetailToggle

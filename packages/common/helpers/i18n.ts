@@ -1,4 +1,5 @@
-import type { Locale, Lang, DictionaryKey } from '#types/i18n'
+import type { Locale, Lang, DictionaryArgs, DictionaryKey, DictionaryReplacements } from '#types/i18n'
+import type { MediaType } from '#types/data'
 import {
 	LANG_DEFAULT,
 	LOCALE_DEFAULT,
@@ -96,15 +97,60 @@ export const getDictionary = (locale: string): Record<string, string> => {
 }
 
 /**
- * Parses a locale code for its language code
- * @param keys - An array spread of strings to be joined with underscores and used as a key in the dictionary (i.e. x, y, z becomes x_y_z)
+ * Gets text from the locale's dictionary
+ * @param locale - ISO locale code (i.e. en_US)
+ * @param args - Keys joined with underscores to find the text (i.e. x, y, z becomes x_y_z). The last argument can be an object whose values replace matching {{name}} placeholders in the text (i.e. { name: 'Jane' })
  * @returns The string from the dictionary
  */
-export const getLocaleText = (locale: string, ...keys: DictionaryKey[]): string => {
-	const dictionary = getDictionary(locale)
-	const text = dictionary[keys.filter(k => k !== null && k !== undefined).join('_')]
-	return text
+export const getLocaleText = (locale: string, ...args: DictionaryArgs): string => {
+	const { keys, replacements } = splitDictionaryArgs(args)
+	const text = getDictionary(locale)[joinDictionaryKeys(keys)]
+	return replacements && text ? replacePlaceholders(text, replacements) : text
 }
+
+/**
+ * Gets text for the file's media type. Looks for the key with a `_<mediaType>` suffix first (i.e. x_y_video), then falls back to the key itself for text that reads the same for every media type
+ * @param locale - ISO locale code (i.e. en_US)
+ * @param mediaType - Media type of the file (i.e. image, video, unknown)
+ * @param args - Same as getLocaleText
+ * @returns The string from the dictionary
+ */
+export const getLocaleMediaText = (locale: string, mediaType: MediaType | null | undefined, ...args: DictionaryArgs): string => {
+	const { keys, replacements } = splitDictionaryArgs(args)
+	const dictionary = getDictionary(locale)
+	const key = joinDictionaryKeys(keys)
+	const mediaKey = mediaType ? `${key}_${mediaType}` : null
+	const text = mediaKey && Object.prototype.hasOwnProperty.call(dictionary, mediaKey)
+		? dictionary[mediaKey]
+		: dictionary[key]
+	return replacements && text ? replacePlaceholders(text, replacements) : text
+}
+
+const splitDictionaryArgs = (args: DictionaryArgs): { keys: DictionaryKey[], replacements: DictionaryReplacements | null } => {
+	const last = args[args.length - 1]
+	const replacements = isDictionaryReplacements(last) ? last : null
+	const keys = (replacements ? args.slice(0, -1) : args) as DictionaryKey[]
+	return { keys, replacements }
+}
+
+const joinDictionaryKeys = (keys: DictionaryKey[]): string =>
+	keys.filter(k => k !== null && k !== undefined).join('_')
+
+const isDictionaryReplacements = (arg: unknown): arg is DictionaryReplacements =>
+	typeof arg === 'object' && arg !== null
+
+/**
+ * Swaps {{name}} placeholders for their values. Placeholders without a value are left as is
+ * @param text - Dictionary text
+ * @param replacements - Values keyed by placeholder name
+ * @returns Text with placeholders replaced
+ */
+export const replacePlaceholders = (text: string, replacements: DictionaryReplacements): string =>
+	text.replace(/\{\{\s*(\w+)\s*\}\}/g, (match, name: string) =>
+		Object.prototype.hasOwnProperty.call(replacements, name)
+			? String(replacements[name] ?? '')
+			: match
+	)
 
 /**
  * Gets a human-readable date string for a given locale

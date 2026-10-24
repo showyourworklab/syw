@@ -1,11 +1,11 @@
 import type { MouseEvent } from 'react'
 import { classNames } from 'syw-common/helpers/ui'
-import { useDataContext, useI18nContext, useUiContext } from '$src/context'
-import Icon from '../shared/Icon'
+import { useUiContext } from '$src/context'
+import Icon from '$src/components/shared/Icon'
+import { useMediaText } from '$src/hooks'
 
 const ProvenanceToggle = () => {
-	const { getText } = useI18nContext()
-	const { mediaType } = useDataContext()
+	const getMediaText = useMediaText()
 	const { isProvenanceOpen, openProvenance, closeProvenance } = useUiContext()
 
 	const onClick = (event: MouseEvent<HTMLButtonElement>) => isProvenanceOpen
@@ -22,7 +22,7 @@ const ProvenanceToggle = () => {
 				type="signal"
 			/>
 			<span>
-				{getText('provenance', 'toggle', mediaType)}
+				{getMediaText('provenance', 'toggle')}
 			</span>
 		</button>
 	)

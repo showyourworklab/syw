@@ -6,7 +6,7 @@ import type { ManifestPreviewProps } from 'syw-common/types/components'
 import { useI18nContext } from '$src/context/i18n'
 import Badge from '$src/components/shared/Badge'
 import Icon from '$src/components/shared/Icon'
-import ManifestContentTabsToggle from './ManifestContentTabsToggle'
+import ManifestContentTabsToggle from '$src/components/manifest/ManifestContentTabsToggle'
 
 interface ReactManifestPreviewProps extends ManifestPreviewProps {
 	previewRef: RefObject<HTMLDivElement> | null

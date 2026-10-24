@@ -3,7 +3,7 @@
 	import { classNames, getAvailableTabs } from 'syw-common/helpers/ui'
 	import type { ManifestContentTabsToggleProps } from 'syw-common/types/components'
 	import { getI18nContext } from '$lib/store/i18n.js'
-	import Icon from '../shared/Icon.svelte'
+	import Icon from '$lib/components/shared/Icon.svelte'
 
 	const {
 		keys = [],

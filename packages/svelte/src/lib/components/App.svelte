@@ -12,14 +12,14 @@
 	import createDataStore, { setDataContext } from '$lib/store/data.js'
 	import createI18nStore, { setI18nContext } from '$lib/store/i18n.js'
 	import createUiStore, { setUiContext } from '$lib/store/ui.js'
-	import Figure from './figure/Figure.svelte'
-	import FigureMedia from './figure/FigureMedia.svelte'
-	import FigureCutline from './figure/FigureCutline.svelte'
-	import FigureCaption from './figure/FigureCaption.svelte'
-	import ProvenanceExpand from './provenance/ProvenanceExpand.svelte'
-	import ProvenanceModal from './provenance/ProvenanceModal.svelte'
-	import ProvenancePopover from './provenance/ProvenancePopover.svelte'
-	import ProvenanceDrawer from './provenance/ProvenanceDrawer.svelte'
+	import Figure from '$lib/components/figure/Figure.svelte'
+	import FigureMedia from '$lib/components/figure/FigureMedia.svelte'
+	import FigureCutline from '$lib/components/figure/FigureCutline.svelte'
+	import FigureCaption from '$lib/components/figure/FigureCaption.svelte'
+	import ProvenanceExpand from '$lib/components/provenance/ProvenanceExpand.svelte'
+	import ProvenanceModal from '$lib/components/provenance/ProvenanceModal.svelte'
+	import ProvenancePopover from '$lib/components/provenance/ProvenancePopover.svelte'
+	import ProvenanceDrawer from '$lib/components/provenance/ProvenanceDrawer.svelte'
 
 	const {
 		variant = VARIANT_DEFAULT,

@@ -3,8 +3,8 @@
     import { getUiContext } from '$lib/store/ui.js';
     import { getI18nContext } from '$lib/store/i18n.js';
     import { getDataContext } from '$lib/store/data.js';
-	import Drawer from '../shared/Drawer.svelte'
-	import Provenance from './Provenance.svelte'
+	import Drawer from '$lib/components/shared/Drawer.svelte'
+	import Provenance from '$lib/components/provenance/Provenance.svelte'
 
 	const {
 		direction
@@ -18,7 +18,7 @@
 	} = getUiContext()
 	const {
 		locale,
-		getText
+		getMediaText
 	} = getI18nContext()
 	const { mediaType } = getDataContext()
 
@@ -35,7 +35,7 @@
 
 <Drawer
 	open={$isProvenanceOpen}
-	title={getText($locale, 'provenance', 'toggle', $mediaType)}
+	title={getMediaText($locale, $mediaType, 'provenance', 'toggle')}
 	description=""
 	direction={direction}
 	onOpenChange={handleOpenChange}

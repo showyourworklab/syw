@@ -1,6 +1,6 @@
 import { useUiContext } from '$src/context'
-import Provenance from './Provenance'
-import Collapse from '../shared/Collapse'
+import Provenance from '$src/components/provenance/Provenance'
+import Collapse from '$src/components/shared/Collapse'
 
 const ProvenanceExpand = () => {
 	const {

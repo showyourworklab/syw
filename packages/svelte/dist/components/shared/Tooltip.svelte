@@ -7,6 +7,8 @@
 	export interface TooltipProps {
 		content?: string
 		disabled?: boolean
+		// Hide the dotted underline, e.g. when the trigger is an icon
+		noUnderline?: boolean
 		ContentProps?: ComponentProps<typeof ArkTooltip.Content>
 		className?: string
 		children?: Snippet
@@ -15,6 +17,7 @@
 	const {
 		content,
 		disabled,
+		noUnderline,
 		ContentProps = {},
 		className,
 		children
@@ -22,7 +25,7 @@
 
 </script>
 
-{#if disabled || content === undefined}
+{#if disabled || !content}
 	{@render children?.()}
 {:else}
 	<ArkTooltip.Root
@@ -33,6 +36,7 @@
 		<ArkTooltip.Trigger
 			class={classNames(
 				'TooltipTrigger',
+				noUnderline ? 'TooltipTrigger_noUnderline' : null,
 				className,
 			)}
 		>

@@ -3,7 +3,7 @@ import { Drawer as ArkDrawer } from '@ark-ui/react/drawer'
 import type { DrawerRootProps } from '@ark-ui/react/drawer'
 import { classNames } from 'syw-common/helpers/ui'
 import type { DrawerProps } from 'syw-common/types/components'
-import Icon from './Icon'
+import Icon from '$src/components/shared/Icon'
 
 const Drawer = ({
 	open = false,

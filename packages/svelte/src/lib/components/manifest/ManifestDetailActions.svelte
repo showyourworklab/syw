@@ -1,12 +1,12 @@
 <script lang="ts">
-	import { classNames } from 'syw-common/helpers/ui'
+	import { classNames, getManifestDisplayActions } from 'syw-common/helpers/ui'
 	import { isIptcDigitalSourceTypeAi } from 'syw-common/helpers/iptc'
 	import type { ManifestDetailActionsProps } from 'syw-common/types/components'
 	import { getI18nContext } from '$lib/store/i18n.js'
-	import ManifestDetail from './ManifestDetail.svelte'
-	import DetailToggle from '../shared/DetailToggle.svelte'
-	import Collapse from '../shared/Collapse.svelte'
-	import Tooltip from '../shared/Tooltip.svelte'
+	import ManifestDetail from '$lib/components/manifest/ManifestDetail.svelte'
+	import DetailToggle from '$lib/components/shared/DetailToggle.svelte'
+	import Collapse from '$lib/components/shared/Collapse.svelte'
+	import Tooltip from '$lib/components/shared/Tooltip.svelte'
 
 	const { locale, getText } = getI18nContext()
 
@@ -14,10 +14,11 @@
 
 	let listOpen = $state(false)
 
-	const hasAi = $derived(manifest.actions?.some(action => isIptcDigitalSourceTypeAi(action.iptc)) ?? false)
+	const actions = $derived(getManifestDisplayActions(manifest))
+	const hasAi = $derived(actions.some(action => isIptcDigitalSourceTypeAi(action.iptc)))
 </script>
 
-{#if manifest.actions?.length}
+{#if actions.length}
 	<ManifestDetail
 		title={getText($locale, 'actions')}
 		titleIcon="actions"
@@ -36,7 +37,7 @@
 			<ul
 				class={classNames('ManifestDetailActionsList')}
 			>
-				{#each manifest.actions as action}
+				{#each actions as action}
 					<li
 						class={classNames('ManifestDetailActionsListItem')}
 					>

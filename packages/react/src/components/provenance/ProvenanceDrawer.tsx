@@ -1,8 +1,9 @@
 import { classNames } from 'syw-common/helpers/ui'
 import type { ProvenanceDrawerProps } from 'syw-common/types/components'
-import { useI18nContext, useUiContext, useDataContext } from '$src/context'
-import Drawer from '../shared/Drawer'
-import Provenance from './Provenance'
+import { useUiContext } from '$src/context'
+import Drawer from '$src/components/shared/Drawer'
+import Provenance from '$src/components/provenance/Provenance'
+import { useMediaText } from '$src/hooks'
 
 const ProvenanceDrawer = ({
 	direction
@@ -14,8 +15,7 @@ const ProvenanceDrawer = ({
 		closeProvenance,
 		closeExplainer
 	} = useUiContext()
-	const { getText } = useI18nContext()
-	const { mediaType } = useDataContext()
+	const getMediaText = useMediaText()
 
 	const handleOpenChange = (newOpen: boolean, event?: unknown) => {
 		const originalEvent = event
@@ -30,7 +30,7 @@ const ProvenanceDrawer = ({
 	return (
 		<Drawer
 			open={isProvenanceOpen}
-			title={getText("provenance", "toggle", mediaType)}
+			title={getMediaText("provenance", "toggle")}
 			description=""
 			direction={direction}
 			onOpenChange={handleOpenChange}

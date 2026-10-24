@@ -1,3 +1,4 @@
+// Relative imports on purpose: tsc copies them into the published .d.ts files, which can't resolve the $src alias
 import SywReact from './SywReact'
 import { parseSywData as parseSywDataInternal, disposeSywData } from 'syw-common/helpers/data'
 import type { SywData } from 'syw-common/types/data'

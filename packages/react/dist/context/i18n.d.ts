@@ -1,7 +1,7 @@
-import type { DictionaryKey } from 'syw-common/types/i18n';
+import type { DictionaryArgs } from 'syw-common/types/i18n';
 interface I18nContextValue {
     locale: string;
-    getText: (...keys: DictionaryKey[]) => string | null;
+    getText: (...args: DictionaryArgs) => string | null;
 }
 declare const I18nContext: import("react").Context<I18nContextValue>;
 declare const useI18nContext: () => I18nContextValue;

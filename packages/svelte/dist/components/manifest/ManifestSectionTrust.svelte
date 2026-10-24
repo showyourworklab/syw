@@ -2,10 +2,12 @@
 	import type { ManifestSectionTrustProps } from 'syw-common/types/components'
 	import { classNames } from 'syw-common/helpers/ui'
 	import { getI18nContext } from '../../store/i18n.js'
-	import Detail from '../shared/Detail.svelte'
+	import { getDataContext } from '../../store/data.js'
+	import ManifestDetail from './ManifestDetail.svelte'
 	import ManifestSection from './ManifestSection.svelte'
 
-	const { locale, getText } = getI18nContext()
+	const { locale, getText, getMediaText } = getI18nContext()
+	const { mediaType } = getDataContext()
 
 	const { manifest }: ManifestSectionTrustProps = $props()
 
@@ -14,25 +16,28 @@
 
 <ManifestSection
 	title={getText($locale, 'section', 'trust')}
-	definition={getText($locale, 'section', 'trust', 'definition')}
+	titleIcon="section_trust"
+	definition={getMediaText($locale, $mediaType, 'section', 'trust', 'definition')}
 	className={classNames('ManifestSectionTrust')}
 >
-	{#if manifest.signator}
-		<Detail
-			title={getText($locale, 'signator', typeKey)}
-			titleTooltip={getText($locale, 'signator', typeKey, 'definition')}
-			className={classNames('ManifestSectionTrustSignator')}
-		>
-			{manifest.signator}
-		</Detail>
-	{/if}
-	<Detail
+	<ManifestDetail
 		title={getText($locale, 'trust', manifest.trust.value)}
 		titleIcon={manifest.trust.value}
+		titleTooltip={getText($locale, 'trust', 'definition')}
 		footer={getText($locale, 'trust', manifest.trust.value, 'definition')}
 		className={classNames(
 			'ManifestSectionTrustDetail',
 			`ManifestSectionTrustDetail_${manifest.trust.value}`,
 		)}
 	/>
+	{#if manifest.signator}
+		<ManifestDetail
+			title={getText($locale, 'signator', typeKey)}
+			titleIcon="signator"
+			titleTooltip={getMediaText($locale, $mediaType, 'signator', typeKey, 'definition')}
+			className={classNames('ManifestSectionTrustSignator')}
+		>
+			{manifest.signator}
+		</ManifestDetail>
+	{/if}
 </ManifestSection>

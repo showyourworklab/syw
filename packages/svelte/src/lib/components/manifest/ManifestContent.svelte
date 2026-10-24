@@ -2,8 +2,8 @@
 	import { classNames } from 'syw-common/helpers/ui'
 	import type { ManifestContentProps } from 'syw-common/types/components'
 	import { getDataContext } from '$lib/store/data.js'
-	import ManifestContentTabs from './ManifestContentTabs.svelte'
-	import ManifestContentTabsToggle from './ManifestContentTabsToggle.svelte'
+	import ManifestContentTabs from '$lib/components/manifest/ManifestContentTabs.svelte'
+	import ManifestContentTabsToggle from '$lib/components/manifest/ManifestContentTabsToggle.svelte'
 
 	const {
 		tabKeys = [],

@@ -1,5 +1,5 @@
 import { classNames } from 'syw-common/helpers/ui'
-import ProvenanceToggle from '../provenance/ProvenanceToggle'
+import ProvenanceToggle from '$src/components/provenance/ProvenanceToggle'
 
 const FigureCutline = () => {
 	return (

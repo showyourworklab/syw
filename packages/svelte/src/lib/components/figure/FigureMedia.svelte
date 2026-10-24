@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { classNames, handleA11yClick } from 'syw-common/helpers/ui'
-    import Image from '../shared/Image.svelte';
-    import Video from '../shared/Video.svelte';
+    import Image from '$lib/components/shared/Image.svelte';
+    import Video from '$lib/components/shared/Video.svelte';
 	import { getDataContext } from '$lib/store/data.js'
 	import { getUiContext } from '$lib/store/ui.js'
 

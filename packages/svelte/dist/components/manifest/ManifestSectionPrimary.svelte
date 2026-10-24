@@ -3,9 +3,10 @@
 	import { MANIFEST_LOCATION_TYPES, MANIFEST_ACTIONS_TYPES } from 'syw-common/constants/ui'
 	import type { ManifestSectionPrimaryProps } from 'syw-common/types/components'
 	import { getI18nContext } from '../../store/i18n.js'
-	import ManifestSectionPrimaryDetail from './ManifestSectionPrimaryDetail.svelte'
-	import ManifestLocation from './ManifestLocation.svelte'
-	import ManifestActions from './ManifestActions.svelte'
+	import ManifestDetailPrimary from './ManifestDetailPrimary.svelte'
+	import ManifestDetailGenerator from './ManifestDetailGenerator.svelte'
+	import ManifestDetailLocation from './ManifestDetailLocation.svelte'
+	import ManifestDetailActions from './ManifestDetailActions.svelte'
 	import ManifestSection from './ManifestSection.svelte'
 
 	const { locale, getText } = getI18nContext()
@@ -22,24 +23,31 @@
 
 <ManifestSection
 	title={getText($locale, 'section', 'primary', manifest.type?.key ?? 'unknown')}
+	titleIcon="section_primary"
 	className={classNames('ManifestSectionPrimary')}
 >
 	<div
 		class={classNames('ManifestSectionPrimaryDetails')}
 	>
 		{#each keys as key}
-			<ManifestSectionPrimaryDetail
-				type={key}
-				manifest={manifest}
-			/>
+			{#if key === 'generator'}
+				<ManifestDetailGenerator
+					manifest={manifest}
+				/>
+			{:else}
+				<ManifestDetailPrimary
+					type={key}
+					manifest={manifest}
+				/>
+			{/if}
 		{/each}
 		{#if showLocation}
-			<ManifestLocation
+			<ManifestDetailLocation
 				manifest={manifest}
 			/>
 		{/if}
 		{#if showActions}
-			<ManifestActions
+			<ManifestDetailActions
 				manifest={manifest}
 			/>
 		{/if}

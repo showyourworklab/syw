@@ -1,8 +1,8 @@
 import { classNames } from 'syw-common/helpers/ui'
 import type { ManifestContentProps } from 'syw-common/types/components'
 import { useDataContext } from '$src/context'
-import ManifestContentTabs from './ManifestContentTabs'
-import ManifestContentTabsToggle from './ManifestContentTabsToggle'
+import ManifestContentTabs from '$src/components/manifest/ManifestContentTabs'
+import ManifestContentTabsToggle from '$src/components/manifest/ManifestContentTabsToggle'
 
 function ManifestContent({ tabKeys, manifest }: ManifestContentProps) {
 	const { mediaType } = useDataContext()

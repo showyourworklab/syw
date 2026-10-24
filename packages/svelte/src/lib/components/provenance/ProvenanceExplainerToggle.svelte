@@ -2,7 +2,7 @@
 	import { classNames } from 'syw-common/helpers/ui'
 	import { getI18nContext } from '$lib/store/i18n.js'
 	import { getUiContext } from '$lib/store/ui.js'
-    import Icon from '../shared/Icon.svelte'
+    import Icon from '$lib/components/shared/Icon.svelte'
 
 	const { locale, getText } = getI18nContext();
 	const { variant, isExplainerOpen, openExplainer, closeExplainer, openProvenance } = getUiContext();

@@ -1,7 +1,7 @@
 import { Dialog } from '@ark-ui/react/dialog'
 import { classNames } from 'syw-common/helpers/ui'
 import type { ModalProps } from 'syw-common/types/components'
-import Icon from './Icon'
+import Icon from '$src/components/shared/Icon'
 
 const Modal = ({
 	open = false,

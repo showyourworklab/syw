@@ -31,9 +31,9 @@ export const MANIFEST_PRIMARY_KEYS = [
 	'producer',
 	'generator',
 ] as const
-// Manifest types that show the Location and Actions details
 export const MANIFEST_LOCATION_TYPES: readonly ManifestTypeKey[] = ['camera']
 export const MANIFEST_ACTIONS_TYPES: readonly ManifestTypeKey[] = ['edit']
+export const MANIFEST_ACTIONS_HIDDEN: readonly string[] = ['c2pa_opened', 'c2pa_published']
 export const MANIFEST_SECONDARY_KEYS = [
 	'location',
 	// 'actions',
@@ -43,7 +43,6 @@ export const MANIFEST_PREVIEW_TITLE_KEYS = [
 	'generator',
 	'signator',
 ] as const
-// Views of a manifest's content, toggled by tabs
 export const MANIFEST_CONTENT_TAB_KEYS = {
 	camera: ['info', 'image'],
 	edit: ['info', 'image'],

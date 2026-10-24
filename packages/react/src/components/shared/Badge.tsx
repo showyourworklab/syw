@@ -1,8 +1,8 @@
 import { classNames, getManifestTypeIcon } from 'syw-common/helpers/ui'
 import type { BadgeProps } from 'syw-common/types/components'
-import Tooltip from './Tooltip'
-import type { TooltipProps } from './Tooltip'
-import Icon from './Icon'
+import Tooltip from '$src/components/shared/Tooltip'
+import type { TooltipProps } from '$src/components/shared/Tooltip'
+import Icon from '$src/components/shared/Icon'
 
 interface ReactBadgeProps extends BadgeProps {
 	TooltipProps?: Omit<TooltipProps, 'children'>

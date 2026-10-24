@@ -1,12 +1,14 @@
 import { classNames } from 'syw-common/helpers/ui'
 import { useI18nContext } from '$src/context/i18n'
 import { useUiContext } from '$src/context/ui'
-import Collapse from '../shared/Collapse'
-import Icon from '../shared/Icon'
-import Markdown from '../shared/Markdown'
+import Collapse from '$src/components/shared/Collapse'
+import Icon from '$src/components/shared/Icon'
+import Markdown from '$src/components/shared/Markdown'
+import { useMediaText } from '$src/hooks'
 
 const ProvenanceExplainer = () => {
 	const { getText } = useI18nContext()
+	const getMediaText = useMediaText()
 	const { isExplainerOpen, closeExplainer } = useUiContext()
 
 	const onCloseClick = closeExplainer
@@ -40,7 +42,7 @@ const ProvenanceExplainer = () => {
 							<p
 								className={classNames('ProvenanceExplainerLede')}
 							>
-								{getText('explainer', 'lede')}
+								{getMediaText('explainer', 'lede')}
 							</p>
 						</div>
 						<dl
@@ -59,7 +61,7 @@ const ProvenanceExplainer = () => {
 									<Markdown
 										tag="dd"
 										className={classNames('ProvenanceExplainerSectionBody')}
-										content={getText('explainer', 'section', index, 'body')}
+										content={getMediaText('explainer', 'section', index, 'body')}
 									/>
 								</div>
 							)}

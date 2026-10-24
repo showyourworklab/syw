@@ -1,5 +1,5 @@
 import type { BadgeProps } from 'syw-common/types/components';
-import type { TooltipProps } from './Tooltip';
+import type { TooltipProps } from '$src/components/shared/Tooltip';
 interface ReactBadgeProps extends BadgeProps {
     TooltipProps?: Omit<TooltipProps, 'children'>;
 }

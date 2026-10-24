@@ -1,9 +1,9 @@
 import { classNames } from 'syw-common/helpers/ui'
 import { MANIFEST_PRIMARY_KEYS } from 'syw-common/constants/ui'
 import type { ManifestInfoProps } from 'syw-common/types/components'
-import ManifestSectionIdentity from './ManifestSectionIdentity'
-import ManifestSectionPrimary from './ManifestSectionPrimary'
-import ManifestSectionTrust from './ManifestSectionTrust'
+import ManifestSectionIdentity from '$src/components/manifest/ManifestSectionIdentity'
+import ManifestSectionPrimary from '$src/components/manifest/ManifestSectionPrimary'
+import ManifestSectionTrust from '$src/components/manifest/ManifestSectionTrust'
 
 function ManifestInfo({ manifest, className }: ManifestInfoProps) {
 	return (

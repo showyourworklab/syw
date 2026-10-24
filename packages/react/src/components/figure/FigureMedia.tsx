@@ -3,8 +3,8 @@ import type { KeyboardEvent, MouseEvent } from 'react'
 import { classNames, handleA11yClick } from 'syw-common/helpers/ui'
 import { useUiContext } from '$src/context/ui'
 import { useDataContext } from '$src/context/data'
-import Image from '../shared/Image'
-import Video from '../shared/Video'
+import Image from '$src/components/shared/Image'
+import Video from '$src/components/shared/Video'
 
 const isClickableElem = (event: { target: EventTarget | null }) =>
 	["IMG", "VIDEO"].includes((event.target as HTMLElement | null)?.tagName ?? '')

@@ -12,7 +12,7 @@
 		closeExplainer,
 		elem
 	} = getUiContext()
-	const { locale, getText } = getI18nContext()
+	const { locale, getMediaText } = getI18nContext()
 	const { mediaType } = getDataContext()
 
 	const handleOpenChange = (newOpen: boolean) => {
@@ -28,7 +28,7 @@
 
 <Popover
 	open={$isProvenanceOpen}
-	title={getText($locale, 'provenance', 'toggle', $mediaType)}
+	title={getMediaText($locale, $mediaType, 'provenance', 'toggle')}
 	onOpenChange={handleOpenChange}
 	positioning={{
 		placement: 'right-start',

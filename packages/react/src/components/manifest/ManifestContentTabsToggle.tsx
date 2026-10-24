@@ -3,7 +3,7 @@ import { Tabs } from '@ark-ui/react/tabs'
 import { classNames, getAvailableTabs } from 'syw-common/helpers/ui'
 import type { ManifestContentTabsToggleProps } from 'syw-common/types/components'
 import { useI18nContext } from '$src/context'
-import Icon from '../shared/Icon'
+import Icon from '$src/components/shared/Icon'
 
 function ManifestContentTabsToggle({
 	manifest,

@@ -1,20 +1,22 @@
 import { useState } from 'react'
-import { classNames } from 'syw-common/helpers/ui'
+import { classNames, getManifestDisplayActions } from 'syw-common/helpers/ui'
 import { isIptcDigitalSourceTypeAi } from 'syw-common/helpers/iptc'
 import type { ManifestDetailActionsProps } from 'syw-common/types/components'
 import { useI18nContext } from '$src/context'
-import ManifestDetail from './ManifestDetail'
-import DetailToggle from '../shared/DetailToggle'
-import Collapse from '../shared/Collapse'
-import Tooltip from '../shared/Tooltip'
+import ManifestDetail from '$src/components/manifest/ManifestDetail'
+import DetailToggle from '$src/components/shared/DetailToggle'
+import Collapse from '$src/components/shared/Collapse'
+import Tooltip from '$src/components/shared/Tooltip'
 
 function ManifestDetailActions({ manifest }: ManifestDetailActionsProps) {
 	const { getText } = useI18nContext()
 	const [listOpen, setListOpen] = useState(false)
 
-	if(!manifest.actions?.length) return null
+	const actions = getManifestDisplayActions(manifest)
 
-	const hasAi = manifest.actions.some(action => isIptcDigitalSourceTypeAi(action.iptc))
+	if(!actions.length) return null
+
+	const hasAi = actions.some(action => isIptcDigitalSourceTypeAi(action.iptc))
 
 	return (
 		<ManifestDetail
@@ -35,7 +37,7 @@ function ManifestDetailActions({ manifest }: ManifestDetailActionsProps) {
 				<ul
 					className={classNames('ManifestDetailActionsList')}
 				>
-					{manifest.actions.map((action, index) =>
+					{actions.map((action, index) =>
 						<li
 							key={index}
 							className={classNames('ManifestDetailActionsListItem')}

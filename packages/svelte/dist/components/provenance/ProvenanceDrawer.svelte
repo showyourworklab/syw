@@ -18,7 +18,7 @@
 	} = getUiContext()
 	const {
 		locale,
-		getText
+		getMediaText
 	} = getI18nContext()
 	const { mediaType } = getDataContext()
 
@@ -35,7 +35,7 @@
 
 <Drawer
 	open={$isProvenanceOpen}
-	title={getText($locale, 'provenance', 'toggle', $mediaType)}
+	title={getMediaText($locale, $mediaType, 'provenance', 'toggle')}
 	description=""
 	direction={direction}
 	onOpenChange={handleOpenChange}

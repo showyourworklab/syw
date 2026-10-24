@@ -2,7 +2,7 @@
 	import { Dialog } from '@ark-ui/svelte/dialog'
 	import { classNames } from 'syw-common/helpers/ui'
 	import type { ModalProps } from 'syw-common/types/components'
-	import Icon from './Icon.svelte'
+	import Icon from '$lib/components/shared/Icon.svelte'
 
 	let {
 		open = false,

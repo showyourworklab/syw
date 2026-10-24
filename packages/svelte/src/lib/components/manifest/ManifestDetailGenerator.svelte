@@ -2,9 +2,11 @@
 	import { classNames, getManifestTypeIcon } from 'syw-common/helpers/ui'
 	import type { ManifestDetailGeneratorProps } from 'syw-common/types/components'
 	import { getI18nContext } from '$lib/store/i18n.js'
-	import ManifestDetail from './ManifestDetail.svelte'
+	import { getDataContext } from '$lib/store/data.js'
+	import ManifestDetail from '$lib/components/manifest/ManifestDetail.svelte'
 
-	const { locale, getText } = getI18nContext()
+	const { locale, getText, getMediaText } = getI18nContext()
+	const { mediaType } = getDataContext()
 
 	const { manifest }: ManifestDetailGeneratorProps = $props()
 
@@ -15,7 +17,7 @@
 	<ManifestDetail
 		title={getText($locale, 'generator', typeKey)}
 		titleIcon={getManifestTypeIcon(typeKey)}
-		titleTooltip={getText($locale, 'generator', typeKey, 'definition')}
+		titleTooltip={getMediaText($locale, $mediaType, 'generator', typeKey, 'definition')}
 		className={classNames('ManifestDetailGenerator')}
 	>
 		{#each manifest.generator as entry}

@@ -2,8 +2,8 @@
 	import type { ManifestSectionIdentityProps } from 'syw-common/types/components'
 	import { classNames } from 'syw-common/helpers/ui'
 	import { getI18nContext } from '$lib/store/i18n.js'
-	import ManifestSection from './ManifestSection.svelte'
-	import ManifestDetail from './ManifestDetail.svelte'
+	import ManifestSection from '$lib/components/manifest/ManifestSection.svelte'
+	import ManifestDetail from '$lib/components/manifest/ManifestDetail.svelte'
 
 	const { locale, getText } = getI18nContext()
 

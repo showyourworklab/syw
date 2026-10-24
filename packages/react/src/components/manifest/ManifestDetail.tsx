@@ -1,7 +1,7 @@
 import { classNames } from 'syw-common/helpers/ui'
 import type { ManifestDetailProps } from 'syw-common/types/components'
-import Tooltip from '../shared/Tooltip'
-import Icon from '../shared/Icon'
+import Tooltip from '$src/components/shared/Tooltip'
+import Icon from '$src/components/shared/Icon'
 
 function ManifestDetail({
 	title,

@@ -2,11 +2,11 @@ import { classNames } from 'syw-common/helpers/ui'
 import { MANIFEST_LOCATION_TYPES, MANIFEST_ACTIONS_TYPES } from 'syw-common/constants/ui'
 import type { ManifestSectionPrimaryProps } from 'syw-common/types/components'
 import { useI18nContext } from '$src/context'
-import ManifestDetailPrimary from './ManifestDetailPrimary'
-import ManifestDetailGenerator from './ManifestDetailGenerator'
-import ManifestDetailLocation from './ManifestDetailLocation'
-import ManifestDetailActions from './ManifestDetailActions'
-import ManifestSection from './ManifestSection'
+import ManifestDetailPrimary from '$src/components/manifest/ManifestDetailPrimary'
+import ManifestDetailGenerator from '$src/components/manifest/ManifestDetailGenerator'
+import ManifestDetailLocation from '$src/components/manifest/ManifestDetailLocation'
+import ManifestDetailActions from '$src/components/manifest/ManifestDetailActions'
+import ManifestSection from '$src/components/manifest/ManifestSection'
 
 function ManifestSectionPrimary({ keys = [], manifest }: ManifestSectionPrimaryProps) {
 	const { getText } = useI18nContext()

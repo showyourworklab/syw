@@ -2,8 +2,8 @@
 	import { Tabs } from '@ark-ui/svelte/tabs'
 	import { classNames, getAvailableTabs } from 'syw-common/helpers/ui'
 	import type { ManifestContentTabsProps } from 'syw-common/types/components'
-	import ManifestInfo from './ManifestInfo.svelte'
-	import ManifestImage from './ManifestImage.svelte'
+	import ManifestInfo from '$lib/components/manifest/ManifestInfo.svelte'
+	import ManifestImage from '$lib/components/manifest/ManifestImage.svelte'
 
 	const {
 		manifest,

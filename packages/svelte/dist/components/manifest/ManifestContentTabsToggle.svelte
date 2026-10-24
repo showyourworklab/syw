@@ -3,6 +3,7 @@
 	import { classNames, getAvailableTabs } from 'syw-common/helpers/ui'
 	import type { ManifestContentTabsToggleProps } from 'syw-common/types/components'
 	import { getI18nContext } from '../../store/i18n.js'
+	import Icon from '../shared/Icon.svelte'
 
 	const {
 		keys = [],
@@ -33,7 +34,13 @@
 				disabled={!availableTabs().includes(key)}
 				class={classNames('ManifestContentTabsToggleTrigger')}
 			>
-				{getText($locale, "tab", key)}
+				<Icon
+					type={`tab_${key}`}
+					className={classNames('ManifestContentTabsToggleTriggerIcon')}
+				/>
+				<span>
+					{getText($locale, "tab", key)}
+				</span>
 			</Tabs.Trigger>
 		{/each}
 		<Tabs.Indicator

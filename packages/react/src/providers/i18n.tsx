@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import type { DictionaryKey } from 'syw-common/types/i18n'
+import type { DictionaryArgs } from 'syw-common/types/i18n'
 import { getLocaleText } from 'syw-common/helpers/i18n'
 import { I18nContext } from '$src/context/i18n'
 
@@ -13,7 +13,7 @@ const I18nProvider = ({
 	children
 }: I18nProviderProps) => {
 
-	const getText = (...keys: DictionaryKey[]) => getLocaleText(locale, ...keys)
+	const getText = (...args: DictionaryArgs) => getLocaleText(locale, ...args)
 
 	return (
 		<I18nContext.Provider

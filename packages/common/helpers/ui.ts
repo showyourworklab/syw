@@ -1,6 +1,6 @@
-import type { Manifest, ManifestTypeKey } from '#types/data'
+import type { Manifest, ManifestActions, ManifestTypeKey } from '#types/data'
 import type { LucideIconType, ManifestDetailIconKey, SywIconType } from '#types/ui'
-import { SYW_ICONS } from '#constants/ui'
+import { MANIFEST_ACTIONS_HIDDEN, SYW_ICONS } from '#constants/ui'
 import { getObjectValue } from '#helpers/utils'
 
 interface A11yClickEvent {
@@ -70,3 +70,11 @@ const MANIFEST_DETAIL_ICON_KEYS: readonly string[] = ['timestamp', 'producer', '
  */
 export const getManifestDetailIcon = (key: string | null | undefined): ManifestDetailIconKey | null =>
 	key && MANIFEST_DETAIL_ICON_KEYS.includes(key) ? key as ManifestDetailIconKey : null
+
+/**
+ * Actions to show in the Actions detail, leaving out ones that don't change the file
+ * @param manifest - Manifest
+ * @returns
+ */
+export const getManifestDisplayActions = (manifest: Manifest | null | undefined): ManifestActions =>
+	manifest?.actions?.filter(action => !MANIFEST_ACTIONS_HIDDEN.includes(action.key)) ?? []

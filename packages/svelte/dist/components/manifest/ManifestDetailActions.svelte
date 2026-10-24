@@ -1,28 +1,29 @@
 <script lang="ts">
-	import { classNames } from 'syw-common/helpers/ui'
+	import { classNames, getManifestDisplayActions } from 'syw-common/helpers/ui'
 	import { isIptcDigitalSourceTypeAi } from 'syw-common/helpers/iptc'
-	import type { ManifestActionsProps } from 'syw-common/types/components'
+	import type { ManifestDetailActionsProps } from 'syw-common/types/components'
 	import { getI18nContext } from '../../store/i18n.js'
-	import Detail from '../shared/Detail.svelte'
+	import ManifestDetail from './ManifestDetail.svelte'
 	import DetailToggle from '../shared/DetailToggle.svelte'
 	import Collapse from '../shared/Collapse.svelte'
 	import Tooltip from '../shared/Tooltip.svelte'
-	import Icon from '../shared/Icon.svelte'
 
 	const { locale, getText } = getI18nContext()
 
-	const { manifest }: ManifestActionsProps = $props()
+	const { manifest }: ManifestDetailActionsProps = $props()
 
 	let listOpen = $state(false)
 
-	const hasAi = $derived(manifest.actions?.some(action => isIptcDigitalSourceTypeAi(action.iptc)) ?? false)
+	const actions = $derived(getManifestDisplayActions(manifest))
+	const hasAi = $derived(actions.some(action => isIptcDigitalSourceTypeAi(action.iptc)))
 </script>
 
-{#if manifest.actions?.length}
-	<Detail
+{#if actions.length}
+	<ManifestDetail
 		title={getText($locale, 'actions')}
+		titleIcon="actions"
 		titleTooltip={getText($locale, 'actions', 'definition')}
-		className={classNames('ManifestActions')}
+		className={classNames('ManifestDetailActions')}
 	>
 		<DetailToggle
 			open={listOpen}
@@ -34,31 +35,27 @@
 			open={listOpen}
 		>
 			<ul
-				class={classNames('ManifestActionsList')}
+				class={classNames('ManifestDetailActionsList')}
 			>
-				{#each manifest.actions as action}
+				{#each actions as action}
 					<li
-						class={classNames('ManifestActionsListItem')}
+						class={classNames('ManifestDetailActionsListItem')}
 					>
-						<span>
-							{getText($locale, 'action', action.key)}
-						</span>
+						<Tooltip
+							content={getText($locale, 'action', action.key, 'definition')}
+						>
+							<span>
+								{getText($locale, 'action', action.key)}
+							</span>
+						</Tooltip>
 						{#if isIptcDigitalSourceTypeAi(action.iptc)}
 							<span>
 								{getText($locale, 'action', 'ai')}
 							</span>
 						{/if}
-						<Tooltip
-							content={getText($locale, 'action', action.key, 'definition')}
-						>
-							<Icon
-								type="info"
-								className={classNames('ManifestActionsListItemTooltipIcon')}
-							/>
-						</Tooltip>
 					</li>
 				{/each}
 			</ul>
 		</Collapse>
-	</Detail>
+	</ManifestDetail>
 {/if}

@@ -9,6 +9,18 @@
 	import WandSparkles from '@lucide/svelte/icons/wand-sparkles'
 	import TriangleAlert from '@lucide/svelte/icons/triangle-alert'
 	import Slash from '@lucide/svelte/icons/slash'
+	import CirclePlus from '@lucide/svelte/icons/circle-plus'
+	import Clock from '@lucide/svelte/icons/clock'
+	import User from '@lucide/svelte/icons/user'
+	import KeyRound from '@lucide/svelte/icons/key-round'
+	import MapPin from '@lucide/svelte/icons/map-pin'
+	import List from '@lucide/svelte/icons/list'
+	import BadgeCheck from '@lucide/svelte/icons/badge-check'
+	import IdCard from '@lucide/svelte/icons/id-card'
+	import ReceiptText from '@lucide/svelte/icons/receipt-text'
+	import Shield from '@lucide/svelte/icons/shield'
+	import Info from '@lucide/svelte/icons/info'
+	import ImageIcon from '@lucide/svelte/icons/image'
 	import ImageOff from '@lucide/svelte/icons/image-off'
 	import ChevronUp from '@lucide/svelte/icons/chevron-up'
 	import ChevronDown from '@lucide/svelte/icons/chevron-down'
@@ -41,6 +53,21 @@
 		ai_create: Sparkles,
 		ai_edit: WandSparkles,
 		unknown_create: Slash,
+		unknown_type: CirclePlus,
+		// Detail
+		timestamp: Clock,
+		producer: User,
+		signator: KeyRound,
+		location: MapPin,
+		actions: List,
+		identity: BadgeCheck,
+		// Section
+		section_identity: IdCard,
+		section_primary: ReceiptText,
+		section_trust: Shield,
+		// Tab
+		tab_info: Info,
+		tab_image: ImageIcon,
 		// Misc.
 		missing: ImageOff,
 		up: ChevronUp,

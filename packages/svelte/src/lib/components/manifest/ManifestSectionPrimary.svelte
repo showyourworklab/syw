@@ -3,11 +3,11 @@
 	import { MANIFEST_LOCATION_TYPES, MANIFEST_ACTIONS_TYPES } from 'syw-common/constants/ui'
 	import type { ManifestSectionPrimaryProps } from 'syw-common/types/components'
 	import { getI18nContext } from '$lib/store/i18n.js'
-	import ManifestDetailPrimary from './ManifestDetailPrimary.svelte'
-	import ManifestDetailGenerator from './ManifestDetailGenerator.svelte'
-	import ManifestDetailLocation from './ManifestDetailLocation.svelte'
-	import ManifestDetailActions from './ManifestDetailActions.svelte'
-	import ManifestSection from './ManifestSection.svelte'
+	import ManifestDetailPrimary from '$lib/components/manifest/ManifestDetailPrimary.svelte'
+	import ManifestDetailGenerator from '$lib/components/manifest/ManifestDetailGenerator.svelte'
+	import ManifestDetailLocation from '$lib/components/manifest/ManifestDetailLocation.svelte'
+	import ManifestDetailActions from '$lib/components/manifest/ManifestDetailActions.svelte'
+	import ManifestSection from '$lib/components/manifest/ManifestSection.svelte'
 
 	const { locale, getText } = getI18nContext()
 

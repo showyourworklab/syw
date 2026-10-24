@@ -2,8 +2,8 @@
 	import type { Snippet } from 'svelte'
 	import { classNames } from 'syw-common/helpers/ui'
 	import type { ManifestSectionProps } from 'syw-common/types/components'
-	import ManifestDetail from './ManifestDetail.svelte'
-	import Icon from '../shared/Icon.svelte'
+	import ManifestDetail from '$lib/components/manifest/ManifestDetail.svelte'
+	import Icon from '$lib/components/shared/Icon.svelte'
 
 	const {
 		title,

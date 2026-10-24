@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { classNames } from 'syw-common/helpers/ui'
 	import type { DetailToggleProps } from 'syw-common/types/components'
-	import Icon from './Icon.svelte'
+	import Icon from '$lib/components/shared/Icon.svelte'
 
 	const { open, value, subtitle, onToggle, className }: DetailToggleProps = $props()
 </script>

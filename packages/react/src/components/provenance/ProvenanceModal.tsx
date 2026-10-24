@@ -1,7 +1,8 @@
 import { classNames } from 'syw-common/helpers/ui'
-import { useDataContext, useI18nContext, useUiContext } from '$src/context'
-import Modal from '../shared/Modal'
-import Provenance from './Provenance'
+import { useUiContext } from '$src/context'
+import Modal from '$src/components/shared/Modal'
+import Provenance from '$src/components/provenance/Provenance'
+import { useMediaText } from '$src/hooks'
 
 const ProvenanceModal = () => {
 	const {
@@ -10,8 +11,7 @@ const ProvenanceModal = () => {
 		closeProvenance,
 		closeExplainer
 	} = useUiContext()
-	const { getText } = useI18nContext()
-	const { mediaType } = useDataContext()
+	const getMediaText = useMediaText()
 
 	const handleOpenChange = (newOpen: boolean) => {
 		if(newOpen) {
@@ -25,7 +25,7 @@ const ProvenanceModal = () => {
 	return (
 		<Modal
 			open={isProvenanceOpen}
-			title={getText("provenance", "toggle", mediaType) ?? undefined}
+			title={getMediaText("provenance", "toggle") ?? undefined}
 			onOpenChange={handleOpenChange}
 			className={classNames('ProvenanceModal')}
 		>

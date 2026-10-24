@@ -3,6 +3,7 @@ import { Tooltip as ArkTooltip } from '@ark-ui/svelte/tooltip';
 export interface TooltipProps {
     content?: string;
     disabled?: boolean;
+    noUnderline?: boolean;
     ContentProps?: ComponentProps<typeof ArkTooltip.Content>;
     className?: string;
     children?: Snippet;

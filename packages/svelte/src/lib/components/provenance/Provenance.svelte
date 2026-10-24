@@ -4,10 +4,10 @@
 	import { getI18nContext } from '$lib/store/i18n.js'
 	import { getUiContext } from '$lib/store/ui.js'
 
-	import Manifest from '../manifest/Manifest.svelte'
-    import ProvenanceExplainer from './ProvenanceExplainer.svelte';
-    import ProvenanceExplainerToggle from './ProvenanceExplainerToggle.svelte';
-    import ProvenanceVerify from './ProvenanceVerify.svelte';
+	import Manifest from '$lib/components/manifest/Manifest.svelte'
+    import ProvenanceExplainer from '$lib/components/provenance/ProvenanceExplainer.svelte';
+    import ProvenanceExplainerToggle from '$lib/components/provenance/ProvenanceExplainerToggle.svelte';
+    import ProvenanceVerify from '$lib/components/provenance/ProvenanceVerify.svelte';
 
 	const { manifests } = getDataContext();
 	const { locale, getText } = getI18nContext();

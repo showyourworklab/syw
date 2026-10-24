@@ -1,16 +1,18 @@
 <script lang="ts">
 	import { classNames } from 'syw-common/helpers/ui'
 	import { formatCoordinates } from 'syw-common/helpers/map'
-	import type { ManifestLocationProps } from 'syw-common/types/components'
+	import type { ManifestDetailLocationProps } from 'syw-common/types/components'
 	import { getI18nContext } from '../../store/i18n.js'
-	import Detail from '../shared/Detail.svelte'
+	import { getDataContext } from '../../store/data.js'
+	import ManifestDetail from './ManifestDetail.svelte'
 	import DetailToggle from '../shared/DetailToggle.svelte'
 	import Collapse from '../shared/Collapse.svelte'
 	import Map from '../shared/Map.svelte'
 
-	const { locale, getText } = getI18nContext()
+	const { locale, getText, getMediaText } = getI18nContext()
+	const { mediaType } = getDataContext()
 
-	const { manifest }: ManifestLocationProps = $props()
+	const { manifest }: ManifestDetailLocationProps = $props()
 
 	let mapOpen = $state(false)
 	// Mount the map on first open, then keep it so it isn't rebuilt on every toggle
@@ -23,10 +25,11 @@
 </script>
 
 {#if manifest.location}
-	<Detail
+	<ManifestDetail
 		title={getText($locale, 'location', 'coordinates')}
-		titleTooltip={getText($locale, 'location', 'coordinates', 'definition')}
-		className={classNames('ManifestLocation')}
+		titleIcon="location"
+		titleTooltip={getMediaText($locale, $mediaType, 'location', 'coordinates', 'definition')}
+		className={classNames('ManifestDetailLocation')}
 	>
 		<DetailToggle
 			open={mapOpen}
@@ -43,5 +46,5 @@
 				/>
 			{/if}
 		</Collapse>
-	</Detail>
+	</ManifestDetail>
 {/if}

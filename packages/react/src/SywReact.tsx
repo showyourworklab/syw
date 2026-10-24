@@ -1,3 +1,4 @@
+// Relative imports on purpose: tsc copies them into the published .d.ts files, which can't resolve the $src alias
 import type { FC } from 'react'
 import { MEDIA_TYPES } from 'syw-common/constants/data'
 import { LOCALE_DEFAULT } from 'syw-common/constants/i18n'

@@ -1,12 +1,14 @@
 <script lang="ts">
 	import { classNames } from 'syw-common/helpers/ui'
-	import Collapse from '../shared/Collapse.svelte'
-    import Icon from '../shared/Icon.svelte';
-	import Markdown from '../shared/Markdown.svelte'
+	import Collapse from '$lib/components/shared/Collapse.svelte'
+    import Icon from '$lib/components/shared/Icon.svelte';
+	import Markdown from '$lib/components/shared/Markdown.svelte'
 	import { getI18nContext } from '$lib/store/i18n.js'
+	import { getDataContext } from '$lib/store/data.js'
 	import { getUiContext } from '$lib/store/ui.js'
 
-	const { locale, getText } = getI18nContext();
+	const { locale, getText, getMediaText } = getI18nContext();
+	const { mediaType } = getDataContext()
 	const { isExplainerOpen, closeExplainer } = getUiContext();
 
 	const onCloseClick = closeExplainer
@@ -41,7 +43,7 @@
 					<p
 						class={classNames('ProvenanceExplainerLede')}
 					>
-						{getText($locale, 'explainer', 'lede')}
+						{getMediaText($locale, $mediaType, 'explainer', 'lede')}
 					</p>
 				</div>
 				<dl
@@ -59,7 +61,7 @@
 							<Markdown
 								tag="dd"
 								class={classNames('ProvenanceExplainerSectionBody')}
-								content={getText($locale, 'explainer', 'section', index, 'body')}
+								content={getMediaText($locale, $mediaType, 'explainer', 'section', index, 'body')}
 							/>
 						</div>
 					{/each}

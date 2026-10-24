@@ -2,9 +2,9 @@
 	import { classNames } from 'syw-common/helpers/ui'
 	import { MANIFEST_PRIMARY_KEYS } from 'syw-common/constants/ui'
 	import type { ManifestInfoProps } from 'syw-common/types/components'
-	import ManifestSectionIdentity from './ManifestSectionIdentity.svelte'
-	import ManifestSectionPrimary from './ManifestSectionPrimary.svelte'
-	import ManifestSectionTrust from './ManifestSectionTrust.svelte'
+	import ManifestSectionIdentity from '$lib/components/manifest/ManifestSectionIdentity.svelte'
+	import ManifestSectionPrimary from '$lib/components/manifest/ManifestSectionPrimary.svelte'
+	import ManifestSectionTrust from '$lib/components/manifest/ManifestSectionTrust.svelte'
 
 	const { manifest, className }: ManifestInfoProps = $props()
 </script>

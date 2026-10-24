@@ -5,9 +5,9 @@ import { classNames, getAvailableTabs } from 'syw-common/helpers/ui'
 import { MANIFEST_CONTENT_TAB_KEYS } from 'syw-common/constants/ui'
 import type { Manifest as ManifestData } from 'syw-common/types/data'
 import { useUiContext } from '$src/context/ui'
-import Collapse from '../shared/Collapse'
-import ManifestPreview from './ManifestPreview'
-import ManifestContent from './ManifestContent'
+import Collapse from '$src/components/shared/Collapse'
+import ManifestPreview from '$src/components/manifest/ManifestPreview'
+import ManifestContent from '$src/components/manifest/ManifestContent'
 
 interface ManifestProps {
 	manifest: ManifestData

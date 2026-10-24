@@ -3,10 +3,10 @@ import { classNames } from 'syw-common/helpers/ui'
 import { useI18nContext } from '$src/context/i18n'
 import { useDataContext } from '$src/context/data'
 import { useUiContext } from '$src/context/ui'
-import Manifest from '../manifest/Manifest'
-import ProvenanceExplainer from './ProvenanceExplainer'
-import ProvenanceExplainerToggle from './ProvenanceExplainerToggle'
-import ProvenanceVerify from './ProvenanceVerify'
+import Manifest from '$src/components/manifest/Manifest'
+import ProvenanceExplainer from '$src/components/provenance/ProvenanceExplainer'
+import ProvenanceExplainerToggle from '$src/components/provenance/ProvenanceExplainerToggle'
+import ProvenanceVerify from '$src/components/provenance/ProvenanceVerify'
 
 function Provenance() {
 	const ref = useRef<HTMLDivElement>(null)

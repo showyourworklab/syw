@@ -3,7 +3,7 @@
 	import { classNames } from 'syw-common/helpers/ui'
 	import { getI18nContext } from '../../store/i18n.js'
 	import ManifestSection from './ManifestSection.svelte'
-	import Detail from '../shared/Detail.svelte'
+	import ManifestDetail from './ManifestDetail.svelte'
 
 	const { locale, getText } = getI18nContext()
 
@@ -13,13 +13,15 @@
 {#if manifest.identity}
 	<ManifestSection
 		title={getText($locale, 'section', 'identity')}
+		titleIcon="section_identity"
 		className={classNames('ManifestSectionIdentity')}
 	>
-		<Detail
+		<ManifestDetail
 			title={getText($locale, 'identity', 'name')}
+			titleIcon="identity"
 			className={classNames('ManifestSectionIdentityName')}
 		>
 			{manifest.identity.name}
-		</Detail>
+		</ManifestDetail>
 	</ManifestSection>
 {/if}

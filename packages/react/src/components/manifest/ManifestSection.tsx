@@ -1,7 +1,7 @@
 import { classNames } from 'syw-common/helpers/ui'
 import type { ManifestSectionProps } from 'syw-common/types/components'
-import ManifestDetail from './ManifestDetail'
-import Icon from '../shared/Icon'
+import ManifestDetail from '$src/components/manifest/ManifestDetail'
+import Icon from '$src/components/shared/Icon'
 
 function ManifestSection({ title, titleIcon, definition, className, children }: ManifestSectionProps) {
 	return (

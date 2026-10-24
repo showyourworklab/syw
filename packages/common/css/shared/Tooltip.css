@@ -39,6 +39,9 @@
 	display: inline-flex;
 	border-bottom: 1px dotted var(--syw-color-tertiary) !important;
 }
+.Syw-TooltipTrigger:hover {
+	border-bottom-color: currentColor !important;
+}
 .Syw-TooltipTrigger.Syw-TooltipTrigger_noUnderline {
 	border-bottom: none !important;
 }

@@ -1,6 +1,6 @@
 import { classNames } from 'syw-common/helpers/ui'
 import { useDataContext } from '$src/context/data'
-import Markdown from '../shared/Markdown'
+import Markdown from '$src/components/shared/Markdown'
 
 const FigureCaption = () => {
 	const { caption, byline } = useDataContext()

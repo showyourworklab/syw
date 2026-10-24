@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { classNames, getManifestTypeIcon } from 'syw-common/helpers/ui'
 	import type { BadgeProps } from 'syw-common/types/components'
-    import Tooltip from './Tooltip.svelte'
-	import type { TooltipProps } from './Tooltip.svelte'
-    import Icon from './Icon.svelte'
+    import Tooltip from '$lib/components/shared/Tooltip.svelte'
+	import type { TooltipProps } from '$lib/components/shared/Tooltip.svelte'
+    import Icon from '$lib/components/shared/Icon.svelte'
 
 	interface Props extends BadgeProps {
 		TooltipProps?: Omit<TooltipProps, 'children'>

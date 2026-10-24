@@ -5,9 +5,9 @@
 	import type { ManifestPreviewProps } from 'syw-common/types/components'
 	import { getI18nContext } from '$lib/store/i18n.js'
 	import { getUiContext } from '$lib/store/ui.js'
-    import Badge from '../shared/Badge.svelte';
-    import Icon from '../shared/Icon.svelte';
-    import ManifestContentTabsToggle from './ManifestContentTabsToggle.svelte';
+    import Badge from '$lib/components/shared/Badge.svelte';
+    import Icon from '$lib/components/shared/Icon.svelte';
+    import ManifestContentTabsToggle from '$lib/components/manifest/ManifestContentTabsToggle.svelte';
 
 	const {
 		open,

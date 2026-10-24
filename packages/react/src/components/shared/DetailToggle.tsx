@@ -1,6 +1,6 @@
 import { classNames } from 'syw-common/helpers/ui'
 import type { DetailToggleProps } from 'syw-common/types/components'
-import Icon from './Icon'
+import Icon from '$src/components/shared/Icon'
 
 function DetailToggle({ open, value, subtitle, onToggle, className }: DetailToggleProps) {
 	return (
