@@ -1,5 +1,5 @@
-import type { Manifest } from '#types/data'
-import type { SywIconType } from '#types/ui'
+import type { Manifest, ManifestTypeKey } from '#types/data'
+import type { LucideIconType, ManifestDetailIconKey, SywIconType } from '#types/ui'
 import { SYW_ICONS } from '#constants/ui'
 import { getObjectValue } from '#helpers/utils'
 
@@ -52,3 +52,21 @@ export const getAvailableTabs = (keys: readonly string[] | undefined, data: Mani
  * @returns
  */
 export const isSywIcon = (type: string | null | undefined): type is SywIconType => !!type && Object.prototype.hasOwnProperty.call(SYW_ICONS, type)
+
+/**
+ * Icon key for a manifest type. The `unknown` key is taken by the trust icon, so unknown types use `unknown_type`
+ * @param key - Manifest type key
+ * @returns
+ */
+export const getManifestTypeIcon = (key: ManifestTypeKey | null | undefined): LucideIconType | null =>
+	!key ? null : key === 'unknown' ? 'unknown_type' : key
+
+const MANIFEST_DETAIL_ICON_KEYS: readonly string[] = ['timestamp', 'producer', 'signator', 'location', 'actions', 'identity'] satisfies ManifestDetailIconKey[]
+
+/**
+ * Icon key for a Detail title, if that detail has one
+ * @param key - Detail key, e.g. a manifest field key
+ * @returns
+ */
+export const getManifestDetailIcon = (key: string | null | undefined): ManifestDetailIconKey | null =>
+	key && MANIFEST_DETAIL_ICON_KEYS.includes(key) ? key as ManifestDetailIconKey : null

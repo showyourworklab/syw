@@ -13,15 +13,23 @@ section.Syw-ManifestSection + section.Syw-ManifestSection {
 }
 /* Manifest > Section > Title */
 .Syw-ManifestSectionTitle {
-	display: inline-block;
+	display: inline-flex;
+	align-items: center;
 	font-weight: var(--syw-font-weight-bold);
-	margin-bottom: var(--syw-space-2);
+	margin: 0 0 var(--syw-space-2) 0;
 }
-.Syw-ManifestSectionTitle:not(:last-child) {
+/* .Syw-ManifestSectionTitle:not(:last-child) {
 	margin-bottom: var(--syw-space-1) !important;
+} */
+/* Manifest > Section > Title > Icon */
+.Syw-ManifestSectionTitleIcon {
+	width: var(--syw-space-4);
+	height: var(--syw-space-4);
+	margin-right: var(--syw-space-1);
+	flex-shrink: 0;
 }
-/* Manifest > Section > Title */
-.Syw-ManifestSectionDefinition.Syw-Detail {
+/* Manifest > Section > Definition */
+.Syw-ManifestSectionDefinition.Syw-ManifestDetail {
 	font-size: var(--syw-text-sm);
 	margin-bottom: var(--syw-size-detail-gap) !important;
 }

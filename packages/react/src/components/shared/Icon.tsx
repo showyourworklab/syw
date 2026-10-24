@@ -1,4 +1,4 @@
-import { Camera, Ellipsis, SquarePen, Sparkles, WandSparkles, ImageOff, X, ChevronDown, ChevronUp, CircleQuestionMark, Icon as LucideGenericIconComponent, Slash, ShieldCheck, ShieldX, ShieldAlert, ShieldQuestionMark } from 'lucide-react'
+import { Info, Image, Slash, BadgeCheck, IdCard, ReceiptText, Shield, CirclePlus, Clock, KeyRound, List, MapPin, User, Camera, Ellipsis, SquarePen, Sparkles, WandSparkles, ImageOff, X, ChevronDown, ChevronUp, CircleQuestionMark, Icon as LucideGenericIconComponent, ShieldCheck, ShieldX, ShieldAlert, ShieldQuestionMark } from 'lucide-react'
 import type { IconNode, LucideIcon } from 'lucide-react'
 import { ICON_DEFAULT_SIZE, ICON_DEFAULT_STROKE_WIDTH, SYW_ICONS } from 'syw-common/constants/ui'
 import type { IconProps } from 'syw-common/types/components'
@@ -20,6 +20,21 @@ const LUCIDE_ICONS: Record<LucideIconType, LucideIcon> = {
 	ai_create: Sparkles,
 	ai_edit: WandSparkles,
 	unknown_create: Slash,
+	unknown_type: CirclePlus,
+	// Detail
+	timestamp: Clock,
+	producer: User,
+	signator: KeyRound,
+	location: MapPin,
+	actions: List,
+	identity: BadgeCheck,
+	// Section
+	section_identity: IdCard,
+	section_primary: ReceiptText,
+	section_trust: Shield,
+	// Tab
+	tab_info: Info,
+	tab_image: Image,
 	// Misc.
 	missing: ImageOff,
 	up: ChevronUp,

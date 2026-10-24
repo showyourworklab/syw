@@ -17,6 +17,7 @@ function ManifestSectionPrimary({ keys = [], manifest }: ManifestSectionPrimaryP
 	return (
 		<ManifestSection
 			title={getText('section', 'primary', manifest.type?.key ?? 'unknown')}
+			titleIcon="section_primary"
 			className={classNames('ManifestSectionPrimary')}
 		>
 			<div

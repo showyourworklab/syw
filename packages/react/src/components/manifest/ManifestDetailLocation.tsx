@@ -3,7 +3,7 @@ import { classNames } from 'syw-common/helpers/ui'
 import { formatCoordinates } from 'syw-common/helpers/map'
 import type { ManifestDetailLocationProps } from 'syw-common/types/components'
 import { useI18nContext } from '$src/context'
-import Detail from '../shared/Detail'
+import ManifestDetail from './ManifestDetail'
 import DetailToggle from '../shared/DetailToggle'
 import Collapse from '../shared/Collapse'
 import Map from '../shared/Map'
@@ -22,8 +22,9 @@ function ManifestDetailLocation({ manifest }: ManifestDetailLocationProps) {
 	}
 
 	return (
-		<Detail
+		<ManifestDetail
 			title={getText('location', 'coordinates')}
+			titleIcon="location"
 			titleTooltip={getText('location', 'coordinates', 'definition')}
 			className={classNames('ManifestDetailLocation')}
 		>
@@ -42,7 +43,7 @@ function ManifestDetailLocation({ manifest }: ManifestDetailLocationProps) {
 					/>
 				: null}
 			</Collapse>
-		</Detail>
+		</ManifestDetail>
 	)
 }
 

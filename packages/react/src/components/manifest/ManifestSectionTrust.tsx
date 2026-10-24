@@ -1,7 +1,7 @@
 import type { ManifestSectionTrustProps } from 'syw-common/types/components'
 import { classNames } from 'syw-common/helpers/ui'
 import { useI18nContext } from '$src/context'
-import Detail from '../shared/Detail'
+import ManifestDetail from './ManifestDetail'
 import ManifestSection from './ManifestSection'
 
 function ManifestSectionTrust({
@@ -14,19 +14,11 @@ function ManifestSectionTrust({
 	return (
 		<ManifestSection
 			title={getText('section', 'trust')}
+			titleIcon="section_trust"
 			definition={getText('section', 'trust', 'definition')}
 			className={classNames('ManifestSectionTrust')}
 		>
-			{manifest.signator ?
-				<Detail
-					title={getText('signator', typeKey)}
-					titleTooltip={getText('signator', typeKey, 'definition')}
-					className={classNames('ManifestSectionTrustSignator')}
-				>
-					{manifest.signator}
-				</Detail>
-			: null}
-			<Detail
+			<ManifestDetail
 				title={getText('trust', manifest.trust.value)}
 				titleIcon={manifest.trust.value}
 				footer={getText('trust', manifest.trust.value, 'definition')}
@@ -35,6 +27,16 @@ function ManifestSectionTrust({
 					`ManifestSectionTrustDetail_${manifest.trust.value}`,
 				)}
 			/>
+			{manifest.signator ?
+				<ManifestDetail
+					title={getText('signator', typeKey)}
+					titleIcon="signator"
+					titleTooltip={getText('signator', typeKey, 'definition')}
+					className={classNames('ManifestSectionTrustSignator')}
+				>
+					{manifest.signator}
+				</ManifestDetail>
+			: null}
 		</ManifestSection>
 	)
 }

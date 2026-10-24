@@ -23,6 +23,7 @@
 
 <ManifestSection
 	title={getText($locale, 'section', 'primary', manifest.type?.key ?? 'unknown')}
+	titleIcon="section_primary"
 	className={classNames('ManifestSectionPrimary')}
 >
 	<div

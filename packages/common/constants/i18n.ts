@@ -39,8 +39,7 @@ export const DICTIONARY_EN_US = {
 	generator_ai_create: 'AI Tool',
 	generator_ai_edit: 'AI Tool',
 	generator_unknown: 'Produced with',
-	location: 'Location',
-	location_coordinates: 'Coordinates',
+	location_coordinates: 'Location',
 	location_coordinates_definition: 'Where this image was made, as reported by the device or software.',
 	location_map_show: 'Click to show map',
 	location_map_hide: 'Click to hide map',
@@ -113,8 +112,8 @@ export const DICTIONARY_EN_US = {
 	// Tabs
 	tab_info: 'Info',
 	tab_image: 'Image',
-	tab_location: 'Map',
-	tab_actions: 'Edits',
+	// tab_location: 'Map',
+	// tab_actions: 'Edits',
 	// Actions
 	action_ai: '(Generative AI)',
 	action_c2pa_created: 'Created',
@@ -212,8 +211,7 @@ export const DICTIONARY_NO_NO = {
 	generator_ai_create: 'KI-Programvare',
 	generator_ai_edit: 'KI-Programvare',
 	generator_unknown: 'Produsert med',
-	location: 'Sted',
-	location_coordinates: 'Koordinater',
+	location_coordinates: 'Sted',
 	location_coordinates_definition: 'Hvor bildet ble laget, som oppgitt av enheten eller programvaren.',
 	location_map_show: 'Klikk for å vise kart',
 	location_map_hide: 'Klikk for å skjule kart',
@@ -285,8 +283,8 @@ export const DICTIONARY_NO_NO = {
 	// Tabs
 	tab_info: 'Info',
 	tab_image: 'Bilde',
-	tab_location: 'Kart',
-	tab_actions: 'Redigeringer',
+	// tab_location: 'Kart',
+	// tab_actions: 'Redigeringer',
 	// Actions
 	action_ai: '(Generativ AI)',
 	action_c2pa_created: 'Opprettet',

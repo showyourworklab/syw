@@ -6,6 +6,8 @@ import { classNames } from 'syw-common/helpers/ui'
 export interface TooltipProps {
 	content?: ReactNode
 	disabled?: boolean
+	// Hide the dotted underline, e.g. when the trigger is an icon
+	noUnderline?: boolean
 	ContentProps?: ComponentProps<typeof ArkTooltip.Content>
 	children: ReactNode
 	className?: string
@@ -14,11 +16,12 @@ export interface TooltipProps {
 const Tooltip = ({
 	content,
 	disabled,
+	noUnderline,
 	ContentProps = {},
 	children,
 	className
 }: TooltipProps) => {
-	if (disabled || content === undefined) return children;
+	if (disabled || content === undefined || content === null || content === '') return children;
 	return (
 		<ArkTooltip.Root
 			openDelay={0}
@@ -28,6 +31,7 @@ const Tooltip = ({
 			<ArkTooltip.Trigger
 				className={classNames(
 					'TooltipTrigger',
+					noUnderline ? 'TooltipTrigger_noUnderline' : null,
 					className,
 				)}
 			>

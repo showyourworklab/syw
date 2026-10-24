@@ -37,6 +37,10 @@
 .Syw-TooltipTrigger {
 	cursor: default;
 	display: inline-flex;
+	border-bottom: 1px dotted var(--syw-color-tertiary) !important;
+}
+.Syw-TooltipTrigger.Syw-TooltipTrigger_noUnderline {
+	border-bottom: none !important;
 }
 /* Tooltip > Arrow */
 .Syw-TooltipArrow {

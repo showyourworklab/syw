@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { classNames } from 'syw-common/helpers/ui'
+	import { classNames, getManifestDetailIcon } from 'syw-common/helpers/ui'
 	import { getDateString } from 'syw-common/helpers/i18n'
 	import type { ManifestDetailPrimaryProps } from 'syw-common/types/components'
 	import { getI18nContext } from '$lib/store/i18n.js'
-	import Detail from '../shared/Detail.svelte'
+	import ManifestDetail from './ManifestDetail.svelte'
 
 	const { locale, getText } = getI18nContext();
 
@@ -39,11 +39,12 @@
 </script>
 
 {#if !isEmpty()}
-	<Detail
+	<ManifestDetail
 		title={type ? getText($locale, type, manifestType()) : ''}
+		titleIcon={getManifestDetailIcon(type)}
 		titleTooltip={getText($locale, type, manifestType(), "definition")}
 		className={classNames('ManifestDetailPrimary')}
 	>
 		{formattedValue()}
-	</Detail>
+	</ManifestDetail>
 {/if}

@@ -12,7 +12,16 @@ export type SywIconNode = [
 
 export type SywIconType = keyof typeof SYW_ICONS
 
-export type LucideIconType = TrustKey | ManifestTypeKey | 'missing' | 'up' | 'down' | 'close' | 'info'
+// Icons shown next to Detail titles, keyed by the detail they label
+export type ManifestDetailIconKey = 'timestamp' | 'producer' | 'signator' | 'location' | 'actions' | 'identity'
+
+// Icons shown next to ManifestSection titles
+export type ManifestSectionIconKey = 'section_identity' | 'section_primary' | 'section_trust'
+
+// Icons shown in the manifest content tab triggers
+export type ManifestTabIconKey = 'tab_info' | 'tab_image'
+
+export type LucideIconType = TrustKey | ManifestTypeKey | ManifestDetailIconKey | ManifestSectionIconKey | ManifestTabIconKey | 'unknown_type' | 'missing' | 'up' | 'down' | 'close' | 'info'
 
 export type IconType = LucideIconType | SywIconType
 

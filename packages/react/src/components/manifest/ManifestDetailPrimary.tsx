@@ -1,10 +1,10 @@
 import { useMemo } from 'react'
-import { classNames } from 'syw-common/helpers/ui'
+import { classNames, getManifestDetailIcon } from 'syw-common/helpers/ui'
 import { getDateString } from 'syw-common/helpers/i18n'
 import type { ManifestTimestamp } from 'syw-common/types/data'
 import type { ManifestDetailPrimaryProps } from 'syw-common/types/components'
 import { useI18nContext } from '$src/context/i18n'
-import Detail from '../shared/Detail'
+import ManifestDetail from './ManifestDetail'
 
 function ManifestDetailPrimary({ type, manifest }: ManifestDetailPrimaryProps) {
 	const { locale, getText } = useI18nContext()
@@ -31,13 +31,14 @@ function ManifestDetailPrimary({ type, manifest }: ManifestDetailPrimaryProps) {
 	if(formattedValue === null || formattedValue === undefined || formattedValue === "" || (Array.isArray(formattedValue) && !formattedValue.length)) return
 
 	return (
-		<Detail
+		<ManifestDetail
 			title={getText(type, manifestTypeTextKey)}
+			titleIcon={getManifestDetailIcon(type)}
 			titleTooltip={getText(type, manifestTypeTextKey, "definition")}
 			className={classNames('ManifestDetailPrimary')}
 		>
 			{formattedValue as string}
-		</Detail>
+		</ManifestDetail>
 	)
 }
 

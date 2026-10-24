@@ -57,6 +57,12 @@ button.Syw-ManifestContentTabsToggleTrigger {
 	user-select: none;
 	opacity: 0.625;
 }
+/* Manifest > Content > Tabs > Trigger > Icon */
+.Syw-ManifestContentTabsToggleTriggerIcon {
+	width: var(--syw-space-4);
+	height: var(--syw-space-4);
+	flex-shrink: 0;
+}
 button.Syw-ManifestContentTabsToggleTrigger:hover {
 	opacity: 1;
 	color: var(--syw-color-quinary);

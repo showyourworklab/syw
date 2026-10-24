@@ -3,11 +3,10 @@ import { classNames } from 'syw-common/helpers/ui'
 import { isIptcDigitalSourceTypeAi } from 'syw-common/helpers/iptc'
 import type { ManifestDetailActionsProps } from 'syw-common/types/components'
 import { useI18nContext } from '$src/context'
-import Detail from '../shared/Detail'
+import ManifestDetail from './ManifestDetail'
 import DetailToggle from '../shared/DetailToggle'
 import Collapse from '../shared/Collapse'
 import Tooltip from '../shared/Tooltip'
-import Icon from '../shared/Icon'
 
 function ManifestDetailActions({ manifest }: ManifestDetailActionsProps) {
 	const { getText } = useI18nContext()
@@ -18,8 +17,9 @@ function ManifestDetailActions({ manifest }: ManifestDetailActionsProps) {
 	const hasAi = manifest.actions.some(action => isIptcDigitalSourceTypeAi(action.iptc))
 
 	return (
-		<Detail
+		<ManifestDetail
 			title={getText('actions')}
+			titleIcon="actions"
 			titleTooltip={getText('actions', 'definition')}
 			className={classNames('ManifestDetailActions')}
 		>
@@ -40,27 +40,23 @@ function ManifestDetailActions({ manifest }: ManifestDetailActionsProps) {
 							key={index}
 							className={classNames('ManifestDetailActionsListItem')}
 						>
-							<span>
-								{getText('action', action.key)}
-							</span>
+							<Tooltip
+								content={getText('action', action.key, 'definition')}
+							>
+								<span>
+									{getText('action', action.key)}
+								</span>
+							</Tooltip>
 							{isIptcDigitalSourceTypeAi(action.iptc) ?
 								<span>
 									{getText('action', 'ai')}
 								</span>
 							: null}
-							<Tooltip
-								content={getText('action', action.key, 'definition')}
-							>
-								<Icon
-									type="info"
-									className={classNames('ManifestDetailActionsListItemTooltipIcon')}
-								/>
-							</Tooltip>
 						</li>
 					)}
 				</ul>
 			</Collapse>
-		</Detail>
+		</ManifestDetail>
 	)
 }
 

@@ -1,8 +1,5 @@
 /* Trust > Detail */
-.Syw-ManifestSectionTrustDetail .Syw-DetailTitle > span {
-	font-size: var(--syw-text-sm);
-	letter-spacing: normal;
-	text-transform: none;
+.Syw-ManifestSectionTrustDetail .Syw-ManifestDetailTitleText {
 }
 /* Trust > Detail > Values */
 .Syw-ManifestSectionTrustDetail.Syw-ManifestSectionTrustDetail_trusted {

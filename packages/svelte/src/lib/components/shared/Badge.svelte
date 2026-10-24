@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { classNames } from 'syw-common/helpers/ui'
+	import { classNames, getManifestTypeIcon } from 'syw-common/helpers/ui'
 	import type { BadgeProps } from 'syw-common/types/components'
     import Tooltip from './Tooltip.svelte'
 	import type { TooltipProps } from './Tooltip.svelte'
@@ -19,6 +19,7 @@
 
 <Tooltip
 	{...tooltipProps}
+	noUnderline
 	// content={typeDefinition()}
 	ContentProps={{
 		...tooltipProps?.ContentProps,
@@ -41,7 +42,7 @@
 		)}
 	>
 		<Icon
-			type={type?.key}
+			type={getManifestTypeIcon(type?.key)}
 			className={classNames('BadgeIcon')}
 		/>
 		<span

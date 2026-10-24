@@ -14,7 +14,7 @@ export interface BadgeProps extends ComponentProps {
 	status?: TrustKey
 }
 
-export interface DetailProps extends ComponentProps {
+export interface ManifestDetailProps extends ComponentProps {
 	title?: string | null
 	titleTooltip?: string | null
 	titleIcon?: IconType | null
@@ -103,6 +103,7 @@ export interface ManifestPreviewProps extends ComponentProps {
 
 export interface ManifestSectionProps extends ComponentProps {
 	title?: string | null
+	titleIcon?: IconType | null
 	definition?: string | null
 }
 

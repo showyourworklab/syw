@@ -1,8 +1,9 @@
 import { classNames } from 'syw-common/helpers/ui'
 import type { ManifestSectionProps } from 'syw-common/types/components'
-import Detail from '../shared/Detail'
+import ManifestDetail from './ManifestDetail'
+import Icon from '../shared/Icon'
 
-function ManifestSection({ title, definition, className, children }: ManifestSectionProps) {
+function ManifestSection({ title, titleIcon, definition, className, children }: ManifestSectionProps) {
 	return (
 		<section
 			className={classNames(
@@ -18,15 +19,23 @@ function ManifestSection({ title, definition, className, children }: ManifestSec
 						<div
 							className={classNames('ManifestSectionTitle')}
 						>
-							{title}
+							{titleIcon ?
+								<Icon
+									type={titleIcon}
+									className={classNames('ManifestSectionTitleIcon')}
+								/>
+							: null}
+							<span>
+								{title}
+							</span>
 						</div>
 					: null}
 					{definition ?
-						<Detail
+						<ManifestDetail
 							className={classNames('ManifestSectionDefinition')}
 						>
 							{definition}
-						</Detail>
+						</ManifestDetail>
 					: null}
 				</div>
 			: null}

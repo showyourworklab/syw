@@ -1,7 +1,6 @@
 export { default as App } from './components/App.svelte';
 export { default as Badge } from './components/shared/Badge.svelte';
 export { default as Collapse } from './components/shared/Collapse.svelte';
-export { default as Detail } from './components/shared/Detail.svelte';
 export { default as DetailToggle } from './components/shared/DetailToggle.svelte';
 export { default as Figure } from './components/figure/Figure.svelte';
 export { default as FigureCaption } from './components/figure/FigureCaption.svelte';
@@ -9,6 +8,7 @@ export { default as FigureCutline } from './components/figure/FigureCutline.svel
 export { default as Icon } from './components/shared/Icon.svelte';
 export { default as Image } from './components/shared/Image.svelte';
 export { default as Manifest } from './components/manifest/Manifest.svelte';
+export { default as ManifestDetail } from './components/manifest/ManifestDetail.svelte';
 export { default as ManifestDetailActions } from './components/manifest/ManifestDetailActions.svelte';
 export { default as ManifestDetailGenerator } from './components/manifest/ManifestDetailGenerator.svelte';
 export { default as ManifestDetailLocation } from './components/manifest/ManifestDetailLocation.svelte';

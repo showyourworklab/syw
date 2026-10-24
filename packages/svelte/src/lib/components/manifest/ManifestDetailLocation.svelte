@@ -3,7 +3,7 @@
 	import { formatCoordinates } from 'syw-common/helpers/map'
 	import type { ManifestDetailLocationProps } from 'syw-common/types/components'
 	import { getI18nContext } from '$lib/store/i18n.js'
-	import Detail from '../shared/Detail.svelte'
+	import ManifestDetail from './ManifestDetail.svelte'
 	import DetailToggle from '../shared/DetailToggle.svelte'
 	import Collapse from '../shared/Collapse.svelte'
 	import Map from '../shared/Map.svelte'
@@ -23,8 +23,9 @@
 </script>
 
 {#if manifest.location}
-	<Detail
+	<ManifestDetail
 		title={getText($locale, 'location', 'coordinates')}
+		titleIcon="location"
 		titleTooltip={getText($locale, 'location', 'coordinates', 'definition')}
 		className={classNames('ManifestDetailLocation')}
 	>
@@ -43,5 +44,5 @@
 				/>
 			{/if}
 		</Collapse>
-	</Detail>
+	</ManifestDetail>
 {/if}

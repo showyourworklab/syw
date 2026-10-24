@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { classNames } from 'syw-common/helpers/ui'
+	import { classNames, getManifestTypeIcon } from 'syw-common/helpers/ui'
 	import type { ManifestDetailGeneratorProps } from 'syw-common/types/components'
 	import { getI18nContext } from '$lib/store/i18n.js'
-	import Detail from '../shared/Detail.svelte'
+	import ManifestDetail from './ManifestDetail.svelte'
 
 	const { locale, getText } = getI18nContext()
 
@@ -12,8 +12,9 @@
 </script>
 
 {#if manifest.generator?.length}
-	<Detail
+	<ManifestDetail
 		title={getText($locale, 'generator', typeKey)}
+		titleIcon={getManifestTypeIcon(typeKey)}
 		titleTooltip={getText($locale, 'generator', typeKey, 'definition')}
 		className={classNames('ManifestDetailGenerator')}
 	>
@@ -33,5 +34,5 @@
 				</span>
 			</div>
 		{/each}
-	</Detail>
+	</ManifestDetail>
 {/if}

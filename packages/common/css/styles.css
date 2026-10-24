@@ -4,7 +4,8 @@
 @import './figure/FigureCaption.css';
 @import './shared/Collapse.css';
 @import './figure/FigureCutline.css';
-@import './shared/Detail.css';
+@import './manifest/ManifestDetail.css';
+@import './shared/DetailToggle.css';
 @import './shared/Drawer.css';
 @import './provenance/ProvenanceExplainer.css';
 @import './provenance/ProvenanceExplainerToggle.css';

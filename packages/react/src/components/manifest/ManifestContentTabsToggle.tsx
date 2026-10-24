@@ -3,6 +3,7 @@ import { Tabs } from '@ark-ui/react/tabs'
 import { classNames, getAvailableTabs } from 'syw-common/helpers/ui'
 import type { ManifestContentTabsToggleProps } from 'syw-common/types/components'
 import { useI18nContext } from '$src/context'
+import Icon from '../shared/Icon'
 
 function ManifestContentTabsToggle({
 	manifest,
@@ -32,7 +33,13 @@ function ManifestContentTabsToggle({
 						disabled={!availableTabs?.includes(key)}
 						className={classNames('ManifestContentTabsToggleTrigger')}
 					>
-						{getText("tab", key)}
+						<Icon
+							type={`tab_${key}`}
+							className={classNames('ManifestContentTabsToggleTriggerIcon')}
+						/>
+						<span>
+							{getText("tab", key)}
+						</span>
 					</Tabs.Trigger>
 				))}
 				<Tabs.Indicator
