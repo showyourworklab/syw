@@ -55,7 +55,7 @@ export interface ProvenanceDrawerProps {
 	direction?: DrawerDirection
 }
 
-export interface ExplainerToggleProps extends ComponentProps {}
+export interface ProvenanceExplainerToggleProps extends ComponentProps {}
 
 export interface IconProps extends ComponentProps {
 	type: IconType | null | undefined
@@ -90,7 +90,7 @@ export interface ManifestImageProps extends ComponentProps {
 	manifest: Manifest
 }
 
-export interface ManifestLocationProps extends ComponentProps {
+export interface ManifestDetailLocationProps extends ComponentProps {
 	manifest: Manifest
 }
 
@@ -106,20 +106,24 @@ export interface ManifestSectionProps extends ComponentProps {
 	definition?: string | null
 }
 
-export interface ManifestActionsProps extends ComponentProps {
+export interface ManifestDetailActionsProps extends ComponentProps {
 	manifest: Manifest
 }
 
-export interface ManifestIdentityProps extends ComponentProps {
+export interface ManifestDetailGeneratorProps extends ComponentProps {
 	manifest: Manifest
 }
 
-export interface ManifestPrimaryProps extends ComponentProps {
+export interface ManifestSectionIdentityProps extends ComponentProps {
+	manifest: Manifest
+}
+
+export interface ManifestSectionPrimaryProps extends ComponentProps {
 	keys: readonly ManifestFieldKey[]
 	manifest: Manifest
 }
 
-export interface ManifestPrimaryFieldProps extends ComponentProps {
+export interface ManifestDetailPrimaryProps extends ComponentProps {
 	type: ManifestFieldKey
 	manifest: Manifest
 }
@@ -136,10 +140,6 @@ export interface ModalProps extends ComponentProps {
 	onOpenChange: (open: boolean) => void
 }
 
-export interface ManifestTrustProps extends ComponentProps {
+export interface ManifestSectionTrustProps extends ComponentProps {
 	manifest: Manifest
-}
-
-export interface TypeBadgeProps extends ComponentProps {
-	value: ManifestType | null | undefined
 }

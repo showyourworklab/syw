@@ -1,0 +1,31 @@
+/* Trust > Detail */
+.Syw-ManifestSectionTrustDetail .Syw-DetailTitle > span {
+	font-size: var(--syw-text-sm);
+	letter-spacing: normal;
+	text-transform: none;
+}
+/* Trust > Detail > Values */
+.Syw-ManifestSectionTrustDetail.Syw-ManifestSectionTrustDetail_trusted {
+	/* --syw-detail-text: var(--syw-color-status-trusted); */
+	/* --syw-detail-background: var(--syw-color-status-trusted-light); */
+}
+.Syw-ManifestSectionTrustDetail.Syw-ManifestSectionTrustDetail_trusted_legacy {
+	/* --syw-detail-text: var(--syw-color-status-trusted-legacy); */
+	/* --syw-detail-background: var(--syw-color-status-trusted-legacy-light); */
+}
+.Syw-ManifestSectionTrustDetail.Syw-ManifestSectionTrustDetail_valid {
+	/* --syw-detail-text: var(--syw-color-status-valid); */
+	/* --syw-detail-background: var(--syw-color-status-valid-light); */
+}
+.Syw-ManifestSectionTrustDetail.Syw-ManifestSectionTrustDetail_invalid {
+	/* --syw-detail-text: var(--syw-color-status-invalid); */
+	/* --syw-detail-background: var(--syw-color-status-invalid-light); */
+}
+.Syw-ManifestSectionTrustDetail.Syw-ManifestSectionTrustDetail_unknown {
+	/* --syw-detail-text: var(--syw-color-status-unknown); */
+	/* --syw-detail-background: var(--syw-color-status-unknown-light); */
+}
+.Syw-ManifestSectionTrustDetail.Syw-ManifestSectionTrustDetail_none {
+	/* --syw-detail-text: var(--syw-color-status-none); */
+	/* --syw-detail-background: var(--syw-color-status-none-light); */
+}

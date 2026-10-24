@@ -520,7 +520,7 @@
 	/* :global(.Syw-ManifestPreviewCell_thumb img) {
 		height: unset;
 	} */
-	article :global(.Syw-App .Syw-Caption) {
+	article :global(.Syw-App .Syw-FigureCaption) {
 		font-family: var(--font-serif);
 	}
 </style>

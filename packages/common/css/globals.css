@@ -67,7 +67,7 @@
 	--syw-size-caption-border: 1px;
 	--syw-size-cutline-margin: var(--syw-space-2);
 	--syw-size-manifest-border: 1px;
-	--syw-size-detail-gap: 2px;
+	--syw-size-detail-gap: 3px;
 	--syw-size-connector-width: 3px;
 	--syw-size-connector-left: calc(var(--syw-space-2) + ((var(--syw-size-badge) - var(--syw-size-connector-width)) / 2));
 	--syw-size-paragraph-max-width: 85ch;

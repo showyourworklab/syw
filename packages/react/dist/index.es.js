@@ -4419,9 +4419,9 @@ const xR = [
     })]
   });
 }, IR = () => /* @__PURE__ */ W("div", {
-  className: Ve("Cutline"),
+  className: Ve("FigureCutline"),
   children: /* @__PURE__ */ W("div", {
-    className: Ve("CutlineToggles"),
+    className: Ve("FigureCutlineToggles"),
     children: /* @__PURE__ */ W(MR, {})
   })
 });
@@ -6844,13 +6844,13 @@ const Yk = () => {
     byline: o
   } = $o();
   return r || o ? /* @__PURE__ */ W("figcaption", {
-    className: Ve("Caption"),
+    className: Ve("FigureCaption"),
     children: /* @__PURE__ */ it("div", {
-      className: Ve("CaptionInner"),
+      className: Ve("FigureCaptionInner"),
       children: [/* @__PURE__ */ W(_T, {
         content: r
       }), /* @__PURE__ */ W("div", {
-        className: Ve("CaptionByline"),
+        className: Ve("FigureCaptionByline"),
         children: o
       })]
     })
@@ -12022,7 +12022,7 @@ const FL = mN({
     onKeyDown: l,
     onMouseEnter: D,
     onMouseLeave: k,
-    className: Ve("Media"),
+    className: Ve("FigureMedia"),
     children: r === "video" ? /* @__PURE__ */ W(zL, {}) : /* @__PURE__ */ W(Zk, {})
   });
 };
@@ -16729,10 +16729,10 @@ function J5({
   } = jn();
   return r.identity ? /* @__PURE__ */ W(Mb, {
     title: o("section", "identity"),
-    className: Ve("ManifestIdentity"),
+    className: Ve("ManifestSectionIdentity"),
     children: /* @__PURE__ */ W(pu, {
       title: o("identity", "name"),
-      className: Ve("ManifestIdentityName"),
+      className: Ve("ManifestSectionIdentityName"),
       children: r.identity.name
     })
   }) : null;
@@ -16742,11 +16742,11 @@ function X5({
   icon: o
 }) {
   return /* @__PURE__ */ it("div", {
-    className: Ve("Generator"),
+    className: Ve("ManifestGenerator"),
     children: [o ? /* @__PURE__ */ W("img", {
       alt: "",
       src: o,
-      className: Ve("GeneratorIcon")
+      className: Ve("ManifestGeneratorIcon")
     }) : null, /* @__PURE__ */ W("span", {
       children: r
     })]
@@ -16776,7 +16776,7 @@ function K5({
     return /* @__PURE__ */ W(pu, {
       title: d(r, A),
       titleTooltip: d(r, A, "definition"),
-      className: Ve("ManifestPrimaryField"),
+      className: Ve("ManifestSectionPrimaryDetail"),
       children: r === "generator" ? y.map((l, D) => /* @__PURE__ */ W(X5, {
         name: l.name,
         icon: l.icon
@@ -41598,9 +41598,9 @@ function fQ({
   } = jn(), d = ((w = o.type) == null ? void 0 : w.key) ?? "unknown", y = sP.includes(d), A = aP.includes(d);
   return /* @__PURE__ */ W(Mb, {
     title: c("section", "primary", ((l = o.type) == null ? void 0 : l.key) ?? "unknown"),
-    className: Ve("ManifestPrimary"),
+    className: Ve("ManifestSectionPrimary"),
     children: /* @__PURE__ */ it("div", {
-      className: Ve("ManifestPrimaryFields"),
+      className: Ve("ManifestSectionPrimaryDetails"),
       children: [r.map((D) => /* @__PURE__ */ W(K5, {
         type: D,
         manifest: o
@@ -41622,17 +41622,17 @@ function gQ({
   return /* @__PURE__ */ it(Mb, {
     title: o("section", "trust"),
     definition: o("section", "trust", "definition"),
-    className: Ve("ManifestTrust"),
+    className: Ve("ManifestSectionTrust"),
     children: [r.signator ? /* @__PURE__ */ W(pu, {
       title: o("signator", c),
       titleTooltip: o("signator", c, "definition"),
-      className: Ve("ManifestTrustSignator"),
+      className: Ve("ManifestSectionTrustSignator"),
       children: r.signator
     }) : null, /* @__PURE__ */ W(pu, {
       title: o("trust", r.trust.value),
       titleIcon: r.trust.value,
       footer: o("trust", r.trust.value, "definition"),
-      className: Ve("ManifestTrustDetail", `ManifestTrustDetail_${r.trust.value}`)
+      className: Ve("ManifestSectionTrustDetail", `ManifestSectionTrustDetail_${r.trust.value}`)
     })]
   });
 }
@@ -41786,17 +41786,17 @@ const wQ = () => {
     closeExplainer: c
   } = To(), d = c;
   return /* @__PURE__ */ W("div", {
-    className: Ve("Explainer"),
+    className: Ve("ProvenanceExplainer"),
     children: /* @__PURE__ */ W(Gf, {
       open: o,
       children: /* @__PURE__ */ W("div", {
-        className: Ve("ExplainerInner"),
+        className: Ve("ProvenanceExplainerInner"),
         children: /* @__PURE__ */ it("div", {
-          className: Ve("ExplainerBox"),
+          className: Ve("ProvenanceExplainerBox"),
           children: [/* @__PURE__ */ it("div", {
-            className: Ve("ExplainerHeader"),
+            className: Ve("ProvenanceExplainerHeader"),
             children: [/* @__PURE__ */ W("button", {
-              className: Ve("ExplainerClose"),
+              className: Ve("ProvenanceExplainerClose"),
               "aria-pressed": o,
               "aria-label": r("explainer", "toggle", "close") ?? void 0,
               onClick: d,
@@ -41804,19 +41804,19 @@ const wQ = () => {
                 type: "close"
               })
             }), /* @__PURE__ */ W("p", {
-              className: Ve("ExplainerLede"),
+              className: Ve("ProvenanceExplainerLede"),
               children: r("explainer", "lede")
             })]
           }), /* @__PURE__ */ W("dl", {
-            className: Ve("ExplainerSections"),
+            className: Ve("ProvenanceExplainerSections"),
             children: [1, 2].map((y) => /* @__PURE__ */ it("div", {
-              className: Ve("ExplainerSection"),
+              className: Ve("ProvenanceExplainerSection"),
               children: [/* @__PURE__ */ W("dt", {
-                className: Ve("ExplainerSectionTitle"),
+                className: Ve("ProvenanceExplainerSectionTitle"),
                 children: r("explainer", "section", y, "title")
               }), /* @__PURE__ */ W(_T, {
                 tag: "dd",
-                className: Ve("ExplainerSectionBody"),
+                className: Ve("ProvenanceExplainerSectionBody"),
                 content: r("explainer", "section", y, "body")
               })]
             }, y))
@@ -41840,7 +41840,7 @@ const wQ = () => {
     c ? y(D) : d(D), o === "modal" && A(D);
   };
   return /* @__PURE__ */ it("button", {
-    className: Ve("ExplainerToggle", r),
+    className: Ve("ProvenanceExplainerToggle", r),
     "aria-pressed": c,
     onClick: l,
     children: [/* @__PURE__ */ W("span", {

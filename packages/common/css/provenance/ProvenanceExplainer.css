@@ -1,0 +1,76 @@
+/* ProvenanceExplainer */
+.Syw-ProvenanceExplainer {
+	position: relative;
+	top: -1px;
+}
+/* ProvenanceExplainer > Inner */
+.Syw-ProvenanceExplainerInner {
+	position: relative;
+	pointer-events: all;
+	color: var(--syw-color-primary);
+	font-size: var(--syw-text-sm);
+	line-height: 1.5em;
+}
+.Syw-ProvenanceExplainerBox {
+	padding: var(--syw-space-4);
+	background-color: var(--syw-color-secondary);
+	border-radius: var(--syw-radius-lg);
+	border-top-left-radius: 0;
+}
+.Syw-ProvenanceExplainerHeader {
+	display: flex;
+	flex-direction: row-reverse;
+	align-items: flex-start;
+	justify-content: space-between;
+}
+/* ProvenanceExplainer > Close */
+button.Syw-ProvenanceExplainerClose {
+	width: var(--syw-space-5);
+    height: var(--syw-space-5);
+	display: flex;
+	position: relative;
+	top: calc(var(--syw-space-1) * -1);
+	right: calc(var(--syw-space-1) * -1);
+	background-color: var(--syw-color-secondary);
+	border-radius: var(--syw-radius-full);
+	border-color: currentColor;
+	border-style: solid;
+	border-width: 1px;
+	font-size: var(--syw-text-xs);
+	cursor: pointer;
+	margin: 0;
+	transition: all 200ms ease;
+}
+button.Syw-ProvenanceExplainerClose svg {
+	margin: auto;
+    width: var(--syw-space-3);
+    height: var(--syw-space-3);
+}
+button.Syw-ProvenanceExplainerClose:hover {
+	color: var(--syw-color-quinary);
+}
+/* ProvenanceExplainer > Lede */
+p.Syw-ProvenanceExplainerLede {
+	margin: 0;
+	display: block;
+	font-weight: var(--syw-font-weight-bold);
+	padding-right: var(--syw-space-2);
+}
+/* ProvenanceExplainer > Sections */
+dl.Syw-ProvenanceExplainerSections {
+	margin: var(--syw-space-3) 0 0 0;
+	max-width: var(--syw-size-paragraph-max-width);
+}
+div.Syw-ProvenanceExplainerSection:not(:last-child) {
+	margin: 0 0 var(--syw-space-3) 0;
+}
+dt.Syw-ProvenanceExplainerSectionTitle {
+	padding-bottom: var(--syw-space-1);
+	font-size: var(--syw-text-xs);
+	font-weight: var(--syw-font-weight-bold);
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+}
+dd.Syw-ProvenanceExplainerSectionBody {
+	margin-left: 0;
+}

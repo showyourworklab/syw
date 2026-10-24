@@ -1,0 +1,78 @@
+/* Provenance > Toggle */
+.Syw-FigureCutline button.Syw-ProvenanceToggle {
+	display: flex;
+	align-items: center;
+	position: relative;
+	cursor: pointer;
+	padding: var(--syw-space-1) var(--syw-space-2) var(--syw-space-1) var(--syw-space-2);
+	color: var(--syw-color-secondary);
+	background-color: var(--syw-color-primary);
+	border-radius: var(--syw-radius-lg);
+	border: 1px solid transparent;
+	font-size: var(--syw-text-sm);
+	font-weight: var(--syw-font-weight-bold);
+	transition: all 200ms ease;
+	user-select: none;
+}
+/* Provenance > Toggle > Icon */
+.Syw-FigureCutline button.Syw-ProvenanceToggle .Syw-Icon {
+	width: var(--syw-size-badge);
+	height: var(--syw-size-badge);
+	margin-right: calc(var(--syw-space-1) * 1.5);
+}
+/* Provenance > Toggle > Ornament */
+/* .Syw-FigureCutline button.Syw-ProvenanceToggle::before {
+	content: '';
+	display: block;
+	width: 8px;
+	height: 8px;
+	position: absolute;
+	top: calc(50% - 4px);
+	left: calc(var(--syw-space-3) - 5px);
+	margin-right: var(--syw-space-2);
+	z-index: 3;
+	background-color: var(--syw-color-secondary);
+	border-color: var(--syw-color-primary);
+	border-width: 1px;
+	border-style: solid;
+	border-radius: 100%;
+	transition: all 200ms ease;
+} */
+/* Provenance > Toggle > Hovered */
+.Syw-FigureCutline button.Syw-ProvenanceToggle:hover,
+.Syw-App_hovered .Syw-FigureCutline button.Syw-ProvenanceToggle,
+.Syw-App_hovered .Syw-FigureCutline button.Syw-ProvenanceToggle {
+	background-color: var(--syw-color-quinary);
+}
+/* Provenance > Toggle > Hovered > Icon */
+.Syw-FigureCutline button.Syw-ProvenanceToggle:hover .Syw-Icon,
+.Syw-App_hovered .Syw-FigureCutline button.Syw-ProvenanceToggle .Syw-Icon,
+.Syw-App_hovered .Syw-FigureCutline button.Syw-ProvenanceToggle .Syw-Icon {
+	/* color: var(--syw-color-quinary); */
+}
+/* Provenance > Toggle > Hovered > Ornament */
+/* .Syw-FigureCutline button.Syw-ProvenanceToggle:hover::before,
+.Syw-App_hovered .Syw-FigureCutline button.Syw-ProvenanceToggle::before {
+	border-color: var(--syw-color-quinary);
+} */
+/* Provenance > Toggle > Active */
+.Syw-App_active.Syw-App_expand .Syw-FigureCutline button.Syw-ProvenanceToggle {
+	color: var(--syw-color-primary);
+	background-color: var(--syw-color-secondary);
+}
+/* Provenance > Toggle > Active > Ornament */
+/* .Syw-App_active.Syw-App_expand .Syw-FigureCutline button.Syw-ProvenanceToggle::before {
+	border-color: var(--syw-color-primary);
+} */
+/* Provenance > Toggle > Active > Hovered */
+.Syw-App_active.Syw-App_expand .Syw-FigureCutline button.Syw-ProvenanceToggle:hover,
+.Syw-App_active.Syw-App_expand.Syw-App_hovered .Syw-FigureCutline button.Syw-ProvenanceToggle {
+	color: var(--syw-color-quinary);
+	background-color: var(--syw-color-secondary);
+}
+/* Provenance > Toggle > Active > Hovered > Ornament */
+/* .Syw-App_active.Syw-App_expand .Syw-FigureCutline button.Syw-ProvenanceToggle:hover::before,
+.Syw-App_active.Syw-App_expand.Syw-App_hovered .Syw-FigureCutline button.Syw-ProvenanceToggle::before {
+	background-color: var(--syw-color-quinary);
+	border-color: var(--syw-color-quinary);
+} */

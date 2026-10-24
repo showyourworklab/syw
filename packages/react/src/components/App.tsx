@@ -4,14 +4,14 @@ import type { ComponentPropsWithoutRef } from 'react'
 import type { MapOptions, UiEventHandler } from 'syw-common/types/ui'
 import { classNames } from 'syw-common/helpers/ui'
 import { useUiContext } from '$src/context/ui'
-import Figure from './Figure'
-import Cutline from './Cutline'
-import Caption from './Caption'
-import Media from './Media'
-import ProvenanceExpand from './ProvenanceExpand'
-import ProvenanceModal from './ProvenanceModal'
-import ProvenancePopover from './ProvenancePopover'
-import ProvenanceDrawer from './ProvenanceDrawer'
+import Figure from './figure/Figure'
+import FigureCutline from './figure/FigureCutline'
+import FigureCaption from './figure/FigureCaption'
+import FigureMedia from './figure/FigureMedia'
+import ProvenanceExpand from './provenance/ProvenanceExpand'
+import ProvenanceModal from './provenance/ProvenanceModal'
+import ProvenancePopover from './provenance/ProvenancePopover'
+import ProvenanceDrawer from './provenance/ProvenanceDrawer'
 
 interface AppProps extends Omit<ComponentPropsWithoutRef<'div'>, 'children'> {
 	mapOptions: MapOptions
@@ -63,9 +63,9 @@ function App({
 			{...props}
 		>
 			<Figure>
-				<Media />
-				<Cutline />
-				<Caption />
+				<FigureMedia />
+				<FigureCutline />
+				<FigureCaption />
 			</Figure>
 			{variant === 'expand' ? <ProvenanceExpand /> : null}
 			{variant === 'modal' ? <ProvenanceModal /> : null}

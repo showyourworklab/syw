@@ -1,0 +1,60 @@
+/* FigureCaption */
+.Syw-FigureCaption {
+	margin: 0;
+	padding: 0;
+	width: calc(100% - var(--syw-size-caption-indent));
+	border: var(--syw-size-caption-border) solid transparent;
+	position: relative;
+	pointer-events: all;
+	line-height: 1.3em;
+	cursor: text;
+	transition: all 200ms ease;
+	--syw-size-caption-before-top: calc(var(--syw-size-cutline-margin) + var(--syw-size-caption-border) - 1.5px);
+	--syw-size-caption-before-bottom: calc(var(--syw-size-caption-border) + var(--syw-size-manifest-border) + ((var(--syw-size-manifest-preview-height) - var(--syw-size-badge)) / 2));
+}
+.Syw-FigureCaption::before {
+	content: "";
+	display: block;
+	width: var(--syw-size-connector-width);
+	z-index: 2;
+	position: absolute;
+	left: var(--syw-size-connector-left);
+	top: calc(var(--syw-size-caption-before-top) * -1);
+	height: 0;
+	background-color: var(--syw-color-primary);
+	border-color: var(--syw-color-secondary);
+	border-style: solid;
+	border-width: 0 1px;
+	transition: all 50ms ease;
+}
+/* FigureCaption > Active */
+.Syw-App_active.Syw-App_expand .Syw-FigureCaption {
+	padding-bottom: var(--syw-space-3);
+}
+/* FigureCaption > Active > Expand */
+.Syw-App_active.Syw-App_expand .Syw-FigureCaption::before {
+	height: calc(var(--syw-size-caption-before-top) + 100% + var(--syw-size-caption-before-bottom));
+}
+.Syw-App_active.Syw-App_expand .Syw-FigureCaption::after {
+	opacity: 1;
+}
+/* FigureCaption > Inner */
+.Syw-FigureCaptionInner {
+	max-width: var(--syw-size-paragraph-max-width);
+	transition: all 200ms ease;
+}
+/* FigureCaption > Inner > Active > Expand */
+.Syw-App_active.Syw-App_expand .Syw-FigureCaptionInner {
+	transform: translateX(var(--syw-size-caption-indent));
+	/* padding-left: var(--syw-space-6); */
+}
+/* FigureCaption > Byline */
+.Syw-FigureCaptionByline {
+	display: block;
+	opacity: 0.75;
+	font-size: var(--syw-text-sm);
+}
+/* FigureCaption > Byline > Active > Expand */
+.Syw-App_active.Syw-App_expand .Syw-FigureCaptionByline {
+	/* color: var(--syw-color-secondary-dark); */
+}

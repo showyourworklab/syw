@@ -1,0 +1,15 @@
+/* Provenance > Drawer > Content */
+.Syw-ProvenanceDrawer .Syw-DrawerContent {
+	max-width: calc(100% - var(--syw-space-4));
+	max-height: calc(100% - var(--syw-space-4));
+}
+/* Provenance > Drawer > Content > Box */
+.Syw-ProvenanceDrawer .Syw-DrawerContentBox {
+
+}
+/* Provenance > Drawer > ProvenanceExplainer */
+.Syw-ProvenanceDrawer .Syw-ProvenanceDrawerToolbar {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: var(--syw-space-3);
+}

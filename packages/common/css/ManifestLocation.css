@@ -1,8 +1,0 @@
-/* Manifest > Location */
-.Syw-ManifestPrimaryFields .Syw-ManifestLocation {
-	grid-column: 1 / -1;
-}
-/* Manifest > Location > Map */
-.Syw-ManifestLocation .Syw-Map {
-	margin-top: var(--syw-space-2);
-}

@@ -12,14 +12,14 @@
 	import createDataStore, { setDataContext } from '../store/data.js'
 	import createI18nStore, { setI18nContext } from '../store/i18n.js'
 	import createUiStore, { setUiContext } from '../store/ui.js'
-	import Figure from './Figure.svelte'
-	import Media from './Media.svelte'
-	import Cutline from './Cutline.svelte'
-	import Caption from './Caption.svelte'
-	import ProvenanceExpand from './ProvenanceExpand.svelte'
-	import ProvenanceModal from './ProvenanceModal.svelte'
-	import ProvenancePopover from './ProvenancePopover.svelte'
-	import ProvenanceDrawer from './ProvenanceDrawer.svelte'
+	import Figure from './figure/Figure.svelte'
+	import FigureMedia from './figure/FigureMedia.svelte'
+	import FigureCutline from './figure/FigureCutline.svelte'
+	import FigureCaption from './figure/FigureCaption.svelte'
+	import ProvenanceExpand from './provenance/ProvenanceExpand.svelte'
+	import ProvenanceModal from './provenance/ProvenanceModal.svelte'
+	import ProvenancePopover from './provenance/ProvenancePopover.svelte'
+	import ProvenanceDrawer from './provenance/ProvenanceDrawer.svelte'
 
 	const {
 		variant = VARIANT_DEFAULT,
@@ -123,9 +123,9 @@
 	bind:this={elemRef}
 >
 	<Figure>
-		<Media />
-		<Cutline />
-		<Caption />
+		<FigureMedia />
+		<FigureCutline />
+		<FigureCaption />
 	</Figure>
 
 	{#if variant === 'expand'}

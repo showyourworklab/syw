@@ -1,0 +1,8 @@
+/* Manifest > Location */
+.Syw-ManifestSectionPrimaryDetails .Syw-ManifestDetailLocation {
+	grid-column: 1 / -1;
+}
+/* Manifest > Location > Map */
+.Syw-ManifestDetailLocation .Syw-Map {
+	margin-top: var(--syw-space-2);
+}

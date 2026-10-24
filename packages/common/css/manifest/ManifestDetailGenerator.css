@@ -1,0 +1,11 @@
+/* Manifest > Detail > Generator > Entry */
+.Syw-ManifestDetailGeneratorEntry {
+	display: flex;
+	align-items: center;
+}
+/* Manifest > Detail > Generator > Icon */
+.Syw-ManifestDetailGeneratorIcon {
+	width: 0.8em;
+	height: 0.8em;
+	margin-right: 0.25em;
+}

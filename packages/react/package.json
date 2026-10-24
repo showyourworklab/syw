@@ -1,6 +1,6 @@
 {
 	"name": "syw-react",
-	"version": "0.0.37",
+	"version": "0.0.39",
 	"description": "",
 	"author": "Show Your Work Lab",
 	"license": "MIT",
@@ -40,7 +40,7 @@
 		"@contentauth/c2pa-web": "0.15.3",
 		"lucide-react": "^1.14.0",
 		"maplibre-gl": "^5.18.0",
-		"syw-common": "^0.0.37"
+		"syw-common": "^0.0.39"
 	},
 	"devDependencies": {
 		"@types/react": "^18.3.1",

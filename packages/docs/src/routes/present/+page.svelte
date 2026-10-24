@@ -130,7 +130,7 @@
 	:global(.Syw-ManifestPreviewCell_thumb img) {
 		height: unset;
 	}
-	:global(.Syw-App .Syw-Caption) {
+	:global(.Syw-App .Syw-FigureCaption) {
 		font-family: var(--font-ui);
 	}
 </style>
