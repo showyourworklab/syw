@@ -4,17 +4,17 @@
 	cursor: pointer;
 	position: relative;
 	overflow: hidden;
-	background-color: var(--syw-color-secondary);
-	transition: all 200ms ease-in-out;
+	/* background-color: var(--syw-color-secondary); */
+	/* transition: all 200ms ease-in-out; */
 }
 /* Image > Hovered */
-.Syw-App_hovered .Syw-Image::before {
+/* .Syw-App_hovered .Syw-Image::before {
 	opacity: 1;
-}
+} */
 /* Image > Engaged */
-.Syw-App_engaged .Syw-Image::before {
+/* .Syw-App_engaged .Syw-Image::before {
 	border-color: var(--syw-color-secondary);
-}
+} */
 /* Image > IMG */
 .Syw-ImageImg {
 	width: 100%;

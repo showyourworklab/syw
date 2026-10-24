@@ -1,4 +1,4 @@
-import type { TrustKey, Manifest, ManifestActions, ManifestFieldKey, ManifestLocation, ManifestType } from './data.js'
+import type { TrustKey, Manifest, ManifestFieldKey, ManifestLocation, ManifestType } from './data.js'
 import type { IconType } from './ui.js'
 
 // Views of a manifest's content, toggled by tabs
@@ -9,22 +9,24 @@ export interface ComponentProps {
 	children?: any
 }
 
-export interface ActionsProps extends ComponentProps {
-	actions: ManifestActions
-}
-
 export interface BadgeProps extends ComponentProps {
 	type?: ManifestType | null
 	status?: TrustKey
 }
 
 export interface DetailProps extends ComponentProps {
-	title: string | null
+	title?: string | null
 	titleTooltip?: string | null
 	titleIcon?: IconType | null
-	// Adds a background color and vertical padding
-	hasBackground?: boolean
+	noBackground?: boolean
 	footer?: string | null
+}
+
+export interface DetailToggleProps extends ComponentProps {
+	open: boolean
+	value: string | null
+	subtitle?: string | null
+	onToggle: () => void
 }
 
 export interface CollapseProps extends ComponentProps {
@@ -80,6 +82,10 @@ export interface ManifestContentTabsToggleProps extends ComponentProps {
 	keys: readonly ManifestContentTabKey[]
 }
 
+export interface ManifestInfoProps extends ComponentProps {
+	manifest: Manifest
+}
+
 export interface ManifestImageProps extends ComponentProps {
 	manifest: Manifest
 }
@@ -97,18 +103,23 @@ export interface ManifestPreviewProps extends ComponentProps {
 
 export interface ManifestSectionProps extends ComponentProps {
 	title?: string | null
+	definition?: string | null
+}
+
+export interface ManifestActionsProps extends ComponentProps {
+	manifest: Manifest
 }
 
 export interface ManifestIdentityProps extends ComponentProps {
 	manifest: Manifest
 }
 
-export interface ManifestTableProps extends ComponentProps {
+export interface ManifestPrimaryProps extends ComponentProps {
 	keys: readonly ManifestFieldKey[]
 	manifest: Manifest
 }
 
-export interface ManifestTableDetailProps extends ComponentProps {
+export interface ManifestPrimaryFieldProps extends ComponentProps {
 	type: ManifestFieldKey
 	manifest: Manifest
 }

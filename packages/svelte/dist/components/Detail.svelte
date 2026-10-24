@@ -9,8 +9,8 @@
 		title,
 		titleTooltip,
 		titleIcon,
-		hasBackground,
 		footer,
+		noBackground,
 		className,
 		children
 	}: DetailProps & { children?: Snippet } = $props()
@@ -19,33 +19,35 @@
 <div
 	class={classNames(
 		'Detail',
-		hasBackground && 'Detail_background',
+		noBackground ? 'Detail_noBackground' : null,
 		className,
 	)}
 >
-	<div
-		class={classNames('DetailTitle')}
-	>
-		{#if titleIcon}
-			<Icon
-				type={titleIcon}
-				className={classNames('DetailTitleIcon')}
-			/>
-		{/if}
-		<span>
-			{title}
-		</span>
-		{#if titleTooltip}
-			<Tooltip
-				content={titleTooltip}
-			>
+	{#if title}
+		<div
+			class={classNames('DetailTitle')}
+		>
+			{#if titleIcon}
 				<Icon
-					type="info"
-					className={classNames('DetailTitleTooltipIcon')}
+					type={titleIcon}
+					className={classNames('DetailTitleIcon')}
 				/>
-			</Tooltip>
-		{/if}
-	</div>
+			{/if}
+			<span>
+				{title}
+			</span>
+			{#if titleTooltip}
+				<Tooltip
+					content={titleTooltip}
+				>
+					<Icon
+						type="info"
+						className={classNames('DetailTitleTooltipIcon')}
+					/>
+				</Tooltip>
+			{/if}
+		</div>
+	{/if}
 	{#if children}
 		<div
 			class={classNames('DetailBody')}

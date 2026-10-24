@@ -1,19 +1,40 @@
 import { classNames } from 'syw-common/helpers/ui'
 import type { ManifestSectionProps } from 'syw-common/types/components'
+import Detail from './Detail'
 
-function ManifestSection({ title, className, children }: ManifestSectionProps) {
+function ManifestSection({ title, definition, className, children }: ManifestSectionProps) {
 	return (
 		<section
-			className={classNames('ManifestSection', className)}
+			className={classNames(
+				'ManifestSection',
+				className
+			)}
 		>
-			{title ?
+			{title || definition ?
 				<div
-					className={classNames('ManifestSectionTitle')}
+					className={classNames('ManifestSectionHeader')}
 				>
-					{title}
+					{title ?
+						<div
+							className={classNames('ManifestSectionTitle')}
+						>
+							{title}
+						</div>
+					: null}
+					{definition ?
+						<Detail
+							className={classNames('ManifestSectionDefinition')}
+						>
+							{definition}
+						</Detail>
+					: null}
 				</div>
 			: null}
-			{children}
+			<div
+				className={classNames('ManifestSectionContent')}
+			>
+				{children}
+			</div>
 		</section>
 	)
 }

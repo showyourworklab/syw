@@ -1,42 +1,6 @@
 /* Manifest > Location */
-.Syw-ManifestLocation {
-	
-}
-/* Manifest > Location > Coordinates */
-.Syw-ManifestLocationCoordinatesInner {
-	display: flex;
-	flex-wrap: wrap;
-	align-items: center;
-	gap: var(--syw-space-1) var(--syw-space-2);
-}
-/* Manifest > Location > Map Toggle */
-button.Syw-ManifestLocationMapToggle {
-	display: inline-flex;
-	align-items: center;
-	gap: var(--syw-space-1);
-	padding: var(--syw-space-1) var(--syw-space-2);
-	font-family: inherit;
-	font-size: var(--syw-text-xs);
-	font-weight: var(--syw-font-weight-bold);
-	color: inherit;
-	background: transparent;
-	border: 1px solid var(--syw-color-quaternary);
-	border-radius: var(--syw-radius-md);
-	cursor: pointer;
-	transition: all 200ms ease;
-}
-button.Syw-ManifestLocationMapToggle:hover,
-button.Syw-ManifestLocationMapToggle[aria-expanded="true"] {
-	color: var(--syw-color-quinary);
-	background-color: var(--syw-color-quaternary);
-}
-button.Syw-ManifestLocationMapToggle:focus-visible {
-	outline: 2px solid var(--syw-color-quinary);
-	outline-offset: 2px;
-}
-button.Syw-ManifestLocationMapToggle svg {
-	width: var(--syw-space-4);
-	height: var(--syw-space-4);
+.Syw-ManifestPrimaryFields .Syw-ManifestLocation {
+	grid-column: 1 / -1;
 }
 /* Manifest > Location > Map */
 .Syw-ManifestLocation .Syw-Map {

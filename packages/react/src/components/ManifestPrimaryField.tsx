@@ -2,12 +2,12 @@ import { useMemo } from 'react'
 import { classNames } from 'syw-common/helpers/ui'
 import { getDateString } from 'syw-common/helpers/i18n'
 import type { ManifestGeneratorEntry, ManifestTimestamp } from 'syw-common/types/data'
-import type { ManifestTableDetailProps } from 'syw-common/types/components'
+import type { ManifestPrimaryFieldProps } from 'syw-common/types/components'
 import { useI18nContext } from '$src/context/i18n'
 import Generator from './Generator'
 import Detail from './Detail'
 
-function ManifestTableDetail({ type, manifest }: ManifestTableDetailProps) {
+function ManifestPrimaryField({ type, manifest }: ManifestPrimaryFieldProps) {
 	const { locale, getText } = useI18nContext()
 
 	const value: any = useMemo(() =>
@@ -35,7 +35,7 @@ function ManifestTableDetail({ type, manifest }: ManifestTableDetailProps) {
 		<Detail
 			title={getText(type, manifestTypeTextKey)}
 			titleTooltip={getText(type, manifestTypeTextKey, "definition")}
-			className={classNames('ManifestTableDetail')}
+			className={classNames('ManifestPrimaryField')}
 		>
 			{type === 'generator' ?
 				(value as ManifestGeneratorEntry[]).map((v, index) =>
@@ -50,4 +50,4 @@ function ManifestTableDetail({ type, manifest }: ManifestTableDetailProps) {
 	)
 }
 
-export default ManifestTableDetail
+export default ManifestPrimaryField

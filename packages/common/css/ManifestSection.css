@@ -7,11 +7,21 @@ section.Syw-ManifestSection {
 section.Syw-ManifestSection + section.Syw-ManifestSection {
 	margin-top: var(--syw-space-4);
 }
+/* Manifest > Section > Header */
+.Syw-ManifestSectionHeader {
+	
+}
 /* Manifest > Section > Title */
 .Syw-ManifestSectionTitle {
 	display: inline-block;
 	font-weight: var(--syw-font-weight-bold);
-	/* border-bottom: 2px solid var(--syw-color-quaternary); */
-	padding-bottom: var(--syw-space-2);
-	/* margin-bottom: var(--syw-space-2); */
+	margin-bottom: var(--syw-space-2);
+}
+.Syw-ManifestSectionTitle:not(:last-child) {
+	margin-bottom: var(--syw-space-1) !important;
+}
+/* Manifest > Section > Title */
+.Syw-ManifestSectionDefinition.Syw-Detail {
+	font-size: var(--syw-text-sm);
+	margin-bottom: var(--syw-size-detail-gap) !important;
 }

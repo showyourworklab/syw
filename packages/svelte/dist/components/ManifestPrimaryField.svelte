@@ -1,10 +1,9 @@
 <script lang="ts">
 	import { classNames } from 'syw-common/helpers/ui'
 	import { getDateString } from 'syw-common/helpers/i18n'
-	import type { ManifestActions, ManifestGeneratorEntry } from 'syw-common/types/data'
-	import type { ManifestTableDetailProps } from 'syw-common/types/components'
-	import { getI18nContext } from '$lib/store/i18n.js'
-	import Actions from './Actions.svelte'
+	import type { ManifestGeneratorEntry } from 'syw-common/types/data'
+	import type { ManifestPrimaryFieldProps } from 'syw-common/types/components'
+	import { getI18nContext } from '../store/i18n.js'
 	import Generator from './Generator.svelte'
 	import Detail from './Detail.svelte'
 
@@ -13,7 +12,7 @@
 	const {
 		type,
 		manifest,
-	}: ManifestTableDetailProps = $props()
+	}: ManifestPrimaryFieldProps = $props()
 
 	const value = $derived(() =>
 		manifest[type]
@@ -45,13 +44,9 @@
 	<Detail
 		title={type ? getText($locale, type, manifestType()) : ''}
 		titleTooltip={getText($locale, type, manifestType(), "definition")}
-		className={classNames('ManifestTableDetail')}
+		className={classNames('ManifestPrimaryField')}
 	>
-		{#if type === 'actions'}
-			<Actions
-				actions={value() as ManifestActions}
-			/>
-		{:else if type === 'generator'}
+		{#if type === 'generator'}
 			{#each value() as ManifestGeneratorEntry[] as v}
 				<Generator
 					name={v.name}

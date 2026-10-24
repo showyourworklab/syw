@@ -1,12 +1,8 @@
 import { useMemo } from 'react'
 import { Tabs } from '@ark-ui/react/tabs'
 import { classNames, getAvailableTabs } from 'syw-common/helpers/ui'
-import { MANIFEST_PRIMARY_KEYS } from 'syw-common/constants/ui'
 import type { ManifestContentTabsProps } from 'syw-common/types/components'
-import ManifestIdentity from './ManifestIdentity'
-import ManifestTable from './ManifestTable'
-import ManifestTrust from './ManifestTrust'
-import ManifestLocation from './ManifestLocation'
+import ManifestInfo from './ManifestInfo'
 import ManifestImage from './ManifestImage'
 
 function ManifestContentTabs({
@@ -34,29 +30,9 @@ function ManifestContentTabs({
 						className={classNames('ManifestContentTabsContentInner')}
 					>
 						{key === "info" ?
-							<>
-								<div
-									className={classNames('ManifestContentTabsColumn', 'ManifestContentTabsColumn_primary')}
-								>
-									<ManifestTable
-										keys={MANIFEST_PRIMARY_KEYS}
-										manifest={manifest}
-									/>
-									<ManifestLocation
-										manifest={manifest}
-									/>
-								</div>
-								<div
-									className={classNames('ManifestContentTabsColumn', 'ManifestContentTabsColumn_secondary')}
-								>
-									<ManifestIdentity
-										manifest={manifest}
-									/>
-									<ManifestTrust
-										manifest={manifest}
-									/>
-								</div>
-							</>
+							<ManifestInfo
+								manifest={manifest}
+							/>
 						: key === "image" ?
 							<ManifestImage
 								manifest={manifest}

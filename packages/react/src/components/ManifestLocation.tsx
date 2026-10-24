@@ -3,10 +3,9 @@ import { classNames } from 'syw-common/helpers/ui'
 import { formatCoordinates } from 'syw-common/helpers/map'
 import type { ManifestLocationProps } from 'syw-common/types/components'
 import { useI18nContext } from '$src/context'
-import ManifestSection from './ManifestSection'
 import Detail from './Detail'
+import DetailToggle from './DetailToggle'
 import Collapse from './Collapse'
-import Icon from './Icon'
 import Map from './Map'
 
 function ManifestLocation({ manifest }: ManifestLocationProps) {
@@ -23,34 +22,17 @@ function ManifestLocation({ manifest }: ManifestLocationProps) {
 	}
 
 	return (
-		<ManifestSection
-			title={getText('section', 'location')}
+		<Detail
+			title={getText('location', 'coordinates')}
+			titleTooltip={getText('location', 'coordinates', 'definition')}
 			className={classNames('ManifestLocation')}
 		>
-			<Detail
-				title={getText('location', 'coordinates')}
-				titleTooltip={getText('location', 'coordinates', 'definition')}
-				className={classNames('ManifestLocationCoordinates')}
-			>
-				<div
-					className={classNames('ManifestLocationCoordinatesInner')}
-				>
-					<span>
-						{formatCoordinates(manifest.location)}
-					</span>
-					<button
-						type="button"
-						aria-expanded={mapOpen}
-						className={classNames('ManifestLocationMapToggle')}
-						onClick={handleMapToggle}
-					>
-						{getText('location', 'map', mapOpen ? 'hide' : 'show')}
-						<Icon
-							type={mapOpen ? 'up' : 'down'}
-						/>
-					</button>
-				</div>
-			</Detail>
+			<DetailToggle
+				open={mapOpen}
+				value={formatCoordinates(manifest.location)}
+				subtitle={getText('location', 'map', mapOpen ? 'hide' : 'show')}
+				onToggle={handleMapToggle}
+			/>
 			<Collapse
 				open={mapOpen}
 			>
@@ -60,7 +42,7 @@ function ManifestLocation({ manifest }: ManifestLocationProps) {
 					/>
 				: null}
 			</Collapse>
-		</ManifestSection>
+		</Detail>
 	)
 }
 

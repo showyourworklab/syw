@@ -67,6 +67,7 @@
 	--syw-size-caption-border: 1px;
 	--syw-size-cutline-margin: var(--syw-space-2);
 	--syw-size-manifest-border: 1px;
+	--syw-size-detail-gap: 2px;
 	--syw-size-connector-width: 3px;
 	--syw-size-connector-left: calc(var(--syw-space-2) + ((var(--syw-size-badge) - var(--syw-size-connector-width)) / 2));
 	--syw-size-paragraph-max-width: 85ch;
@@ -75,6 +76,8 @@
 	--syw-size-drawer-grabber-indicator-thickness: 4px;
 	/* Radii */
 	--syw-radius-drawer: var(--syw-space-6);
+	/* Shadow */
+	--syw-shadow-sm: 0px 0px 3px 0px rgba(0, 0, 0, 0.125);
 	/* Z Index */
 	--syw-z-modal: 9000000;
 	--syw-z-tooltip: 9000001;

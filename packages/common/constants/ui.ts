@@ -1,4 +1,5 @@
 import type { SywIconNode } from '#types/ui'
+import type { ManifestTypeKey } from '#types/data'
 
 export const VERIFY_BASE_URL = 'originverify.iptc.org'
 // export const VERIFY_BASE_URL = 'verify.contentauthenticity.org'
@@ -29,8 +30,10 @@ export const MANIFEST_PRIMARY_KEYS = [
 	'timestamp',
 	'producer',
 	'generator',
-	'signator',
 ] as const
+// Manifest types that show the Location and Actions details
+export const MANIFEST_LOCATION_TYPES: readonly ManifestTypeKey[] = ['camera']
+export const MANIFEST_ACTIONS_TYPES: readonly ManifestTypeKey[] = ['edit']
 export const MANIFEST_SECONDARY_KEYS = [
 	'location',
 	// 'actions',

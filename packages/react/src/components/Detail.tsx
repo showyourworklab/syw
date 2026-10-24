@@ -7,8 +7,8 @@ function Detail({
 	title,
 	titleTooltip,
 	titleIcon,
-	hasBackground,
 	footer,
+	noBackground,
 	className,
 	children
 }: DetailProps) {
@@ -16,33 +16,35 @@ function Detail({
 		<div
 			className={classNames(
 				'Detail',
-				hasBackground && 'Detail_background',
+				noBackground ? 'Detail_noBackground' : null,
 				className,
 			)}
 		>
-			<div
-				className={classNames('DetailTitle')}
-			>
-				{titleIcon ?
-					<Icon
-						type={titleIcon}
-						className={classNames('DetailTitleIcon')}
-					/>
-				: null}
-				<span>
-					{title}
-				</span>
-				{titleTooltip ?
-					<Tooltip
-						content={titleTooltip}
-					>
+			{title ?
+				<div
+					className={classNames('DetailTitle')}
+				>
+					{titleIcon ?
 						<Icon
-							type="info"
-							className={classNames('DetailTitleTooltipIcon')}
+							type={titleIcon}
+							className={classNames('DetailTitleIcon')}
 						/>
-					</Tooltip>
-				: null}
-			</div>
+					: null}
+					<span>
+						{title}
+					</span>
+					{titleTooltip ?
+						<Tooltip
+							content={titleTooltip}
+						>
+							<Icon
+								type="info"
+								className={classNames('DetailTitleTooltipIcon')}
+							/>
+						</Tooltip>
+					: null}
+				</div>
+			: null}
 			{children ?
 				<div
 					className={classNames('DetailBody')}

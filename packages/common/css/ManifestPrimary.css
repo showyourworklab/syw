@@ -1,5 +1,5 @@
-/* Manifest > Table > Rows */
-.Syw-ManifestTableDetails {
+/* Manifest > Primary > Fields */
+.Syw-ManifestPrimaryFields {
 	padding: 0;
 	margin: 0;
 	list-style: none;
@@ -9,4 +9,4 @@
 		grid-template-columns: 1fr 1fr;
 	}
 }
-/* Manifest > Table > Row */
+/* Manifest > Primary > Field */

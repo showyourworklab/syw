@@ -1,6 +1,5 @@
 @import './globals.css';
 @import './App.css';
-@import './Actions.css';
 @import './Badge.css';
 @import './Caption.css';
 @import './Collapse.css';
@@ -14,15 +13,17 @@
 @import './Icon.css';
 @import './Image.css';
 @import './Manifest.css';
+@import './ManifestActions.css';
 @import './ManifestContent.css';
 @import './ManifestContentTabs.css';
 @import './ManifestContentTabsToggle.css';
 @import './ManifestIdentity.css';
 @import './ManifestImage.css';
+@import './ManifestInfo.css';
 @import './ManifestLocation.css';
 @import './ManifestPreview.css';
+@import './ManifestPrimary.css';
 @import './ManifestSection.css';
-@import './ManifestTable.css';
 @import './ManifestTrust.css';
 @import './Map.css';
 @import './Modal.css';

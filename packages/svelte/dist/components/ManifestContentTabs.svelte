@@ -2,9 +2,8 @@
 	import { Tabs } from '@ark-ui/svelte/tabs'
 	import { classNames, getAvailableTabs } from 'syw-common/helpers/ui'
 	import type { ManifestContentTabsProps } from 'syw-common/types/components'
-	import Map from './Map.svelte'
-	import Actions from './Actions.svelte'
-	import Icon from './Icon.svelte'
+	import ManifestInfo from './ManifestInfo.svelte'
+	import ManifestImage from './ManifestImage.svelte'
 
 	const {
 		manifest,
@@ -30,30 +29,13 @@
 			<div
 				class={classNames('ManifestContentTabsContentInner')}
 			>
-				{#if key === "thumbnail"}
-					<div
-						class={classNames(
-							'ManifestContentTabsThumbnail',
-							!manifest?.thumbnail ? 'ManifestContentTabsThumbnail_missing' : null,
-						)}
-					>
-						{#if manifest?.thumbnail}
-							<img
-								alt=''
-								src={manifest?.thumbnail}
-								class={classNames('ManifestContentTabsThumbnailImage')}
-							/>
-						{:else}
-							<Icon type="missing" />
-						{/if}
-					</div>
-				{:else if key === "location" && manifest?.location}
-					<Map
-						location={manifest?.location}
+				{#if key === "info"}
+					<ManifestInfo
+						manifest={manifest}
 					/>
-				{:else if key === "actions"}
-					<Actions
-						actions={manifest?.actions ?? []}
+				{:else if key === "image"}
+					<ManifestImage
+						manifest={manifest}
 					/>
 				{/if}
 			</div>

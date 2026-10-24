@@ -1,0 +1,24 @@
+/* Manifest > Actions */
+.Syw-ManifestPrimaryFields .Syw-ManifestActions {
+	grid-column: 1 / -1;
+}
+/* Manifest > Actions > List */
+ul.Syw-ManifestActionsList {
+	width: 100%;
+	list-style: none !important;
+	padding: 0 !important;
+	margin: var(--syw-space-2) 0 0 0 !important;
+}
+/* Manifest > Actions > List > Item */
+li.Syw-ManifestActionsListItem {
+	display: flex;
+	align-items: center;
+	gap: var(--syw-space-1);
+	margin: 0 !important;
+	padding: var(--syw-space-1) 0 !important;
+	font-size: var(--syw-text-sm);
+	border-top: 1px solid var(--syw-color-secondary);
+}
+li.Syw-ManifestActionsListItem .Syw-TooltipTrigger {
+	display: flex;
+}

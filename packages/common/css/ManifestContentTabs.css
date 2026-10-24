@@ -15,25 +15,3 @@
 .Syw-ManifestContentTabsContentInner {
 	display: flex;
 }
-/* Manifest > Content > Tabs > Info */
-.Syw-ManifestContentTabsContent_info .Syw-ManifestContentTabsContentInner {
-	display: grid;
-	grid-template-columns: 1fr;
-	gap: var(--syw-space-4);
-	@media (min-width: 576px) {
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-		gap: var(--syw-space-6);
-	}
-}
-/* Stack the columns in side drawers, which are too narrow for two */
-.Syw-DrawerPositioner[data-swipe-direction="left"] .Syw-ManifestContentTabsContent_info .Syw-ManifestContentTabsContentInner,
-.Syw-DrawerPositioner[data-swipe-direction="right"] .Syw-ManifestContentTabsContent_info .Syw-ManifestContentTabsContentInner {
-	grid-template-columns: 1fr;
-	gap: var(--syw-space-4);
-}
-/* Manifest > Content > Tabs > Info > Column */
-.Syw-ManifestContentTabsColumn {
-	display: flex;
-	flex-direction: column;
-	min-width: 0;
-}

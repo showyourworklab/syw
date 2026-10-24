@@ -4,7 +4,8 @@
 	import { classNames, getAvailableTabs } from 'syw-common/helpers/ui'
 	import { getObjectValue } from 'syw-common/helpers/utils'
 	import { MANIFEST_CONTENT_TAB_KEYS } from 'syw-common/constants/ui'
-	import type { Manifest as ManifestData, ManifestFieldKey } from 'syw-common/types/data'
+	import type { Manifest as ManifestData } from 'syw-common/types/data'
+	import type { ManifestContentTabKey } from 'syw-common/types/components'
 	import { getUiContext } from '../store/ui.js'
 	import Collapse from './Collapse.svelte'
 	import ManifestPreview from './ManifestPreview.svelte'
@@ -23,7 +24,7 @@
 	const open = $derived(String(manifest.id) in $openManifests)
 
 	const tabKeys = $derived(
-		((manifest?.type?.key ? getObjectValue(manifest.type.key, MANIFEST_CONTENT_TAB_KEYS) : undefined) ?? []) as ManifestFieldKey[]
+		((manifest?.type?.key ? getObjectValue(manifest.type.key, MANIFEST_CONTENT_TAB_KEYS) : undefined) ?? []) as ManifestContentTabKey[]
 	)
 
 	const availableTabKeys = $derived(
