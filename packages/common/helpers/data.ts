@@ -454,19 +454,19 @@ export const getThumbnail = async (manifest: C2paManifest | null | undefined, re
  */
 export const getLocation = (manifest: C2paManifest | null | undefined): ManifestLocation | null => {
 	// Test coordinates
-	return { lat: 40.754544782093724, lng: -73.91208171708277 }
-	// const exifLat = getExifValue(manifest, 'GPSLatitude') as string
-	// const exifLatDir = getExifValue(manifest, 'GPSLatitudeRef') as string
-	// const lat = isNaN(exifLat as unknown as number)
-	// 	? convertDmsToDd(exifLat, exifLatDir)
-	// 	: parseFloat(exifLat)
-	// const exifLng = getExifValue(manifest, 'GPSLongitude') as string
-	// const exifLngDir = getExifValue(manifest, 'GPSLongitudeRef') as string
-	// const lng = isNaN(exifLng as unknown as number)
-	// 	? convertDmsToDd(exifLng, exifLngDir)
-	// 	: parseFloat(exifLng)
-	// if(lat === undefined || lng === undefined || isNaN(lat) || isNaN(lng)) return null
-	// return { lat, lng }
+	// return { lat: 40.754544782093724, lng: -73.91208171708277 }
+	const exifLat = getExifValue(manifest, 'GPSLatitude') as string
+	const exifLatDir = getExifValue(manifest, 'GPSLatitudeRef') as string
+	const lat = isNaN(exifLat as unknown as number)
+		? convertDmsToDd(exifLat, exifLatDir)
+		: parseFloat(exifLat)
+	const exifLng = getExifValue(manifest, 'GPSLongitude') as string
+	const exifLngDir = getExifValue(manifest, 'GPSLongitudeRef') as string
+	const lng = isNaN(exifLng as unknown as number)
+		? convertDmsToDd(exifLng, exifLngDir)
+		: parseFloat(exifLng)
+	if(lat === undefined || lng === undefined || isNaN(lat) || isNaN(lng)) return null
+	return { lat, lng }
 }
 
 /////////////// Media Types ///////////////
@@ -538,7 +538,7 @@ export const hasUnknownCreate = (manifests: Manifest[]): boolean =>
 	&& !manifests.some(m => hasC2paAction(m.original, C2PA_ACTIONS.CREATED))
 
 /**
- * Gets manifest's type key from known claim generators, then the signing certificate's common name
+ * Gets manifest's type key from known claim generators, then the signing certificate's common name, then its issuer
  * @function
  * @param data - C2paManifest entry
  * @return Manifest type key
@@ -549,6 +549,8 @@ export const getGeneratorTypeKey = (data: C2paManifest | null | undefined): Mani
 	const names = [
 		...(data?.claim_generator_info?.map(g => g?.name) ?? []),
 		data?.signature_info?.common_name,
+		// Some signers are only identifiable by the organization that issued the certificate (i.e. NIKON CORPORATION)
+		data?.signature_info?.issuer,
 	]
 	const generatorName = names.find((name): name is string => Boolean(name) && knownNames.includes(name as string))
 	return generatorName ? KNOWN_GENERATORS_BY_MANIFEST_TYPE[generatorName] : undefined
