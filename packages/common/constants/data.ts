@@ -8,11 +8,12 @@ export const MANIFEST_TYPES = {
 	UNKNOWN: 'unknown',
 	UNKNOWN_CREATE: 'unknown_create',
 } as const
-// Exact, case-sensitive claim_generator_info[].name or signature_info.common_name values
+// Exact, case-sensitive claim_generator_info[].name, signature_info.common_name or signature_info.issuer values
 export const KNOWN_GENERATORS_BY_MANIFEST_TYPE: Record<string, ManifestTypeKey> = {
 	// CAMERA
 	"LEICA M11-P": MANIFEST_TYPES.CAMERA,
 	"LEICA SL3-S": MANIFEST_TYPES.CAMERA,
+	"NIKON CORPORATION": MANIFEST_TYPES.CAMERA,
 	// EDIT
 	"Adobe Photoshop": MANIFEST_TYPES.EDIT,
 	"Lightroom": MANIFEST_TYPES.EDIT,

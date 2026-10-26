@@ -66,6 +66,34 @@ export const DEMO_IMAGES: DemoImage[] = [
 		byline: 'Nora Savosnick / Morgenbladet'
 	},
 	{
+		src: 'https://showyourworklab.github.io/c2pa-images/canon-1.jpg',
+		title: {
+			en_US: 'Japan (Canon)',
+			no_NO: 'Japan (Canon)',
+			// sv_SE: 'Syrisk kyrkogård (Leica)',
+		},
+		caption: {
+			en_US: '',
+			no_NO: '',
+			// sv_SE: 'På kyrkogården i al-Ghouta: Efter Assads fall är det återigen möjligt för miljontals syrier att besöka sina släktingars gravar – för de som har en grav.',
+		},
+		byline: ''
+	},
+	{
+		src: 'https://showyourworklab.github.io/c2pa-images/nikon-1.jpg',
+		title: {
+			en_US: 'Bird (Nikon)',
+			no_NO: 'Bird (Nikon)',
+			// sv_SE: 'Syrisk kyrkogård (Leica)',
+		},
+		caption: {
+			en_US: '',
+			no_NO: '',
+			// sv_SE: 'På kyrkogården i al-Ghouta: Efter Assads fall är det återigen möjligt för miljontals syrier att besöka sina släktingars gravar – för de som har en grav.',
+		},
+		byline: ''
+	},
+	{
 		src: 'https://showyourworklab.github.io/c2pa-images/sora-1.mp4',
 		title: {
 			en_US: 'AI-generated (Sora)',
