@@ -1,7 +1,7 @@
 import type { Settings } from '@contentauth/c2pa-web'
 import type { Manifest as C2paManifest, ManifestStore, StatusCodes, ValidationStatus } from '@contentauth/c2pa-types'
 import { TRUST_KEYS } from '#constants/data'
-import { CAWG_IDENTITY_LABEL, TRUST_LIST_FETCH_TIMEOUT, TRUST_LIST_SCOPES, TRUST_LIST_EKUS, TRUST_LIST_REQUESTS_KEY, TRUST_LIST_SOURCES, TRUST_LIST_TYPES, TRUSTED_CODES, UNTRUSTED_CODES } from '#constants/trust'
+import { CAWG_IDENTITY_LABEL, TRUST_LIST_FETCH_TIMEOUT, TRUST_LIST_SCOPES, TRUST_LIST_REQUESTS_KEY, TRUST_LIST_SOURCES, TRUST_LIST_TYPES, TRUSTED_CODES, UNTRUSTED_CODES } from '#constants/trust'
 import type { ManifestSignatureTrustValue, ManifestTrust, TrustListScope, TrustListSettings, TrustListSource, TrustListType } from '#types/trust'
 
 /**
@@ -18,28 +18,30 @@ const getTrustListRequests = (): Map<string, Promise<string>> => {
  * Fetches a remote trust list
  * @async
  * @param url - Trust list URL
- * @return Cleaned PEM file contents, empty if the list has no certificates
+ * @param type - Trust list type
+ * @return Cleaned trust list contents, empty if the list has no certificates or OIDs
  * @throws If the request fails or times out
  */
-export const fetchTrustListPem = async (url: string): Promise<string> => {
+export const fetchTrustListContents = async (url: string, type: TrustListType): Promise<string> => {
 	const response = await fetch(url, { signal: AbortSignal.timeout(TRUST_LIST_FETCH_TIMEOUT) })
 	if(!response.ok) throw new Error(`${response.status} ${url}`)
-	return cleanPem(await response.text())
+	return cleanTrustList(await response.text(), type)
 }
 
 /**
  * Fetches a remote trust list once per page, falling back to the bundled copy
  * @async
  * @param url - Trust list URL
- * @param fallback - Bundled PEM file contents
- * @return PEM file contents
+ * @param type - Trust list type
+ * @param fallback - Bundled trust list contents
+ * @return Trust list contents
  */
-export const fetchTrustList = (url: string, fallback: string): Promise<string> => {
+export const fetchTrustList = (url: string, type: TrustListType, fallback: string): Promise<string> => {
 	const requests = getTrustListRequests()
 	let request = requests.get(url)
 	if(!request) {
-		request = fetchTrustListPem(url)
-			.then(pem => pem || fallback)
+		request = fetchTrustListContents(url, type)
+			.then(contents => contents || fallback)
 			.catch(() => fallback)
 		requests.set(url, request)
 	}
@@ -50,40 +52,39 @@ export const fetchTrustList = (url: string, fallback: string): Promise<string> =
  * Gets a trust list from its remote source, or its bundled copy if it has none
  * @async
  * @param source - Trust list source
- * @return PEM file contents
+ * @return Trust list contents
  */
 export const getTrustList = (source: TrustListSource): Promise<string> => {
-	return source.url ? fetchTrustList(source.url, source.fallback) : Promise.resolve(source.fallback)
+	return source.url ? fetchTrustList(source.url, source.type, source.fallback) : Promise.resolve(source.fallback)
 }
 
 /**
- * Gets the joined PEM file contents of every trust list of a scope and type
+ * Gets the joined contents of every trust list of a scope and type
  * @async
  * @param scope - Trust list scope
  * @param type - Trust list type
  * @param legacy - Whether to get legacy trust lists instead of the others
- * @return Joined PEM file contents
+ * @return Joined trust list contents
  */
 export const getTrustListsByType = async (scope: TrustListScope, type: TrustListType, legacy = false): Promise<string> => {
 	const sources = (Object.values(TRUST_LIST_SOURCES) as TrustListSource[])
 		.filter(source => source.scopes.includes(scope) && source.type === type && Boolean(source.legacy) === legacy)
-	const pems = await Promise.all(sources.map(getTrustList))
-	return joinPem(pems)
+	const lists = await Promise.all(sources.map(getTrustList))
+	return joinTrustLists(lists, type)
 }
 
 /**
  * Gets trust settings of a scope, only fetching lists that are not overridden
  * @async
  * @param scope - Trust list scope
- * @param overrides - Custom trust anchors, user anchors, allowed list and trust config
+ * @param overrides - Custom trust anchors, user anchors, allowed list and trust config (EKUs)
  * @return Trust anchors, user anchors, allowed list and trust config, omitting any that are empty
  */
 export const getTrustListSettings = async (scope: TrustListScope, overrides: TrustListSettings = {}): Promise<TrustListSettings> => {
 	const entries = await Promise.all(Object.values(TRUST_LIST_TYPES).map(async type =>
 		[type, overrides[type] || await getTrustListsByType(scope, type)] as const
 	))
-	const trustConfig = overrides.trustConfig || TRUST_LIST_EKUS[scope].join('\n')
-	return Object.fromEntries([...entries, ['trustConfig', trustConfig] as const].filter(([, value]) => value.length > 0))
+	return Object.fromEntries(entries.filter(([, value]) => value.length > 0))
 }
 
 /**
@@ -219,4 +220,37 @@ export const joinPem = (pems: string[]): string => {
 export const cleanPem = (pem: string): string => {
 	const certs = pem.match(/-----BEGIN CERTIFICATE-----[\s\S]+?-----END CERTIFICATE-----/g);
 	return certs ? certs.join("\n") : "";
+}
+
+/**
+ * Cleans string of trust config (.cfg) file contents
+ * @function
+ * @param cfg - Raw string of .cfg file contents, with one OID per line and optional // comments
+ * @returns Trimmed lines of OIDs and comments, empty if there are no OIDs
+ */
+export const cleanTrustConfig = (cfg: string): string => {
+	const lines = cfg.split(/\r?\n/).map(line => line.trim()).filter(Boolean)
+	return lines.some(line => /^\d+(\.\d+)+$/.test(line)) ? lines.join("\n") : "";
+}
+
+/**
+ * Cleans trust list contents according to its type
+ * @function
+ * @param contents - Raw trust list contents
+ * @param type - Trust list type
+ * @returns Cleaned trust list contents
+ */
+export const cleanTrustList = (contents: string, type: TrustListType): string => {
+	return type === TRUST_LIST_TYPES.TRUST_CONFIG ? cleanTrustConfig(contents) : cleanPem(contents)
+}
+
+/**
+ * Joins trust lists of the same type
+ * @function
+ * @param lists - Raw trust list contents
+ * @param type - Trust list type
+ * @returns Joined trust list contents
+ */
+export const joinTrustLists = (lists: string[], type: TrustListType): string => {
+	return lists.map(list => cleanTrustList(list, type)).filter(Boolean).join("\n")
 }

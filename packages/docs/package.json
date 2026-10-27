@@ -1,6 +1,6 @@
 {
 	"name": "syw-docs",
-	"version": "0.0.41",
+	"version": "0.0.42",
 	"license": "MIT",
 	"private": true,
 	"type": "module",
@@ -11,7 +11,7 @@
 		"deploy": "npx gh-pages -d build -t true"
 	},
 	"dependencies": {
-		"syw-svelte": "^0.0.41"
+		"syw-svelte": "^0.0.42"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^6.0.1",

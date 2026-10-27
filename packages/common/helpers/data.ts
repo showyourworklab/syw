@@ -118,8 +118,8 @@ export const parseSywData = async (
 /**
  * Reads C2PA trust
  * @async
- * @param provenance - C2PA provenance
- * @return Trust
+ * @param provenance - C2PA provenance, read from the media
+ * @return Trust, or "none" when the media has no C2PA data
  */
 export const getC2paTrust = async (provenance: C2paProvenance | null): Promise<TrustKey> => {
 	if(provenance) {
@@ -136,7 +136,8 @@ export const getC2paTrust = async (provenance: C2paProvenance | null): Promise<T
 			return "unknown";
 		}
 	} else {
-		return "validating";
+		// Only called after reading, so no provenance means nothing was recorded rather than still validating
+		return "none";
 	}
 }
 

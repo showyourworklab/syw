@@ -10,7 +10,7 @@ interface DemoImage {
 // Hosted at https://github.com/showyourworklab/c2pa-images
 export const DEMO_IMAGES: DemoImage[] = [
 	{
-		src: 'https://showyourworklab.github.io/c2pa-images/feedback-1.jpg',
+		src: 'https://showyourworklab.github.io/c2pa-images/leica-nora-12.jpg',
 		title: {
 			en_US: 'Viking row (Leica)',
 			no_NO: 'Viking-roingen (Leica)',
@@ -31,8 +31,8 @@ export const DEMO_IMAGES: DemoImage[] = [
 			// sv_SE: 'AI-edited',
 		},
 		caption: {
-			en_US: '',
-			no_NO: '',
+			en_US: 'Revelers in Washington Square Park after the NYC Pride March',
+			no_NO: 'Revelers in Washington Square Park after the NYC Pride March',
 			// sv_SE: '',
 		},
 		byline: 'Nora Savosnick'
@@ -68,22 +68,36 @@ export const DEMO_IMAGES: DemoImage[] = [
 	{
 		src: 'https://showyourworklab.github.io/c2pa-images/canon-1.jpg',
 		title: {
-			en_US: 'Japan (Canon)',
-			no_NO: 'Japan (Canon)',
+			en_US: 'Mount Fuji (Canon)',
+			no_NO: 'Mount Fuji (Canon)',
 			// sv_SE: 'Syrisk kyrkogård (Leica)',
 		},
 		caption: {
-			en_US: '',
-			no_NO: '',
+			en_US: 'Photo of Mount Fuji in the distance taken by a Sony camera',
+			no_NO: 'Photo of Mount Fuji in the distance taken by a Sony camera',
 			// sv_SE: 'På kyrkogården i al-Ghouta: Efter Assads fall är det återigen möjligt för miljontals syrier att besöka sina släktingars gravar – för de som har en grav.',
 		},
-		byline: ''
+		byline: 'Canon'
 	},
 	{
 		src: 'https://showyourworklab.github.io/c2pa-images/nikon-1.jpg',
 		title: {
-			en_US: 'Bird (Nikon)',
-			no_NO: 'Bird (Nikon)',
+			en_US: 'Toy bird (Nikon)',
+			no_NO: 'Toy bird (Nikon)',
+			// sv_SE: 'Syrisk kyrkogård (Leica)',
+		},
+		caption: {
+			en_US: 'Photo of toy bird on a desk taken by a Nikon camera',
+			no_NO: 'Photo of toy bird on a desk taken by a Nikon camera',
+			// sv_SE: 'På kyrkogården i al-Ghouta: Efter Assads fall är det återigen möjligt för miljontals syrier att besöka sina släktingars gravar – för de som har en grav.',
+		},
+		byline: 'Nikon'
+	},
+	{
+		src: 'https://showyourworklab.github.io/c2pa-images/sony-nora-1.jpg',
+		title: {
+			en_US: 'Portrait (Sony)',
+			no_NO: 'Portrait (Sony)',
 			// sv_SE: 'Syrisk kyrkogård (Leica)',
 		},
 		caption: {
@@ -91,7 +105,21 @@ export const DEMO_IMAGES: DemoImage[] = [
 			no_NO: '',
 			// sv_SE: 'På kyrkogården i al-Ghouta: Efter Assads fall är det återigen möjligt för miljontals syrier att besöka sina släktingars gravar – för de som har en grav.',
 		},
-		byline: ''
+		byline: 'Nora Savosnick'
+	},
+	{
+		src: 'https://showyourworklab.github.io/c2pa-images/suspilne-1.jpg',
+		title: {
+			en_US: 'Donetsk (Suspilne)',
+			no_NO: 'Donetsk (Suspilne)',
+			// sv_SE: 'Syrisk kyrkogård (Leica)',
+		},
+		caption: {
+			en_US: '',
+			no_NO: '',
+			// sv_SE: 'På kyrkogården i al-Ghouta: Efter Assads fall är det återigen möjligt för miljontals syrier att besöka sina släktingars gravar – för de som har en grav.',
+		},
+		byline: 'Taras Ibragimov / Suspilne'
 	},
 	{
 		src: 'https://showyourworklab.github.io/c2pa-images/sora-1.mp4',

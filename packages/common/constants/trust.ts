@@ -1,6 +1,6 @@
-import { C2PA_TRUST_LIST, C2PA_INTERIM_TRUST_LIST, IPTC_TRUST_LIST } from '#trustlists'
 import type { Settings, TrustSettings } from '@contentauth/c2pa-web'
-import type { TrustListScope, TrustListSource } from '#types/trust'
+import type { TrustListSource } from '#types/trust'
+import { C2PA_TRUST_LIST, C2PA_INTERIM_TRUST_LIST, IPTC_TRUST_LIST, CAI_TRUST_CONFIG } from '#trustlists'
 
 // Shared across every bundle on the page so each list is fetched once
 export const TRUST_LIST_REQUESTS_KEY = Symbol.for('syw.trustListRequests')
@@ -21,20 +21,9 @@ export const TRUST_LIST_TYPES = {
 	USER_ANCHORS: 'userAnchors',
 	// End-entity (signer) certificates
 	ALLOWED_LIST: 'allowedList',
+	// Extended Key Usages (EKUs) accepted for signers, as a .cfg file of OIDs
+	TRUST_CONFIG: 'trustConfig',
 } as const satisfies Record<string, keyof TrustSettings>
-// Extended Key Usages (EKUs) accepted for signers, passed as `trustConfig`
-// https://spec.c2pa.org/specifications/specifications/2.4/specs/C2PA_Specification.html#_c2pa_signers
-export const TRUST_LIST_EKUS = {
-	[TRUST_LIST_SCOPES.C2PA]: [
-		// c2pa-kp-claimSigning, whose trust anchors must include the C2PA Trust List
-		'1.3.6.1.4.1.62558.2.1'
-	],
-	// https://cawg.io/identity/1.2/#_trust_model_for_x_509_certificates
-	[TRUST_LIST_SCOPES.CAWG]: [
-		// id-kp-documentSigning, which the CAWG trust configuration must accept
-		'1.3.6.1.5.5.7.3.36'
-	]
-} satisfies Record<TrustListScope, string[]>
 export const TRUST_LIST_SOURCES = {
 	'c2pa': {
 		type: TRUST_LIST_TYPES.TRUST_ANCHORS,
@@ -42,8 +31,7 @@ export const TRUST_LIST_SOURCES = {
 		url: 'https://raw.githubusercontent.com/c2pa-org/conformance-public/main/trust-list/C2PA-TRUST-LIST.pem',
 		fallback: C2PA_TRUST_LIST
 	},
-	// Frozen since January 1, 2026, and must be distinguished from the C2PA trust list,
-	// so it's only checked when content isn't trusted by the lists above
+	// Frozen since January 1, 2026, only checked when content isn't trusted by the lists above
 	// https://opensource.contentauthenticity.org/docs/conformance/trust-lists#interim-trust-list
 	'c2pa-interim': {
 		type: TRUST_LIST_TYPES.USER_ANCHORS,
@@ -63,6 +51,14 @@ export const TRUST_LIST_SOURCES = {
 		scopes: [TRUST_LIST_SCOPES.CAWG],
 		url: 'https://trust.iptc.org/anchor-list.pem',
 		fallback: ''
+	},
+	// EKUs recommended by the Content Authenticity Initiative, matching the C2PA SDK's defaults.
+	// https://opensource.contentauthenticity.org/docs/conformance/trust-lists
+	'cai-store': {
+		type: TRUST_LIST_TYPES.TRUST_CONFIG,
+		scopes: [TRUST_LIST_SCOPES.C2PA, TRUST_LIST_SCOPES.CAWG],
+		url: 'https://contentcredentials.org/trust/store.cfg',
+		fallback: CAI_TRUST_CONFIG
 	}
 } satisfies Record<string, TrustListSource>
 // Validation codes of a trusted claim signature and CAWG identity
