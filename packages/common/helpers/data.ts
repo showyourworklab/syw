@@ -13,7 +13,6 @@ import type {
 } from '#types/c2pa'
 import type {
 	SywData,
-	KnownMediaType,
 	MediaType,
 	TrustKey,
 	ManifestActions,
@@ -36,17 +35,17 @@ import type { ManifestTrust } from '#types/trust'
  * @param props - Object of props
  * @param props.c2pa - C2PA instance
  * @param props.src - Media URL
- * @param props.mediaType - Media type, detected from src, the fetched file's MIME type and the C2PA manifest's format when unknown
+ * @param props.mediaType - Media type, detected from src, the fetched file's MIME type and the C2PA manifest's format when not given
  * @return Prepared data, or default data with media type when c2pa or src is missing
  */
 export const prepareData = async ({ c2pa, src, mediaType: userMediaType }: {
 	c2pa: C2pa | null | undefined
 	src: string
-	mediaType: MediaType
+	mediaType?: MediaType | null
 }): Promise<SywData> => {
 	// Take the user's media type as fact, otherwise detect it from src, the fetched file's MIME type and the C2PA manifest's format
-	const isUserMediaType = isKnownMediaType(userMediaType)
-	let mediaType = isUserMediaType ? userMediaType : getMediaType(src)
+	const isUserMediaType = !!userMediaType
+	let mediaType = resolveMediaType(src, userMediaType)
     if(!c2pa || !src) return { ...C2PA_DATA_DEFAULT, mediaType }
 	let data: SywData
     try {
@@ -96,7 +95,7 @@ let cachedC2pa: C2pa | null = null
  * @param options - Optional overrides
  * @param options.locale - User's locale
  * @param options.c2paOptions - C2PA instance options, only used on first call
- * @param options.mediaType - Media type, detected from src when unknown
+ * @param options.mediaType - Media type, detected from src when not given
  * @return Prepared data, or default data when src is empty or Web Workers are unavailable
  */
 export const parseSywData = async (
@@ -104,12 +103,12 @@ export const parseSywData = async (
 	options: {
 		locale?: string,
 		c2paOptions?: C2paOptions,
-		mediaType?: KnownMediaType
+		mediaType?: MediaType
 	} = {}
 ): Promise<SywData> => {
 	if(!src) return C2PA_DATA_DEFAULT
 	if(typeof Worker === 'undefined') return C2PA_DATA_DEFAULT
-	const { c2paOptions = {}, mediaType = MEDIA_TYPES.UNKNOWN } = options
+	const { c2paOptions = {}, mediaType } = options
 	if(!cachedC2pa) cachedC2pa = await createC2pa(await getC2paConfig(c2paOptions))
 	const preparedData = prepareData({ c2pa: cachedC2pa, src, mediaType })
 	return preparedData
@@ -476,13 +475,13 @@ export const getLocation = (manifest: C2paManifest | null | undefined): Manifest
  * Get media type from a MIME type
  * @function
  * @param mimeType - MIME type (i.e. image/jpeg)
- * @returns Returns "image", "video" or "unknown"
+ * @returns Returns "image", "video" or null when it's neither
  */
-export const getMediaTypeFromMimeType = (mimeType: string | null | undefined): MediaType => {
+export const getMediaTypeFromMimeType = (mimeType: string | null | undefined): MediaType | null => {
 	const prefix = mimeType?.split('/')[0]?.trim().toLowerCase()
 	if(prefix === MEDIA_TYPES.IMAGE) return MEDIA_TYPES.IMAGE
 	if(prefix === MEDIA_TYPES.VIDEO) return MEDIA_TYPES.VIDEO
-	return MEDIA_TYPES.UNKNOWN
+	return null
 }
 
 /**
@@ -490,10 +489,10 @@ export const getMediaTypeFromMimeType = (mimeType: string | null | undefined): M
  * Use the MIME type of the fetched file (see getMediaTypeFromMimeType) when available
  * @function
  * @param src - String of media source
- * @returns Returns "image", "video" or "unknown"
+ * @returns Returns "image", "video" or null when src doesn't say
  */
-export const getMediaType = (src: string | null | undefined): MediaType => {
-	if(!src) return MEDIA_TYPES.UNKNOWN
+export const getMediaType = (src: string | null | undefined): MediaType | null => {
+	if(!src) return null
 	// Data URLs include their MIME type (i.e. data:image/png;base64,...)
 	if(src.startsWith('data:')) {
 		return getMediaTypeFromMimeType(src.slice(5).split(/[;,]/)[0])
@@ -503,28 +502,19 @@ export const getMediaType = (src: string | null | undefined): MediaType => {
 	const extension = path.split('/').pop()?.split('.').pop()?.toLowerCase()
 	if(extension && MEDIA_TYPE_EXTENSIONS_IMAGE.includes(extension)) return MEDIA_TYPES.IMAGE
 	if(extension && MEDIA_TYPE_EXTENSIONS_VIDEO.includes(extension)) return MEDIA_TYPES.VIDEO
-	// Unrecognized until the fetched MIME type says otherwise
-	return MEDIA_TYPES.UNKNOWN
+	return null
 }
 
 /**
- * Whether a media type is set and not "unknown"
- * @function
- * @param mediaType - Media type
- * @returns boolean
- */
-export const isKnownMediaType = (mediaType: MediaType | null | undefined): mediaType is KnownMediaType =>
-	!!mediaType && mediaType !== MEDIA_TYPES.UNKNOWN
-
-/**
- * Resolve media type from the first known source, only guessing from src when none are known
+ * Resolve media type from the first known source, then from src
+ * Falls back to "image", since anything that isn't a video is rendered in an image tag
  * @function
  * @param src - String of media source
  * @param mediaTypes - Media types in order of trust (i.e. user provided, fetched MIME type, C2PA manifest format)
- * @returns Returns "image", "video" or "unknown"
+ * @returns Returns "image" or "video"
  */
 export const resolveMediaType = (src: string | null | undefined, ...mediaTypes: (MediaType | null | undefined)[]): MediaType =>
-	mediaTypes.find(isKnownMediaType) ?? getMediaType(src)
+	mediaTypes.find(mediaType => !!mediaType) ?? getMediaType(src) ?? MEDIA_TYPES.IMAGE
 
 /////////////// Utilities ///////////////
 

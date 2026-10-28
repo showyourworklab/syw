@@ -24,7 +24,7 @@ export const DEMO_IMAGES: DemoImage[] = [
 		byline: 'Nora Savosnick'
 	},
 	{
-		src: 'https://showyourworklab.github.io/c2pa-images/sony-nora-2.jpg',
+		src: 'https://showyourworklab.github.io/c2pa-images/leica-nora-14.jpg',
 		title: {
 			en_US: 'Washington Square Park (Leica)',
 			no_NO: 'Washington Square Park (Leica)',

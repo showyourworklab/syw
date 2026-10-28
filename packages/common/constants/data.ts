@@ -41,7 +41,6 @@ export const TRUST_KEYS = {
 export const MEDIA_TYPES = {
 	IMAGE: 'image',
 	VIDEO: 'video',
-	UNKNOWN: 'unknown',
 } as const
 export const MEDIA_TYPE_EXTENSIONS_IMAGE: readonly string[] = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'avif', 'heic', 'heif', 'tif', 'tiff', 'svg', 'bmp']
 export const MEDIA_TYPE_EXTENSIONS_VIDEO: readonly string[] = ['mp4', 'm4v', 'mov', 'webm', 'ogv', 'avi', 'mkv']
@@ -50,7 +49,7 @@ export const C2PA_DATA_DEFAULT: SywData = {
 	trust: TRUST_KEYS.VALIDATING,
 	types: [],
 	manifests: [],
-	mediaType: MEDIA_TYPES.UNKNOWN,
+	mediaType: MEDIA_TYPES.IMAGE,
 	provenance: null,
 	reader: null,
 	error: null,

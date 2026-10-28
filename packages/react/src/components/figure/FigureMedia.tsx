@@ -60,7 +60,7 @@ const FigureMedia = () => {
 			onMouseLeave={onMouseLeave}
 			className={classNames('FigureMedia')}
 		>
-			{/* Fall back to an image when the media type is unknown */}
+			{/* Anything that isn't a video is shown as an image */}
 			{mediaType === "video"
 				? <Video />
 				: <Image />

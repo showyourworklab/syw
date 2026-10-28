@@ -7,7 +7,7 @@ import { DataContext } from '$src/context/data'
 import useC2pa from '$src/hooks/useC2pa'
 
 interface DataProviderProps extends Pick<SywMediaData, 'src' | 'alt' | 'caption' | 'byline'> {
-	mediaType: MediaType
+	mediaType?: MediaType | null
 	children: ReactNode
 }
 

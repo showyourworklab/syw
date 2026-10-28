@@ -6,7 +6,7 @@ import { useC2paContext } from '$src/context/c2pa'
 
 interface UseC2paProps {
 	src: string | null
-	mediaType: MediaType
+	mediaType?: MediaType | null
 }
 
 const useC2pa = ({ src, mediaType }: UseC2paProps): SywData => {

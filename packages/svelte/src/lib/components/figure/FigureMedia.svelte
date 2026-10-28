@@ -52,7 +52,7 @@
 	onkeydown={handleKeyDown}
 	class={classNames('FigureMedia')}
 >
-	<!-- Fall back to an image when the media type is unknown -->
+	<!-- Anything that isn't a video is shown as an image -->
 	{#if $mediaType === "video"}
 		<Video />
 	{:else}

@@ -43,7 +43,7 @@ const createC2paStore = () => {
 		}
 	}
 
-	const read = async ({ src, mediaType }: { src: string | null, mediaType: MediaType }): Promise<SywData | null> => {
+	const read = async ({ src, mediaType }: { src: string | null, mediaType?: MediaType | null }): Promise<SywData | null> => {
 		const c2paInstance = get(c2pa)
 		const id = ++requestId
 

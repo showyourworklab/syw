@@ -6,7 +6,7 @@
 	import { resolveMediaType } from 'syw-common/helpers/data'
 	import { VARIANT_DEFAULT } from 'syw-common/constants/ui'
 	import { LOCALE_DEFAULT } from 'syw-common/constants/i18n'
-	import { MEDIA_TYPES, PHASE_KEYS } from 'syw-common/constants/data'
+	import { PHASE_KEYS } from 'syw-common/constants/data'
 	import type { SywEmbedProps } from 'syw-common/types/embed'
 	import createC2paStore, { setC2paContext } from '$lib/store/c2pa.js'
 	import createDataStore, { setDataContext } from '$lib/store/data.js'
@@ -36,7 +36,7 @@
 		...props
 	}: SywEmbedProps & Omit<HTMLAttributes<HTMLDivElement>, 'class'> & { class?: string | null } = $props()
 
-	const mediaType = $derived(mediaTypeProp ?? MEDIA_TYPES.UNKNOWN)
+	const mediaType = $derived(mediaTypeProp)
 
 	let mounted = $state(false)
 	let elemRef: HTMLElement | null = $state(null)

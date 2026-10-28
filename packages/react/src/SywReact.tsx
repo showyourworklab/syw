@@ -1,6 +1,5 @@
 // Relative imports on purpose: tsc copies them into the published .d.ts files, which can't resolve the $src alias
 import type { FC } from 'react'
-import { MEDIA_TYPES } from 'syw-common/constants/data'
 import { LOCALE_DEFAULT } from 'syw-common/constants/i18n'
 import type { SywReactProps } from './types'
 import { C2paProvider, I18nProvider, DataProvider, UiProvider } from './providers'
@@ -32,7 +31,7 @@ const SywReact: FC<SywReactProps> = ({
 					alt={alt}
 					caption={caption}
 					byline={byline}
-					mediaType={mediaType ?? MEDIA_TYPES.UNKNOWN}
+					mediaType={mediaType}
 				>
 					<UiProvider
 						variant={variant}

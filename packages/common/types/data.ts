@@ -7,9 +7,7 @@ import type { ManifestTrust } from './trust.js'
 export type PhaseKey = typeof PHASE_KEYS[keyof typeof PHASE_KEYS]
 export type TrustKey = typeof TRUST_KEYS[keyof typeof TRUST_KEYS]
 
-export type KnownMediaType = 'image' | 'video'
-
-export type MediaType = KnownMediaType | 'unknown'
+export type MediaType = 'image' | 'video'
 
 export type ManifestId = string
 
