@@ -4,7 +4,7 @@ import { isIptcDigitalSourceTypeAi } from 'syw-common/helpers/iptc'
 import type { ManifestDetailActionsProps } from 'syw-common/types/components'
 import { useI18nContext } from '$src/context'
 import ManifestDetail from '$src/components/manifest/ManifestDetail'
-import DetailToggle from '$src/components/shared/DetailToggle'
+import DetailToggle from '$src/components/manifest/ManifestDetailToggle'
 import Collapse from '$src/components/shared/Collapse'
 import Tooltip from '$src/components/shared/Tooltip'
 

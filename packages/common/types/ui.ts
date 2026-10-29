@@ -44,5 +44,13 @@ export type UiEventType =
 	| 'explainer.close'
 	| 'manifest.open'
 	| 'manifest.close'
+	| DataEventType
+
+// Fired when media data starts loading and when it finishes, with the media data as the first arg
+export type DataEventType =
+	| 'data.load'
+	| 'data.ready'
+	| 'data.empty'
+	| 'data.error'
 
 export type UiEventHandler = (type: UiEventType | string, event: unknown, ...args: unknown[]) => void

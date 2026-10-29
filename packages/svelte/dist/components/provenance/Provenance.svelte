@@ -1,16 +1,17 @@
 <script lang="ts">
 	import { classNames } from 'syw-common/helpers/ui'
+	import { isDataLoading } from 'syw-common/helpers/data'
 	import { getDataContext } from '../../store/data.js'
-	import { getI18nContext } from '../../store/i18n.js'
 	import { getUiContext } from '../../store/ui.js'
 
 	import Manifest from '../manifest/Manifest.svelte'
     import ProvenanceExplainer from './ProvenanceExplainer.svelte';
     import ProvenanceExplainerToggle from './ProvenanceExplainerToggle.svelte';
     import ProvenanceVerify from './ProvenanceVerify.svelte';
+    import ProvenanceLoading from './ProvenanceLoading.svelte';
+    import ProvenanceEmpty from './ProvenanceEmpty.svelte';
 
-	const { manifests } = getDataContext();
-	const { locale, getText } = getI18nContext();
+	const { phase, src, manifests } = getDataContext();
 	const { isProvenanceOpen } = getUiContext();
 
 	let firstPreviewEl: HTMLElement | null = $state(null)
@@ -37,12 +38,10 @@
 				{/each}
 			{/key}
 		</div>
+	{:else if isDataLoading({ phase: $phase, src: $src })}
+		<ProvenanceLoading />
 	{:else}
-		<div
-			class={classNames('ProvenanceNone')}
-		>
-			{getText($locale, 'provenance', 'missing')}
-		</div>
+		<ProvenanceEmpty />
 	{/if}
 	<div
 		class={classNames('ProvenanceFooter')}

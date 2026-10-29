@@ -26,10 +26,11 @@ const useC2pa = ({ src, mediaType }: UseC2paProps): SywData => {
 			return cancel
 		}
 
-		setData(prev => ({
-			...prev,
+		// Clear the previous media's data so it isn't shown while the new media loads
+		setData({
+			...C2PA_DATA_DEFAULT,
 			phase: PHASE_KEYS.LOADING
-		}))
+		})
 
 		;(async () => {
 			const newData = await prepareData({ c2pa, src, mediaType: mediaTypeRef.current })

@@ -74,6 +74,7 @@
 	--syw-size-drawer-grabber-size: 36px;
 	--syw-size-drawer-grabber-indicator-length: 40px;
 	--syw-size-drawer-grabber-indicator-thickness: 4px;
+	--syw-loader-size: 1.25rem;
 	/* Radii */
 	--syw-radius-drawer: var(--syw-space-6);
 	/* Shadow */

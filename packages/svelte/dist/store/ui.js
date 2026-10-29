@@ -86,6 +86,7 @@ export default function createUiStore() {
         openManifest,
         closeManifest,
         setEventHandler,
+        handleEvent,
     };
 }
 export const setUiContext = (store) => setContext(UI_CONTEXT_KEY, store);

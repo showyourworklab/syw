@@ -111,7 +111,8 @@ export const DICTIONARY_EN_US = {
 	// Provenance
 	provenance_toggle_image: 'More info on this image',
 	provenance_toggle_video: 'More info on this video',
-	provenance_missing: 'No provenance found',
+	provenance_loading: 'Loading...',
+	provenance_empty: 'No Content Credentials found',
 	// Sections
 	section_primary_camera: 'Camera details',
 	section_primary_edit: 'Editing details',
@@ -326,7 +327,8 @@ export const DICTIONARY_NO_NO = {
 	// Provenance
 	provenance_toggle_image: 'Mer informasjon om dette bildet',
 	provenance_toggle_video: 'Mer informasjon om denne videoen',
-	provenance_missing: 'Ingen opprinnelse funnet',
+	provenance_loading: 'Laster inn...',
+	provenance_empty: 'Ingen Content Credentials funnet',
 	// Sections
 	section_primary_camera: 'Kameradetaljer',
 	section_primary_edit: 'Redigeringsdetaljer',

@@ -22,7 +22,7 @@ export interface ManifestDetailProps extends ComponentProps {
 	footer?: string | null
 }
 
-export interface DetailToggleProps extends ComponentProps {
+export interface ManifestDetailToggleProps extends ComponentProps {
 	open: boolean
 	value: string | null
 	subtitle?: string | null
@@ -143,4 +143,8 @@ export interface ModalProps extends ComponentProps {
 
 export interface ManifestSectionTrustProps extends ComponentProps {
 	manifest: Manifest
+}
+
+export interface LoaderProps extends ComponentProps {
+	loading?: boolean
 }

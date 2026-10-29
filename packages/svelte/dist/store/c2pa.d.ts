@@ -7,7 +7,7 @@ declare const createC2paStore: () => {
     init: (config?: C2paOptions) => Promise<C2pa | null>;
     read: ({ src, mediaType }: {
         src: string | null;
-        mediaType: MediaType;
+        mediaType?: MediaType | null;
     }) => Promise<SywData | null>;
     dispose: () => void;
 };
@@ -19,7 +19,7 @@ export declare const setC2paContext: (store: C2paStore) => {
     init: (config?: C2paOptions) => Promise<C2pa | null>;
     read: ({ src, mediaType }: {
         src: string | null;
-        mediaType: MediaType;
+        mediaType?: MediaType | null;
     }) => Promise<SywData | null>;
     dispose: () => void;
 };
@@ -29,7 +29,7 @@ export declare const getC2paContext: () => {
     init: (config?: C2paOptions) => Promise<C2pa | null>;
     read: ({ src, mediaType }: {
         src: string | null;
-        mediaType: MediaType;
+        mediaType?: MediaType | null;
     }) => Promise<SywData | null>;
     dispose: () => void;
 };

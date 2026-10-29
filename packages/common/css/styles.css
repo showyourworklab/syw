@@ -4,8 +4,6 @@
 @import './figure/FigureCaption.css';
 @import './shared/Collapse.css';
 @import './figure/FigureCutline.css';
-@import './manifest/ManifestDetail.css';
-@import './shared/DetailToggle.css';
 @import './shared/Drawer.css';
 @import './provenance/ProvenanceExplainer.css';
 @import './provenance/ProvenanceExplainerToggle.css';
@@ -13,11 +11,14 @@
 @import './manifest/ManifestDetailGenerator.css';
 @import './shared/Icon.css';
 @import './shared/Image.css';
+@import './shared/Loader.css';
 @import './manifest/Manifest.css';
 @import './manifest/ManifestDetailActions.css';
 @import './manifest/ManifestContent.css';
 @import './manifest/ManifestContentTabs.css';
 @import './manifest/ManifestContentTabsToggle.css';
+@import './manifest/ManifestDetail.css';
+@import './manifest/ManifestDetailToggle.css';
 @import './manifest/ManifestSectionIdentity.css';
 @import './manifest/ManifestImage.css';
 @import './manifest/ManifestInfo.css';

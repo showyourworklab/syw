@@ -25,6 +25,7 @@ import type {
 	Manifest,
 } from '#types/data'
 import type { ManifestTrust } from '#types/trust'
+import type { DataEventType } from '#types/ui'
 
 /////////////// Data ///////////////
 
@@ -142,6 +143,28 @@ export const getC2paTrust = async (provenance: C2paProvenance | null): Promise<T
 
 export const getTypes = (manifests: Manifest[] | undefined): ManifestType[] =>
 	manifests?.map(m => m?.type)?.filter((m): m is ManifestType => Boolean(m)) ?? []
+
+/**
+ * Checks if media data is loading, or is about to load because a src is set but reading hasn't started yet
+ * @function
+ * @param data - Media data
+ * @return True if loading
+ */
+export const isDataLoading = ({ phase, src }: Pick<SywData, 'phase'> & { src?: string | null }): boolean =>
+	phase === PHASE_KEYS.LOADING || (phase === PHASE_KEYS.IDLE && !!src)
+
+/**
+ * Gets the event type to fire for a media data phase
+ * @function
+ * @param data - Media data
+ * @return Event type, or null when idle
+ */
+export const getDataEventType = ({ phase, manifests }: Pick<SywData, 'phase' | 'manifests'>): DataEventType | null => {
+	if(phase === PHASE_KEYS.LOADING) return 'data.load'
+	if(phase === PHASE_KEYS.ERROR) return 'data.error'
+	if(phase === PHASE_KEYS.READY) return manifests?.length ? 'data.ready' : 'data.empty'
+	return null
+}
 
 /**
  * Disposes of prepared data that is no longer needed

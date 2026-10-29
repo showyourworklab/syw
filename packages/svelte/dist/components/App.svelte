@@ -3,11 +3,12 @@
 	import type { HTMLAttributes } from 'svelte/elements'
 	import 'syw-common/css/styles.css'
 	import { classNames } from 'syw-common/helpers/ui'
-	import { resolveMediaType } from 'syw-common/helpers/data'
+	import { resolveMediaType, getDataEventType } from 'syw-common/helpers/data'
 	import { VARIANT_DEFAULT } from 'syw-common/constants/ui'
 	import { LOCALE_DEFAULT } from 'syw-common/constants/i18n'
-	import { MEDIA_TYPES, PHASE_KEYS } from 'syw-common/constants/data'
+	import { C2PA_DATA_DEFAULT, PHASE_KEYS } from 'syw-common/constants/data'
 	import type { SywEmbedProps } from 'syw-common/types/embed'
+	import type { SywData } from 'syw-common/types/data'
 	import createC2paStore, { setC2paContext } from '../store/c2pa.js'
 	import createDataStore, { setDataContext } from '../store/data.js'
 	import createI18nStore, { setI18nContext } from '../store/i18n.js'
@@ -36,7 +37,7 @@
 		...props
 	}: SywEmbedProps & Omit<HTMLAttributes<HTMLDivElement>, 'class'> & { class?: string | null } = $props()
 
-	const mediaType = $derived(mediaTypeProp ?? MEDIA_TYPES.UNKNOWN)
+	const mediaType = $derived(mediaTypeProp)
 
 	let mounted = $state(false)
 	let elemRef: HTMLElement | null = $state(null)
@@ -55,6 +56,7 @@
 
 	const { c2pa } = c2paStore
 	const { lang } = i18nStore
+	const { phase } = dataStore
 	const {
 		isHoverImage,
 		isProvenanceOpen,
@@ -63,6 +65,7 @@
 	const classes = $derived(
 		classNames(
 			'App',
+			`App_${$phase}`,
 			`App_${variant}`,
 			$isHoverImage ? 'App_hovered' : false,
 			$isProvenanceOpen ? 'App_active' : false,
@@ -99,13 +102,27 @@
 		prevSrc = src
 
 		;(async () => {
-			dataStore.setPhase(PHASE_KEYS.LOADING)
+			if(src) {
+				// Clear the previous media's data so it isn't shown while the new media loads
+				setC2paData({
+					...C2PA_DATA_DEFAULT,
+					phase: PHASE_KEYS.LOADING,
+					mediaType: resolveMediaType(src, mediaType)
+				})
+			}
 			let c2paInstance = $c2pa
 			if (!c2paInstance) c2paInstance = await c2paStore.init(c2paOptions)
 			const newData = await c2paStore.read({ src, mediaType })
-			if(newData) dataStore.setC2paData(newData)
+			if(newData) setC2paData(newData)
 		})()
 	})
+
+	// Sets C2PA data and fires its data event
+	const setC2paData = (data: SywData) => {
+		dataStore.setC2paData(data)
+		const type = getDataEventType(data)
+		if(type) uiStore.handleEvent(type, null, { ...data, src, alt, caption, byline })
+	}
 
 	onMount(() => {
 		mounted = true

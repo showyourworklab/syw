@@ -4,7 +4,7 @@ import { createC2pa } from '@contentauth/c2pa-web'
 import type { C2pa } from '@contentauth/c2pa-web'
 import { C2PA_DATA_DEFAULT, PHASE_KEYS, TRUST_KEYS } from 'syw-common/constants/data'
 import { getC2paConfig } from 'syw-common/helpers/c2pa'
-import { prepareData, disposeSywData } from 'syw-common/helpers/data'
+import { prepareData, disposeSywData, resolveMediaType } from 'syw-common/helpers/data'
 import type { C2paOptions } from 'syw-common/types/c2pa'
 import type { MediaType, SywData } from 'syw-common/types/data'
 
@@ -15,6 +15,8 @@ const createC2paStore = () => {
 	const data = writable<SywData>(C2PA_DATA_DEFAULT)
 	let requestId = 0
 	let disposed = false
+	// Kept so reads after a failed init report an error instead of idle
+	let initError: Error | null = null
 
 	const init = async (config: C2paOptions = {}): Promise<C2pa | null> => {
 		try {
@@ -30,9 +32,11 @@ const createC2paStore = () => {
 				c2paInstance.dispose()
 				return existing
 			}
+			initError = null
 			c2pa.set(c2paInstance)
 			return c2paInstance
 		} catch (err) {
+			initError = err as Error
 			data.set({
 				...C2PA_DATA_DEFAULT,
 				phase: PHASE_KEYS.ERROR,
@@ -49,6 +53,25 @@ const createC2paStore = () => {
 
 		if (!src) {
 			return C2PA_DATA_DEFAULT
+		}
+
+		// If disposed, don't set data
+		if (disposed) {
+			return null
+		}
+
+		// If init failed, report its error
+		if (!c2paInstance && initError) {
+			const errorData: SywData = {
+				...C2PA_DATA_DEFAULT,
+				phase: PHASE_KEYS.ERROR,
+				trust: TRUST_KEYS.UNKNOWN,
+				mediaType: resolveMediaType(src, mediaType),
+				error: initError
+			}
+			disposeSywData(get(data))
+			data.set(errorData)
+			return errorData
 		}
 
 		// Without a C2PA instance, prepareData still resolves the media type from the user or src

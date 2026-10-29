@@ -20,6 +20,7 @@ const DataProvider = ({
 	children
 }: DataProviderProps) => {
 	const c2paData = useC2pa({ src, mediaType })
+	// const c2paData = useC2pa({ src: null, mediaType })
 
 	const value = useMemo(() => ({
 		...c2paData,

@@ -80,6 +80,12 @@ export default function Example() {
 - `explainer.close`
 - `manifest.open`
 - `manifest.close`
+- `data.load` — media data started loading
+- `data.ready` — media data loaded with manifests
+- `data.empty` — media data loaded with no manifests found
+- `data.error` — media data failed to load
+
+`data.*` events are called with `event` as `null` and the media data (`{ src, phase, trust, manifests, types, error, ... }`) as the first arg.
 
 ### `parseSywData(src, options)`
 

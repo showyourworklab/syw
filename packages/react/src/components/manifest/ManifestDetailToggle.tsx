@@ -1,32 +1,32 @@
 import { classNames } from 'syw-common/helpers/ui'
-import type { DetailToggleProps } from 'syw-common/types/components'
+import type { ManifestDetailToggleProps } from 'syw-common/types/components'
 import Icon from '$src/components/shared/Icon'
 
-function DetailToggle({
+function ManifestDetailToggle({
 	open,
 	value,
 	subtitle,
 	onToggle,
 	className
-}: DetailToggleProps) {
+}: ManifestDetailToggleProps) {
 	return (
 		<button
 			type="button"
 			aria-expanded={open}
-			className={classNames('DetailToggle', className)}
+			className={classNames('ManifestDetailToggle', className)}
 			onClick={onToggle}
 		>
 			<span
-				className={classNames('DetailToggleText')}
+				className={classNames('ManifestDetailToggleText')}
 			>
 				<span
-					className={classNames('DetailToggleValue')}
+					className={classNames('ManifestDetailToggleValue')}
 				>
 					{value}
 				</span>
 				{subtitle ?
 					<span
-						className={classNames('DetailToggleSubtitle')}
+						className={classNames('ManifestDetailToggleSubtitle')}
 					>
 						{subtitle}
 					</span>
@@ -39,4 +39,4 @@ function DetailToggle({
 	)
 }
 
-export default DetailToggle
+export default ManifestDetailToggle

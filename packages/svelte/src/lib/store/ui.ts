@@ -100,6 +100,7 @@ export default function createUiStore() {
 		openManifest,
 		closeManifest,
 		setEventHandler,
+		handleEvent,
 	}
 }
 

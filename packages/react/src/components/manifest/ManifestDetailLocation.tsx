@@ -4,7 +4,7 @@ import { formatCoordinates } from 'syw-common/helpers/map'
 import type { ManifestDetailLocationProps } from 'syw-common/types/components'
 import { useI18nContext, useDataContext } from '$src/context'
 import ManifestDetail from '$src/components/manifest/ManifestDetail'
-import DetailToggle from '$src/components/shared/DetailToggle'
+import DetailToggle from '$src/components/manifest/ManifestDetailToggle'
 import Collapse from '$src/components/shared/Collapse'
 import Map from '$src/components/shared/Map'
 

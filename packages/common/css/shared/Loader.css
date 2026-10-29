@@ -1,0 +1,54 @@
+/* Loader */
+.Syw-Loader {
+	
+}
+/* Loader > Circle */
+.Syw-LoaderCircleContainer {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+}
+.Syw-LoaderCircle {
+	--size: var(--syw-loader-size);
+	--thickness: calc(var(--syw-loader-size) / 6);
+}
+.Syw-LoaderCircle[data-state="indeterminate"] {
+	animation: syw-loader-circle-spin 2s linear infinite;
+}
+.Syw-LoaderCircleTrack {
+	stroke: var(--syw-color-tertiary);
+}
+.Syw-LoaderCircleRange {
+	stroke: var(--syw-color-secondary);
+	transition:
+    	stroke-dasharray 0.6s ease-out,
+    	stroke 0.6s ease-out;
+}
+.Syw-LoaderCircleRange[data-state="indeterminate"] {
+	animation: syw-loader-circle-range-indeterminate 1.5s ease-in-out infinite;
+}
+/* Loader > Animation */
+@keyframes syw-loader-circle-spin {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+/* Uses --circumference set on the range by Ark, so it works at any --size */
+@keyframes syw-loader-circle-range-indeterminate {
+	0% {
+		stroke-dasharray: calc(var(--circumference) * 0.01) var(--circumference);
+		stroke-dashoffset: 0;
+	}
+	50% {
+		stroke-dasharray: calc(var(--circumference) * 0.5) var(--circumference);
+		stroke-dashoffset: calc(var(--circumference) * -0.25);
+	}
+	100% {
+		stroke-dasharray: calc(var(--circumference) * 0.5) var(--circumference);
+		stroke-dashoffset: calc(var(--circumference) * -1);
+	}
+}

@@ -21,6 +21,7 @@ export default function createUiStore(): {
     openManifest: (event: unknown, manifest: Manifest) => void;
     closeManifest: (event: unknown, manifest: Manifest) => void;
     setEventHandler: (val: UiEventHandler | null) => void;
+    handleEvent: UiEventHandler;
 };
 export type UiStore = ReturnType<typeof createUiStore>;
 export declare const setUiContext: (store: UiStore) => {
@@ -44,6 +45,7 @@ export declare const setUiContext: (store: UiStore) => {
     openManifest: (event: unknown, manifest: Manifest) => void;
     closeManifest: (event: unknown, manifest: Manifest) => void;
     setEventHandler: (val: UiEventHandler | null) => void;
+    handleEvent: UiEventHandler;
 };
 export declare const getUiContext: () => {
     elem: import("svelte/store").Writable<HTMLElement | null>;
@@ -66,4 +68,5 @@ export declare const getUiContext: () => {
     openManifest: (event: unknown, manifest: Manifest) => void;
     closeManifest: (event: unknown, manifest: Manifest) => void;
     setEventHandler: (val: UiEventHandler | null) => void;
+    handleEvent: UiEventHandler;
 };

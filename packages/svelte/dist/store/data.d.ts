@@ -8,7 +8,7 @@ export default function createDataStore(initial?: Partial<Pick<SywMediaData, 'sr
     trust: import("svelte/store").Writable<"unknown" | "validating" | "trusted" | "trusted_legacy" | "valid" | "invalid" | "none">;
     types: import("svelte/store").Writable<import("syw-common/types/data").ManifestType[]>;
     manifests: import("svelte/store").Writable<import("syw-common/types/data").Manifest[]>;
-    mediaType: import("svelte/store").Writable<"unknown" | "image" | "video">;
+    mediaType: import("svelte/store").Writable<"image" | "video">;
     provenance: import("svelte/store").Writable<import("syw-common/types/c2pa").C2paProvenance | null>;
     reader: import("svelte/store").Writable<import("@contentauth/c2pa-web").Reader | null>;
     error: import("svelte/store").Writable<Error | null>;
@@ -36,7 +36,7 @@ export declare const setDataContext: (store: DataStore) => {
     trust: import("svelte/store").Writable<"unknown" | "validating" | "trusted" | "trusted_legacy" | "valid" | "invalid" | "none">;
     types: import("svelte/store").Writable<import("syw-common/types/data").ManifestType[]>;
     manifests: import("svelte/store").Writable<import("syw-common/types/data").Manifest[]>;
-    mediaType: import("svelte/store").Writable<"unknown" | "image" | "video">;
+    mediaType: import("svelte/store").Writable<"image" | "video">;
     provenance: import("svelte/store").Writable<import("syw-common/types/c2pa").C2paProvenance | null>;
     reader: import("svelte/store").Writable<import("@contentauth/c2pa-web").Reader | null>;
     error: import("svelte/store").Writable<Error | null>;
@@ -63,7 +63,7 @@ export declare const getDataContext: () => {
     trust: import("svelte/store").Writable<"unknown" | "validating" | "trusted" | "trusted_legacy" | "valid" | "invalid" | "none">;
     types: import("svelte/store").Writable<import("syw-common/types/data").ManifestType[]>;
     manifests: import("svelte/store").Writable<import("syw-common/types/data").Manifest[]>;
-    mediaType: import("svelte/store").Writable<"unknown" | "image" | "video">;
+    mediaType: import("svelte/store").Writable<"image" | "video">;
     provenance: import("svelte/store").Writable<import("syw-common/types/c2pa").C2paProvenance | null>;
     reader: import("svelte/store").Writable<import("@contentauth/c2pa-web").Reader | null>;
     error: import("svelte/store").Writable<Error | null>;

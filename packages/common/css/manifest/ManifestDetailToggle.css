@@ -1,5 +1,5 @@
 /* DetailToggle */
-button.Syw-DetailToggle {
+button.Syw-ManifestDetailToggle {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -16,38 +16,35 @@ button.Syw-DetailToggle {
 	border-radius: var(--syw-radius-md);
 	cursor: pointer;
 }
-button.Syw-DetailToggle,
-button.Syw-DetailToggle * {
+button.Syw-ManifestDetailToggle,
+button.Syw-ManifestDetailToggle * {
 	transition: all 200ms ease;
 }
-button.Syw-DetailToggle:hover,
-button.Syw-DetailToggle[aria-expanded="true"] {
+button.Syw-ManifestDetailToggle:hover {
 	border-color: var(--syw-color-quinary);
 	/* background-color: var(--syw-color-quaternary); */
 }
-button.Syw-DetailToggle:hover *,
-button.Syw-DetailToggle[aria-expanded="true"] * {
+button.Syw-ManifestDetailToggle:hover * {
 	color: var(--syw-color-quinary);
 }
-button.Syw-DetailToggle:hover .Syw-DetailToggleSubtitle,
-button.Syw-DetailToggle[aria-expanded="true"] .Syw-DetailToggleSubtitle {
+button.Syw-ManifestDetailToggle:hover .Syw-ManifestDetailToggleSubtitle {
 	opacity: 0.625;
 }
-button.Syw-DetailToggle:focus-visible {
+button.Syw-ManifestDetailToggle:focus-visible {
 	outline: 2px solid var(--syw-color-quinary);
 	outline-offset: 2px;
 }
-button.Syw-DetailToggle svg {
+button.Syw-ManifestDetailToggle svg {
 	flex-shrink: 0;
 	width: var(--syw-space-4);
 	height: var(--syw-space-4);
 }
-.Syw-DetailToggleText {
+.Syw-ManifestDetailToggleText {
 	display: flex;
 	flex-direction: column;
 	min-width: 0;
 }
-.Syw-DetailToggleSubtitle {
+.Syw-ManifestDetailToggleSubtitle {
 	font-size: var(--syw-text-xs);
 	font-weight: var(--syw-font-weight-bold);
 	color: var(--syw-color-tertiary);
