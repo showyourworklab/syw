@@ -3,7 +3,6 @@
 	import type { LucideIcon } from '@lucide/svelte'
 	import Camera from '@lucide/svelte/icons/camera'
 	import Check from '@lucide/svelte/icons/check'
-	import Ellipsis from '@lucide/svelte/icons/ellipsis'
 	import SquarePen from '@lucide/svelte/icons/square-pen'
 	import Sparkles from '@lucide/svelte/icons/sparkles'
 	import WandSparkles from '@lucide/svelte/icons/wand-sparkles'
@@ -39,21 +38,23 @@
 	}: IconProps = $props()
 
 	const LUCIDE_ICONS: Record<LucideIconType, LucideIcon> = {
+		// Integrity
+		valid: ShieldCheck,
+		invalid: ShieldX,
+		unavailable: ShieldQuestionMark,
 		// Trust
-		validating: Ellipsis,
 		trusted: ShieldCheck,
 		trusted_legacy: ShieldAlert,
-		valid: ShieldAlert,
-		invalid: ShieldX,
-		unknown: ShieldQuestionMark,
-		none: ShieldX,
+		untrusted: ShieldAlert,
+		untrusted_expired: ShieldAlert,
 		// Type
 		camera: Camera,
 		edit: SquarePen,
 		ai_create: Sparkles,
 		ai_edit: WandSparkles,
+		unknown: CirclePlus,
 		unknown_create: Slash,
-		unknown_type: CirclePlus,
+		none: Slash,
 		// Detail
 		timestamp: Clock,
 		producer: User,

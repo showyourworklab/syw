@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { classNames } from 'syw-common/helpers/ui'
+	import { MANIFEST_EMPTY_TYPE_KEYS } from 'syw-common/constants/ui'
 	import type { ManifestContentProps } from 'syw-common/types/components'
-	import { getDataContext } from '../../store/data.js'
+	import ManifestEmpty from './ManifestEmpty.svelte'
 	import ManifestContentTabs from './ManifestContentTabs.svelte'
 	import ManifestContentTabsToggle from './ManifestContentTabsToggle.svelte'
 
@@ -9,14 +10,12 @@
 		tabKeys = [],
 		manifest,
 	}: ManifestContentProps = $props()
-
-	const { mediaType } = getDataContext()
 </script>
 
 <div
 	class={classNames('ManifestContent')}
 >
-	{#if manifest?.type?.key !== "unknown_create"}
+	{#if !(manifest.type && MANIFEST_EMPTY_TYPE_KEYS.includes(manifest.type.key))}
 		<div
 			class={classNames('ManifestContentInner')}
 		>
@@ -31,6 +30,8 @@
 			/>
 		</div>
 	{:else}
-		There is no verifiable origin for this {mediaType}
+		<ManifestEmpty
+			manifest={manifest}
+		/>
 	{/if}
 </div>

@@ -12,6 +12,7 @@
 	const { manifest }: ManifestSectionTrustProps = $props()
 
 	const typeKey = $derived(manifest.type?.key ?? 'unknown')
+	const signer = $derived(manifest.validation?.signer)
 </script>
 
 <ManifestSection
@@ -20,16 +21,18 @@
 	definition={getText($locale, 'section', 'trust', 'definition', $mediaType)}
 	className={classNames('ManifestSectionTrust')}
 >
-	<ManifestDetail
-		title={getText($locale, 'trust', manifest.trust.value)}
-		titleIcon={manifest.trust.value}
-		titleTooltip={getText($locale, 'trust', 'definition')}
-		footer={getText($locale, 'trust', manifest.trust.value, 'definition')}
-		className={classNames(
-			'ManifestSectionTrustDetail',
-			`ManifestSectionTrustDetail_${manifest.trust.value}`,
-		)}
-	/>
+	{#if signer}
+		<ManifestDetail
+			title={getText($locale, 'trust', signer)}
+			titleIcon={signer}
+			titleTooltip={getText($locale, 'trust', 'definition')}
+			footer={getText($locale, 'trust', signer, 'definition')}
+			className={classNames(
+				'ManifestSectionTrustDetail',
+				`ManifestSectionTrustDetail_${signer}`,
+			)}
+		/>
+	{/if}
 	{#if manifest.signator}
 		<ManifestDetail
 			title={getText($locale, 'signator', typeKey)}

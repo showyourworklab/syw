@@ -1,4 +1,4 @@
-import { classNames, getManifestTypeIcon } from 'syw-common/helpers/ui'
+import { classNames } from 'syw-common/helpers/ui'
 import type { BadgeProps } from 'syw-common/types/components'
 import Tooltip from '$src/components/shared/Tooltip'
 import type { TooltipProps } from '$src/components/shared/Tooltip'
@@ -39,7 +39,7 @@ const Badge = ({
 				)}
 			>
 				<Icon
-					type={getManifestTypeIcon(type?.key)}
+					type={type?.key}
 					className={classNames('BadgeIcon')}
 				/>
 				<span

@@ -85,7 +85,7 @@ export default function Example() {
 - `data.empty` — media data loaded with no manifests found
 - `data.error` — media data failed to load
 
-`data.*` events are called with `event` as `null` and the media data (`{ src, phase, trust, manifests, types, error, ... }`) as the first arg.
+`data.*` events are called with `event` as `null` and the media data (`{ src, phase, manifests, types, error, ... }`) as the first arg.
 
 ### `parseSywData(src, options)`
 
@@ -95,7 +95,7 @@ Available as a named export from `syw-react` and `syw-svelte` to read and parse 
 	- `src: string`
 	- `options?: { locale?: string; c2paOptions?: { wasmSrc?: string; settings?: { trust?: { trustAnchors?: string | string[] }}}}`
 - Returns:
-	- `Promise<{ src; phase; trust; manifests; types; provenance; reader; error }>`
+	- `Promise<{ src; phase; manifests; types; provenance; reader; error }>`
 
 
 ## Shared internal utilities `syw-common`

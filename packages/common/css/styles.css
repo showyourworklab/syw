@@ -15,6 +15,7 @@
 @import './manifest/Manifest.css';
 @import './manifest/ManifestDetailActions.css';
 @import './manifest/ManifestContent.css';
+@import './manifest/ManifestEmpty.css';
 @import './manifest/ManifestContentTabs.css';
 @import './manifest/ManifestContentTabsToggle.css';
 @import './manifest/ManifestDetail.css';

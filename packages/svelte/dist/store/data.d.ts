@@ -5,7 +5,6 @@ export default function createDataStore(initial?: Partial<Pick<SywMediaData, 'sr
     caption: import("svelte/store").Writable<string | null>;
     byline: import("svelte/store").Writable<string | null>;
     phase: import("svelte/store").Writable<"idle" | "loading" | "ready" | "error">;
-    trust: import("svelte/store").Writable<"unknown" | "validating" | "trusted" | "trusted_legacy" | "valid" | "invalid" | "none">;
     types: import("svelte/store").Writable<import("syw-common/types/data").ManifestType[]>;
     manifests: import("svelte/store").Writable<import("syw-common/types/data").Manifest[]>;
     mediaType: import("svelte/store").Writable<"image" | "video">;
@@ -17,7 +16,6 @@ export default function createDataStore(initial?: Partial<Pick<SywMediaData, 'sr
     setCaption: (val: SywMediaData["caption"]) => void;
     setByline: (val: SywMediaData["byline"]) => void;
     setPhase: (val: SywData["phase"]) => void;
-    setTrust: (val: SywData["trust"]) => void;
     setTypes: (val?: SywData["types"] | null) => void;
     setManifests: (val?: SywData["manifests"] | null) => void;
     setMediaType: (val: SywData["mediaType"]) => void;
@@ -33,7 +31,6 @@ export declare const setDataContext: (store: DataStore) => {
     caption: import("svelte/store").Writable<string | null>;
     byline: import("svelte/store").Writable<string | null>;
     phase: import("svelte/store").Writable<"idle" | "loading" | "ready" | "error">;
-    trust: import("svelte/store").Writable<"unknown" | "validating" | "trusted" | "trusted_legacy" | "valid" | "invalid" | "none">;
     types: import("svelte/store").Writable<import("syw-common/types/data").ManifestType[]>;
     manifests: import("svelte/store").Writable<import("syw-common/types/data").Manifest[]>;
     mediaType: import("svelte/store").Writable<"image" | "video">;
@@ -45,7 +42,6 @@ export declare const setDataContext: (store: DataStore) => {
     setCaption: (val: SywMediaData["caption"]) => void;
     setByline: (val: SywMediaData["byline"]) => void;
     setPhase: (val: SywData["phase"]) => void;
-    setTrust: (val: SywData["trust"]) => void;
     setTypes: (val?: SywData["types"] | null) => void;
     setManifests: (val?: SywData["manifests"] | null) => void;
     setMediaType: (val: SywData["mediaType"]) => void;
@@ -60,7 +56,6 @@ export declare const getDataContext: () => {
     caption: import("svelte/store").Writable<string | null>;
     byline: import("svelte/store").Writable<string | null>;
     phase: import("svelte/store").Writable<"idle" | "loading" | "ready" | "error">;
-    trust: import("svelte/store").Writable<"unknown" | "validating" | "trusted" | "trusted_legacy" | "valid" | "invalid" | "none">;
     types: import("svelte/store").Writable<import("syw-common/types/data").ManifestType[]>;
     manifests: import("svelte/store").Writable<import("syw-common/types/data").Manifest[]>;
     mediaType: import("svelte/store").Writable<"image" | "video">;
@@ -72,7 +67,6 @@ export declare const getDataContext: () => {
     setCaption: (val: SywMediaData["caption"]) => void;
     setByline: (val: SywMediaData["byline"]) => void;
     setPhase: (val: SywData["phase"]) => void;
-    setTrust: (val: SywData["trust"]) => void;
     setTypes: (val?: SywData["types"] | null) => void;
     setManifests: (val?: SywData["manifests"] | null) => void;
     setMediaType: (val: SywData["mediaType"]) => void;

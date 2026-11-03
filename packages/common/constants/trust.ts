@@ -1,6 +1,6 @@
 import type { Settings, TrustSettings } from '@contentauth/c2pa-web'
 import type { TrustListSource } from '#types/trust'
-import { C2PA_TRUST_LIST, C2PA_INTERIM_TRUST_LIST, IPTC_TRUST_LIST, CAI_TRUST_CONFIG } from '#trustlists'
+import { C2PA_TRUST_LIST, C2PA_INTERIM_TRUST_LIST, IPTC_TRUST_LIST, CAI_TRUST_CONFIG, CAWG_TRUST_CONFIG } from '#trustlists'
 
 // Shared across every bundle on the page so each list is fetched once
 export const TRUST_LIST_REQUESTS_KEY = Symbol.for('syw.trustListRequests')
@@ -27,7 +27,7 @@ export const TRUST_LIST_TYPES = {
 export const TRUST_LIST_SOURCES = {
 	'c2pa': {
 		type: TRUST_LIST_TYPES.TRUST_ANCHORS,
-		scopes: [TRUST_LIST_SCOPES.C2PA, TRUST_LIST_SCOPES.CAWG],
+		scopes: [TRUST_LIST_SCOPES.C2PA],
 		url: 'https://raw.githubusercontent.com/c2pa-org/conformance-public/main/trust-list/C2PA-TRUST-LIST.pem',
 		fallback: C2PA_TRUST_LIST
 	},
@@ -36,15 +36,25 @@ export const TRUST_LIST_SOURCES = {
 	'c2pa-interim': {
 		type: TRUST_LIST_TYPES.USER_ANCHORS,
 		legacy: true,
-		scopes: [TRUST_LIST_SCOPES.C2PA, TRUST_LIST_SCOPES.CAWG],
+		scopes: [TRUST_LIST_SCOPES.C2PA],
 		fallback: C2PA_INTERIM_TRUST_LIST
 	},
+	// Verified News Publishers certificates, for C2PA claim signatures and CAWG identity assertions
+	// https://trust.iptc.org
 	'iptc': {
 		type: TRUST_LIST_TYPES.ALLOWED_LIST,
 		scopes: [TRUST_LIST_SCOPES.C2PA, TRUST_LIST_SCOPES.CAWG],
 		url: 'https://trust.iptc.org/end-entity-list.pem',
 		fallback: IPTC_TRUST_LIST
 	},
+	// Verified News Publishers claim signing certificates from the C2PA Conformance Program, for C2PA claim signatures only
+	'iptc-claim-signing': {
+		type: TRUST_LIST_TYPES.ALLOWED_LIST,
+		scopes: [TRUST_LIST_SCOPES.C2PA],
+		url: 'https://trust.iptc.org/claim-signing-list.pem',
+		fallback: ''
+	},
+	// CA certificates of Verified News Publishers, for CAWG identity assertions
 	// https://cawg.io/identity/1.2/#interim-trust-model
 	'iptc-anchors': {
 		type: TRUST_LIST_TYPES.TRUST_ANCHORS,
@@ -53,12 +63,20 @@ export const TRUST_LIST_SOURCES = {
 		fallback: ''
 	},
 	// EKUs recommended by the Content Authenticity Initiative, matching the C2PA SDK's defaults.
+	// Requested from where contentcredentials.org/trust/store.cfg redirects, since the redirect has no CORS headers
 	// https://opensource.contentauthenticity.org/docs/conformance/trust-lists
 	'cai-store': {
 		type: TRUST_LIST_TYPES.TRUST_CONFIG,
-		scopes: [TRUST_LIST_SCOPES.C2PA, TRUST_LIST_SCOPES.CAWG],
-		url: 'https://contentcredentials.org/trust/store.cfg',
+		scopes: [TRUST_LIST_SCOPES.C2PA],
+		url: 'https://verify.contentauthenticity.org/trust/store.cfg',
 		fallback: CAI_TRUST_CONFIG
+	},
+	// EKUs accepted for CAWG identity assertions: id-kp-documentSigning, plus id-kp-emailProtection until March 31, 2027
+	// https://cawg.io/identity/1.2/#interim-trust-model
+	'cawg-store': {
+		type: TRUST_LIST_TYPES.TRUST_CONFIG,
+		scopes: [TRUST_LIST_SCOPES.CAWG],
+		fallback: CAWG_TRUST_CONFIG
 	}
 } satisfies Record<string, TrustListSource>
 // Validation codes of a trusted claim signature and CAWG identity
@@ -66,10 +84,19 @@ export const TRUSTED_CODES = {
 	CLAIM: 'signingCredential.trusted',
 	IDENTITY: 'cawg.x509.credential.trusted',
 } as const
-// Validation codes of an untrusted but otherwise valid signature
+// Validation code of an expired claim signing certificate, without a trusted time-stamp showing it was valid when signed
+// https://spec.c2pa.org/specifications/specifications/2.2/ux/UX_Recommendations.html
+export const EXPIRED_CODES = {
+	CLAIM: 'signingCredential.expired',
+} as const
+// Validation codes of an untrusted but otherwise valid signature or identity
 export const UNTRUSTED_CODES: string[] = [
 	'signingCredential.untrusted',
+	EXPIRED_CODES.CLAIM,
 	'cawg.x509.credential.untrusted',
+	// Identity claims aggregators have no trust list yet, so their identities are always untrusted
+	// https://cawg.io/identity/1.2/
+	'cawg.ica.untrusted_issuer',
 ]
 // Assertion label prefix of CAWG identity assertions
 export const CAWG_IDENTITY_LABEL = 'cawg.identity'

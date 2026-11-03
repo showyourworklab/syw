@@ -16,6 +16,8 @@ export const VARIANT_DEFAULT = 'expand'
 // export const VARIANT_DEFAULT = 'drawer-right'
 
 /////////////// Manifests //////////////
+// Types whose manifest details aren't shown, replaced by ManifestEmpty
+export const MANIFEST_EMPTY_TYPE_KEYS: readonly ManifestTypeKey[] = ['unknown_create', 'none']
 export const MANIFEST_KEYS = [
 	'timestamp',
 	'producer',
@@ -50,6 +52,7 @@ export const MANIFEST_CONTENT_TAB_KEYS = {
 	ai_edit: ['info', 'image'],
 	unknown: ['info', 'image'],
 	unknown_create: [],
+	none: [],
 } as const
 
 export const MANIFEST_CONTENT_TAB_DEFAULT = 'info'

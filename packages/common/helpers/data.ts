@@ -3,9 +3,9 @@ import type { Reader, C2pa } from '@contentauth/c2pa-web'
 import type { Manifest as C2paManifest } from '@contentauth/c2pa-types'
 import { VERIFY_BASE_URL } from '#constants/ui'
 import { C2PA_ACTIONS } from '#constants/c2pa'
-import { PHASE_KEYS, C2PA_DATA_DEFAULT, KNOWN_GENERATORS_BY_MANIFEST_TYPE, MANIFEST_TYPES, MEDIA_TYPES, MEDIA_TYPE_EXTENSIONS_IMAGE, MEDIA_TYPE_EXTENSIONS_VIDEO, TRUST_KEYS } from '#constants/data'
+import { PHASE_KEYS, C2PA_DATA_DEFAULT, KNOWN_GENERATORS_BY_MANIFEST_TYPE, MANIFEST_TYPES, MEDIA_TYPES, MEDIA_TYPE_EXTENSIONS_IMAGE, MEDIA_TYPE_EXTENSIONS_VIDEO } from '#constants/data'
 import { convertJumbfToBlobUrl, fetchMedia, getC2paActions, getC2paConfig, getCawgIdentityValue, getExifValue, getManifestIptc, getSchemaOrgValue, hasC2paAction, isAiEditedManifest, isEditedManifest, readC2paFromBlob, readLegacyManifestStore } from '#helpers/c2pa'
-import { getManifestTrust, getManifestValidation } from '#helpers/trust'
+import { getManifestStatusCodes, getManifestValidation, isManifestValid } from '#helpers/trust'
 import { getIptcDigitalSourceTypeKey, isIptcDigitalSourceTypeAi, isIptcDigitalSourceTypeCamera } from '#helpers/iptc'
 import type {
 	C2paOptions,
@@ -14,7 +14,6 @@ import type {
 import type {
 	SywData,
 	MediaType,
-	TrustKey,
 	ManifestActions,
 	ManifestGenerator,
 	ManifestIdentity,
@@ -24,7 +23,7 @@ import type {
 	ManifestTypeKey,
 	Manifest,
 } from '#types/data'
-import type { ManifestTrust } from '#types/trust'
+import type { ManifestValidation } from '#types/trust'
 import type { DataEventType } from '#types/ui'
 
 /////////////// Data ///////////////
@@ -59,11 +58,9 @@ export const prepareData = async ({ c2pa, src, mediaType: userMediaType }: {
 		if(!isUserMediaType) mediaType = resolveMediaType(src, mimeMediaType, getMediaTypeFromMimeType(activeManifest?.format))
         const provenance = manifestStore ? { manifestStore, legacyManifestStore } : null
         const manifests = await prepareManifests({ provenance, reader })
-		const trust = await getC2paTrust(provenance)
         const types = getTypes(manifests)
         data = {
             phase: PHASE_KEYS.READY,
-            trust,
             types,
             // provenance,
 			mediaType,
@@ -76,7 +73,6 @@ export const prepareData = async ({ c2pa, src, mediaType: userMediaType }: {
         data = {
             ...C2PA_DATA_DEFAULT,
             phase: PHASE_KEYS.ERROR,
-            trust: TRUST_KEYS.UNKNOWN,
 			mediaType,
             error: error as Error,
         }
@@ -113,32 +109,6 @@ export const parseSywData = async (
 	if(!cachedC2pa) cachedC2pa = await createC2pa(await getC2paConfig(c2paOptions))
 	const preparedData = prepareData({ c2pa: cachedC2pa, src, mediaType })
 	return preparedData
-}
-
-/**
- * Reads C2PA trust
- * @async
- * @param provenance - C2PA provenance, read from the media
- * @return Trust, or "none" when the media has no C2PA data
- */
-export const getC2paTrust = async (provenance: C2paProvenance | null): Promise<TrustKey> => {
-	if(provenance) {
-		const validationStatus = provenance?.manifestStore?.validation_state;
-		if(validationStatus === "Trusted") {
-			return "trusted";
-		} else if(provenance.legacyManifestStore?.validation_state === "Trusted") {
-			return "trusted_legacy";
-		} else if(validationStatus === "Valid") {
-			return "valid";
-		} else if(validationStatus === "Invalid") {
-			return "invalid";
-		} else {
-			return "unknown";
-		}
-	} else {
-		// Only called after reading, so no provenance means nothing was recorded rather than still validating
-		return "none";
-	}
 }
 
 export const getTypes = (manifests: Manifest[] | undefined): ManifestType[] =>
@@ -217,6 +187,10 @@ export const prepareManifests = async ({ provenance, reader }: {
 		preparedManifests.sort((a, b) =>
 			(a?.timestamp?.date?.getTime?.() || 0) - (b?.timestamp?.date?.getTime?.() || 0)
 		)
+		// Timestamps of none manifests are only used for ordering, not shown
+		for(const manifest of preparedManifests) {
+			if(manifest.type?.key === MANIFEST_TYPES.NONE) manifest.timestamp = null
+		}
 		if(hasUnknownCreate(preparedManifests)) {
 			preparedManifests.unshift(prepareUnknownCreateManifest())
 		}
@@ -241,10 +215,14 @@ export const prepareManifest = async ({ manifest, provenance, reader }: {
 	provenance: C2paProvenance | null
 	reader: Reader | null | undefined
 }): Promise<Manifest> => {
+	const validation = getValidation(manifest, provenance)
+	if(!isManifestValid(validation)) {
+		return prepareNoneManifest(manifest, validation)
+	}
 	return {
 		id: getId(manifest),
 		type: getType(manifest),
-		trust: getTrust(manifest, provenance),
+		validation,
 		timestamp: getTimestamp(manifest),
 		identity: getIdentity(manifest),
 		producer: getProducer(manifest),
@@ -259,6 +237,27 @@ export const prepareManifest = async ({ manifest, provenance, reader }: {
 }
 
 /**
+ * Prepares a manifest object for a recorded step whose integrity isn't valid, leaving out its unverified claims
+ * Keeps the timestamp only for ordering, which prepareManifests then clears
+ * @function
+ * @param manifest - C2paManifest entry
+ * @param validation - Manifest validation
+ * @return Prepared manifest object
+ */
+export const prepareNoneManifest = (manifest: C2paManifest, validation: ManifestValidation): Manifest => ({
+	id: getId(manifest),
+	type: { key: MANIFEST_TYPES.NONE },
+	validation,
+	timestamp: getTimestamp(manifest),
+	identity: null,
+	producer: [],
+	generator: [],
+	thumbnail: null,
+	location: null,
+	original: manifest,
+})
+
+/**
  * Prepares a manifest object representing an origin that wasn't recorded
  * @function
  * @return Prepared manifest object
@@ -266,7 +265,7 @@ export const prepareManifest = async ({ manifest, provenance, reader }: {
 export const prepareUnknownCreateManifest = (): Manifest => ({
 	id: MANIFEST_TYPES.UNKNOWN_CREATE,
 	type: { key: MANIFEST_TYPES.UNKNOWN_CREATE },
-	trust: { value: TRUST_KEYS.NONE, identity: null },
+	validation: null,
 	timestamp: null,
 	identity: null,
 	producer: [],
@@ -310,16 +309,16 @@ export const getType = (manifest: C2paManifest | null | undefined): ManifestType
 }
 
 /**
- * Gets a manifest's trust value
+ * Gets a manifest's validation
  * @function
  * @param manifest - C2paManifest entry
  * @param provenance - C2PA provenance
- * @return Manifest trust
+ * @return Manifest validation
  */
-export const getTrust = (manifest: C2paManifest, provenance: C2paProvenance | null): ManifestTrust => {
-	const validation = getManifestValidation(manifest, provenance?.manifestStore)
-	const legacyValidation = getManifestValidation(manifest, provenance?.legacyManifestStore)
-	return getManifestTrust(manifest, validation, legacyValidation)
+export const getValidation = (manifest: C2paManifest, provenance: C2paProvenance | null): ManifestValidation => {
+	const statusCodes = getManifestStatusCodes(manifest, provenance?.manifestStore)
+	const legacyStatusCodes = getManifestStatusCodes(manifest, provenance?.legacyManifestStore)
+	return getManifestValidation(manifest, statusCodes, legacyStatusCodes)
 }
 
 /**

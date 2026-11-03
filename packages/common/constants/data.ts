@@ -7,6 +7,8 @@ export const MANIFEST_TYPES = {
 	AI_EDIT: 'ai_edit',
 	UNKNOWN: 'unknown',
 	UNKNOWN_CREATE: 'unknown_create',
+	// Recorded steps whose integrity isn't valid, so their own claims aren't shown
+	NONE: 'none',
 } as const
 // Exact, case-sensitive claim_generator_info[].name, signature_info.common_name or signature_info.issuer values
 export const KNOWN_GENERATORS_BY_MANIFEST_TYPE: Record<string, ManifestTypeKey> = {
@@ -28,15 +30,20 @@ export const PHASE_KEYS = {
 	READY: 'ready',
 	ERROR: 'error',
 } as const
-export const TRUST_KEYS = {
-	VALIDATING: 'validating',
-	UNKNOWN: 'unknown',
-	TRUSTED: 'trusted',
-	TRUSTED_LEGACY: 'trusted_legacy',
+// Whether a manifest's details still match what was signed
+export const INTEGRITY_KEYS = {
 	VALID: 'valid',
 	INVALID: 'invalid',
-	// For manifests added by SYW with nothing to validate, like unknown create
-	NONE: 'none',
+	// Validation returned no results for the manifest
+	UNAVAILABLE: 'unavailable',
+} as const
+// Whether a manifest's signer or identity is on a trust list
+export const TRUST_KEYS = {
+	TRUSTED: 'trusted',
+	TRUSTED_LEGACY: 'trusted_legacy',
+	UNTRUSTED: 'untrusted',
+	// Signing certificate has expired, without a trusted time-stamp showing it was valid when signed
+	UNTRUSTED_EXPIRED: 'untrusted_expired',
 } as const
 export const MEDIA_TYPES = {
 	IMAGE: 'image',
@@ -46,7 +53,6 @@ export const MEDIA_TYPE_EXTENSIONS_IMAGE: readonly string[] = ['jpg', 'jpeg', 'p
 export const MEDIA_TYPE_EXTENSIONS_VIDEO: readonly string[] = ['mp4', 'm4v', 'mov', 'webm', 'ogv', 'avi', 'mkv']
 export const C2PA_DATA_DEFAULT: SywData = {
 	phase: PHASE_KEYS.IDLE,
-	trust: TRUST_KEYS.VALIDATING,
 	types: [],
 	manifests: [],
 	mediaType: MEDIA_TYPES.IMAGE,

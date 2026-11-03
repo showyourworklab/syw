@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { classNames, getManifestTypeIcon } from 'syw-common/helpers/ui'
+	import { classNames } from 'syw-common/helpers/ui'
 	import type { ManifestDetailGeneratorProps } from 'syw-common/types/components'
 	import { getI18nContext } from '../../store/i18n.js'
 	import { getDataContext } from '../../store/data.js'
@@ -16,7 +16,7 @@
 {#if manifest.generator?.length}
 	<ManifestDetail
 		title={getText($locale, 'generator', typeKey)}
-		titleIcon={getManifestTypeIcon(typeKey)}
+		titleIcon={typeKey}
 		titleTooltip={getText($locale, 'generator', typeKey, 'definition', $mediaType)}
 		className={classNames('ManifestDetailGenerator')}
 	>

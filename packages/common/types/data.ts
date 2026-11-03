@@ -1,17 +1,18 @@
 import type { Reader } from '@contentauth/c2pa-web'
-import type { PHASE_KEYS, TRUST_KEYS } from '../constants/data.js'
+import type { PHASE_KEYS, INTEGRITY_KEYS, TRUST_KEYS } from '../constants/data.js'
 import { IPTC_DIGITAL_SOURCE_TYPE_KEYS } from '#constants/iptc'
 import type { C2paManifest, C2paProvenance } from './c2pa.js'
-import type { ManifestTrust } from './trust.js'
+import type { ManifestValidation } from './trust.js'
 
 export type PhaseKey = typeof PHASE_KEYS[keyof typeof PHASE_KEYS]
+export type IntegrityKey = typeof INTEGRITY_KEYS[keyof typeof INTEGRITY_KEYS]
 export type TrustKey = typeof TRUST_KEYS[keyof typeof TRUST_KEYS]
 
 export type MediaType = 'image' | 'video'
 
 export type ManifestId = string
 
-export type ManifestTypeKey = 'camera' | 'edit' | 'ai_create' | 'ai_edit' | 'unknown_create' | 'unknown'
+export type ManifestTypeKey = 'camera' | 'edit' | 'ai_create' | 'ai_edit' | 'unknown_create' | 'none' | 'unknown'
 
 export type ManifestTypeIptc = typeof IPTC_DIGITAL_SOURCE_TYPE_KEYS[number] | undefined;
 
@@ -66,7 +67,8 @@ export interface ManifestIdentity {
 export interface Manifest {
 	id?: ManifestId
 	type: ManifestType | null
-	trust: ManifestTrust
+	// Null on manifests added by SYW with nothing to validate, like unknown origin
+	validation: ManifestValidation | null
 	timestamp: ManifestTimestamp | null
 	// Null when the manifest has no CAWG identity
 	identity: ManifestIdentity | null
@@ -82,7 +84,6 @@ export interface Manifest {
 
 export interface SywData {
 	phase: PhaseKey
-	trust: TrustKey
 	types: ManifestType[]
 	mediaType: MediaType
 	manifests: Manifest[]

@@ -4,7 +4,7 @@
 	import type { ManifestDetailActionsProps } from 'syw-common/types/components'
 	import { getI18nContext } from '../../store/i18n.js'
 	import ManifestDetail from './ManifestDetail.svelte'
-	import DetailToggle from '../shared/DetailToggle.svelte'
+	import ManifestDetailToggle from './ManifestDetailToggle.svelte'
 	import Collapse from '../shared/Collapse.svelte'
 	import Tooltip from '../shared/Tooltip.svelte'
 
@@ -25,7 +25,7 @@
 		titleTooltip={getText($locale, 'actions', 'definition')}
 		className={classNames('ManifestDetailActions')}
 	>
-		<DetailToggle
+		<ManifestDetailToggle
 			open={listOpen}
 			value={getText($locale, 'actions', hasAi ? 'ai' : 'human')}
 			subtitle={getText($locale, 'actions', 'list', listOpen ? 'hide' : 'show')}

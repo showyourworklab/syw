@@ -1,8 +1,8 @@
 import type { Settings } from '@contentauth/c2pa-web'
 import type { Manifest as C2paManifest, ManifestStore, StatusCodes, ValidationStatus } from '@contentauth/c2pa-types'
-import { TRUST_KEYS } from '#constants/data'
-import { CAWG_IDENTITY_LABEL, TRUST_LIST_FETCH_TIMEOUT, TRUST_LIST_SCOPES, TRUST_LIST_REQUESTS_KEY, TRUST_LIST_SOURCES, TRUST_LIST_TYPES, TRUSTED_CODES, UNTRUSTED_CODES } from '#constants/trust'
-import type { ManifestSignatureTrustValue, ManifestTrust, TrustListScope, TrustListSettings, TrustListSource, TrustListType } from '#types/trust'
+import { INTEGRITY_KEYS, TRUST_KEYS } from '#constants/data'
+import { CAWG_IDENTITY_LABEL, TRUST_LIST_FETCH_TIMEOUT, TRUST_LIST_SCOPES, TRUST_LIST_REQUESTS_KEY, TRUST_LIST_SOURCES, TRUST_LIST_TYPES, EXPIRED_CODES, TRUSTED_CODES, UNTRUSTED_CODES } from '#constants/trust'
+import type { ManifestValidation, TrustListScope, TrustListSettings, TrustListSource, TrustListType } from '#types/trust'
 
 /**
  * Gets the page-wide map of trust list requests
@@ -99,54 +99,65 @@ export const getLegacyTrustSettings = async (): Promise<Settings> => {
 		))
 		return [scope, Object.fromEntries(lists.filter(([, value]) => value.length > 0))] as const
 	}))
-	return Object.fromEntries(entries)
+	// Leave out scopes without legacy lists, like CAWG, so they keep the C2PA instance's settings
+	return Object.fromEntries(entries.filter(([, value]) => Object.keys(value).length > 0))
 }
 
 /**
- * Gets a manifest's trust from its validation status codes
+ * Gets a manifest's validation from its status codes
  * @function
  * @param manifest - C2paManifest entry
- * @param validation - Validation status codes of the manifest
- * @param legacyValidation - Validation status codes of the manifest with legacy trust lists
- * @return Manifest trust
+ * @param statusCodes - Status codes of the manifest
+ * @param legacyStatusCodes - Status codes of the manifest with legacy trust lists
+ * @return Manifest validation
  */
-export const getManifestTrust = (
+export const getManifestValidation = (
 	manifest: C2paManifest,
-	validation: Pick<StatusCodes, 'success' | 'failure'> | null,
-	legacyValidation: Pick<StatusCodes, 'success' | 'failure'> | null = null
-): ManifestTrust => {
-	if(!validation) return { value: TRUST_KEYS.UNKNOWN, identity: null }
+	statusCodes: Pick<StatusCodes, 'success' | 'failure'> | null,
+	legacyStatusCodes: Pick<StatusCodes, 'success' | 'failure'> | null = null
+): ManifestValidation => {
+	if(!statusCodes) return { integrity: INTEGRITY_KEYS.UNAVAILABLE, signer: null, identity: null }
+	// An untrusted signer doesn't change whether the details match what was signed
+	const isInvalid = statusCodes.failure.some(({ code }) => !UNTRUSTED_CODES.includes(code))
+	// Nothing about an invalid manifest is shown, including who signed it
+	if(isInvalid) return { integrity: INTEGRITY_KEYS.INVALID, signer: null, identity: null }
 	const hasSuccess = (codes: Pick<StatusCodes, 'success'> | null, code: string) =>
 		Boolean(codes?.success.some(status => status.code === code))
-	const getValue = (codes: Pick<StatusCodes, 'success' | 'failure'>) =>
-		codes.failure.some(({ code }) => !UNTRUSTED_CODES.includes(code)) ? TRUST_KEYS.INVALID
-		: hasSuccess(codes, TRUSTED_CODES.CLAIM) ? TRUST_KEYS.TRUSTED
-		: TRUST_KEYS.VALID
 	// The legacy read has more trust lists, so it decides anything the first read didn't trust
-	const value = getValue(validation)
-	const legacyValue = value !== TRUST_KEYS.TRUSTED && legacyValidation ? getValue(legacyValidation) : null
+	const getTrust = (code: string) =>
+		hasSuccess(statusCodes, code) ? TRUST_KEYS.TRUSTED
+		: hasSuccess(legacyStatusCodes, code) ? TRUST_KEYS.TRUSTED_LEGACY
+		: TRUST_KEYS.UNTRUSTED
 	const hasIdentity = manifest.assertions?.some(({ label }) => label.startsWith(CAWG_IDENTITY_LABEL))
-	const identity: ManifestSignatureTrustValue =
-		hasSuccess(validation, TRUSTED_CODES.IDENTITY) ? TRUST_KEYS.TRUSTED
-		: hasSuccess(legacyValidation, TRUSTED_CODES.IDENTITY) ? TRUST_KEYS.TRUSTED_LEGACY
-		: TRUST_KEYS.VALID
 	return {
-		value: legacyValue === TRUST_KEYS.TRUSTED ? TRUST_KEYS.TRUSTED_LEGACY : legacyValue ?? value,
-		identity: hasIdentity ? identity : null,
+		integrity: INTEGRITY_KEYS.VALID,
+		// An expired certificate can't be trusted, even if it's on a trust list
+		signer: statusCodes.failure.some(({ code }) => code === EXPIRED_CODES.CLAIM)
+			? TRUST_KEYS.UNTRUSTED_EXPIRED
+			: getTrust(TRUSTED_CODES.CLAIM),
+		identity: hasIdentity ? getTrust(TRUSTED_CODES.IDENTITY) : null,
 	}
 }
 
 /**
- * Gets a manifest's validation status codes from a manifest store
+ * Checks if a manifest's details still match what was signed, which is the only case its details are shown
+ * @function
+ * @param validation - Manifest validation
+ * @return True if valid
+ */
+export const isManifestValid = (validation: ManifestValidation | null | undefined): boolean =>
+	validation?.integrity === INTEGRITY_KEYS.VALID
+
+/**
+ * Gets a manifest's status codes from a manifest store
  *
- * An ingredient's results are those recorded when it was added, plus what this validation found
- * differently, as described in https://spec.c2pa.org/specifications/specifications/2.4/specs/C2PA_Specification.html#_performing_recursive_validation
+ * An ingredient's results are those recorded when it was added, plus what this validation found differently, as described in https://spec.c2pa.org/specifications/specifications/2.4/specs/C2PA_Specification.html#_performing_recursive_validation
  * @function
  * @param manifest - C2paManifest entry
  * @param manifestStore - C2PA manifest store
- * @return Validation status codes
+ * @return Status codes
  */
-export const getManifestValidation = (manifest: C2paManifest, manifestStore: ManifestStore | null | undefined): StatusCodes | null => {
+export const getManifestStatusCodes = (manifest: C2paManifest, manifestStore: ManifestStore | null | undefined): StatusCodes | null => {
 	const { validation_results, active_manifest, manifests } = manifestStore ?? {}
 	if(!manifest.label) return null
 	if(manifest.label === active_manifest) return validation_results?.activeManifest ?? null
@@ -183,9 +194,7 @@ const mergeStatusCodes = (recorded: StatusCodes, deltas: StatusCodes): StatusCod
 
 /**
  * Checks if every signature in a manifest store is trusted, so legacy trust lists don't need checking
- *
- * Ingredient results only list what changed since the ingredient was added, so an ingredient
- * that isn't trusted has no trusted claim code rather than an untrusted one
+ * Ingredient results only list what changed since the ingredient was added, so an ingredient that isn't trusted has no trusted claim code rather than an untrusted one
  * @function
  * @param manifestStore - C2PA manifest store
  * @return Whether the manifest store is fully trusted
@@ -193,10 +202,10 @@ const mergeStatusCodes = (recorded: StatusCodes, deltas: StatusCodes): StatusCod
 export const isFullyTrusted = (manifestStore: ManifestStore): boolean => {
 	if(manifestStore.validation_state !== 'Trusted') return false
 	return Object.values(manifestStore.manifests ?? {}).every(manifest => {
-		const validation = getManifestValidation(manifest, manifestStore)
-		if(!validation) return true
-		const isClaimTrusted = validation.success.some(({ code }) => code === TRUSTED_CODES.CLAIM)
-		const hasUntrusted = validation.failure.some(({ code }) => UNTRUSTED_CODES.includes(code))
+		const statusCodes = getManifestStatusCodes(manifest, manifestStore)
+		if(!statusCodes) return true
+		const isClaimTrusted = statusCodes.success.some(({ code }) => code === TRUSTED_CODES.CLAIM)
+		const hasUntrusted = statusCodes.failure.some(({ code }) => UNTRUSTED_CODES.includes(code))
 		return isClaimTrusted && !hasUntrusted
 	})
 }

@@ -1,4 +1,4 @@
-import type { TrustKey, Manifest, ManifestFieldKey, ManifestLocation, ManifestType } from './data.js'
+import type { Manifest, ManifestFieldKey, ManifestLocation, ManifestType } from './data.js'
 import type { IconType } from './ui.js'
 
 // Views of a manifest's content, toggled by tabs
@@ -11,7 +11,6 @@ export interface ComponentProps {
 
 export interface BadgeProps extends ComponentProps {
 	type?: ManifestType | null
-	status?: TrustKey
 }
 
 export interface ManifestDetailProps extends ComponentProps {
@@ -80,6 +79,10 @@ export interface ManifestContentTabsProps extends ComponentProps {
 export interface ManifestContentTabsToggleProps extends ComponentProps {
 	manifest: Manifest
 	keys: readonly ManifestContentTabKey[]
+}
+
+export interface ManifestEmptyProps extends ComponentProps {
+	manifest: Manifest
 }
 
 export interface ManifestInfoProps extends ComponentProps {

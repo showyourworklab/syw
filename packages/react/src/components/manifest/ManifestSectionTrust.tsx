@@ -11,6 +11,7 @@ function ManifestSectionTrust({
 	const { mediaType } = useDataContext()
 
 	const typeKey = manifest.type?.key ?? 'unknown'
+	const signer = manifest.validation?.signer
 
 	return (
 		<ManifestSection
@@ -19,16 +20,18 @@ function ManifestSectionTrust({
 			definition={getText('section', 'trust', 'definition', mediaType)}
 			className={classNames('ManifestSectionTrust')}
 		>
-			<ManifestDetail
-				title={getText('trust', manifest.trust.value)}
-				titleIcon={manifest.trust.value}
-				titleTooltip={getText('trust', 'definition')}
-				footer={getText('trust', manifest.trust.value, 'definition')}
-				className={classNames(
-					'ManifestSectionTrustDetail',
-					`ManifestSectionTrustDetail_${manifest.trust.value}`,
-				)}
-			/>
+			{signer ?
+				<ManifestDetail
+					title={getText('trust', signer)}
+					titleIcon={signer}
+					titleTooltip={getText('trust', 'definition')}
+					footer={getText('trust', signer, 'definition')}
+					className={classNames(
+						'ManifestSectionTrustDetail',
+						`ManifestSectionTrustDetail_${signer}`,
+					)}
+				/>
+			: null}
 			{manifest.signator ?
 				<ManifestDetail
 					title={getText('signator', typeKey)}

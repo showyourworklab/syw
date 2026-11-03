@@ -5,7 +5,7 @@
 	import { getI18nContext } from '../../store/i18n.js'
 	import { getDataContext } from '../../store/data.js'
 	import ManifestDetail from './ManifestDetail.svelte'
-	import DetailToggle from '../shared/DetailToggle.svelte'
+	import ManifestDetailToggle from './ManifestDetailToggle.svelte'
 	import Collapse from '../shared/Collapse.svelte'
 	import Map from '../shared/Map.svelte'
 
@@ -31,7 +31,7 @@
 		titleTooltip={getText($locale, 'location', 'coordinates', 'definition', $mediaType)}
 		className={classNames('ManifestDetailLocation')}
 	>
-		<DetailToggle
+		<ManifestDetailToggle
 			open={mapOpen}
 			value={formatCoordinates(manifest.location)}
 			subtitle={getText($locale, 'location', 'map', mapOpen ? 'hide' : 'show')}

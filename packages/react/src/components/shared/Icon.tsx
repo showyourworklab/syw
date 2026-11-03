@@ -1,4 +1,4 @@
-import { Info, Image, Slash, BadgeCheck, IdCard, ReceiptText, Shield, CirclePlus, Clock, KeyRound, List, MapPin, User, Camera, Ellipsis, SquarePen, Sparkles, WandSparkles, ImageOff, X, ChevronDown, ChevronUp, CircleQuestionMark, Icon as LucideGenericIconComponent, ShieldCheck, ShieldX, ShieldAlert, ShieldQuestionMark } from 'lucide-react'
+import { Info, Image, Slash, BadgeCheck, IdCard, ReceiptText, Shield, CirclePlus, Clock, KeyRound, List, MapPin, User, Camera, SquarePen, Sparkles, WandSparkles, ImageOff, X, ChevronDown, ChevronUp, CircleQuestionMark, Icon as LucideGenericIconComponent, ShieldCheck, ShieldX, ShieldAlert, ShieldQuestionMark } from 'lucide-react'
 import type { IconNode, LucideIcon } from 'lucide-react'
 import { ICON_DEFAULT_SIZE, ICON_DEFAULT_STROKE_WIDTH, SYW_ICONS } from 'syw-common/constants/ui'
 import type { IconProps } from 'syw-common/types/components'
@@ -6,21 +6,23 @@ import type { LucideIconType, SywIconType } from 'syw-common/types/ui'
 import { classNames, isSywIcon } from 'syw-common/helpers/ui'
 
 const LUCIDE_ICONS: Record<LucideIconType, LucideIcon> = {
+	// Integrity
+	valid: ShieldCheck,
+	invalid: ShieldX,
+	unavailable: ShieldQuestionMark,
 	// Trust
-	validating: Ellipsis,
 	trusted: ShieldCheck,
 	trusted_legacy: ShieldAlert,
-	valid: ShieldAlert,
-	invalid: ShieldX,
-	unknown: ShieldQuestionMark,
-	none: ShieldX,
+	untrusted: ShieldAlert,
+	untrusted_expired: ShieldAlert,
 	// Type
 	camera: Camera,
 	edit: SquarePen,
 	ai_create: Sparkles,
 	ai_edit: WandSparkles,
+	unknown: CirclePlus,
 	unknown_create: Slash,
-	unknown_type: CirclePlus,
+	none: Slash,
 	// Detail
 	timestamp: Clock,
 	producer: User,
