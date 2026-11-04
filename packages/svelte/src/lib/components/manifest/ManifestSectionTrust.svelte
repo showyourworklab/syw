@@ -5,7 +5,7 @@
 	import { getDataContext } from '$lib/store/data.js'
 	import ManifestDetail from '$lib/components/manifest/ManifestDetail.svelte'
 	import ManifestSection from '$lib/components/manifest/ManifestSection.svelte'
-	import Tooltip from '$lib/components/shared/Tooltip.svelte'
+	import Icon from '$lib/components/shared/Icon.svelte'
 
 	const { locale, getText } = getI18nContext()
 	const { mediaType } = getDataContext()
@@ -28,7 +28,7 @@
 		<ManifestDetail
 			title={getText($locale, 'trust')}
 			titleIcon={signer}
-			definition={getText($locale, 'trust', 'definition')}
+			definition={getText($locale, 'trust', signer, 'definition')}
 			className={classNames(
 				'ManifestSectionTrustDetail',
 				`ManifestSectionTrustDetail_${signer}`,
@@ -45,15 +45,15 @@
 					<div
 						class={classNames('ManifestSectionTrustSignator')}
 					>
-						<Tooltip
-							content={getText($locale, 'signator', typeKey, 'definition', $mediaType)}
+						<Icon
+							type="signator"
+							className={classNames('ManifestSectionTrustSignatorIcon')}
+						/>
+						<span
+							class={classNames('ManifestSectionTrustSignatorTitle')}
 						>
-							<span
-								class={classNames('ManifestSectionTrustSignatorTitle')}
-							>
-								{getText($locale, 'signator', typeKey)}
-							</span>
-						</Tooltip>
+							{getText($locale, 'signator', typeKey)}
+						</span>
 						<span
 							class={classNames('ManifestSectionTrustSignatorValue')}
 						>
@@ -61,11 +61,6 @@
 						</span>
 					</div>
 				{/if}
-				<p
-					class={classNames('ManifestSectionTrustDefinition')}
-				>
-					{getText($locale, 'trust', signer, 'definition')}
-				</p>
 			</div>
 		</ManifestDetail>
 	{/if}

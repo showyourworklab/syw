@@ -4,8 +4,7 @@ import { classNames } from 'syw-common/helpers/ui'
 import { useI18nContext, useDataContext } from '$src/context'
 import ManifestDetail from '$src/components/manifest/ManifestDetail'
 import ManifestSection from '$src/components/manifest/ManifestSection'
-import Tooltip from '$src/components/shared/Tooltip'
-import Icon from '../shared/Icon'
+import Icon from '$src/components/shared/Icon'
 
 function ManifestSectionTrust({
 	manifest

@@ -5,11 +5,14 @@
 	import { getDataContext } from '../../store/data.js'
 	import ManifestDetail from './ManifestDetail.svelte'
 	import ManifestSection from './ManifestSection.svelte'
+	import Icon from '../shared/Icon.svelte'
 
 	const { locale, getText } = getI18nContext()
 	const { mediaType } = getDataContext()
 
 	const { manifest }: ManifestSectionTrustProps = $props()
+
+	let infoOpen = $state(false)
 
 	const typeKey = $derived(manifest.type?.key ?? 'unknown')
 	const signer = $derived(manifest.validation?.signer)
@@ -23,24 +26,42 @@
 >
 	{#if signer}
 		<ManifestDetail
-			title={getText($locale, 'trust', signer)}
+			title={getText($locale, 'trust')}
 			titleIcon={signer}
-			titleTooltip={getText($locale, 'trust', 'definition')}
-			footer={getText($locale, 'trust', signer, 'definition')}
+			definition={getText($locale, 'trust', signer, 'definition')}
 			className={classNames(
 				'ManifestSectionTrustDetail',
 				`ManifestSectionTrustDetail_${signer}`,
 			)}
-		/>
-	{/if}
-	{#if manifest.signator}
-		<ManifestDetail
-			title={getText($locale, 'signator', typeKey)}
-			titleIcon="signator"
-			titleTooltip={getText($locale, 'signator', typeKey, 'definition', $mediaType)}
-			className={classNames('ManifestSectionTrustSignator')}
+			open={infoOpen}
+			value={getText($locale, 'trust', signer)}
+			prompt={getText($locale, 'trust', 'info', infoOpen ? 'hide' : 'show')}
+			onToggle={() => infoOpen = !infoOpen}
 		>
-			{manifest.signator}
+			<div
+				class={classNames('ManifestSectionTrustInfo')}
+			>
+				{#if manifest.signator}
+					<div
+						class={classNames('ManifestSectionTrustSignator')}
+					>
+						<Icon
+							type="signator"
+							className={classNames('ManifestSectionTrustSignatorIcon')}
+						/>
+						<span
+							class={classNames('ManifestSectionTrustSignatorTitle')}
+						>
+							{getText($locale, 'signator', typeKey)}
+						</span>
+						<span
+							class={classNames('ManifestSectionTrustSignatorValue')}
+						>
+							{manifest.signator}
+						</span>
+					</div>
+				{/if}
+			</div>
 		</ManifestDetail>
 	{/if}
 </ManifestSection>

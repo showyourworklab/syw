@@ -1,30 +1,31 @@
 <script lang="ts">
-	import { Icon as LucideGenericIconComponent, ShieldAlert, ShieldCheck, ShieldQuestionMark, ShieldX } from '@lucide/svelte'
+	import { Icon as LucideGenericIconComponent } from '@lucide/svelte'
 	import type { LucideIcon } from '@lucide/svelte'
-	import Camera from '@lucide/svelte/icons/camera'
-	import Check from '@lucide/svelte/icons/check'
-	import SquarePen from '@lucide/svelte/icons/square-pen'
-	import Sparkles from '@lucide/svelte/icons/sparkles'
-	import WandSparkles from '@lucide/svelte/icons/wand-sparkles'
-	import TriangleAlert from '@lucide/svelte/icons/triangle-alert'
-	import Slash from '@lucide/svelte/icons/slash'
-	import CirclePlus from '@lucide/svelte/icons/circle-plus'
-	import Clock from '@lucide/svelte/icons/clock'
-	import User from '@lucide/svelte/icons/user'
-	import KeyRound from '@lucide/svelte/icons/key-round'
-	import MapPin from '@lucide/svelte/icons/map-pin'
-	import List from '@lucide/svelte/icons/list'
-	import BadgeCheck from '@lucide/svelte/icons/badge-check'
-	import IdCard from '@lucide/svelte/icons/id-card'
-	import ReceiptText from '@lucide/svelte/icons/receipt-text'
-	import Shield from '@lucide/svelte/icons/shield'
-	import Info from '@lucide/svelte/icons/info'
+	import ShieldCheckIcon from '@lucide/svelte/icons/shield-check'
+	import ShieldXIcon from '@lucide/svelte/icons/shield-x'
+	import ShieldQuestionMarkIcon from '@lucide/svelte/icons/shield-question-mark'
+	import ShieldAlertIcon from '@lucide/svelte/icons/shield-alert'
+	import CameraIcon from '@lucide/svelte/icons/camera'
+	import SquarePenIcon from '@lucide/svelte/icons/square-pen'
+	import SparklesIcon from '@lucide/svelte/icons/sparkles'
+	import WandSparklesIcon from '@lucide/svelte/icons/wand-sparkles'
+	import CirclePlusIcon from '@lucide/svelte/icons/circle-plus'
+	import SlashIcon from '@lucide/svelte/icons/slash'
+	import ClockIcon from '@lucide/svelte/icons/clock'
+	import UserIcon from '@lucide/svelte/icons/user'
+	import KeyRoundIcon from '@lucide/svelte/icons/key-round'
+	import MapPinIcon from '@lucide/svelte/icons/map-pin'
+	import ListIcon from '@lucide/svelte/icons/list'
+	import BadgeCheckIcon from '@lucide/svelte/icons/badge-check'
+	import IdCardIcon from '@lucide/svelte/icons/id-card'
+	import ReceiptTextIcon from '@lucide/svelte/icons/receipt-text'
+	import ShieldIcon from '@lucide/svelte/icons/shield'
+	import InfoIcon from '@lucide/svelte/icons/info'
 	import ImageIcon from '@lucide/svelte/icons/image'
-	import ImageOff from '@lucide/svelte/icons/image-off'
-	import ChevronUp from '@lucide/svelte/icons/chevron-up'
-	import ChevronDown from '@lucide/svelte/icons/chevron-down'
-	import CircleQuestionMark from '@lucide/svelte/icons/circle-question-mark'
-	import X from '@lucide/svelte/icons/x'
+	import ImageOffIcon from '@lucide/svelte/icons/image-off'
+	import ChevronUpIcon from '@lucide/svelte/icons/chevron-up'
+	import ChevronDownIcon from '@lucide/svelte/icons/chevron-down'
+	import XIcon from '@lucide/svelte/icons/x'
 	import { ICON_DEFAULT_SIZE, ICON_DEFAULT_STROKE_WIDTH, SYW_ICONS } from 'syw-common/constants/ui'
 	import { classNames, isSywIcon } from 'syw-common/helpers/ui'
 	import type { IconProps } from 'syw-common/types/components'
@@ -39,42 +40,42 @@
 
 	const LUCIDE_ICONS: Record<LucideIconType, LucideIcon> = {
 		// Integrity
-		valid: ShieldCheck,
-		invalid: ShieldX,
-		unavailable: ShieldQuestionMark,
+		valid: ShieldCheckIcon,
+		invalid: ShieldXIcon,
+		unavailable: ShieldQuestionMarkIcon,
 		// Trust
-		trusted: ShieldCheck,
-		trusted_legacy: ShieldAlert,
-		untrusted: ShieldAlert,
-		untrusted_expired: ShieldAlert,
+		trusted: ShieldCheckIcon,
+		trusted_legacy: ShieldAlertIcon,
+		untrusted: ShieldAlertIcon,
+		untrusted_expired: ShieldAlertIcon,
 		// Type
-		camera: Camera,
-		edit: SquarePen,
-		ai_create: Sparkles,
-		ai_edit: WandSparkles,
-		unknown: CirclePlus,
-		unknown_create: Slash,
-		none: Slash,
+		camera: CameraIcon,
+		edit: SquarePenIcon,
+		ai_create: SparklesIcon,
+		ai_edit: WandSparklesIcon,
+		unknown: CirclePlusIcon,
+		unknown_create: SlashIcon,
+		none: SlashIcon,
 		// Detail
-		timestamp: Clock,
-		producer: User,
-		signator: KeyRound,
-		location: MapPin,
-		actions: List,
-		identity: BadgeCheck,
+		timestamp: ClockIcon,
+		producer: UserIcon,
+		signator: KeyRoundIcon,
+		location: MapPinIcon,
+		actions: ListIcon,
+		identity: BadgeCheckIcon,
 		// Section
-		section_identity: IdCard,
-		section_primary: ReceiptText,
-		section_trust: Shield,
+		section_identity: IdCardIcon,
+		section_primary: ReceiptTextIcon,
+		section_trust: ShieldIcon,
 		// Tab
-		tab_info: Info,
+		tab_info: InfoIcon,
 		tab_image: ImageIcon,
 		// Misc.
-		missing: ImageOff,
-		up: ChevronUp,
-		down: ChevronDown,
-		info: CircleQuestionMark,
-		close: X,
+		missing: ImageOffIcon,
+		up: ChevronUpIcon,
+		down: ChevronDownIcon,
+		info: InfoIcon,
+		close: XIcon,
 	}
 
 	const iconProps = $derived({

@@ -44,9 +44,8 @@
 	<ManifestDetail
 		title={type ? getText($locale, type, manifestType(), $mediaType) : ''}
 		titleIcon={getManifestDetailIcon(type)}
-		titleTooltip={getText($locale, type, manifestType(), "definition", $mediaType)}
+		definition={getText($locale, type, manifestType(), "definition", $mediaType)}
+		value={formattedValue() as string}
 		className={classNames('ManifestDetailPrimary')}
-	>
-		{formattedValue()}
-	</ManifestDetail>
+	/>
 {/if}

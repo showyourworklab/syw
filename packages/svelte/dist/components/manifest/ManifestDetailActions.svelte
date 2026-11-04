@@ -4,9 +4,7 @@
 	import type { ManifestDetailActionsProps } from 'syw-common/types/components'
 	import { getI18nContext } from '../../store/i18n.js'
 	import ManifestDetail from './ManifestDetail.svelte'
-	import ManifestDetailToggle from './ManifestDetailToggle.svelte'
-	import Collapse from '../shared/Collapse.svelte'
-	import Tooltip from '../shared/Tooltip.svelte'
+	import ManifestDetailActionsItem from './ManifestDetailActionsItem.svelte'
 
 	const { locale, getText } = getI18nContext()
 
@@ -15,47 +13,28 @@
 	let listOpen = $state(false)
 
 	const actions = $derived(getManifestDisplayActions(manifest))
-	const hasAi = $derived(actions.some(action => isIptcDigitalSourceTypeAi(action.iptc)))
+	const actionsIncludeAi = $derived(actions.some(action => isIptcDigitalSourceTypeAi(action.iptc)))
 </script>
 
 {#if actions.length}
 	<ManifestDetail
 		title={getText($locale, 'actions')}
 		titleIcon="actions"
-		titleTooltip={getText($locale, 'actions', 'definition')}
+		definition={getText($locale, 'actions', 'definition')}
 		className={classNames('ManifestDetailActions')}
+		open={listOpen}
+		value={getText($locale, 'actions', actionsIncludeAi ? 'ai' : 'human')}
+		prompt={getText($locale, 'actions', 'list', listOpen ? 'hide' : 'show')}
+		onToggle={() => listOpen = !listOpen}
 	>
-		<ManifestDetailToggle
-			open={listOpen}
-			value={getText($locale, 'actions', hasAi ? 'ai' : 'human')}
-			subtitle={getText($locale, 'actions', 'list', listOpen ? 'hide' : 'show')}
-			onToggle={() => listOpen = !listOpen}
-		/>
-		<Collapse
-			open={listOpen}
+		<ul
+			class={classNames('ManifestDetailActionsList')}
 		>
-			<ul
-				class={classNames('ManifestDetailActionsList')}
-			>
-				{#each actions as action}
-					<li
-						class={classNames('ManifestDetailActionsListItem')}
-					>
-						<Tooltip
-							content={getText($locale, 'action', action.key, 'definition')}
-						>
-							<span>
-								{getText($locale, 'action', action.key)}
-							</span>
-						</Tooltip>
-						{#if isIptcDigitalSourceTypeAi(action.iptc)}
-							<span>
-								{getText($locale, 'action', 'ai')}
-							</span>
-						{/if}
-					</li>
-				{/each}
-			</ul>
-		</Collapse>
+			{#each actions as action}
+				<ManifestDetailActionsItem
+					action={action}
+				/>
+			{/each}
+		</ul>
 	</ManifestDetail>
 {/if}

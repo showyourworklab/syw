@@ -5,8 +5,6 @@
 	import { getI18nContext } from '../../store/i18n.js'
 	import { getDataContext } from '../../store/data.js'
 	import ManifestDetail from './ManifestDetail.svelte'
-	import ManifestDetailToggle from './ManifestDetailToggle.svelte'
-	import Collapse from '../shared/Collapse.svelte'
 	import Map from '../shared/Map.svelte'
 
 	const { locale, getText } = getI18nContext()
@@ -28,23 +26,17 @@
 	<ManifestDetail
 		title={getText($locale, 'location', 'coordinates')}
 		titleIcon="location"
-		titleTooltip={getText($locale, 'location', 'coordinates', 'definition', $mediaType)}
+		definition={getText($locale, 'location', 'coordinates', 'definition', $mediaType)}
 		className={classNames('ManifestDetailLocation')}
+		open={mapOpen}
+		value={formatCoordinates(manifest.location)}
+		prompt={getText($locale, 'location', 'map', mapOpen ? 'hide' : 'show')}
+		onToggle={handleMapToggle}
 	>
-		<ManifestDetailToggle
-			open={mapOpen}
-			value={formatCoordinates(manifest.location)}
-			subtitle={getText($locale, 'location', 'map', mapOpen ? 'hide' : 'show')}
-			onToggle={handleMapToggle}
-		/>
-		<Collapse
-			open={mapOpen}
-		>
-			{#if mapMounted}
-				<Map
-					location={manifest.location}
-				/>
-			{/if}
-		</Collapse>
+		{#if mapMounted}
+			<Map
+				location={manifest.location}
+			/>
+		{/if}
 	</ManifestDetail>
 {/if}
