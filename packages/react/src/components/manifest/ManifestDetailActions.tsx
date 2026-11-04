@@ -4,7 +4,6 @@ import { isIptcDigitalSourceTypeAi } from 'syw-common/helpers/iptc'
 import type { ManifestDetailActionsProps } from 'syw-common/types/components'
 import { useI18nContext } from '$src/context'
 import ManifestDetail from '$src/components/manifest/ManifestDetail'
-import DetailToggle from '$src/components/manifest/ManifestDetailToggle'
 import Tooltip from '$src/components/shared/Tooltip'
 
 function ManifestDetailActions({ manifest }: ManifestDetailActionsProps) {
@@ -21,39 +20,36 @@ function ManifestDetailActions({ manifest }: ManifestDetailActionsProps) {
 		<ManifestDetail
 			title={getText('actions')}
 			titleIcon="actions"
-			titleTooltip={getText('actions', 'definition')}
+			definition={getText('actions', 'definition')}
 			className={classNames('ManifestDetailActions')}
+			open={listOpen}
+			value={getText('actions', hasAi ? 'ai' : 'human')}
+			prompt={getText('actions', 'list', listOpen ? 'hide' : 'show')}
+			onToggle={() => setListOpen(!listOpen)}
 		>
-			<DetailToggle
-				open={listOpen}
-				value={getText('actions', hasAi ? 'ai' : 'human')}
-				subtitle={getText('actions', 'list', listOpen ? 'hide' : 'show')}
-				onToggle={() => setListOpen(!listOpen)}
+			<ul
+				className={classNames('ManifestDetailActionsList')}
 			>
-				<ul
-					className={classNames('ManifestDetailActionsList')}
-				>
-					{actions.map((action, index) =>
-						<li
-							key={index}
-							className={classNames('ManifestDetailActionsListItem')}
+				{actions.map((action, index) =>
+					<li
+						key={index}
+						className={classNames('ManifestDetailActionsListItem')}
+					>
+						<Tooltip
+							content={getText('action', action.key, 'definition')}
 						>
-							<Tooltip
-								content={getText('action', action.key, 'definition')}
-							>
-								<span>
-									{getText('action', action.key)}
-								</span>
-							</Tooltip>
-							{isIptcDigitalSourceTypeAi(action.iptc) ?
-								<span>
-									{getText('action', 'ai')}
-								</span>
-							: null}
-						</li>
-					)}
-				</ul>
-			</DetailToggle>
+							<span>
+								{getText('action', action.key)}
+							</span>
+						</Tooltip>
+						{isIptcDigitalSourceTypeAi(action.iptc) ?
+							<span>
+								{getText('action', 'ai')}
+							</span>
+						: null}
+					</li>
+				)}
+			</ul>
 		</ManifestDetail>
 	)
 }

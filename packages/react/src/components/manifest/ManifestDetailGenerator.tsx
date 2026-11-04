@@ -15,11 +15,9 @@ function ManifestDetailGenerator({ manifest }: ManifestDetailGeneratorProps) {
 		<ManifestDetail
 			title={getText('generator', typeKey)}
 			titleIcon={typeKey}
-			titleTooltip={getText('generator', typeKey, 'definition', mediaType)}
-			className={classNames('ManifestDetailGenerator')}
-		>
-			{manifest.generator.map((entry, index) =>
-				<div
+			definition={getText('generator', typeKey, 'definition', mediaType)}
+			value={manifest.generator.map((entry, index) =>
+				<span
 					key={index}
 					className={classNames('ManifestDetailGeneratorEntry')}
 				>
@@ -33,9 +31,10 @@ function ManifestDetailGenerator({ manifest }: ManifestDetailGeneratorProps) {
 					<span>
 						{entry.name}
 					</span>
-				</div>
+				</span>
 			)}
-		</ManifestDetail>
+			className={classNames('ManifestDetailGenerator')}
+		/>
 	)
 }
 

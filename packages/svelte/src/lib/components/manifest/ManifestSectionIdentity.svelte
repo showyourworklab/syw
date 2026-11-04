@@ -19,10 +19,9 @@
 		<ManifestDetail
 			title={getText($locale, 'identity', 'name')}
 			titleIcon="identity"
-			titleTooltip={getText($locale, 'identity', 'name', 'definition')}
+			definition={getText($locale, 'identity', 'name', 'definition')}
+			value={manifest.identity.name}
 			className={classNames('ManifestSectionIdentityName')}
-		>
-			{manifest.identity.name}
-		</ManifestDetail>
+		/>
 	</ManifestSection>
 {/if}

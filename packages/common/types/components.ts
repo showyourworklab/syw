@@ -14,18 +14,18 @@ export interface BadgeProps extends ComponentProps {
 }
 
 export interface ManifestDetailProps extends ComponentProps {
+	// Controls whether it's open, otherwise the detail keeps its own state
+	open?: boolean
+	// Makes the detail toggleable, with its value up front and its definition and children shown when open
 	title?: string | null
-	titleTooltip?: string | null
+	definition?: string | null
 	titleIcon?: IconType | null
-	noBackground?: boolean
-	footer?: string | null
-}
-
-export interface ManifestDetailToggleProps extends ComponentProps {
-	open: boolean
-	value: string | null
-	subtitle?: string | null
-	onToggle: () => void
+	// A string or rendered content, like the generator's entries
+	value?: any
+	// Hint below the value, like "Click to show map"
+	prompt?: string | null
+	// Called on toggle, alongside open to control it from outside
+	onToggle?: () => void
 }
 
 export interface CollapseProps extends ComponentProps {

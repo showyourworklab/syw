@@ -17,11 +17,10 @@ function ManifestSectionIdentity({ manifest }: ManifestSectionIdentityProps) {
 				<ManifestDetail
 					title={getText('identity', 'name')}
 					titleIcon="identity"
-					titleTooltip={getText('identity', 'name', 'definition')}
+					definition={getText('identity', 'name', 'definition')}
+					value={manifest.identity.name}
 					className={classNames('ManifestSectionIdentityName')}
-				>
-					{manifest.identity.name}
-				</ManifestDetail>
+				/>
 			</ManifestSection>
 		: null
 	)

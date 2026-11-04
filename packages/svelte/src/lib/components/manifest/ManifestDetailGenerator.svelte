@@ -17,24 +17,26 @@
 	<ManifestDetail
 		title={getText($locale, 'generator', typeKey)}
 		titleIcon={typeKey}
-		titleTooltip={getText($locale, 'generator', typeKey, 'definition', $mediaType)}
+		definition={getText($locale, 'generator', typeKey, 'definition', $mediaType)}
 		className={classNames('ManifestDetailGenerator')}
 	>
-		{#each manifest.generator as entry}
-			<div
-				class={classNames('ManifestDetailGeneratorEntry')}
-			>
-				{#if entry.icon}
-					<img
-						alt=""
-						src={entry.icon}
-						class={classNames('ManifestDetailGeneratorIcon')}
-					/>
-				{/if}
-				<span>
-					{entry.name}
+		{#snippet value()}
+			{#each manifest.generator ?? [] as entry}
+				<span
+					class={classNames('ManifestDetailGeneratorEntry')}
+				>
+					{#if entry.icon}
+						<img
+							alt=""
+							src={entry.icon}
+							class={classNames('ManifestDetailGeneratorIcon')}
+						/>
+					{/if}
+					<span>
+						{entry.name}
+					</span>
 				</span>
-			</div>
-		{/each}
+			{/each}
+		{/snippet}
 	</ManifestDetail>
 {/if}

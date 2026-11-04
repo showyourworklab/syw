@@ -4,7 +4,6 @@
 	import type { ManifestDetailActionsProps } from 'syw-common/types/components'
 	import { getI18nContext } from '$lib/store/i18n.js'
 	import ManifestDetail from '$lib/components/manifest/ManifestDetail.svelte'
-	import ManifestDetailToggle from '$lib/components/manifest/ManifestDetailToggle.svelte'
 	import Tooltip from '$lib/components/shared/Tooltip.svelte'
 
 	const { locale, getText } = getI18nContext()
@@ -21,37 +20,34 @@
 	<ManifestDetail
 		title={getText($locale, 'actions')}
 		titleIcon="actions"
-		titleTooltip={getText($locale, 'actions', 'definition')}
+		definition={getText($locale, 'actions', 'definition')}
 		className={classNames('ManifestDetailActions')}
+		open={listOpen}
+		value={getText($locale, 'actions', hasAi ? 'ai' : 'human')}
+		prompt={getText($locale, 'actions', 'list', listOpen ? 'hide' : 'show')}
+		onToggle={() => listOpen = !listOpen}
 	>
-		<ManifestDetailToggle
-			open={listOpen}
-			value={getText($locale, 'actions', hasAi ? 'ai' : 'human')}
-			subtitle={getText($locale, 'actions', 'list', listOpen ? 'hide' : 'show')}
-			onToggle={() => listOpen = !listOpen}
+		<ul
+			class={classNames('ManifestDetailActionsList')}
 		>
-			<ul
-				class={classNames('ManifestDetailActionsList')}
-			>
-				{#each actions as action}
-					<li
-						class={classNames('ManifestDetailActionsListItem')}
+			{#each actions as action}
+				<li
+					class={classNames('ManifestDetailActionsListItem')}
+				>
+					<Tooltip
+						content={getText($locale, 'action', action.key, 'definition')}
 					>
-						<Tooltip
-							content={getText($locale, 'action', action.key, 'definition')}
-						>
-							<span>
-								{getText($locale, 'action', action.key)}
-							</span>
-						</Tooltip>
-						{#if isIptcDigitalSourceTypeAi(action.iptc)}
-							<span>
-								{getText($locale, 'action', 'ai')}
-							</span>
-						{/if}
-					</li>
-				{/each}
-			</ul>
-		</ManifestDetailToggle>
+						<span>
+							{getText($locale, 'action', action.key)}
+						</span>
+					</Tooltip>
+					{#if isIptcDigitalSourceTypeAi(action.iptc)}
+						<span>
+							{getText($locale, 'action', 'ai')}
+						</span>
+					{/if}
+				</li>
+			{/each}
+		</ul>
 	</ManifestDetail>
 {/if}

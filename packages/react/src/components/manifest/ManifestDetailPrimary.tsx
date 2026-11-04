@@ -36,11 +36,10 @@ function ManifestDetailPrimary({ type, manifest }: ManifestDetailPrimaryProps) {
 		<ManifestDetail
 			title={getText(type, manifestTypeTextKey, mediaType)}
 			titleIcon={getManifestDetailIcon(type)}
-			titleTooltip={getText(type, manifestTypeTextKey, "definition", mediaType)}
+			definition={getText(type, manifestTypeTextKey, "definition", mediaType)}
+			value={formattedValue as string}
 			className={classNames('ManifestDetailPrimary')}
-		>
-			{formattedValue as string}
-		</ManifestDetail>
+		/>
 	)
 }
 

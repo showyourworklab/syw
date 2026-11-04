@@ -4,7 +4,6 @@ import { formatCoordinates } from 'syw-common/helpers/map'
 import type { ManifestDetailLocationProps } from 'syw-common/types/components'
 import { useI18nContext, useDataContext } from '$src/context'
 import ManifestDetail from '$src/components/manifest/ManifestDetail'
-import DetailToggle from '$src/components/manifest/ManifestDetailToggle'
 import Map from '$src/components/shared/Map'
 
 function ManifestDetailLocation({ manifest }: ManifestDetailLocationProps) {
@@ -25,21 +24,18 @@ function ManifestDetailLocation({ manifest }: ManifestDetailLocationProps) {
 		<ManifestDetail
 			title={getText('location', 'coordinates')}
 			titleIcon="location"
-			titleTooltip={getText('location', 'coordinates', 'definition', mediaType)}
+			definition={getText('location', 'coordinates', 'definition', mediaType)}
 			className={classNames('ManifestDetailLocation')}
+			open={mapOpen}
+			value={formatCoordinates(manifest.location)}
+			prompt={getText('location', 'map', mapOpen ? 'hide' : 'show')}
+			onToggle={handleMapToggle}
 		>
-			<DetailToggle
-				open={mapOpen}
-				value={formatCoordinates(manifest.location)}
-				subtitle={getText('location', 'map', mapOpen ? 'hide' : 'show')}
-				onToggle={handleMapToggle}
-			>
-				{mapMounted ?
-					<Map
-						location={manifest.location}
-					/>
-				: null}
-			</DetailToggle>
+			{mapMounted ?
+				<Map
+					location={manifest.location}
+				/>
+			: null}
 		</ManifestDetail>
 	)
 }
