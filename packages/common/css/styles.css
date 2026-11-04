@@ -32,6 +32,7 @@
 @import './shared/Modal.css';
 @import './shared/Popover.css';
 @import './provenance/Provenance.css';
+@import './provenance/ProvenanceEmpty.css';
 @import './provenance/ProvenanceDrawer.css';
 @import './provenance/ProvenanceModal.css';
 @import './provenance/ProvenancePopover.css';

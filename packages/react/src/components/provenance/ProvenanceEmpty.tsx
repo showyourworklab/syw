@@ -1,19 +1,25 @@
-import { PHASE_KEYS } from 'syw-common/constants/data'
 import { useI18nContext } from '$src/context/i18n'
 import { useDataContext } from '$src/context/data'
 import { classNames } from 'syw-common/helpers/ui'
 
 const ProvenanceEmpty = () => {
 	const { getText } = useI18nContext()
-	const { phase } = useDataContext()
+	const { mediaType } = useDataContext()
 
 	return (
 		<div
 			className={classNames('ProvenanceEmpty')}
 		>
-			<span>
-				{getText('provenance', phase === PHASE_KEYS.ERROR ? 'error' : 'empty')}
+			<span
+				className={classNames('ProvenanceEmptyTitle')}
+			>
+				{getText('provenance', 'empty', mediaType)}
 			</span>
+			<p
+				className={classNames('ProvenanceEmptyDefinition')}
+			>
+				{getText('provenance', 'empty', 'definition', mediaType)}
+			</p>
 		</div>
 	)
 }

@@ -8,12 +8,6 @@
 	padding: 0;
 	margin: 0;
 }
-/* Provenance > Empty */
-.Syw-ProvenanceEmpty {
-	padding-top: var(--syw-space-2);
-	padding-left: var(--syw-space-6);
-	color: var(--syw-color-secondary);
-}
 /* Provenance > Footer */
 .Syw-ProvenanceFooter {
 	display: flex;

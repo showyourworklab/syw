@@ -1,17 +1,23 @@
 <script lang="ts">
 	import { classNames } from 'syw-common/helpers/ui'
-	import { PHASE_KEYS } from 'syw-common/constants/data'
 	import { getI18nContext } from '../../store/i18n.js'
 	import { getDataContext } from '../../store/data.js'
 
 	const { locale, getText } = getI18nContext()
-	const { phase } = getDataContext()
+	const { mediaType } = getDataContext()
 </script>
 
 <div
 	class={classNames('ProvenanceEmpty')}
 >
-	<span>
-		{getText($locale, 'provenance', $phase === PHASE_KEYS.ERROR ? 'error' : 'empty')}
+	<span
+		class={classNames('ProvenanceEmptyTitle')}
+	>
+		{getText($locale, 'provenance', 'empty', $mediaType)}
 	</span>
+	<p
+		class={classNames('ProvenanceEmptyDefinition')}
+	>
+		{getText($locale, 'provenance', 'empty', 'definition', $mediaType)}
+	</p>
 </div>

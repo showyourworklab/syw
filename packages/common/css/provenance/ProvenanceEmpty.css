@@ -1,0 +1,20 @@
+/* Provenance > Empty */
+.Syw-ProvenanceEmpty {
+	width: 100%;
+	padding: var(--syw-space-4) var(--syw-space-4);
+	border-radius: var(--syw-radius-lg);
+	background-color: var(--syw-color-secondary);
+	color: var(--syw-color-primary);
+	position: relative;
+	overflow: hidden;
+}
+/* Provenance > Empty > Title */
+.Syw-ProvenanceEmptyTitle {
+	font-weight: var(--syw-font-weight-bold);
+}
+/* Provenance > Empty > Definition */
+.Syw-ProvenanceEmptyDefinition {
+	line-height: 1.3em;
+	font-size: var(--syw-text-md);
+	margin: var(--syw-space-1) 0 0;
+}
