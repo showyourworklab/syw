@@ -5,7 +5,6 @@
 	import { getI18nContext } from '$lib/store/i18n.js'
 	import ManifestDetail from '$lib/components/manifest/ManifestDetail.svelte'
 	import ManifestDetailToggle from '$lib/components/manifest/ManifestDetailToggle.svelte'
-	import Collapse from '$lib/components/shared/Collapse.svelte'
 	import Tooltip from '$lib/components/shared/Tooltip.svelte'
 
 	const { locale, getText } = getI18nContext()
@@ -30,9 +29,6 @@
 			value={getText($locale, 'actions', hasAi ? 'ai' : 'human')}
 			subtitle={getText($locale, 'actions', 'list', listOpen ? 'hide' : 'show')}
 			onToggle={() => listOpen = !listOpen}
-		/>
-		<Collapse
-			open={listOpen}
 		>
 			<ul
 				class={classNames('ManifestDetailActionsList')}
@@ -56,6 +52,6 @@
 					</li>
 				{/each}
 			</ul>
-		</Collapse>
+		</ManifestDetailToggle>
 	</ManifestDetail>
 {/if}

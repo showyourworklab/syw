@@ -50,6 +50,6 @@ p.Syw-ManifestDetailFooter {
 	margin-top: 0 !important;
 	margin-bottom: 0 !important;
 }
-.Syw-ManifestDetail:has(.Syw-DetailToggle) {
+.Syw-ManifestDetail:has(.Syw-ManifestDetailToggle) {
 	padding-bottom: var(--syw-space-2);
 }

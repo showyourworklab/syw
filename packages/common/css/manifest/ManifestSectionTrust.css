@@ -18,3 +18,32 @@
 	/* --syw-detail-text: var(--syw-color-status-untrusted); */
 	/* --syw-detail-background: var(--syw-color-status-untrusted-light); */
 }
+/* Trust > Info */
+.Syw-ManifestSectionTrustInfo {
+	font-size: var(--syw-text-sm);
+	font-weight: var(--syw-font-weight-normal);
+}
+/* Trust > Info > Signator */
+.Syw-ManifestSectionTrustSignator {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: var(--syw-space-1);
+	margin: var(--syw-space-1) 0 0 0;
+	/* padding: 0 0 0 var(--syw-space-1); */
+	/* border-left: 2px solid var(--syw-detail-border); */
+	/* border-radius: var(--syw-radius-sm); */
+}
+.Syw-ManifestSectionTrustSignatorIcon {
+	width: var(--syw-space-3);
+	height: var(--syw-space-3);
+}
+.Syw-ManifestSectionTrustSignatorTitle {
+}
+.Syw-ManifestSectionTrustSignatorValue {
+	font-weight: var(--syw-font-weight-bold);
+}
+/* Trust > Info > Definition */
+p.Syw-ManifestSectionTrustDefinition {
+	margin: var(--syw-space-2) 0 0 0 !important;
+}

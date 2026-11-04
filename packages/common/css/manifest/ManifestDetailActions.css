@@ -7,7 +7,7 @@ ul.Syw-ManifestDetailActionsList {
 	width: 100%;
 	list-style: none !important;
 	padding: 0 !important;
-	margin: var(--syw-space-2) 0 0 0 !important;
+	margin: 0 !important;
 }
 /* Manifest > Actions > List > Item */
 li.Syw-ManifestDetailActionsListItem {

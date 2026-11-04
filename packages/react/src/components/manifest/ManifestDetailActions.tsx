@@ -5,7 +5,6 @@ import type { ManifestDetailActionsProps } from 'syw-common/types/components'
 import { useI18nContext } from '$src/context'
 import ManifestDetail from '$src/components/manifest/ManifestDetail'
 import DetailToggle from '$src/components/manifest/ManifestDetailToggle'
-import Collapse from '$src/components/shared/Collapse'
 import Tooltip from '$src/components/shared/Tooltip'
 
 function ManifestDetailActions({ manifest }: ManifestDetailActionsProps) {
@@ -30,9 +29,6 @@ function ManifestDetailActions({ manifest }: ManifestDetailActionsProps) {
 				value={getText('actions', hasAi ? 'ai' : 'human')}
 				subtitle={getText('actions', 'list', listOpen ? 'hide' : 'show')}
 				onToggle={() => setListOpen(!listOpen)}
-			/>
-			<Collapse
-				open={listOpen}
 			>
 				<ul
 					className={classNames('ManifestDetailActionsList')}
@@ -57,7 +53,7 @@ function ManifestDetailActions({ manifest }: ManifestDetailActionsProps) {
 						</li>
 					)}
 				</ul>
-			</Collapse>
+			</DetailToggle>
 		</ManifestDetail>
 	)
 }

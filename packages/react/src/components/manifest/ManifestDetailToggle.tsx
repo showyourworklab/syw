@@ -1,5 +1,6 @@
 import { classNames } from 'syw-common/helpers/ui'
 import type { ManifestDetailToggleProps } from 'syw-common/types/components'
+import Collapse from '$src/components/shared/Collapse'
 import Icon from '$src/components/shared/Icon'
 
 function ManifestDetailToggle({
@@ -7,35 +8,53 @@ function ManifestDetailToggle({
 	value,
 	subtitle,
 	onToggle,
-	className
+	className,
+	children
 }: ManifestDetailToggleProps) {
 	return (
-		<button
-			type="button"
-			aria-expanded={open}
-			className={classNames('ManifestDetailToggle', className)}
-			onClick={onToggle}
+		<div
+			className={classNames(
+				'ManifestDetailToggle',
+				open ? 'ManifestDetailToggle_open' : null,
+				className,
+			)}
 		>
-			<span
-				className={classNames('ManifestDetailToggleText')}
+			<button
+				type="button"
+				aria-expanded={open}
+				className={classNames('ManifestDetailToggleButton')}
+				onClick={onToggle}
 			>
 				<span
-					className={classNames('ManifestDetailToggleValue')}
+					className={classNames('ManifestDetailToggleText')}
 				>
-					{value}
-				</span>
-				{subtitle ?
 					<span
-						className={classNames('ManifestDetailToggleSubtitle')}
+						className={classNames('ManifestDetailToggleValue')}
 					>
-						{subtitle}
+						{value}
 					</span>
-				: null}
-			</span>
-			<Icon
-				type={open ? 'up' : 'down'}
-			/>
-		</button>
+					{subtitle ?
+						<span
+							className={classNames('ManifestDetailToggleSubtitle')}
+						>
+							{subtitle}
+						</span>
+					: null}
+				</span>
+				<Icon
+					type={open ? 'up' : 'down'}
+				/>
+			</button>
+			<Collapse
+				open={open}
+			>
+				<div
+					className={classNames('ManifestDetailToggleContent')}
+				>
+					{children}
+				</div>
+			</Collapse>
+		</div>
 	)
 }
 

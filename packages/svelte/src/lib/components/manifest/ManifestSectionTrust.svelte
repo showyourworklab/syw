@@ -4,12 +4,16 @@
 	import { getI18nContext } from '$lib/store/i18n.js'
 	import { getDataContext } from '$lib/store/data.js'
 	import ManifestDetail from '$lib/components/manifest/ManifestDetail.svelte'
+	import ManifestDetailToggle from '$lib/components/manifest/ManifestDetailToggle.svelte'
 	import ManifestSection from '$lib/components/manifest/ManifestSection.svelte'
+	import Tooltip from '$lib/components/shared/Tooltip.svelte'
 
 	const { locale, getText } = getI18nContext()
 	const { mediaType } = getDataContext()
 
 	const { manifest }: ManifestSectionTrustProps = $props()
+
+	let infoOpen = $state(false)
 
 	const typeKey = $derived(manifest.type?.key ?? 'unknown')
 	const signer = $derived(manifest.validation?.signer)
@@ -23,24 +27,50 @@
 >
 	{#if signer}
 		<ManifestDetail
-			title={getText($locale, 'trust', signer)}
+			title={getText($locale, 'trust')}
 			titleIcon={signer}
 			titleTooltip={getText($locale, 'trust', 'definition')}
-			footer={getText($locale, 'trust', signer, 'definition')}
 			className={classNames(
 				'ManifestSectionTrustDetail',
 				`ManifestSectionTrustDetail_${signer}`,
 			)}
-		/>
-	{/if}
-	{#if manifest.signator}
-		<ManifestDetail
-			title={getText($locale, 'signator', typeKey)}
-			titleIcon="signator"
-			titleTooltip={getText($locale, 'signator', typeKey, 'definition', $mediaType)}
-			className={classNames('ManifestSectionTrustSignator')}
 		>
-			{manifest.signator}
+			<ManifestDetailToggle
+				open={infoOpen}
+				value={getText($locale, 'trust', signer)}
+				subtitle={getText($locale, 'trust', 'info', infoOpen ? 'hide' : 'show')}
+				onToggle={() => infoOpen = !infoOpen}
+			>
+				<div
+					class={classNames('ManifestSectionTrustInfo')}
+				>
+					{#if manifest.signator}
+						<div
+							class={classNames('ManifestSectionTrustSignator')}
+						>
+							<Tooltip
+								content={getText($locale, 'signator', typeKey, 'definition', $mediaType)}
+							>
+								<span
+									class={classNames('ManifestSectionTrustSignatorTitle')}
+								>
+									{getText($locale, 'signator', typeKey)}
+								</span>
+							</Tooltip>
+							<span
+								class={classNames('ManifestSectionTrustSignatorValue')}
+							>
+								{manifest.signator}
+							</span>
+						</div>
+					{/if}
+					<p
+						class={classNames('ManifestSectionTrustDefinition')}
+					>
+						{getText($locale, 'trust', signer, 'definition')}
+					</p>
+				</div>
+			</ManifestDetailToggle>
 		</ManifestDetail>
 	{/if}
 </ManifestSection>

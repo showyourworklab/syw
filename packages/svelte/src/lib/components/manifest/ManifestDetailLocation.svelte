@@ -6,7 +6,6 @@
 	import { getDataContext } from '$lib/store/data.js'
 	import ManifestDetail from '$lib/components/manifest/ManifestDetail.svelte'
 	import ManifestDetailToggle from '$lib/components/manifest/ManifestDetailToggle.svelte'
-	import Collapse from '$lib/components/shared/Collapse.svelte'
 	import Map from '$lib/components/shared/Map.svelte'
 
 	const { locale, getText } = getI18nContext()
@@ -36,15 +35,12 @@
 			value={formatCoordinates(manifest.location)}
 			subtitle={getText($locale, 'location', 'map', mapOpen ? 'hide' : 'show')}
 			onToggle={handleMapToggle}
-		/>
-		<Collapse
-			open={mapOpen}
 		>
 			{#if mapMounted}
 				<Map
 					location={manifest.location}
 				/>
 			{/if}
-		</Collapse>
+		</ManifestDetailToggle>
 	</ManifestDetail>
 {/if}

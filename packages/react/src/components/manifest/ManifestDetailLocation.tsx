@@ -5,7 +5,6 @@ import type { ManifestDetailLocationProps } from 'syw-common/types/components'
 import { useI18nContext, useDataContext } from '$src/context'
 import ManifestDetail from '$src/components/manifest/ManifestDetail'
 import DetailToggle from '$src/components/manifest/ManifestDetailToggle'
-import Collapse from '$src/components/shared/Collapse'
 import Map from '$src/components/shared/Map'
 
 function ManifestDetailLocation({ manifest }: ManifestDetailLocationProps) {
@@ -34,16 +33,13 @@ function ManifestDetailLocation({ manifest }: ManifestDetailLocationProps) {
 				value={formatCoordinates(manifest.location)}
 				subtitle={getText('location', 'map', mapOpen ? 'hide' : 'show')}
 				onToggle={handleMapToggle}
-			/>
-			<Collapse
-				open={mapOpen}
 			>
 				{mapMounted ?
 					<Map
 						location={manifest.location}
 					/>
 				: null}
-			</Collapse>
+			</DetailToggle>
 		</ManifestDetail>
 	)
 }

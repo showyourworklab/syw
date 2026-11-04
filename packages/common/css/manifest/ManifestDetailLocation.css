@@ -4,5 +4,5 @@
 }
 /* Manifest > Location > Map */
 .Syw-ManifestDetailLocation .Syw-Map {
-	margin-top: var(--syw-space-2);
+	margin-top: 0;
 }

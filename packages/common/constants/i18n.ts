@@ -14,7 +14,10 @@ export const DICTIONARY_EN_US = {
 	type_unknown_create: 'Unknown Origin',
 	type_none: 'Unverified Step',
 	// Trust
+	trust: 'Verification',
 	trust_definition: 'The result of checking these details against their digital signature and lists of trusted technology.',
+	trust_info_show: 'Click to show details',
+	trust_info_hide: 'Click to hide details',
 	trust_trusted: 'Trusted',
 	trust_trusted_legacy: 'Trusted (Legacy)',
 	trust_untrusted: 'Untrusted',
@@ -222,7 +225,10 @@ export const DICTIONARY_NO_NO = {
 	type_unknown_create: 'Ukjent opprinnelse',
 	type_none: 'Ubekreftet trinn',
 	// Trust
+	trust: 'Verifisering',
 	trust_definition: 'Resultatet av å kontrollere disse opplysningene mot den digitale signaturen og lister over pålitelig teknologi.',
+	trust_info_show: 'Klikk for å vise detaljer',
+	trust_info_hide: 'Klikk for å skjule detaljer',
 	trust_trusted: 'Pålitelig',
 	trust_trusted_legacy: 'Pålitelig (eldre)',
 	trust_untrusted: 'Ikke pålitelig',
