@@ -2,6 +2,7 @@
 	import type { Snippet } from 'svelte'
 	import { classNames } from 'syw-common/helpers/ui'
 	import type { ManifestDetailProps } from 'syw-common/types/components'
+	import ManifestDetailDefinition from '$lib/components/manifest/ManifestDetailDefinition.svelte'
 	import Collapse from '$lib/components/shared/Collapse.svelte'
 	import Icon from '$lib/components/shared/Icon.svelte'
 
@@ -91,17 +92,9 @@
 			>
 				{@render children?.()}
 				{#if definition}
-					<p
-						class={classNames('ManifestDetailDefinition')}
-					>
-						<Icon
-							type="info"
-							className={classNames('ManifestDetailDefinitionIcon')}
-						/>
-						<span>
-							{definition}
-						</span>
-					</p>
+					<ManifestDetailDefinition>
+						{definition}
+					</ManifestDetailDefinition>
 				{/if}
 			</div>
 		</Collapse>

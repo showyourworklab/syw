@@ -4,7 +4,7 @@
 	import type { ManifestDetailActionsProps } from 'syw-common/types/components'
 	import { getI18nContext } from '$lib/store/i18n.js'
 	import ManifestDetail from '$lib/components/manifest/ManifestDetail.svelte'
-	import Tooltip from '$lib/components/shared/Tooltip.svelte'
+	import ManifestDetailActionsItem from '$lib/components/manifest/ManifestDetailActionsItem.svelte'
 
 	const { locale, getText } = getI18nContext()
 
@@ -13,7 +13,7 @@
 	let listOpen = $state(false)
 
 	const actions = $derived(getManifestDisplayActions(manifest))
-	const hasAi = $derived(actions.some(action => isIptcDigitalSourceTypeAi(action.iptc)))
+	const actionsIncludeAi = $derived(actions.some(action => isIptcDigitalSourceTypeAi(action.iptc)))
 </script>
 
 {#if actions.length}
@@ -23,7 +23,7 @@
 		definition={getText($locale, 'actions', 'definition')}
 		className={classNames('ManifestDetailActions')}
 		open={listOpen}
-		value={getText($locale, 'actions', hasAi ? 'ai' : 'human')}
+		value={getText($locale, 'actions', actionsIncludeAi ? 'ai' : 'human')}
 		prompt={getText($locale, 'actions', 'list', listOpen ? 'hide' : 'show')}
 		onToggle={() => listOpen = !listOpen}
 	>
@@ -31,22 +31,9 @@
 			class={classNames('ManifestDetailActionsList')}
 		>
 			{#each actions as action}
-				<li
-					class={classNames('ManifestDetailActionsListItem')}
-				>
-					<Tooltip
-						content={getText($locale, 'action', action.key, 'definition')}
-					>
-						<span>
-							{getText($locale, 'action', action.key)}
-						</span>
-					</Tooltip>
-					{#if isIptcDigitalSourceTypeAi(action.iptc)}
-						<span>
-							{getText($locale, 'action', 'ai')}
-						</span>
-					{/if}
-				</li>
+				<ManifestDetailActionsItem
+					action={action}
+				/>
 			{/each}
 		</ul>
 	</ManifestDetail>

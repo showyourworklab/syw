@@ -4,17 +4,16 @@ import { isIptcDigitalSourceTypeAi } from 'syw-common/helpers/iptc'
 import type { ManifestDetailActionsProps } from 'syw-common/types/components'
 import { useI18nContext } from '$src/context'
 import ManifestDetail from '$src/components/manifest/ManifestDetail'
-import Tooltip from '$src/components/shared/Tooltip'
+import ManifestDetailActionsItem from '$src/components/manifest/ManifestDetailActionsItem'
 
 function ManifestDetailActions({ manifest }: ManifestDetailActionsProps) {
 	const { getText } = useI18nContext()
 	const [listOpen, setListOpen] = useState(false)
 
 	const actions = getManifestDisplayActions(manifest)
+	const actionsIncludeAi = actions.some(action => isIptcDigitalSourceTypeAi(action.iptc))
 
 	if(!actions.length) return null
-
-	const hasAi = actions.some(action => isIptcDigitalSourceTypeAi(action.iptc))
 
 	return (
 		<ManifestDetail
@@ -23,7 +22,7 @@ function ManifestDetailActions({ manifest }: ManifestDetailActionsProps) {
 			definition={getText('actions', 'definition')}
 			className={classNames('ManifestDetailActions')}
 			open={listOpen}
-			value={getText('actions', hasAi ? 'ai' : 'human')}
+			value={getText('actions', actionsIncludeAi ? 'ai' : 'human')}
 			prompt={getText('actions', 'list', listOpen ? 'hide' : 'show')}
 			onToggle={() => setListOpen(!listOpen)}
 		>
@@ -31,23 +30,10 @@ function ManifestDetailActions({ manifest }: ManifestDetailActionsProps) {
 				className={classNames('ManifestDetailActionsList')}
 			>
 				{actions.map((action, index) =>
-					<li
+					<ManifestDetailActionsItem
 						key={index}
-						className={classNames('ManifestDetailActionsListItem')}
-					>
-						<Tooltip
-							content={getText('action', action.key, 'definition')}
-						>
-							<span>
-								{getText('action', action.key)}
-							</span>
-						</Tooltip>
-						{isIptcDigitalSourceTypeAi(action.iptc) ?
-							<span>
-								{getText('action', 'ai')}
-							</span>
-						: null}
-					</li>
+						action={action}
+					/>
 				)}
 			</ul>
 		</ManifestDetail>

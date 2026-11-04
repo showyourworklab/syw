@@ -9,6 +9,8 @@ export { default as Image } from '$lib/components/shared/Image.svelte';
 export { default as Manifest } from '$lib/components/manifest/Manifest.svelte';
 export { default as ManifestDetail } from '$lib/components/manifest/ManifestDetail.svelte';
 export { default as ManifestDetailActions } from '$lib/components/manifest/ManifestDetailActions.svelte';
+export { default as ManifestDetailActionsItem } from '$lib/components/manifest/ManifestDetailActionsItem.svelte';
+export { default as ManifestDetailDefinition } from '$lib/components/manifest/ManifestDetailDefinition.svelte';
 export { default as ManifestDetailGenerator } from '$lib/components/manifest/ManifestDetailGenerator.svelte';
 export { default as ManifestDetailLocation } from '$lib/components/manifest/ManifestDetailLocation.svelte';
 export { default as ManifestDetailPrimary } from '$lib/components/manifest/ManifestDetailPrimary.svelte';

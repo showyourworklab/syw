@@ -1,4 +1,4 @@
-import type { Manifest, ManifestFieldKey, ManifestLocation, ManifestType } from './data.js'
+import type { Manifest, ManifestAction, ManifestFieldKey, ManifestLocation, ManifestType } from './data.js'
 import type { IconType } from './ui.js'
 
 // Views of a manifest's content, toggled by tabs
@@ -112,6 +112,10 @@ export interface ManifestSectionProps extends ComponentProps {
 
 export interface ManifestDetailActionsProps extends ComponentProps {
 	manifest: Manifest
+}
+
+export interface ManifestDetailActionsItemProps extends ComponentProps {
+	action: ManifestAction
 }
 
 export interface ManifestDetailGeneratorProps extends ComponentProps {

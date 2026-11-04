@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { classNames } from 'syw-common/helpers/ui'
 import type { ManifestDetailProps } from 'syw-common/types/components'
+import ManifestDetailDefinition from '$src/components/manifest/ManifestDetailDefinition'
 import Collapse from '$src/components/shared/Collapse'
 import Icon from '$src/components/shared/Icon'
 
@@ -86,17 +87,9 @@ function ManifestDetail({
 						>
 							{children}
 							{definition ?
-								<p
-									className={classNames('ManifestDetailDefinition')}
-								>
-									<Icon
-										type="info"
-										className={classNames('ManifestDetailDefinitionIcon')}
-									/>
-									<span>
-										{definition}
-									</span>
-								</p>
+								<ManifestDetailDefinition>
+									{definition}
+								</ManifestDetailDefinition>
 							: null}
 						</div>
 					</Collapse>
