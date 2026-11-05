@@ -1,5 +1,12 @@
+import { MediaQuery } from 'svelte/reactivity';
 import type { Manifest } from 'syw-common/types/data';
-import type { MapOptions, UiEventHandler, Variant } from 'syw-common/types/ui';
+import type { MapOptions, MediaQueryKey, UiEventHandler, Variant } from 'syw-common/types/ui';
+/**
+ * Whether a named media query currently matches, read from its current value
+ * @param key - Media query name, like 'sm'
+ * @return Media query, false when rendered on the server
+ */
+export declare const useMediaQuery: (key: MediaQueryKey) => MediaQuery;
 export default function createUiStore(): {
     elem: import("svelte/store").Writable<HTMLElement | null>;
     variant: import("svelte/store").Writable<string>;

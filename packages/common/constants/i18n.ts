@@ -211,6 +211,8 @@ export const DICTIONARY_EN_US = {
 	action_c2pa_unknown_definition: 'Something happened, but we cannot specify what.',
 	// Thumbnail
 	thumbnail_missing: 'No thumbnail available',
+	thumbnail_definition_image: 'A small copy of the image as it looked at this step, saved and signed into its Content Credentials. Comparing it with other steps shows how the image changed over time.',
+	thumbnail_definition_video: 'A still frame of the video as it looked at this step, saved and signed into its Content Credentials. Comparing it with other steps shows how the video changed over time.',
 	// Verify
 	verify_pre: 'See more at',
 }
@@ -421,6 +423,8 @@ export const DICTIONARY_NO_NO = {
 	action_c2pa_unknown_definition: 'Noe har skjedd, men vi kan ikke spesifisere hva.',
 	// Thumbnail
 	thumbnail_missing: 'Ingen miniatyrbilder tilgjengelig',
+	thumbnail_definition_image: 'En liten kopi av bildet slik det så ut på dette trinnet, lagret og signert i bildets Content Credentials. Ved å sammenligne med andre trinn kan du se hvordan bildet har endret seg.',
+	thumbnail_definition_video: 'Et stillbilde fra videoen slik den så ut på dette trinnet, lagret og signert i videoens Content Credentials. Ved å sammenligne med andre trinn kan du se hvordan videoen har endret seg.',
 	// Verify
 	verify_pre: 'Les mer på',
 }

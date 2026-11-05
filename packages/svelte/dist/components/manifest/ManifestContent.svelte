@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { classNames } from 'syw-common/helpers/ui'
 	import { MANIFEST_EMPTY_TYPE_KEYS } from 'syw-common/constants/ui'
+	import { useMediaQuery } from '../../store/ui.js'
 	import type { ManifestContentProps } from 'syw-common/types/components'
 	import ManifestEmpty from './ManifestEmpty.svelte'
 	import ManifestContentTabs from './ManifestContentTabs.svelte'
@@ -10,6 +11,8 @@
 		tabKeys = [],
 		manifest,
 	}: ManifestContentProps = $props()
+
+	const isSm = useMediaQuery('sm')
 </script>
 
 <div
@@ -19,11 +22,13 @@
 		<div
 			class={classNames('ManifestContentInner')}
 		>
-			<ManifestContentTabsToggle
-				keys={tabKeys}
-				manifest={manifest}
-				class={classNames('ManifestContentInnerTabsToggle')}
-			/>
+			{#if isSm.current}
+				<ManifestContentTabsToggle
+					keys={tabKeys}
+					manifest={manifest}
+					class={classNames('ManifestContentInnerTabsToggle')}
+				/>
+			{/if}
 			<ManifestContentTabs
 				keys={tabKeys}
 				manifest={manifest}

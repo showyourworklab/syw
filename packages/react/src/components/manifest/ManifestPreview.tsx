@@ -7,6 +7,7 @@ import { useI18nContext } from '$src/context/i18n'
 import Badge from '$src/components/shared/Badge'
 import Icon from '$src/components/shared/Icon'
 import ManifestContentTabsToggle from '$src/components/manifest/ManifestContentTabsToggle'
+import useMediaQuery from '$src/hooks/useMediaQuery'
 
 interface ReactManifestPreviewProps extends ManifestPreviewProps {
 	previewRef: RefObject<HTMLDivElement> | null
@@ -21,6 +22,7 @@ function ManifestPreview({
 }: ReactManifestPreviewProps) {
 	const { locale, getText } = useI18nContext()
 	const thumbnailUrl = manifest?.thumbnail
+	const isSm = useMediaQuery('sm')
 
 	const onKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
 		handleA11yClick(event, onToggle)
@@ -85,11 +87,13 @@ function ManifestPreview({
 					</div>
 				</div>
 			</div>
-			<ManifestContentTabsToggle
-				keys={tabKeys}
-				manifest={manifest}
-				className={classNames('ManifestPreviewTabsToggle')}
-			/>
+			{!isSm ?
+				<ManifestContentTabsToggle
+					keys={tabKeys}
+					manifest={manifest}
+					className={classNames('ManifestPreviewTabsToggle')}
+				/>
+			: null}
 		</div>
 	)
 }

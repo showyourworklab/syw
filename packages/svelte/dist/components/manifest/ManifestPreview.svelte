@@ -4,7 +4,7 @@
 	import { MANIFEST_PREVIEW_TITLE_KEYS } from 'syw-common/constants/ui'
 	import type { ManifestPreviewProps } from 'syw-common/types/components'
 	import { getI18nContext } from '../../store/i18n.js'
-	import { getUiContext } from '../../store/ui.js'
+	import { getUiContext, useMediaQuery } from '../../store/ui.js'
     import Badge from '../shared/Badge.svelte';
     import Icon from '../shared/Icon.svelte';
     import ManifestContentTabsToggle from './ManifestContentTabsToggle.svelte';
@@ -19,6 +19,8 @@
 	} = $props()
 
 	let toggleEl: HTMLElement | null = $state(null)
+	
+	const isSm = useMediaQuery('sm')
 
 	$effect(() => {
 		if(previewRef) previewRef(toggleEl)
@@ -104,9 +106,11 @@
 			</div>
 		</div>
 	</div>
-	<ManifestContentTabsToggle
-		keys={tabKeys}
-		manifest={manifest}
-		class={classNames('ManifestPreviewTabsToggle')}
-	/>
+	{#if !isSm.current}
+		<ManifestContentTabsToggle
+			keys={tabKeys}
+			manifest={manifest}
+			class={classNames('ManifestPreviewTabsToggle')}
+		/>
+	{/if}
 </div>

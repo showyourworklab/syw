@@ -2,6 +2,9 @@
 .Syw-ManifestContentTabs {
 	display: flex;
 	flex-direction: column;
+	@media (max-width: 575px) {
+		padding-top: var(--syw-space-6);
+	}
 }
 /* Manifest > Content > Tabs > Content */
 .Syw-ManifestContentTabsContent {
@@ -14,4 +17,19 @@
 }
 .Syw-ManifestContentTabsContentInner {
 	display: flex;
+}
+/* Manifest > Content > Tabs > Image */
+.Syw-ManifestContentTabsImage {
+	display: flex;
+	flex-direction: column;
+	width: fit-content;
+	max-width: 100%;
+	margin: 0 auto;
+}
+.Syw-ManifestContentTabsImage:has(.Syw-ManifestImage_missing) {
+	width: 100%;
+}
+.Syw-ManifestContentTabsImage .Syw-ManifestDetailDefinition {
+	contain: inline-size;
+	background-color: var(--syw-color-quaternary);
 }

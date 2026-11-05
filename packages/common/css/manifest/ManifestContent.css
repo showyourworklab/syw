@@ -3,6 +3,9 @@
 	border-spacing: 0;
 	padding: var(--syw-space-5) var(--syw-space-4) var(--syw-space-4) var(--syw-size-manifest-preview-indent);
 	position: relative;
+	@media (max-width: 575px) {
+		padding-top: var(--syw-space-3);
+	}
 }
 .Syw-ManifestContentInner {
 	display: flex;

@@ -1,10 +1,18 @@
 import { getContext, setContext } from 'svelte'
 import { writable, get } from 'svelte/store'
-import { VARIANT_DEFAULT } from 'syw-common/constants/ui'
+import { MediaQuery } from 'svelte/reactivity'
+import { MEDIA_QUERIES, VARIANT_DEFAULT } from 'syw-common/constants/ui'
 import type { Manifest } from 'syw-common/types/data'
-import type { MapOptions, UiEventHandler, Variant } from 'syw-common/types/ui'
+import type { MapOptions, MediaQueryKey, UiEventHandler, Variant } from 'syw-common/types/ui'
 
 const UI_CONTEXT_KEY = Symbol('ui')
+
+/**
+ * Whether a named media query currently matches, read from its current value
+ * @param key - Media query name, like 'sm'
+ * @return Media query, false when rendered on the server
+ */
+export const useMediaQuery = (key: MediaQueryKey) => new MediaQuery(MEDIA_QUERIES[key], false)
 
 export default function createUiStore() {
 

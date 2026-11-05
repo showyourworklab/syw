@@ -1,9 +1,11 @@
-import type { VARIANT_KEYS, SYW_ICONS } from '#constants/ui'
+import type { VARIANT_KEYS, SYW_ICONS, MEDIA_QUERIES } from '#constants/ui'
 import type { IntegrityKey, TrustKey, Manifest, ManifestTypeKey } from './data.js'
 
 export type Variant = typeof VARIANT_KEYS[number]
 
 export type MapOptions = Record<string, unknown> | null
+
+export type MediaQueryKey = keyof typeof MEDIA_QUERIES
 
 export type SywIconNode = [
 	elementName: 'circle' | 'ellipse' | 'g' | 'line' | 'path' | 'polygon' | 'polyline' | 'rect',

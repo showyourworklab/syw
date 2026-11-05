@@ -4,6 +4,12 @@
 	import type { ManifestContentTabsProps } from 'syw-common/types/components'
 	import ManifestInfo from './ManifestInfo.svelte'
 	import ManifestImage from './ManifestImage.svelte'
+	import ManifestDetailDefinition from './ManifestDetailDefinition.svelte'
+	import { getI18nContext } from '../../store/i18n.js'
+	import { getDataContext } from '../../store/data.js'
+
+	const { locale, getText } = getI18nContext()
+	const { mediaType } = getDataContext()
 
 	const {
 		manifest,
@@ -34,9 +40,18 @@
 						manifest={manifest}
 					/>
 				{:else if key === "image"}
-					<ManifestImage
-						manifest={manifest}
-					/>
+					<div
+						class={classNames('ManifestContentTabsImage')}
+					>
+						<ManifestImage
+							manifest={manifest}
+						/>
+						{#if manifest.thumbnail}
+							<ManifestDetailDefinition>
+								{getText($locale, 'thumbnail', 'definition', $mediaType)}
+							</ManifestDetailDefinition>
+						{/if}
+					</div>
 				{/if}
 			</div>
 		</Tabs.Content>

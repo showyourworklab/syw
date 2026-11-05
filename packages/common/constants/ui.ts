@@ -56,6 +56,10 @@ export const MANIFEST_CONTENT_TAB_KEYS = {
 } as const
 
 export const MANIFEST_CONTENT_TAB_DEFAULT = 'info'
+// Media queries by name, matching the CSS breakpoints
+export const MEDIA_QUERIES = {
+	sm: '(max-width: 575px)',
+} as const
 ///////////////// Icons ////////////////
 export const ICON_DEFAULT_SIZE = 24
 export const ICON_DEFAULT_STROKE_WIDTH = 2

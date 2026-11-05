@@ -12,7 +12,7 @@
 	box-sizing: border-box;
 	padding: var(--syw-manifest-image-padding);
 	overflow: hidden;
-	border: var(--syw-manifest-image-border) dotted var(--syw-color-primary);
+	border: var(--syw-manifest-image-border) solid var(--syw-color-tertiary);
 	border-radius: var(--syw-radius-lg);
 	background-color: var(--syw-color-quaternary);
 }
@@ -25,7 +25,7 @@ img.Syw-ManifestImageThumbnail {
 }
 /* Once the image's aspect ratio is known, fill the full width unless that would pass the max height */
 .Syw-ManifestImage.Syw-ManifestImage_sized {
-	width: min(100%, calc((var(--syw-manifest-image-inner-max-height) * var(--syw-manifest-image-ratio)) + (var(--syw-manifest-image-padding) * 2) + (var(--syw-manifest-image-border) * 2)));
+	width: calc((var(--syw-manifest-image-inner-max-height) * var(--syw-manifest-image-ratio)) + (var(--syw-manifest-image-padding) * 2) + (var(--syw-manifest-image-border) * 2));
 }
 .Syw-ManifestImage_sized img.Syw-ManifestImageThumbnail {
 	width: 100%;
