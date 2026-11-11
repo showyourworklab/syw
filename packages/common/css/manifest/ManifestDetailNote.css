@@ -1,0 +1,23 @@
+/* Manifest > Detail > Note */
+.Syw-ManifestDetailNote {
+	--syw-note-text: inherit;
+	--syw-note-background: var(--syw-color-secondary);
+	display: flex;
+	gap: var(--syw-space-1);
+	align-self: stretch;
+	margin: 0;
+	padding: var(--syw-space-1);
+	font-size: var(--syw-text-sm);
+	font-weight: var(--syw-font-weight-normal);
+	color: var(--syw-note-text);
+	border-radius: var(--syw-radius-md);
+	background-color: var(--syw-note-background);
+}
+.Syw-ManifestDetailNote:not(:first-child) {
+	margin-top: var(--syw-space-2);
+}
+.Syw-ManifestDetailNoteIcon {
+	flex-shrink: 0;
+	width: 1em;
+	height: 1lh;
+}

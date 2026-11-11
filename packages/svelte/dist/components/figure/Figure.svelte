@@ -1,12 +1,14 @@
 <script lang="ts">
-	import type { Snippet } from 'svelte'
 	import { classNames } from 'syw-common/helpers/ui'
-
-	const { children }: { children: Snippet } = $props()
+	import FigureMedia from './FigureMedia.svelte'
+	import FigureCutline from './FigureCutline.svelte'
+	import FigureCaption from './FigureCaption.svelte'
 </script>
 
 <figure
 	class={classNames('Figure')}
 >
-	{@render children()}
+	<FigureMedia />
+	<FigureCutline />
+	<FigureCaption />
 </figure>

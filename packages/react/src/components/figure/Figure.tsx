@@ -1,15 +1,17 @@
 import { classNames } from 'syw-common/helpers/ui'
-import type { ComponentProps } from 'syw-common/types/components'
+import FigureCutline from '$src/components/figure/FigureCutline'
+import FigureCaption from '$src/components/figure/FigureCaption'
+import FigureMedia from '$src/components/figure/FigureMedia'
 
-const Figure = ({
-	children
-}: ComponentProps) => {
+const Figure = () => {
 
 	return (
 		<figure
 			className={classNames('Figure')}
 		>
-			{children}
+			<FigureMedia />
+			<FigureCutline />
+			<FigureCaption />
 		</figure>
 	)
 }

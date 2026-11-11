@@ -21,6 +21,4 @@ export interface ManifestValidation {
 	integrity: IntegrityKey
 	// Null when integrity isn't valid
 	signer: TrustKey | null
-	// Null when integrity isn't valid or the manifest has no CAWG identity assertion
-	identity: TrustKey | null
 }

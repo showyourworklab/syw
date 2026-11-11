@@ -14,9 +14,6 @@
 	import createI18nStore, { setI18nContext } from '../store/i18n.js'
 	import createUiStore, { setUiContext } from '../store/ui.js'
 	import Figure from './figure/Figure.svelte'
-	import FigureMedia from './figure/FigureMedia.svelte'
-	import FigureCutline from './figure/FigureCutline.svelte'
-	import FigureCaption from './figure/FigureCaption.svelte'
 	import ProvenanceExpand from './provenance/ProvenanceExpand.svelte'
 	import ProvenanceModal from './provenance/ProvenanceModal.svelte'
 	import ProvenancePopover from './provenance/ProvenancePopover.svelte'
@@ -139,11 +136,7 @@
 	class={classes}
 	bind:this={elemRef}
 >
-	<Figure>
-		<FigureMedia />
-		<FigureCutline />
-		<FigureCaption />
-	</Figure>
+	<Figure />
 
 	{#if variant === 'expand'}
 		<ProvenanceExpand />

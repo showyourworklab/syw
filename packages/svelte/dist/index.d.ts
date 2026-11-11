@@ -12,6 +12,8 @@ export { default as ManifestDetailActions } from './components/manifest/Manifest
 export { default as ManifestDetailActionsItem } from './components/manifest/ManifestDetailActionsItem.svelte';
 export { default as ManifestDetailDefinition } from './components/manifest/ManifestDetailDefinition.svelte';
 export { default as ManifestDetailGenerator } from './components/manifest/ManifestDetailGenerator.svelte';
+export { default as ManifestDetailNote } from './components/manifest/ManifestDetailNote.svelte';
+export { default as ManifestDetailHeader } from './components/manifest/ManifestDetailHeader.svelte';
 export { default as ManifestDetailLocation } from './components/manifest/ManifestDetailLocation.svelte';
 export { default as ManifestDetailPrimary } from './components/manifest/ManifestDetailPrimary.svelte';
 export { default as ManifestImage } from './components/manifest/ManifestImage.svelte';

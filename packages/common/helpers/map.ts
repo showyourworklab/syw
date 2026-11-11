@@ -1,6 +1,6 @@
 import type { Map as MapLibreMap, GeoJSONSourceSpecification, LayerSpecification } from 'maplibre-gl'
 import { MAP_LAYER_ID, MAP_SOURCE_ID } from "#constants/map"
-import type { ManifestLocation } from "#types/data"
+import type { ManifestLocationValue } from "#types/data"
 
 /**
  * Creates a map source object
@@ -59,5 +59,5 @@ export const updateMapLang = (map: MapLibreMap | null | undefined, lang: string 
  * @param decimals - Decimal places to round to, 5 is about 1 meter
  * @returns Coordinates (i.e. 40.75454, -73.91208)
  */
-export const formatCoordinates = (location: ManifestLocation, decimals = 5): string =>
+export const formatCoordinates = (location: ManifestLocationValue, decimals = 5): string =>
 	`${location.lat.toFixed(decimals)}, ${location.lng.toFixed(decimals)}`

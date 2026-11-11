@@ -21,10 +21,8 @@ function ManifestDetailPrimary({ type, manifest }: ManifestDetailPrimaryProps) {
 
 	const formattedValue = useMemo(() => {
 		switch(type) {
-			case 'producer':
-				return (value as { name?: string }[] | undefined)?.map(v => v.name).join(', ')
 			case 'timestamp':
-				return getDateString(locale ?? '', (value as ManifestTimestamp | null) ?? undefined)
+				return getDateString(locale ?? '', (value as ManifestTimestamp | null)?.value)
 			default:
 				return value
 		}
@@ -36,8 +34,11 @@ function ManifestDetailPrimary({ type, manifest }: ManifestDetailPrimaryProps) {
 		<ManifestDetail
 			title={getText(type, manifestTypeTextKey, mediaType)}
 			titleIcon={getManifestDetailIcon(type)}
-			definition={getText(type, manifestTypeTextKey, "definition", mediaType)}
+			definition={type === 'timestamp'
+				? getText(type, mediaType, 'definition')
+				: getText(type, manifestTypeTextKey, "definition", mediaType)}
 			value={formattedValue as string}
+			trust={value?.trust}
 			className={classNames('ManifestDetailPrimary')}
 		/>
 	)

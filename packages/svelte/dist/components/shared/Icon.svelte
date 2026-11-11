@@ -5,6 +5,7 @@
 	import ShieldXIcon from '@lucide/svelte/icons/shield-x'
 	import ShieldQuestionMarkIcon from '@lucide/svelte/icons/shield-question-mark'
 	import ShieldAlertIcon from '@lucide/svelte/icons/shield-alert'
+	import ShieldMinusIcon from '@lucide/svelte/icons/shield-minus'
 	import CameraIcon from '@lucide/svelte/icons/camera'
 	import SquarePenIcon from '@lucide/svelte/icons/square-pen'
 	import SparklesIcon from '@lucide/svelte/icons/sparkles'
@@ -35,6 +36,7 @@
 		type,
 		size = ICON_DEFAULT_SIZE,
 		strokeWidth = ICON_DEFAULT_STROKE_WIDTH,
+		label,
 		className
 	}: IconProps = $props()
 
@@ -48,6 +50,7 @@
 		trusted_legacy: ShieldAlertIcon,
 		untrusted: ShieldAlertIcon,
 		untrusted_expired: ShieldAlertIcon,
+		reported: ShieldMinusIcon,
 		// Type
 		camera: CameraIcon,
 		edit: SquarePenIcon,
@@ -81,6 +84,8 @@
 	const iconProps = $derived({
 		size,
 		strokeWidth,
+		role: label ? 'img' : undefined,
+		'aria-label': label ?? undefined,
 		class: classNames(
 			'Icon',
 			`Icon_${type}`,

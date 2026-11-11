@@ -1,8 +1,9 @@
 import type { Settings } from '@contentauth/c2pa-web'
 import type { Manifest as C2paManifest, ManifestStore, StatusCodes, ValidationStatus } from '@contentauth/c2pa-types'
-import { INTEGRITY_KEYS, TRUST_KEYS } from '#constants/data'
-import { CAWG_IDENTITY_LABEL, TRUST_LIST_FETCH_TIMEOUT, TRUST_LIST_SCOPES, TRUST_LIST_REQUESTS_KEY, TRUST_LIST_SOURCES, TRUST_LIST_TYPES, EXPIRED_CODES, TRUSTED_CODES, UNTRUSTED_CODES } from '#constants/trust'
+import { DETAIL_TRUST_KEYS, DETAIL_TRUST_ORDER, INTEGRITY_KEYS, TRUST_KEYS } from '#constants/data'
+import { TRUST_LIST_FETCH_TIMEOUT, TRUST_LIST_SCOPES, TRUST_LIST_REQUESTS_KEY, TRUST_LIST_SOURCES, TRUST_LIST_TYPES, EXPIRED_CODES, TIMESTAMP_CODES, TRUSTED_CODES, UNTRUSTED_CODES } from '#constants/trust'
 import type { ManifestValidation, TrustListScope, TrustListSettings, TrustListSource, TrustListType } from '#types/trust'
+import type { DetailTrust, DetailTrustKey } from '#types/data'
 
 /**
  * Gets the page-wide map of trust list requests
@@ -106,37 +107,47 @@ export const getLegacyTrustSettings = async (): Promise<Settings> => {
 /**
  * Gets a manifest's validation from its status codes
  * @function
- * @param manifest - C2paManifest entry
  * @param statusCodes - Status codes of the manifest
  * @param legacyStatusCodes - Status codes of the manifest with legacy trust lists
  * @return Manifest validation
  */
 export const getManifestValidation = (
-	manifest: C2paManifest,
 	statusCodes: Pick<StatusCodes, 'success' | 'failure'> | null,
 	legacyStatusCodes: Pick<StatusCodes, 'success' | 'failure'> | null = null
 ): ManifestValidation => {
-	if(!statusCodes) return { integrity: INTEGRITY_KEYS.UNAVAILABLE, signer: null, identity: null }
+	if(!statusCodes) return { integrity: INTEGRITY_KEYS.UNAVAILABLE, signer: null }
 	// An untrusted signer doesn't change whether the details match what was signed
 	const isInvalid = statusCodes.failure.some(({ code }) => !UNTRUSTED_CODES.includes(code))
 	// Nothing about an invalid manifest is shown, including who signed it
-	if(isInvalid) return { integrity: INTEGRITY_KEYS.INVALID, signer: null, identity: null }
-	const hasSuccess = (codes: Pick<StatusCodes, 'success'> | null, code: string) =>
-		Boolean(codes?.success.some(status => status.code === code))
-	// The legacy read has more trust lists, so it decides anything the first read didn't trust
-	const getTrust = (code: string) =>
-		hasSuccess(statusCodes, code) ? TRUST_KEYS.TRUSTED
-		: hasSuccess(legacyStatusCodes, code) ? TRUST_KEYS.TRUSTED_LEGACY
-		: TRUST_KEYS.UNTRUSTED
-	const hasIdentity = manifest.assertions?.some(({ label }) => label.startsWith(CAWG_IDENTITY_LABEL))
+	if(isInvalid) return { integrity: INTEGRITY_KEYS.INVALID, signer: null }
 	return {
 		integrity: INTEGRITY_KEYS.VALID,
 		// An expired certificate can't be trusted, even if it's on a trust list
 		signer: statusCodes.failure.some(({ code }) => code === EXPIRED_CODES.CLAIM)
 			? TRUST_KEYS.UNTRUSTED_EXPIRED
-			: getTrust(TRUSTED_CODES.CLAIM),
-		identity: hasIdentity ? getTrust(TRUSTED_CODES.IDENTITY) : null,
+			: getTrust(TRUSTED_CODES.CLAIM, statusCodes, legacyStatusCodes),
 	}
+}
+
+/**
+ * Gets how far a certificate is trusted from its trusted status code
+ * The legacy read has more trust lists, so it decides anything the first read didn't trust
+ * @function
+ * @param code - Status code of the trusted certificate (i.e. signingCredential.trusted)
+ * @param statusCodes - Status codes of the manifest
+ * @param legacyStatusCodes - Status codes of the manifest with legacy trust lists
+ * @return Trust key
+ */
+export const getTrust = (
+	code: string,
+	statusCodes: Pick<StatusCodes, 'success'> | null,
+	legacyStatusCodes: Pick<StatusCodes, 'success'> | null = null
+): typeof TRUST_KEYS.TRUSTED | typeof TRUST_KEYS.TRUSTED_LEGACY | typeof TRUST_KEYS.UNTRUSTED => {
+	const hasSuccess = (codes: Pick<StatusCodes, 'success'> | null) =>
+		Boolean(codes?.success.some(status => status.code === code))
+	return hasSuccess(statusCodes) ? TRUST_KEYS.TRUSTED
+		: hasSuccess(legacyStatusCodes) ? TRUST_KEYS.TRUSTED_LEGACY
+		: TRUST_KEYS.UNTRUSTED
 }
 
 /**
@@ -147,6 +158,55 @@ export const getManifestValidation = (
  */
 export const isManifestValid = (validation: ManifestValidation | null | undefined): boolean =>
 	validation?.integrity === INTEGRITY_KEYS.VALID
+
+/**
+ * Gets the source of a manifest's signing time from its time-stamp status codes
+ * @function
+ * @param statusCodes - Status codes of the manifest
+ * @param legacyStatusCodes - Status codes of the manifest with legacy trust lists
+ * @return Trust key, or null when the signature has no time-stamp or it failed validation
+ */
+export const getSignedTimestampSource = (
+	statusCodes: StatusCodes | null,
+	legacyStatusCodes: StatusCodes | null = null
+): DetailTrustKey | null => {
+	const hasCode = (codes: StatusCodes | null, code: string) => Boolean(
+		codes && [
+			...codes.success,
+			...codes.informational,
+			...codes.failure
+		].some(status =>
+			status.code === code
+		)
+	)
+	const isInvalid = statusCodes?.failure.some(({ code }) =>
+		TIMESTAMP_CODES.INVALID.includes(code)
+	)
+	if(!statusCodes || isInvalid) {
+		return null
+	} else if(hasCode(statusCodes, TIMESTAMP_CODES.TRUSTED)) {
+		return DETAIL_TRUST_KEYS.TRUSTED
+	} else if(hasCode(legacyStatusCodes, TIMESTAMP_CODES.TRUSTED)) {
+		return DETAIL_TRUST_KEYS.TRUSTED_LEGACY
+	} else if(hasCode(statusCodes, TIMESTAMP_CODES.UNTRUSTED)) {
+		return DETAIL_TRUST_KEYS.UNTRUSTED
+	} else {
+		return null
+	}
+}
+
+/**
+ * Gets the least trusted of several detail trusts, for a detail combined from several assertions
+ * @function
+ * @param trusts - Detail trusts
+ * @return Least trusted detail trust, or null when there are none
+ */
+export const getWeakestTrust = (trusts: DetailTrust[]): DetailTrust | null =>
+	trusts.reduce<DetailTrust | null>((weakest, trust) =>
+		!weakest || DETAIL_TRUST_ORDER.indexOf(trust.level) > DETAIL_TRUST_ORDER.indexOf(weakest.level)
+			? trust
+			: weakest
+	, null)
 
 /**
  * Gets a manifest's status codes from a manifest store

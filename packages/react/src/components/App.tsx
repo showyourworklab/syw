@@ -7,9 +7,6 @@ import { getDataEventType } from 'syw-common/helpers/data'
 import { useUiContext } from '$src/context/ui'
 import { useDataContext } from '$src/context'
 import Figure from '$src/components/figure/Figure'
-import FigureCutline from '$src/components/figure/FigureCutline'
-import FigureCaption from '$src/components/figure/FigureCaption'
-import FigureMedia from '$src/components/figure/FigureMedia'
 import ProvenanceExpand from '$src/components/provenance/ProvenanceExpand'
 import ProvenanceModal from '$src/components/provenance/ProvenanceModal'
 import ProvenancePopover from '$src/components/provenance/ProvenancePopover'
@@ -76,11 +73,7 @@ function App({
 			className={classes}
 			{...props}
 		>
-			<Figure>
-				<FigureMedia />
-				<FigureCutline />
-				<FigureCaption />
-			</Figure>
+			<Figure />
 			{variant === 'expand' ? <ProvenanceExpand /> : null}
 			{variant === 'modal' ? <ProvenanceModal /> : null}
 			{variant === 'popover' ? <ProvenancePopover /> : null}

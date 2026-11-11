@@ -1,5 +1,5 @@
 import type { VARIANT_KEYS, SYW_ICONS, MEDIA_QUERIES } from '#constants/ui'
-import type { IntegrityKey, TrustKey, Manifest, ManifestTypeKey } from './data.js'
+import type { IntegrityKey, TrustKey, DetailTrustKey, Manifest, ManifestTypeKey } from './data.js'
 
 export type Variant = typeof VARIANT_KEYS[number]
 
@@ -23,7 +23,7 @@ export type ManifestSectionIconKey = 'section_identity' | 'section_primary' | 's
 // Icons shown in the manifest content tab triggers
 export type ManifestTabIconKey = 'tab_info' | 'tab_image'
 
-export type LucideIconType = IntegrityKey | TrustKey | ManifestTypeKey | ManifestDetailIconKey | ManifestSectionIconKey | ManifestTabIconKey | 'missing' | 'up' | 'down' | 'close' | 'info'
+export type LucideIconType = IntegrityKey | TrustKey | DetailTrustKey | ManifestTypeKey | ManifestDetailIconKey | ManifestSectionIconKey | ManifestTabIconKey | 'missing' | 'up' | 'down' | 'close' | 'info'
 
 export type IconType = LucideIconType | SywIconType
 

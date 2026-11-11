@@ -20,6 +20,7 @@ function ManifestDetailActions({ manifest }: ManifestDetailActionsProps) {
 			title={getText('actions')}
 			titleIcon="actions"
 			definition={getText('actions', 'definition')}
+			trust={manifest.actions?.trust}
 			className={classNames('ManifestDetailActions')}
 			open={listOpen}
 			value={getText('actions', actionsIncludeAi ? 'ai' : 'human')}

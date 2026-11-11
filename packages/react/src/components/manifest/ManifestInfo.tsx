@@ -13,9 +13,6 @@ function ManifestInfo({ manifest, className }: ManifestInfoProps) {
 			<div
 				className={classNames('ManifestInfoColumn')}
 			>
-				<ManifestSectionIdentity
-					manifest={manifest}
-				/>
 				<ManifestSectionPrimary
 					keys={MANIFEST_PRIMARY_KEYS}
 					manifest={manifest}
@@ -24,6 +21,9 @@ function ManifestInfo({ manifest, className }: ManifestInfoProps) {
 			<div
 				className={classNames('ManifestInfoColumn')}
 			>
+				<ManifestSectionIdentity
+					manifest={manifest}
+				/>
 				<ManifestSectionTrust
 					manifest={manifest}
 				/>

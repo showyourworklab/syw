@@ -27,13 +27,14 @@ function ManifestDetailLocation({ manifest }: ManifestDetailLocationProps) {
 			definition={getText('location', 'coordinates', 'definition', mediaType)}
 			className={classNames('ManifestDetailLocation')}
 			open={mapOpen}
-			value={formatCoordinates(manifest.location)}
+			value={formatCoordinates(manifest.location.value)}
+			trust={manifest.location.trust}
 			prompt={getText('location', 'map', mapOpen ? 'hide' : 'show')}
 			onToggle={handleMapToggle}
 		>
 			{mapMounted ?
 				<Map
-					location={manifest.location}
+					location={manifest.location.value}
 				/>
 			: null}
 		</ManifestDetail>

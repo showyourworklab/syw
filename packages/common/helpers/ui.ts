@@ -1,6 +1,6 @@
-import type { Manifest, ManifestActions } from '#types/data'
+import type { Manifest, ManifestAction } from '#types/data'
 import type { ManifestDetailIconKey, SywIconType } from '#types/ui'
-import { MANIFEST_ACTIONS_HIDDEN, SYW_ICONS } from '#constants/ui'
+import { MANIFEST_ACTIONS_HIDDEN, MANIFEST_PREVIEW_TITLE_KEYS, SYW_ICONS } from '#constants/ui'
 import { getObjectValue } from '#helpers/utils'
 
 interface A11yClickEvent {
@@ -68,5 +68,17 @@ export const getManifestDetailIcon = (key: string | null | undefined): ManifestD
  * @param manifest - Manifest
  * @returns
  */
-export const getManifestDisplayActions = (manifest: Manifest | null | undefined): ManifestActions =>
-	manifest?.actions?.filter(action => !MANIFEST_ACTIONS_HIDDEN.includes(action.key)) ?? []
+export const getManifestDisplayActions = (manifest: Manifest | null | undefined): ManifestAction[] =>
+	manifest?.actions?.value.filter(action => !MANIFEST_ACTIONS_HIDDEN.includes(action.key)) ?? []
+
+/**
+ * Title for a manifest preview without a type, from its generator names and signator
+ * @param manifest - Manifest
+ * @returns
+ */
+export const getManifestPreviewTitle = (manifest: Manifest | null | undefined): string =>
+	MANIFEST_PREVIEW_TITLE_KEYS.map(key =>
+		key === 'generator'
+			? manifest?.generator?.value.map(entry => entry.name).filter(Boolean).join(', ')
+			: manifest?.[key]
+	).filter(Boolean).join(' ')

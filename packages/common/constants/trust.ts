@@ -89,10 +89,21 @@ export const TRUSTED_CODES = {
 export const EXPIRED_CODES = {
 	CLAIM: 'signingCredential.expired',
 } as const
-// Validation codes of an untrusted but otherwise valid signature or identity
+// Validation codes of a claim signature's time-stamp
+export const TIMESTAMP_CODES = {
+	TRUSTED: 'timeStamp.trusted',
+	UNTRUSTED: 'timeStamp.untrusted',
+	INVALID: [
+		'timeStamp.mismatch',
+		'timeStamp.outsideValidity',
+		'timeStamp.malformed'
+	] as string[],
+} as const
+// Validation codes of an untrusted but otherwise valid signature, time-stamp or identity
 export const UNTRUSTED_CODES: string[] = [
 	'signingCredential.untrusted',
 	EXPIRED_CODES.CLAIM,
+	TIMESTAMP_CODES.UNTRUSTED,
 	'cawg.x509.credential.untrusted',
 	// Identity claims aggregators have no trust list yet, so their identities are always untrusted
 	// https://cawg.io/identity/1.2/

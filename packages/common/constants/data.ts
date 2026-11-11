@@ -16,6 +16,7 @@ export const KNOWN_GENERATORS_BY_MANIFEST_TYPE: Record<string, ManifestTypeKey> 
 	"LEICA M11-P": MANIFEST_TYPES.CAMERA,
 	"LEICA SL3-S": MANIFEST_TYPES.CAMERA,
 	"NIKON CORPORATION": MANIFEST_TYPES.CAMERA,
+	"Canon EOS R5m2": MANIFEST_TYPES.CAMERA,
 	// EDIT
 	"Adobe Photoshop": MANIFEST_TYPES.EDIT,
 	"Lightroom": MANIFEST_TYPES.EDIT,
@@ -44,6 +45,31 @@ export const TRUST_KEYS = {
 	UNTRUSTED: 'untrusted',
 	// Signing certificate has expired, without a trusted time-stamp showing it was valid when signed
 	UNTRUSTED_EXPIRED: 'untrusted_expired',
+} as const
+// How far a manifest detail can be trusted
+export const DETAIL_TRUST_KEYS = {
+	...TRUST_KEYS,
+	// Gathered by the signer from a person or another app, without being checked
+	REPORTED: 'reported',
+} as const
+// Detail trust keys from most to least trusted
+export const DETAIL_TRUST_ORDER = [
+	DETAIL_TRUST_KEYS.TRUSTED,
+	DETAIL_TRUST_KEYS.TRUSTED_LEGACY,
+	DETAIL_TRUST_KEYS.UNTRUSTED,
+	DETAIL_TRUST_KEYS.UNTRUSTED_EXPIRED,
+	DETAIL_TRUST_KEYS.REPORTED,
+] as const
+// What a manifest detail's trust comes from
+export const DETAIL_TRUST_SOURCES = {
+	// A time-stamp authority's certificate
+	TIMESTAMP: 'timestamp',
+	// A CAWG identity's certificate
+	IDENTITY: 'identity',
+	// The claim signer, for the claim and the assertions attributed to it
+	SIGNER: 'signer',
+	// Gathered by the signer, for assertions not attributed to it
+	GATHERED: 'gathered',
 } as const
 export const MEDIA_TYPES = {
 	IMAGE: 'image',

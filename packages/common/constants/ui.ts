@@ -20,27 +20,20 @@ export const VARIANT_DEFAULT = 'expand'
 export const MANIFEST_EMPTY_TYPE_KEYS: readonly ManifestTypeKey[] = ['unknown_create', 'none']
 export const MANIFEST_KEYS = [
 	'timestamp',
-	'producer',
+	'location',
 	'generator',
 	'signator',
 	'actions',
 	// 'ingredients',
 	// 'verify',
-	'location',
 ] as const
 export const MANIFEST_PRIMARY_KEYS = [
 	'timestamp',
-	'producer',
 	'generator',
 ] as const
 export const MANIFEST_LOCATION_TYPES: readonly ManifestTypeKey[] = ['camera']
 export const MANIFEST_ACTIONS_TYPES: readonly ManifestTypeKey[] = ['edit']
 export const MANIFEST_ACTIONS_HIDDEN: readonly string[] = ['c2pa_opened', 'c2pa_published']
-export const MANIFEST_SECONDARY_KEYS = [
-	'location',
-	// 'actions',
-	'thumbnail'
-] as const
 export const MANIFEST_PREVIEW_TITLE_KEYS = [
 	'generator',
 	'signator',

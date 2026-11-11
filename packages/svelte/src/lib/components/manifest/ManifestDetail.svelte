@@ -2,9 +2,10 @@
 	import type { Snippet } from 'svelte'
 	import { classNames } from 'syw-common/helpers/ui'
 	import type { ManifestDetailProps } from 'syw-common/types/components'
-	import ManifestDetailDefinition from '$lib/components/manifest/ManifestDetailDefinition.svelte'
+	import { getI18nContext } from '$lib/store/i18n.js'
 	import Collapse from '$lib/components/shared/Collapse.svelte'
-	import Icon from '$lib/components/shared/Icon.svelte'
+	import ManifestDetailHeader from '$lib/components/manifest/ManifestDetailHeader.svelte'
+	import ManifestDetailDefinition from '$lib/components/manifest/ManifestDetailDefinition.svelte'
 
 	const {
 		open,
@@ -12,17 +13,24 @@
 		definition,
 		titleIcon,
 		value,
-		prompt,
+		trust,
 		onToggle,
 		className,
 		children
 	}: ManifestDetailProps & { value?: string | Snippet | null, children?: Snippet } = $props()
 
+	const { locale, getText } = getI18nContext()
+
 	let innerOpen = $state(false)
-	// Titled details open to show their definition and children
-	const isToggleable = $derived(!!title)
+	// Titled details open when they have something to show
+	const isToggleable = $derived(!!title && !!(children || definition || trust))
 	// Callers can control whether it's open, otherwise it keeps its own state
 	const isOpen = $derived(open ?? innerOpen)
+	// The definition ends with how far the value can be trusted
+	const fullDefinition = $derived([
+		definition,
+		trust ? getText($locale, 'trust', trust.source, trust.level, 'definition') : null,
+	].filter(Boolean).join(' '))
 
 	const handleToggle = () => {
 		if(open === undefined) innerOpen = !innerOpen
@@ -38,52 +46,17 @@
 		className,
 	)}
 >
+	{#if title}
+		<ManifestDetailHeader
+			open={isOpen}
+			title={title}
+			titleIcon={titleIcon}
+			value={value}
+			trust={trust}
+			onToggle={isToggleable ? handleToggle : undefined}
+		/>
+	{/if}
 	{#if isToggleable}
-		<button
-			type="button"
-			aria-expanded={isOpen}
-			class={classNames('ManifestDetailToggle')}
-			onclick={handleToggle}
-		>
-			<span
-				class={classNames('ManifestDetailTitle')}
-			>
-				{#if titleIcon}
-					<Icon
-						type={titleIcon}
-						className={classNames('ManifestDetailTitleIcon')}
-					/>
-				{/if}
-				<span
-					class={classNames('ManifestDetailTitleText')}
-				>
-					{title}
-				</span>
-			</span>
-			<span
-				class={classNames('ManifestDetailValue')}
-			>
-				{#if typeof value === 'function'}
-					{@render value()}
-				{:else}
-					{value}
-				{/if}
-			</span>
-			<!-- {#if prompt}
-				<span
-					class={classNames('ManifestDetailPrompt')}
-				>
-					{prompt}
-				</span>
-			{/if} -->
-			<span
-				class={classNames('ManifestDetailToggleIcon')}
-			>
-				<Icon
-					type={isOpen ? 'up' : 'down'}
-				/>
-			</span>
-		</button>
 		<Collapse
 			open={isOpen}
 		>
@@ -91,9 +64,9 @@
 				class={classNames('ManifestDetailBody')}
 			>
 				{@render children?.()}
-				{#if definition}
+				{#if fullDefinition}
 					<ManifestDetailDefinition>
-						{definition}
+						{fullDefinition}
 					</ManifestDetailDefinition>
 				{/if}
 			</div>

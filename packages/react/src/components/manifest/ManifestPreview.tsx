@@ -1,6 +1,5 @@
 import type { KeyboardEvent, RefObject } from 'react'
-import { MANIFEST_PREVIEW_TITLE_KEYS } from 'syw-common/constants/ui'
-import { handleA11yClick, classNames } from 'syw-common/helpers/ui'
+import { handleA11yClick, classNames, getManifestPreviewTitle } from 'syw-common/helpers/ui'
 import { getDateString } from 'syw-common/helpers/i18n'
 import type { ManifestPreviewProps } from 'syw-common/types/components'
 import { useI18nContext } from '$src/context/i18n'
@@ -59,9 +58,7 @@ function ManifestPreview({
 					>
 						{manifest.type?.key
 							? getText("type", manifest.type?.key)
-							: MANIFEST_PREVIEW_TITLE_KEYS.filter(key => manifest[key]).map(key =>
-								manifest[key]
-							).join(" ")
+							: getManifestPreviewTitle(manifest)
 						}
 					</div>
 					<div
@@ -70,7 +67,7 @@ function ManifestPreview({
 							'ManifestPreviewCell_time'
 						)}
 					>
-						<span>{getDateString(locale, manifest?.timestamp ?? undefined)}</span>
+						<span>{getDateString(locale, manifest?.timestamp?.value)}</span>
 					</div>
 					<div
 						className={classNames(

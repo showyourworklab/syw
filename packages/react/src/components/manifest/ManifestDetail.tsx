@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import { classNames } from 'syw-common/helpers/ui'
 import type { ManifestDetailProps } from 'syw-common/types/components'
-import ManifestDetailDefinition from '$src/components/manifest/ManifestDetailDefinition'
+import { useI18nContext } from '$src/context'
 import Collapse from '$src/components/shared/Collapse'
-import Icon from '$src/components/shared/Icon'
+import ManifestDetailHeader from '$src/components/manifest/ManifestDetailHeader'
+import ManifestDetailDefinition from '$src/components/manifest/ManifestDetailDefinition'
 
 function ManifestDetail({
 	open,
@@ -11,16 +12,22 @@ function ManifestDetail({
 	definition,
 	titleIcon,
 	value,
-	prompt,
+	trust,
 	onToggle,
 	className,
 	children
 }: ManifestDetailProps) {
+	const { getText } = useI18nContext()
 	const [innerOpen, setInnerOpen] = useState(false)
-	// Titled details open to show their definition and children
-	const isToggleable = !!title
+	// Titled details open when they have something to show
+	const isToggleable = !!title && !!(children || definition || trust)
 	// Callers can control whether it's open, otherwise it keeps its own state
 	const isOpen = open ?? innerOpen
+	// The definition ends with how far the value can be trusted
+	const fullDefinition = [
+		definition,
+		trust ? getText('trust', trust.source, trust.level, 'definition') : null,
+	].filter(Boolean).join(' ')
 
 	const handleToggle = () => {
 		if(open === undefined) setInnerOpen(!innerOpen)
@@ -36,64 +43,31 @@ function ManifestDetail({
 				className,
 			)}
 		>
+			{title ?
+				<ManifestDetailHeader
+					open={isOpen}
+					title={title}
+					titleIcon={titleIcon}
+					value={value}
+					trust={trust}
+					onToggle={isToggleable ? handleToggle : undefined}
+				/>
+			: null}
 			{isToggleable ?
-				<>
-					<button
-						type="button"
-						aria-expanded={isOpen}
-						className={classNames('ManifestDetailToggle')}
-						onClick={handleToggle}
+				<Collapse
+					open={isOpen}
+				>
+					<div
+						className={classNames('ManifestDetailBody')}
 					>
-						<span
-							className={classNames('ManifestDetailTitle')}
-						>
-							{titleIcon ?
-								<Icon
-									type={titleIcon}
-									className={classNames('ManifestDetailTitleIcon')}
-								/>
-							: null}
-							<span
-								className={classNames('ManifestDetailTitleText')}
-							>
-								{title}
-							</span>
-						</span>
-						<span
-							className={classNames('ManifestDetailValue')}
-						>
-							{value}
-						</span>
-						{/* {prompt ?
-							<span
-								className={classNames('ManifestDetailPrompt')}
-							>
-								{prompt}
-							</span>
-						: null} */}
-						<span
-							className={classNames('ManifestDetailToggleIcon')}
-						>
-							<Icon
-								type={isOpen ? 'up' : 'down'}
-							/>
-						</span>
-					</button>
-					<Collapse
-						open={isOpen}
-					>
-						<div
-							className={classNames('ManifestDetailBody')}
-						>
-							{children}
-							{definition ?
-								<ManifestDetailDefinition>
-									{definition}
-								</ManifestDetailDefinition>
-							: null}
-						</div>
-					</Collapse>
-				</>
+						{children}
+						{fullDefinition ?
+							<ManifestDetailDefinition>
+								{fullDefinition}
+							</ManifestDetailDefinition>
+						: null}
+					</div>
+				</Collapse>
 			: children ?
 				<div
 					className={classNames('ManifestDetailBody')}

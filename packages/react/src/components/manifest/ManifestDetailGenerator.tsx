@@ -7,7 +7,7 @@ function ManifestDetailGenerator({ manifest }: ManifestDetailGeneratorProps) {
 	const { getText } = useI18nContext()
 	const { mediaType } = useDataContext()
 
-	if(!manifest.generator?.length) return null
+	if(!manifest.generator) return null
 
 	const typeKey = manifest.type?.key ?? 'unknown'
 
@@ -16,7 +16,7 @@ function ManifestDetailGenerator({ manifest }: ManifestDetailGeneratorProps) {
 			title={getText('generator', typeKey)}
 			titleIcon={typeKey}
 			definition={getText('generator', typeKey, 'definition', mediaType)}
-			value={manifest.generator.map((entry, index) =>
+			value={manifest.generator.value.map((entry, index) =>
 				<span
 					key={index}
 					className={classNames('ManifestDetailGeneratorEntry')}
@@ -33,6 +33,7 @@ function ManifestDetailGenerator({ manifest }: ManifestDetailGeneratorProps) {
 					</span>
 				</span>
 			)}
+			trust={manifest.generator.trust}
 			className={classNames('ManifestDetailGenerator')}
 		/>
 	)

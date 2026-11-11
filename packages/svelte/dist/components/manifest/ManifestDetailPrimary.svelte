@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { classNames, getManifestDetailIcon } from 'syw-common/helpers/ui'
 	import { getDateString } from 'syw-common/helpers/i18n'
+	import type { ManifestTimestamp } from 'syw-common/types/data'
 	import type { ManifestDetailPrimaryProps } from 'syw-common/types/components'
 	import { getI18nContext } from '../../store/i18n.js'
 	import { getDataContext } from '../../store/data.js'
@@ -24,10 +25,8 @@
 
 	const formattedValue = $derived(() => {
 		switch(type) {
-			case 'producer':
-				return (value() as { name?: string | null }[] | undefined)?.map(v => v.name).join(', ')
 			case 'timestamp':
-				return getDateString($locale, value() as { date?: Date, offset?: string | null } | undefined)
+				return getDateString($locale, (value() as ManifestTimestamp | null)?.value)
 			default:
 				return value()
 		}
@@ -44,8 +43,11 @@
 	<ManifestDetail
 		title={type ? getText($locale, type, manifestType(), $mediaType) : ''}
 		titleIcon={getManifestDetailIcon(type)}
-		definition={getText($locale, type, manifestType(), "definition", $mediaType)}
+		definition={type === 'timestamp'
+			? getText($locale, type, $mediaType, 'definition')
+			: getText($locale, type, manifestType(), "definition", $mediaType)}
 		value={formattedValue() as string}
+		trust={(value() as ManifestTimestamp | null)?.trust}
 		className={classNames('ManifestDetailPrimary')}
 	/>
 {/if}

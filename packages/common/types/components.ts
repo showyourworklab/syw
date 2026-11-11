@@ -1,4 +1,4 @@
-import type { Manifest, ManifestAction, ManifestFieldKey, ManifestLocation, ManifestType } from './data.js'
+import type { DetailTrust, Manifest, ManifestAction, ManifestFieldKey, ManifestLocationValue, ManifestType } from './data.js'
 import type { IconType } from './ui.js'
 
 // Views of a manifest's content, toggled by tabs
@@ -24,6 +24,8 @@ export interface ManifestDetailProps extends ComponentProps {
 	value?: any
 	// Hint below the value, like "Click to show map"
 	prompt?: string | null
+	// How far the value can be trusted, hinted by the value and explained in the definition
+	trust?: DetailTrust | null
 	// Called on toggle, alongside open to control it from outside
 	onToggle?: () => void
 }
@@ -58,12 +60,14 @@ export interface ProvenanceExplainerToggleProps extends ComponentProps {}
 
 export interface IconProps extends ComponentProps {
 	type: IconType | null | undefined
+	// Accessible name, for icons that carry meaning on their own
+	label?: string | null
 	size?: number
 	strokeWidth?: number
 }
 
 export interface MapProps extends ComponentProps {
-	location: ManifestLocation
+	location: ManifestLocationValue
 }
 
 export interface ManifestContentProps extends ComponentProps {
@@ -112,6 +116,12 @@ export interface ManifestSectionProps extends ComponentProps {
 
 export interface ManifestDetailActionsProps extends ComponentProps {
 	manifest: Manifest
+}
+
+export interface ManifestDetailHeaderProps extends Pick<ManifestDetailProps, 'open' | 'title' | 'titleIcon' | 'value' | 'trust' | 'onToggle'>, ComponentProps {}
+
+export interface ManifestDetailNoteProps extends ComponentProps {
+	icon: IconType
 }
 
 export interface ManifestDetailActionsItemProps extends ComponentProps {

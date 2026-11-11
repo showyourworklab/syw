@@ -1,11 +1,12 @@
 import { createC2pa } from '@contentauth/c2pa-web'
 import type { Reader, C2pa } from '@contentauth/c2pa-web'
-import type { Manifest as C2paManifest } from '@contentauth/c2pa-types'
+import type { Manifest as C2paManifest, ManifestAssertion } from '@contentauth/c2pa-types'
 import { VERIFY_BASE_URL } from '#constants/ui'
 import { C2PA_ACTIONS } from '#constants/c2pa'
-import { PHASE_KEYS, C2PA_DATA_DEFAULT, KNOWN_GENERATORS_BY_MANIFEST_TYPE, MANIFEST_TYPES, MEDIA_TYPES, MEDIA_TYPE_EXTENSIONS_IMAGE, MEDIA_TYPE_EXTENSIONS_VIDEO } from '#constants/data'
-import { convertJumbfToBlobUrl, fetchMedia, getC2paActions, getC2paConfig, getCawgIdentityValue, getExifValue, getManifestIptc, getSchemaOrgValue, hasC2paAction, isAiEditedManifest, isEditedManifest, readC2paFromBlob, readLegacyManifestStore } from '#helpers/c2pa'
-import { getManifestStatusCodes, getManifestValidation, isManifestValid } from '#helpers/trust'
+import { PHASE_KEYS, C2PA_DATA_DEFAULT, DETAIL_TRUST_KEYS, DETAIL_TRUST_SOURCES, KNOWN_GENERATORS_BY_MANIFEST_TYPE, MANIFEST_TYPES, MEDIA_TYPES, MEDIA_TYPE_EXTENSIONS_IMAGE, MEDIA_TYPE_EXTENSIONS_VIDEO } from '#constants/data'
+import { convertJumbfToBlobUrl, fetchMedia, getC2paActions, getAssertion, getC2paConfig, getCawgIdentityValue, getExifValue, getManifestIptc, getMetadataAssertion, isAssertionAttributed, hasC2paAction, isAiEditedManifest, isEditedManifest, readC2paFromBlob, readLegacyManifestStore } from '#helpers/c2pa'
+import { TRUSTED_CODES } from '#constants/trust'
+import { getManifestStatusCodes, getManifestValidation, getSignedTimestampSource, getTrust, getWeakestTrust, isManifestValid } from '#helpers/trust'
 import { getIptcDigitalSourceTypeKey, isIptcDigitalSourceTypeAi, isIptcDigitalSourceTypeCamera } from '#helpers/iptc'
 import type {
 	C2paOptions,
@@ -14,14 +15,20 @@ import type {
 import type {
 	SywData,
 	MediaType,
+	DetailTrust,
+	ManifestAction,
 	ManifestActions,
 	ManifestGenerator,
+	ManifestGeneratorEntry,
 	ManifestIdentity,
 	ManifestLocation,
+	ManifestProducer,
 	ManifestTimestamp,
+	ManifestTimestampValue,
 	ManifestType,
 	ManifestTypeKey,
 	Manifest,
+	TrustKey,
 } from '#types/data'
 import type { ManifestValidation } from '#types/trust'
 import type { DataEventType } from '#types/ui'
@@ -155,7 +162,7 @@ export const disposeSywData = (data: SywData | null | undefined) => {
 export const revokeManifestBlobUrls = (manifests: Manifest[] | null | undefined) => {
 	for(const manifest of manifests ?? []) {
 		if(manifest.thumbnail) URL.revokeObjectURL(manifest.thumbnail)
-		for(const generator of manifest.generator ?? []) {
+		for(const generator of manifest.generator?.value ?? []) {
 			if(generator.icon) URL.revokeObjectURL(generator.icon)
 		}
 	}
@@ -185,7 +192,7 @@ export const prepareManifests = async ({ provenance, reader }: {
 			)
         )
 		preparedManifests.sort((a, b) =>
-			(a?.timestamp?.date?.getTime?.() || 0) - (b?.timestamp?.date?.getTime?.() || 0)
+			(a?.timestamp?.value?.date?.getTime?.() || 0) - (b?.timestamp?.value?.date?.getTime?.() || 0)
 		)
 		// Timestamps of none manifests are only used for ordering, not shown
 		for(const manifest of preparedManifests) {
@@ -217,21 +224,21 @@ export const prepareManifest = async ({ manifest, provenance, reader }: {
 }): Promise<Manifest> => {
 	const validation = getValidation(manifest, provenance)
 	if(!isManifestValid(validation)) {
-		return prepareNoneManifest(manifest, validation)
+		return prepareNoneManifest(manifest, validation, provenance)
 	}
 	return {
 		id: getId(manifest),
 		type: getType(manifest),
 		validation,
-		timestamp: getTimestamp(manifest),
-		identity: getIdentity(manifest),
-		producer: getProducer(manifest),
+		timestamp: getTimestamp(manifest, provenance, validation.signer),
+		identity: getIdentity(manifest, provenance),
+		producer: getProducer(manifest, validation.signer),
 		signator: getSignator(manifest),
-		generator: await getGenerator(manifest, reader),
-		actions: getActions(manifest),
+		generator: await getGenerator(manifest, reader, validation.signer),
+		actions: getActions(manifest, validation.signer),
 		// ingredients: getIngredients(manifest),
 		thumbnail: await getThumbnail(manifest, reader),
-		location: getLocation(manifest),
+		location: getLocation(manifest, validation.signer),
 		original: manifest
 	}
 }
@@ -244,14 +251,14 @@ export const prepareManifest = async ({ manifest, provenance, reader }: {
  * @param validation - Manifest validation
  * @return Prepared manifest object
  */
-export const prepareNoneManifest = (manifest: C2paManifest, validation: ManifestValidation): Manifest => ({
+export const prepareNoneManifest = (manifest: C2paManifest, validation: ManifestValidation, provenance: C2paProvenance | null): Manifest => ({
 	id: getId(manifest),
 	type: { key: MANIFEST_TYPES.NONE },
 	validation,
-	timestamp: getTimestamp(manifest),
+	timestamp: getTimestamp(manifest, provenance, validation.signer),
 	identity: null,
-	producer: [],
-	generator: [],
+	producer: null,
+	generator: null,
 	thumbnail: null,
 	location: null,
 	original: manifest,
@@ -268,11 +275,40 @@ export const prepareUnknownCreateManifest = (): Manifest => ({
 	validation: null,
 	timestamp: null,
 	identity: null,
-	producer: [],
-	generator: [],
+	producer: null,
+	generator: null,
 	thumbnail: null,
 	location: null,
 })
+
+/////////////// Detail Trust ///////////////
+
+/**
+ * Gets how far a detail from the claim itself can be trusted, which is how far its signer is
+ * @function
+ * @param signer - Trust key of the claim signer
+ * @return Detail trust
+ */
+export const getClaimTrust = (signer: TrustKey | null | undefined): DetailTrust =>
+	signer
+		? { level: signer, source: DETAIL_TRUST_SOURCES.SIGNER }
+		: { level: DETAIL_TRUST_KEYS.REPORTED, source: DETAIL_TRUST_SOURCES.GATHERED }
+
+/**
+ * Gets how far a detail from an assertion can be trusted
+ * Assertions attributed to the signer are as trusted as the signer, otherwise they were gathered and are only reported
+ * @function
+ * @param assertion - Assertion the detail came from
+ * @param signer - Trust key of the claim signer
+ * @return Detail trust
+ */
+export const getAssertionTrust = (
+	assertion: ManifestAssertion | null | undefined,
+	signer: TrustKey | null | undefined
+): DetailTrust =>
+	isAssertionAttributed(assertion)
+		? getClaimTrust(signer)
+		: { level: DETAIL_TRUST_KEYS.REPORTED, source: DETAIL_TRUST_SOURCES.GATHERED }
 
 /////////////// Manifest Fields ///////////////
 
@@ -318,64 +354,133 @@ export const getType = (manifest: C2paManifest | null | undefined): ManifestType
 export const getValidation = (manifest: C2paManifest, provenance: C2paProvenance | null): ManifestValidation => {
 	const statusCodes = getManifestStatusCodes(manifest, provenance?.manifestStore)
 	const legacyStatusCodes = getManifestStatusCodes(manifest, provenance?.legacyManifestStore)
-	return getManifestValidation(manifest, statusCodes, legacyStatusCodes)
+	return getManifestValidation(statusCodes, legacyStatusCodes)
 }
 
 /**
- * Gets a manifest entry's localized date string
+ * Gets a manifest's timestamp, preferring a time-stamp authority's signing time over a time reported by the device or app
  * @function
  * @param manifest - C2paManifest entry
- * @return Localized date string
+ * @param provenance - C2PA provenance
+ * @param signer - Trust key of the claim signer
+ * @return Timestamp with its trust, or null when manifest has no usable time
  */
-export const getTimestamp = (manifest: C2paManifest | null | undefined): ManifestTimestamp | null => {
-	// TODO: track where the time came from (EXIF or signature) and if the offset was found (via GPS or not) and pass a source key that can properly label the assumed accuracy of the time
-	// TODO: Prioritize TSA trusted timestamps
-	let date: Date | undefined, offset: string | null | undefined
-	if(getExifValue(manifest, 'DateTimeOriginal')) {
-		const exifDateTime = getExifValue(manifest, 'DateTimeOriginal') as string
-		const exifParsedDate = exifDateTime?.split(/\D/)
-		const exifOffset = getExifValue(manifest, 'OffsetTimeOriginal') as string ?? null
-		if(exifParsedDate.length === 6) {
-			const [year, month, day, hour, minute, second] = exifParsedDate
-			date = exifOffset
-				? new Date(`${year}-${month}-${day}T${hour}:${minute}:${second}${exifOffset}`)
-				: new Date(Number(year), Number(month) - 1, Number(day), Number(hour), Number(minute), Number(second))
-			offset = exifOffset
-		} else {
-			return null
-		}
-	} else if(manifest?.signature_info?.time) {
-		const isoString = manifest.signature_info.time
-		const offsetMatch = isoString.match(/([+-]\d{2}:\d{2})$|Z$/)
-		date = new Date(isoString)
-		offset = !offsetMatch || offsetMatch[0] === 'Z' ? '+00:00' : offsetMatch[0]
+export const getTimestamp = (manifest: C2paManifest | null | undefined, provenance: C2paProvenance | null, signer: TrustKey | null | undefined): ManifestTimestamp | null => {
+	if(!manifest) return null
+	const statusCodes = getManifestStatusCodes(manifest, provenance?.manifestStore)
+	const legacyStatusCodes = getManifestStatusCodes(manifest, provenance?.legacyManifestStore)
+	const signedLevel = getSignedTimestampSource(statusCodes, legacyStatusCodes)
+	const signedValue = signedLevel ? getIsoTimestampValue(manifest.signature_info?.time) : null
+	if(signedLevel && signedValue) {
+		return { value: signedValue, trust: { level: signedLevel, source: DETAIL_TRUST_SOURCES.TIMESTAMP } }
 	}
-	return date && isFinite(date.getTime()) ? {
-		date,
-		offset
-	} : null
+	const exifValue = getExifTimestampValue(manifest)
+	if(exifValue) {
+		return { value: exifValue, trust: getAssertionTrust(getAssertion(manifest, 'stds.exif'), signer) }
+	}
+	const actionValue = getIsoTimestampValue(getC2paActions(manifest)?.find(action => action?.when)?.when)
+	return actionValue
+		? { value: actionValue, trust: getAssertionTrust(getAssertion(manifest, 'c2pa.actions', true), signer) }
+		: null
 }
 
 /**
- * Gets a manifest's CAWG identity
+ * Gets a timestamp value from an ISO date string
+ * @function
+ * @param isoString - ISO date string
+ * @return Timestamp value, or null when not a valid date
+ */
+export const getIsoTimestampValue = (isoString: string | null | undefined): ManifestTimestampValue | null => {
+	if(!isoString) return null
+	const offsetMatch = isoString.match(/([+-]\d{2}:\d{2})$|Z$/)
+	const date = new Date(isoString)
+	const offset = !offsetMatch || offsetMatch[0] === 'Z' ? '+00:00' : offsetMatch[0]
+	return isFinite(date.getTime()) ? { date, offset } : null
+}
+
+/**
+ * Gets a timestamp value from a manifest's EXIF capture time
  * @function
  * @param manifest - C2paManifest entry
+ * @return Timestamp value, or null when manifest has no valid EXIF capture time
+ */
+export const getExifTimestampValue = (manifest: C2paManifest | null | undefined): ManifestTimestampValue | null => {
+	const exifDateTime = getExifValue(manifest, 'DateTimeOriginal') as string | undefined
+	const exifParsedDate = exifDateTime?.split(/\D/)
+	if(exifParsedDate?.length !== 6) return null
+	const exifOffset = getExifValue(manifest, 'OffsetTimeOriginal') as string ?? null
+	const [year, month, day, hour, minute, second] = exifParsedDate
+	const date = exifOffset
+		? new Date(`${year}-${month}-${day}T${hour}:${minute}:${second}${exifOffset}`)
+		: new Date(Number(year), Number(month) - 1, Number(day), Number(hour), Number(minute), Number(second))
+	return isFinite(date.getTime()) ? { date, offset: exifOffset } : null
+}
+
+/**
+ * Gets a manifest's CAWG identity and how far its certificate is trusted
+ * @function
+ * @param manifest - C2paManifest entry
+ * @param provenance - C2PA provenance
  * @return Identity, or null when manifest has no CAWG identity
  */
-export const getIdentity = (manifest: C2paManifest | null | undefined): ManifestIdentity | null => {
-	const name = getCawgIdentityValue(manifest)
-	return name ? { name } : null
+export const getIdentity = (manifest: C2paManifest | null | undefined, provenance: C2paProvenance | null): ManifestIdentity | null => {
+	const value = getCawgIdentityValue(manifest)
+	if(!manifest || !value) return null
+	const statusCodes = getManifestStatusCodes(manifest, provenance?.manifestStore)
+	const legacyStatusCodes = getManifestStatusCodes(manifest, provenance?.legacyManifestStore)
+	return {
+		value,
+		trust: {
+			level: getTrust(TRUSTED_CODES.IDENTITY, statusCodes, legacyStatusCodes),
+			source: DETAIL_TRUST_SOURCES.IDENTITY,
+		},
+	}
 }
 
 /**
- * Gets a manifest's producer name
+ * Gets the names a manifest gives as its creators, from schema.org, Dublin Core and EXIF metadata
+ * Names can come from several assertions, so the least trusted of them decides the trust
  * @function
  * @param manifest - C2paManifest entry
- * @return Producer name
+ * @param signer - Trust key of the claim signer
+ * @return Producer names, or null when manifest names no creator
  */
-export const getProducer = (manifest: C2paManifest | null | undefined): unknown => {
-	const authorObj = getSchemaOrgValue(manifest, 'author')
-	return authorObj ?? []
+export const getProducer = (manifest: C2paManifest | null | undefined, signer: TrustKey | null | undefined): ManifestProducer | null => {
+	const toNames = (value: unknown): unknown[] =>
+		Array.isArray(value) ? value
+		// JSON-LD lists may be wrapped (i.e. { "@list": [...] })
+		: (value as { '@list'?: unknown[] } | null)?.['@list'] ?? [value]
+	const toCleanNames = (names: unknown[]): string[] => names
+		.filter((name): name is string => typeof name === 'string')
+		.map(name => name.trim())
+		.filter(Boolean)
+	const schemaOrgAssertion = getAssertion(manifest, 'stds.schema-org', true)
+	const metadataAssertion = getMetadataAssertion(manifest, 'dc:creator')
+	const exifAssertion = getAssertion(manifest, 'stds.exif')
+	const schemaOrgData = schemaOrgAssertion?.data as Record<string, unknown> | undefined
+	const metadataData = metadataAssertion?.data as Record<string, unknown> | undefined
+	const exifData = exifAssertion?.data as Record<string, unknown> | undefined
+	const entries = [
+		{
+			assertion: schemaOrgAssertion,
+			names: toNames(schemaOrgData?.author).map(author =>
+				typeof author === 'string' ? author : (author as { name?: string } | null)?.name
+			),
+		},
+		{
+			assertion: metadataAssertion,
+			names: toNames(metadataData?.['dc:creator']),
+		},
+		{
+			assertion: exifAssertion,
+			names: [exifData?.['exif:Artist'], exifData?.['tiff:Artist']],
+		},
+	]
+		.map(entry => ({ ...entry, names: toCleanNames(entry.names) }))
+		.filter(entry => entry.names.length)
+	const value = [...new Set(entries.flatMap(entry => entry.names))]
+	const trust = getWeakestTrust(entries.map(entry => getAssertionTrust(entry.assertion, signer)))
+	return value.length && trust ? { value, trust } : null
 }
 
 /**
@@ -395,10 +500,16 @@ export const getSignator = (manifest: C2paManifest | null | undefined) =>
  * @param reader - C2PA reader instance
  * @return List of generator names with version (i.e. Lightroom Classic 14.0) and icon URL
  */
-export const getGenerator = async (manifest: C2paManifest | null | undefined, reader: Reader | null | undefined): Promise<ManifestGenerator> => {
-	let generator: ManifestGenerator = []
+export const getGenerator = async (
+	manifest: C2paManifest | null | undefined,
+	reader: Reader | null | undefined,
+	signer: TrustKey | null | undefined
+): Promise<ManifestGenerator | null> => {
+	let value: ManifestGeneratorEntry[] = []
+	// Claim generator info is part of the claim, so it's as trusted as the signer
+	let trust = getClaimTrust(signer)
 	if(manifest?.claim_generator_info) {
-		generator = await Promise.all(manifest.claim_generator_info.map(async d => {
+		value = await Promise.all(manifest.claim_generator_info.map(async d => {
 			const icon = d?.icon as { identifier?: string, format?: string } | null | undefined
 			return {
 				name: d.name,
@@ -408,16 +519,17 @@ export const getGenerator = async (manifest: C2paManifest | null | undefined, re
 		}))
 	} else if(getExifValue(manifest, 'Make') || getExifValue(manifest, 'Model')) {
 		const exifModel = getExifValue(manifest, 'Model')
-		generator = [{
+		value = [{
 			name: exifModel as string,
 			// detail: exifMake,
 		}]
+		trust = getAssertionTrust(getAssertion(manifest, 'stds.exif'), signer)
 	} else if(manifest?.claim_generator) {
-		generator = [{
+		value = [{
 			name: manifest?.claim_generator
 		}]
 	}
-	return generator
+	return value.length ? { value, trust } : null
 }
 
 /**
@@ -426,7 +538,7 @@ export const getGenerator = async (manifest: C2paManifest | null | undefined, re
  * @param manifest - C2paManifest entry
  * @return Array of action keys
  */
-export const getActions = (manifest: C2paManifest | null | undefined): ManifestActions | undefined => {
+export const getActions = (manifest: C2paManifest | null | undefined, signer: TrustKey | null | undefined): ManifestActions | null => {
 	const c2paActions = getC2paActions(manifest)
 		?.map(action => {
 			const actionKey = action.action?.replace(".", "_")
@@ -436,14 +548,16 @@ export const getActions = (manifest: C2paManifest | null | undefined): ManifestA
 				iptc: iptcDigitalSourceType,
 			}
 		})
-		?.reduce((arr: ManifestActions, val) =>
+		?.reduce((arr: ManifestAction[], val) =>
 			!arr.some(v =>
 				v.key === val.key && v.iptc === val.iptc
 			)
 				? [...arr, val]
 				: arr
 		, [])
-	return c2paActions
+	return c2paActions?.length
+		? { value: c2paActions, trust: getAssertionTrust(getAssertion(manifest, 'c2pa.actions', true), signer) }
+		: null
 }
 
 /**
@@ -474,7 +588,7 @@ export const getThumbnail = async (manifest: C2paManifest | null | undefined, re
  * @param manifest - C2paManifest entry
  * @return Object of latitude (lat) and longitude (lng)
  */
-export const getLocation = (manifest: C2paManifest | null | undefined): ManifestLocation | null => {
+export const getLocation = (manifest: C2paManifest | null | undefined, signer: TrustKey | null | undefined): ManifestLocation | null => {
 	// Test coordinates
 	// return { lat: 40.754544782093724, lng: -73.91208171708277 }
 	const exifLat = getExifValue(manifest, 'GPSLatitude') as string
@@ -488,7 +602,7 @@ export const getLocation = (manifest: C2paManifest | null | undefined): Manifest
 		? convertDmsToDd(exifLng, exifLngDir)
 		: parseFloat(exifLng)
 	if(lat === undefined || lng === undefined || isNaN(lat) || isNaN(lng)) return null
-	return { lat, lng }
+	return { value: { lat, lng }, trust: getAssertionTrust(getAssertion(manifest, 'stds.exif'), signer) }
 }
 
 /////////////// Media Types ///////////////

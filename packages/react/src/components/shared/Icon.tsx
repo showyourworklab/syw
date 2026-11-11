@@ -4,6 +4,7 @@ import {
 	ShieldXIcon,
 	ShieldQuestionMarkIcon,
 	ShieldAlertIcon,
+	ShieldMinusIcon,
 	CameraIcon,
 	SquarePenIcon,
 	SparklesIcon,
@@ -42,6 +43,7 @@ const LUCIDE_ICONS: Record<LucideIconType, LucideIcon> = {
 	trusted_legacy: ShieldAlertIcon,
 	untrusted: ShieldAlertIcon,
 	untrusted_expired: ShieldAlertIcon,
+	reported: ShieldMinusIcon,
 	// Type
 	camera: CameraIcon,
 	edit: SquarePenIcon,
@@ -84,12 +86,15 @@ const Icon = ({
 	type,
 	size = ICON_DEFAULT_SIZE,
 	strokeWidth = ICON_DEFAULT_STROKE_WIDTH,
+	label,
 	className
 }: IconProps) => {
 
 	const iconProps = {
 		size,
 		strokeWidth,
+		role: label ? 'img' : undefined,
+		'aria-label': label ?? undefined,
 		className: classNames(
 			'Icon',
 			`Icon_${type}`,

@@ -15,9 +15,6 @@
 	<div
 		class={classNames('ManifestInfoColumn')}
 	>
-		<ManifestSectionIdentity
-			manifest={manifest}
-		/>
 		<ManifestSectionPrimary
 			keys={MANIFEST_PRIMARY_KEYS}
 			manifest={manifest}
@@ -26,6 +23,9 @@
 	<div
 		class={classNames('ManifestInfoColumn')}
 	>
+		<ManifestSectionIdentity
+			manifest={manifest}
+		/>
 		<ManifestSectionTrust
 			manifest={manifest}
 		/>

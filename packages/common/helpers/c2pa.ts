@@ -1,5 +1,5 @@
 import type { Reader, C2pa, Config, Settings } from '@contentauth/c2pa-web'
-import type { Manifest as C2paManifest, ManifestStore, Action } from '@contentauth/c2pa-types'
+import type { Manifest as C2paManifest, ManifestAssertion, ManifestStore, Action } from '@contentauth/c2pa-types'
 import { C2PA_ACTIONS, C2PA_INGREDIENT_RELATIONSHIPS, C2PA_WEB_WASM_CDN_URL } from '#constants/c2pa'
 import { getLegacyTrustSettings, getTrustListSettings, isFullyTrusted } from '#helpers/trust'
 import { CAWG_IDENTITY_LABEL, TRUST_LIST_SCOPES } from '#constants/trust'
@@ -157,6 +157,21 @@ export const isAiEditedManifest = (data: C2paManifest | null | undefined, iptc: 
 /////////////// Assertions ///////////////
 
 /**
+ * Gets an assertion from manifest
+ * @function
+ * @param data - C2paManifest entry
+ * @param label - Assertion label
+ * @param fuzzyLabel - Match labels containing the label (i.e. c2pa.actions.v2, cawg.identity__1)
+ * @return Assertion
+ */
+export const getAssertion = (data: C2paManifest | null | undefined, label: string, fuzzyLabel?: boolean): ManifestAssertion | undefined =>
+	data?.assertions?.find(a =>
+		fuzzyLabel
+			? a.label.includes(label)
+			: a.label === label
+	)
+
+/**
  * Gets an assertion's data from manifest
  * @function
  * @param data - C2paManifest entry
@@ -164,14 +179,18 @@ export const isAiEditedManifest = (data: C2paManifest | null | undefined, iptc: 
  * @param fuzzyLabel - Match labels containing the label (i.e. c2pa.actions.v2, cawg.identity__1)
  * @return Assertion data
  */
-export const getAssertionData = (data: C2paManifest | null | undefined, label: string, fuzzyLabel?: boolean): Record<string, any> | undefined => {
-	const assertion = data?.assertions?.find(a =>
-		fuzzyLabel
-			? a.label.includes(label)
-			: a.label === label
-	)
-	return assertion?.data as Record<string, any> | undefined
-}
+export const getAssertionData = (data: C2paManifest | null | undefined, label: string, fuzzyLabel?: boolean): Record<string, any> | undefined =>
+	getAssertion(data, label, fuzzyLabel)?.data as Record<string, any> | undefined
+
+/**
+ * Checks if an assertion is attributed to the claim signer rather than gathered from elsewhere
+ * Only assertions marked as created are, so C2PA 1.x assertions, which can't be marked, are always gathered
+ * @function
+ * @param assertion - Assertion of the manifest
+ * @return Boolean
+ */
+export const isAssertionAttributed = (assertion: ManifestAssertion | null | undefined): boolean =>
+	assertion?.created === true
 
 /**
  * Gets an EXIF value from manifest
@@ -240,6 +259,23 @@ export const getCawgMetadataValue = (data: C2paManifest | null | undefined, key:
 	const cawgMetadataValue = cawgMetadataData?.[key]
 	return cawgMetadataValue
 }
+
+/**
+ * Gets the first metadata assertion with an XMP metadata value (i.e. dc:creator)
+ * C2PA 2.x uses c2pa.metadata, CAWG uses cawg.metadata and earlier C2PA versions use stds.iptc
+ * @function
+ * @param data - C2paManifest entry
+ * @param key - Prefixed metadata value key
+ * @return Metadata assertion
+ */
+export const getMetadataAssertion = (data: C2paManifest | null | undefined, key: string): ManifestAssertion | undefined =>
+	[
+		getAssertion(data, 'c2pa.metadata'),
+		getAssertion(data, 'cawg.metadata'),
+		getAssertion(data, 'stds.iptc', true),
+	].find(assertion =>
+		(assertion?.data as Record<string, unknown> | undefined)?.[key] !== undefined
+	)
 
 /////////////// Resources ///////////////
 

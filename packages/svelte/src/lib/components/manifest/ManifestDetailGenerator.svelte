@@ -13,15 +13,16 @@
 	const typeKey = $derived(manifest.type?.key ?? 'unknown')
 </script>
 
-{#if manifest.generator?.length}
+{#if manifest.generator}
 	<ManifestDetail
 		title={getText($locale, 'generator', typeKey)}
 		titleIcon={typeKey}
 		definition={getText($locale, 'generator', typeKey, 'definition', $mediaType)}
+		trust={manifest.generator.trust}
 		className={classNames('ManifestDetailGenerator')}
 	>
 		{#snippet value()}
-			{#each manifest.generator ?? [] as entry}
+			{#each manifest.generator?.value ?? [] as entry}
 				<span
 					class={classNames('ManifestDetailGeneratorEntry')}
 				>

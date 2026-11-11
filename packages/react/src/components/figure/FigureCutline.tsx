@@ -6,11 +6,7 @@ const FigureCutline = () => {
 		<div
 			className={classNames('FigureCutline')}
 		>
-			<div
-				className={classNames('FigureCutlineToggles')}
-			>
-				<ProvenanceToggle />
-			</div>
+			<ProvenanceToggle />
 		</div>
 	)
 }
