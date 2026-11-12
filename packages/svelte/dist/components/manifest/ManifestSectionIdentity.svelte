@@ -26,7 +26,6 @@
 			<ManifestDetail
 				title={getText($locale, 'identity', 'name')}
 				titleIcon="identity"
-				definition={getText($locale, 'identity', $mediaType, 'definition')}
 				value={identity.value}
 				trust={identity.trust}
 				className={classNames('ManifestSectionIdentityName')}
@@ -36,7 +35,6 @@
 			<ManifestDetail
 				title={getText($locale, 'producer', typeKey, $mediaType)}
 				titleIcon="producer"
-				definition={getText($locale, 'producer', typeKey, 'definition', $mediaType)}
 				value={producer.value.join(', ')}
 				trust={producer.trust}
 				className={classNames('ManifestSectionIdentityProducer')}

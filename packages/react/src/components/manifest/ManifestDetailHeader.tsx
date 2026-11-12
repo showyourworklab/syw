@@ -1,7 +1,5 @@
-import { DETAIL_TRUST_KEYS } from 'syw-common/constants/data'
 import { classNames } from 'syw-common/helpers/ui'
 import type { ManifestDetailHeaderProps } from 'syw-common/types/components'
-import { useI18nContext } from '$src/context'
 import Icon from '$src/components/shared/Icon'
 
 function ManifestDetailHeader({
@@ -9,12 +7,9 @@ function ManifestDetailHeader({
 	title,
 	titleIcon,
 	value,
-	trust,
 	onToggle,
 	className,
 }: ManifestDetailHeaderProps) {
-	const { getText } = useI18nContext()
-	
 	const Element = onToggle ? 'button' : 'div'
 
 	return (
@@ -44,13 +39,6 @@ function ManifestDetailHeader({
 			<span
 				className={classNames('ManifestDetailValue')}
 			>
-				{trust?.level === DETAIL_TRUST_KEYS.TRUSTED ?
-					<Icon
-						type={trust.level}
-						label={getText('trust', trust.level)}
-						className={classNames('ManifestDetailValueTrust')}
-					/>
-				: null}
 				<span
 					className={classNames('ManifestDetailValueText')}
 				>

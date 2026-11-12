@@ -3,12 +3,10 @@
 	import { formatCoordinates } from 'syw-common/helpers/map'
 	import type { ManifestDetailLocationProps } from 'syw-common/types/components'
 	import { getI18nContext } from '../../store/i18n.js'
-	import { getDataContext } from '../../store/data.js'
 	import ManifestDetail from './ManifestDetail.svelte'
 	import Map from '../shared/Map.svelte'
 
 	const { locale, getText } = getI18nContext()
-	const { mediaType } = getDataContext()
 
 	const { manifest }: ManifestDetailLocationProps = $props()
 
@@ -26,7 +24,6 @@
 	<ManifestDetail
 		title={getText($locale, 'location', 'coordinates')}
 		titleIcon="location"
-		definition={getText($locale, 'location', 'coordinates', 'definition', $mediaType)}
 		className={classNames('ManifestDetailLocation')}
 		open={mapOpen}
 		value={formatCoordinates(manifest.location.value)}

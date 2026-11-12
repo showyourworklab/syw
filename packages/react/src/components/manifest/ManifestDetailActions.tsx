@@ -19,7 +19,6 @@ function ManifestDetailActions({ manifest }: ManifestDetailActionsProps) {
 		<ManifestDetail
 			title={getText('actions')}
 			titleIcon="actions"
-			definition={getText('actions', 'definition')}
 			trust={manifest.actions?.trust}
 			className={classNames('ManifestDetailActions')}
 			open={listOpen}

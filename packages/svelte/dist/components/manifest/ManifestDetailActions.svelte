@@ -20,7 +20,6 @@
 	<ManifestDetail
 		title={getText($locale, 'actions')}
 		titleIcon="actions"
-		definition={getText($locale, 'actions', 'definition')}
 		trust={manifest.actions?.trust}
 		className={classNames('ManifestDetailActions')}
 		open={listOpen}

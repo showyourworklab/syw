@@ -1,19 +1,14 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte'
-	import { DETAIL_TRUST_KEYS } from 'syw-common/constants/data'
 	import { classNames } from 'syw-common/helpers/ui'
 	import type { ManifestDetailHeaderProps } from 'syw-common/types/components'
-	import { getI18nContext } from '$lib/store/i18n.js'
 	import Icon from '$lib/components/shared/Icon.svelte'
-
-	const { locale, getText } = getI18nContext()
 
 	const {
 		open,
 		title,
 		titleIcon,
 		value,
-		trust,
 		onToggle,
 		className,
 	}: ManifestDetailHeaderProps & { value?: string | Snippet | null } = $props()
@@ -49,13 +44,6 @@
 	<span
 		class={classNames('ManifestDetailValue')}
 	>
-		{#if trust?.level === DETAIL_TRUST_KEYS.TRUSTED}
-			<Icon
-				type={trust.level}
-				label={getText($locale, 'trust', trust.level)}
-				className={classNames('ManifestDetailValueTrust')}
-			/>
-		{/if}
 		<span
 			class={classNames('ManifestDetailValueText')}
 		>

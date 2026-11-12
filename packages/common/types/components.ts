@@ -16,15 +16,14 @@ export interface BadgeProps extends ComponentProps {
 export interface ManifestDetailProps extends ComponentProps {
 	// Controls whether it's open, otherwise the detail keeps its own state
 	open?: boolean
-	// Makes the detail toggleable, with its value up front and its definition and children shown when open
+	// Makes the detail toggleable, with its value up front and its trust and children shown when open
 	title?: string | null
-	definition?: string | null
 	titleIcon?: IconType | null
 	// A string or rendered content, like the generator's entries
 	value?: any
 	// Hint below the value, like "Click to show map"
 	prompt?: string | null
-	// How far the value can be trusted, hinted by the value and explained in the definition
+	// How far the value can be trusted, stated below the children when open
 	trust?: DetailTrust | null
 	// Called on toggle, alongside open to control it from outside
 	onToggle?: () => void
@@ -118,7 +117,7 @@ export interface ManifestDetailActionsProps extends ComponentProps {
 	manifest: Manifest
 }
 
-export interface ManifestDetailHeaderProps extends Pick<ManifestDetailProps, 'open' | 'title' | 'titleIcon' | 'value' | 'trust' | 'onToggle'>, ComponentProps {}
+export interface ManifestDetailHeaderProps extends Pick<ManifestDetailProps, 'open' | 'title' | 'titleIcon' | 'value' | 'onToggle'>, ComponentProps {}
 
 export interface ManifestDetailNoteProps extends ComponentProps {
 	icon: IconType

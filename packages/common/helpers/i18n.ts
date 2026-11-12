@@ -160,5 +160,6 @@ export const getDateString = (
 			return null
 		}
 	}
-	return `${dateString}, ${timeString}`
+	return `${dateString}`
+	// return `${dateString}, ${timeString}`
 }

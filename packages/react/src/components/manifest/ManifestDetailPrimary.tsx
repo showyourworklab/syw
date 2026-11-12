@@ -34,9 +34,6 @@ function ManifestDetailPrimary({ type, manifest }: ManifestDetailPrimaryProps) {
 		<ManifestDetail
 			title={getText(type, manifestTypeTextKey, mediaType)}
 			titleIcon={getManifestDetailIcon(type)}
-			definition={type === 'timestamp'
-				? getText(type, mediaType, 'definition')
-				: getText(type, manifestTypeTextKey, "definition", mediaType)}
 			value={formattedValue as string}
 			trust={value?.trust}
 			className={classNames('ManifestDetailPrimary')}

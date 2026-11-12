@@ -1,11 +1,10 @@
 import { classNames } from 'syw-common/helpers/ui'
 import type { ManifestDetailGeneratorProps } from 'syw-common/types/components'
-import { useI18nContext, useDataContext } from '$src/context'
+import { useI18nContext } from '$src/context'
 import ManifestDetail from '$src/components/manifest/ManifestDetail'
 
 function ManifestDetailGenerator({ manifest }: ManifestDetailGeneratorProps) {
 	const { getText } = useI18nContext()
-	const { mediaType } = useDataContext()
 
 	if(!manifest.generator) return null
 
@@ -15,7 +14,6 @@ function ManifestDetailGenerator({ manifest }: ManifestDetailGeneratorProps) {
 		<ManifestDetail
 			title={getText('generator', typeKey)}
 			titleIcon={typeKey}
-			definition={getText('generator', typeKey, 'definition', mediaType)}
 			value={manifest.generator.value.map((entry, index) =>
 				<span
 					key={index}

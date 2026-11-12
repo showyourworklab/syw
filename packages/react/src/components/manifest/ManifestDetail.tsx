@@ -9,7 +9,6 @@ import ManifestDetailDefinition from '$src/components/manifest/ManifestDetailDef
 function ManifestDetail({
 	open,
 	title,
-	definition,
 	titleIcon,
 	value,
 	trust,
@@ -20,14 +19,11 @@ function ManifestDetail({
 	const { getText } = useI18nContext()
 	const [innerOpen, setInnerOpen] = useState(false)
 	// Titled details open when they have something to show
-	const isToggleable = !!title && !!(children || definition || trust)
+	const isToggleable = !!title && !!(children || trust)
 	// Callers can control whether it's open, otherwise it keeps its own state
 	const isOpen = open ?? innerOpen
-	// The definition ends with how far the value can be trusted
-	const fullDefinition = [
-		definition,
-		trust ? getText('trust', trust.source, trust.level, 'definition') : null,
-	].filter(Boolean).join(' ')
+	// The definition only states how far the value can be trusted
+	const definition = trust ? getText('trust', trust.level, 'definition') : null
 
 	const handleToggle = () => {
 		if(open === undefined) setInnerOpen(!innerOpen)
@@ -49,7 +45,6 @@ function ManifestDetail({
 					title={title}
 					titleIcon={titleIcon}
 					value={value}
-					trust={trust}
 					onToggle={isToggleable ? handleToggle : undefined}
 				/>
 			: null}
@@ -61,9 +56,9 @@ function ManifestDetail({
 						className={classNames('ManifestDetailBody')}
 					>
 						{children}
-						{fullDefinition ?
+						{definition ?
 							<ManifestDetailDefinition>
-								{fullDefinition}
+								{definition}
 							</ManifestDetailDefinition>
 						: null}
 					</div>

@@ -43,9 +43,6 @@
 	<ManifestDetail
 		title={type ? getText($locale, type, manifestType(), $mediaType) : ''}
 		titleIcon={getManifestDetailIcon(type)}
-		definition={type === 'timestamp'
-			? getText($locale, type, $mediaType, 'definition')
-			: getText($locale, type, manifestType(), "definition", $mediaType)}
 		value={formattedValue() as string}
 		trust={(value() as ManifestTimestamp | null)?.trust}
 		className={classNames('ManifestDetailPrimary')}

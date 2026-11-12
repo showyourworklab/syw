@@ -106,16 +106,6 @@ button.Syw-ManifestDetailToggle:focus-visible {
 	gap: var(--syw-space-1);
 	font-weight: var(--syw-font-weight-bold);
 }
-/* Manifest > Detail > Value > Trust */
-.Syw-ManifestDetailValueTrust {
-	flex-shrink: 0;
-	width: var(--syw-space-3);
-	height: 1lh;
-}
-.Syw-ManifestDetailValueTrust,
-button.Syw-ManifestDetailToggle:hover .Syw-ManifestDetailValueTrust {
-	color: var(--syw-color-status-trusted);
-}
 /* Manifest > Detail > Prompt */
 .Syw-ManifestDetailPrompt {
 	font-size: var(--syw-text-xs);

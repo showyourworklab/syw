@@ -22,7 +22,6 @@ function ManifestSectionIdentity({ manifest }: ManifestSectionIdentityProps) {
 					<ManifestDetail
 						title={getText('identity', 'name')}
 						titleIcon="identity"
-						definition={getText('identity', mediaType, 'definition')}
 						value={identity.value}
 						trust={identity.trust}
 						className={classNames('ManifestSectionIdentityName')}
@@ -32,7 +31,6 @@ function ManifestSectionIdentity({ manifest }: ManifestSectionIdentityProps) {
 					<ManifestDetail
 						title={getText('producer', typeKey, mediaType)}
 						titleIcon="producer"
-						definition={getText('producer', typeKey, 'definition', mediaType)}
 						value={producer.value.join(', ')}
 						trust={producer.trust}
 						className={classNames('ManifestSectionIdentityProducer')}

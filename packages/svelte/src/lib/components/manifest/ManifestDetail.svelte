@@ -10,7 +10,6 @@
 	const {
 		open,
 		title,
-		definition,
 		titleIcon,
 		value,
 		trust,
@@ -23,14 +22,11 @@
 
 	let innerOpen = $state(false)
 	// Titled details open when they have something to show
-	const isToggleable = $derived(!!title && !!(children || definition || trust))
+	const isToggleable = $derived(!!title && !!(children || trust))
 	// Callers can control whether it's open, otherwise it keeps its own state
 	const isOpen = $derived(open ?? innerOpen)
-	// The definition ends with how far the value can be trusted
-	const fullDefinition = $derived([
-		definition,
-		trust ? getText($locale, 'trust', trust.source, trust.level, 'definition') : null,
-	].filter(Boolean).join(' '))
+	// The definition only states how far the value can be trusted
+	const definition = $derived(trust ? getText($locale, 'trust', trust.level, 'definition') : null)
 
 	const handleToggle = () => {
 		if(open === undefined) innerOpen = !innerOpen
@@ -52,7 +48,6 @@
 			title={title}
 			titleIcon={titleIcon}
 			value={value}
-			trust={trust}
 			onToggle={isToggleable ? handleToggle : undefined}
 		/>
 	{/if}
@@ -64,9 +59,9 @@
 				class={classNames('ManifestDetailBody')}
 			>
 				{@render children?.()}
-				{#if fullDefinition}
+				{#if definition}
 					<ManifestDetailDefinition>
-						{fullDefinition}
+						{definition}
 					</ManifestDetailDefinition>
 				{/if}
 			</div>
