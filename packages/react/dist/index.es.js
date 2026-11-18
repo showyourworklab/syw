@@ -25,9 +25,9 @@ const fD = "en", Hv = "en_US", iv = {
   type_edit: "Edits Made",
   type_ai_create: "AI Generated",
   type_ai_edit: "AI Edits Made",
-  type_unknown: "Unknown",
+  type_unknown: "Unrecognized Step",
   type_unknown_create: "Unknown Origin",
-  type_none: "Unverified Step",
+  type_none: "Invalid Step",
   // Trust
   trust_trusted: "Verified",
   trust_trusted_legacy: "Legacy",
@@ -184,9 +184,9 @@ const fD = "en", Hv = "en_US", iv = {
   type_edit: "Redigeringer gjort",
   type_ai_create: "AI-generert",
   type_ai_edit: "AI-redigert",
-  type_unknown: "Ukjent",
+  type_unknown: "Ikke gjenkjent trinn",
   type_unknown_create: "Ukjent opprinnelse",
-  type_none: "Ubekreftet trinn",
+  type_none: "Ugyldig trinn",
   // Trust
   trust_trusted: "Verifisert",
   trust_trusted_legacy: "Eldre",
