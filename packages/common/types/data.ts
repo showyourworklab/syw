@@ -12,7 +12,7 @@ export type MediaType = 'image' | 'video'
 
 export type ManifestId = string
 
-export type ManifestTypeKey = 'camera' | 'edit' | 'ai_create' | 'ai_edit' | 'unknown_create' | 'none' | 'unknown'
+export type ManifestTypeKey = 'camera' | 'edit' | 'ai_create' | 'ai_edit' | 'published' | 'redacted' | 'watermarked' | 'edited_metadata' | 'converted' | 'unknown_create' | 'none' | 'unknown'
 
 export type ManifestTypeIptc = typeof IPTC_DIGITAL_SOURCE_TYPE_KEYS[number] | undefined;
 

@@ -37,7 +37,6 @@ export const IPTC_DIGITAL_SOURCE_TYPE_KEYS = [
 export const IPTC_DIGITAL_SOURCE_TYPES_AI = [
 	"compositeWithTrainedAlgorithmicMedia",
 	"trainedAlgorithmicMedia",
-	"compositeSynthetic",
 ]
 export const IPTC_DIGITAL_SOURCE_TYPES_AI_COMPOSITE = [
 	"compositeWithTrainedAlgorithmicMedia",
@@ -45,6 +44,7 @@ export const IPTC_DIGITAL_SOURCE_TYPES_AI_COMPOSITE = [
 export const IPTC_DIGITAL_SOURCE_TYPES_CAMERA = [
 	"digitalCapture",
 	"computationalCapture",
+	"compositeCapture",
 ]
 
 export const IPTC_DIGITAL_SOURCE_TYPES_BASE_URI = "http://cv.iptc.org/newscodes/digitalsourcetype";

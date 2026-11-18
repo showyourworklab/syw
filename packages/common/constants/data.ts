@@ -1,4 +1,5 @@
 import type { SywData, ManifestTypeKey } from '#types/data'
+import { C2PA_ACTIONS } from '#constants/c2pa'
 
 export const MANIFEST_TYPES = {
 	CAMERA: 'camera',
@@ -7,9 +8,24 @@ export const MANIFEST_TYPES = {
 	AI_EDIT: 'ai_edit',
 	UNKNOWN: 'unknown',
 	UNKNOWN_CREATE: 'unknown_create',
+	PUBLISHED: 'published',
+	REDACTED: 'redacted',
+	WATERMARKED: 'watermarked',
+	EDITED_METADATA: 'edited_metadata',
+	CONVERTED: 'converted',
 	// Recorded steps whose integrity isn't valid, so their own claims aren't shown
 	NONE: 'none',
 } as const
+// Types of steps without editorial changes, by action from most to least important
+export const NON_EDITORIAL_MANIFEST_TYPES: Record<string, ManifestTypeKey> = {
+	[C2PA_ACTIONS.PUBLISHED]: MANIFEST_TYPES.PUBLISHED,
+	[C2PA_ACTIONS.REDACTED]: MANIFEST_TYPES.REDACTED,
+	[C2PA_ACTIONS.WATERMARKED]: MANIFEST_TYPES.WATERMARKED,
+	[C2PA_ACTIONS.EDITED_METADATA]: MANIFEST_TYPES.EDITED_METADATA,
+	[C2PA_ACTIONS.TRANSCODED]: MANIFEST_TYPES.CONVERTED,
+	[C2PA_ACTIONS.REPACKAGED]: MANIFEST_TYPES.CONVERTED,
+	[C2PA_ACTIONS.RESIZED]: MANIFEST_TYPES.CONVERTED,
+}
 // Exact, case-sensitive claim_generator_info[].name, signature_info.common_name or signature_info.issuer values
 export const KNOWN_GENERATORS_BY_MANIFEST_TYPE: Record<string, ManifestTypeKey> = {
 	// CAMERA

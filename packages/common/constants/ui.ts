@@ -33,7 +33,7 @@ export const MANIFEST_PRIMARY_KEYS = [
 ] as const
 export const MANIFEST_LOCATION_TYPES: readonly ManifestTypeKey[] = ['camera']
 export const MANIFEST_ACTIONS_TYPES: readonly ManifestTypeKey[] = ['edit']
-export const MANIFEST_ACTIONS_HIDDEN: readonly string[] = ['c2pa_opened', 'c2pa_published']
+export const MANIFEST_ACTIONS_HIDDEN: readonly string[] = ['c2pa.opened', 'c2pa.published']
 export const MANIFEST_PREVIEW_TITLE_KEYS = [
 	'generator',
 	'signator',
@@ -43,6 +43,11 @@ export const MANIFEST_CONTENT_TAB_KEYS = {
 	edit: ['info', 'image'],
 	ai_create: ['info', 'image'],
 	ai_edit: ['info', 'image'],
+	published: ['info', 'image'],
+	redacted: ['info', 'image'],
+	watermarked: ['info', 'image'],
+	edited_metadata: ['info', 'image'],
+	converted: ['info', 'image'],
 	unknown: ['info', 'image'],
 	unknown_create: [],
 	none: [],

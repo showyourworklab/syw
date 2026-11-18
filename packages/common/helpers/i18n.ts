@@ -98,7 +98,7 @@ export const getDictionary = (locale: string): Record<string, string> => {
 /**
  * Gets text from the locale's dictionary
  * @param locale - ISO locale code (i.e. en_US)
- * @param args - Keys joined with underscores to find the text (i.e. x, y, z becomes x_y_z). The last argument can be an object whose values replace matching {{name}} placeholders in the text (i.e. { name: 'Jane' })
+ * @param args - Keys joined with underscores to find the text (i.e. x, y.z becomes x_y_z). The last argument can be an object whose values replace matching {{name}} placeholders in the text (i.e. { name: 'Jane' })
  * @returns The string from the dictionary
  */
 export const getLocaleText = (locale: string, ...args: DictionaryArgs): string => {
@@ -106,7 +106,7 @@ export const getLocaleText = (locale: string, ...args: DictionaryArgs): string =
 	const replacements = typeof last === 'object' && last !== null ? last : null
 	const keys = (replacements ? args.slice(0, -1) : args) as DictionaryKey[]
 	const dictionary = getDictionary(locale)
-	const text = dictionary[keys.filter(k => k !== null && k !== undefined).join('_')]
+	const text = dictionary[keys.filter(k => k !== null && k !== undefined).join('_').replace(/\./g, '_')]
 	return replacements && text ? replacePlaceholders(text, replacements) : text
 }
 

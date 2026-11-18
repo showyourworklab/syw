@@ -85,8 +85,8 @@ export const readLegacyManifestStore = async (c2pa: C2pa, blob: Blob, mimeType: 
  * @param data - C2paManifest entry
  * @return C2PA actions
  */
-export const getC2paActions = (data: C2paManifest | null | undefined): Action[] | undefined =>
-	getAssertionData(data, 'c2pa.actions', true)?.actions as Action[] | undefined
+export const getC2paActions = (data: C2paManifest | null | undefined): Action[] =>
+	getAssertions(data, 'c2pa.actions', true).flatMap(a => (a.data as Record<string, any>)?.actions ?? [])
 
 /**
  * Gets the first C2PA action of a name from manifest
@@ -154,7 +154,33 @@ export const isEditedManifest = (data: C2paManifest | null | undefined): boolean
 export const isAiEditedManifest = (data: C2paManifest | null | undefined, iptc: ManifestTypeIptc): boolean =>
 	isEditedManifest(data) || Boolean(isIptcDigitalSourceTypeAiComposite(iptc))
 
+/**
+ * Gets the names of manifest's C2PA actions other than opened, which are the changes it made
+ * @function
+ * @param data - C2paManifest entry
+ * @return C2PA action names
+ */
+export const getC2paChangeActions = (data: C2paManifest | null | undefined): string[] =>
+	getC2paActions(data)
+		.map(a => a?.action)
+		.filter((action): action is string => Boolean(action) && action !== C2PA_ACTIONS.OPENED)
+
 /////////////// Assertions ///////////////
+
+/**
+ * Gets all assertions of a label from manifest
+ * @function
+ * @param data - C2paManifest entry
+ * @param label - Assertion label
+ * @param fuzzyLabel - Match labels containing the label (i.e. c2pa.actions.v2, cawg.identity__1)
+ * @return Assertions
+ */
+export const getAssertions = (data: C2paManifest | null | undefined, label: string, fuzzyLabel?: boolean): ManifestAssertion[] =>
+	data?.assertions?.filter(a =>
+		fuzzyLabel
+			? a.label.includes(label)
+			: a.label === label
+	) ?? []
 
 /**
  * Gets an assertion from manifest
@@ -165,11 +191,7 @@ export const isAiEditedManifest = (data: C2paManifest | null | undefined, iptc: 
  * @return Assertion
  */
 export const getAssertion = (data: C2paManifest | null | undefined, label: string, fuzzyLabel?: boolean): ManifestAssertion | undefined =>
-	data?.assertions?.find(a =>
-		fuzzyLabel
-			? a.label.includes(label)
-			: a.label === label
-	)
+	getAssertions(data, label, fuzzyLabel)[0]
 
 /**
  * Gets an assertion's data from manifest

@@ -9,6 +9,13 @@ export const C2PA_CREATED_IPTC = [
 export const C2PA_ACTIONS = {
 	CREATED: 'c2pa.created',
 	OPENED: 'c2pa.opened',
+	PUBLISHED: 'c2pa.published',
+	REDACTED: 'c2pa.redacted',
+	WATERMARKED: 'c2pa.watermarked',
+	EDITED_METADATA: 'c2pa.edited.metadata',
+	TRANSCODED: 'c2pa.transcoded',
+	REPACKAGED: 'c2pa.repackaged',
+	RESIZED: 'c2pa.resized',
 } as const
 export const C2PA_INGREDIENT_RELATIONSHIPS = {
 	PARENT_OF: 'parentOf',

@@ -10,6 +10,11 @@
 	import SquarePenIcon from '@lucide/svelte/icons/square-pen'
 	import SparklesIcon from '@lucide/svelte/icons/sparkles'
 	import WandSparklesIcon from '@lucide/svelte/icons/wand-sparkles'
+	import NewspaperIcon from '@lucide/svelte/icons/newspaper'
+	import EraserIcon from '@lucide/svelte/icons/eraser'
+	import StampIcon from '@lucide/svelte/icons/stamp'
+	import MessageSquareTextIcon from '@lucide/svelte/icons/message-square-text'
+	import RefreshCwIcon from '@lucide/svelte/icons/refresh-cw'
 	import CirclePlusIcon from '@lucide/svelte/icons/circle-plus'
 	import SlashIcon from '@lucide/svelte/icons/slash'
 	import ClockIcon from '@lucide/svelte/icons/clock'
@@ -56,6 +61,11 @@
 		edit: SquarePenIcon,
 		ai_create: SparklesIcon,
 		ai_edit: WandSparklesIcon,
+		published: NewspaperIcon,
+		redacted: EraserIcon,
+		watermarked: StampIcon,
+		edited_metadata: MessageSquareTextIcon,
+		converted: RefreshCwIcon,
 		unknown: CirclePlusIcon,
 		unknown_create: SlashIcon,
 		none: SlashIcon,

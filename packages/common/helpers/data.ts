@@ -3,8 +3,8 @@ import type { Reader, C2pa } from '@contentauth/c2pa-web'
 import type { Manifest as C2paManifest, ManifestAssertion } from '@contentauth/c2pa-types'
 import { VERIFY_BASE_URL } from '#constants/ui'
 import { C2PA_ACTIONS } from '#constants/c2pa'
-import { PHASE_KEYS, C2PA_DATA_DEFAULT, DETAIL_TRUST_KEYS, DETAIL_TRUST_SOURCES, KNOWN_GENERATORS_BY_MANIFEST_TYPE, MANIFEST_TYPES, MEDIA_TYPES, MEDIA_TYPE_EXTENSIONS_IMAGE, MEDIA_TYPE_EXTENSIONS_VIDEO } from '#constants/data'
-import { convertJumbfToBlobUrl, fetchMedia, getC2paActions, getAssertion, getC2paConfig, getCawgIdentityValue, getExifValue, getManifestIptc, getMetadataAssertion, isAssertionAttributed, hasC2paAction, isAiEditedManifest, isEditedManifest, readC2paFromBlob, readLegacyManifestStore } from '#helpers/c2pa'
+import { PHASE_KEYS, C2PA_DATA_DEFAULT, DETAIL_TRUST_KEYS, DETAIL_TRUST_SOURCES, KNOWN_GENERATORS_BY_MANIFEST_TYPE, MANIFEST_TYPES, NON_EDITORIAL_MANIFEST_TYPES, MEDIA_TYPES, MEDIA_TYPE_EXTENSIONS_IMAGE, MEDIA_TYPE_EXTENSIONS_VIDEO } from '#constants/data'
+import { convertJumbfToBlobUrl, fetchMedia, getC2paActions, getAssertion, getAssertions, getC2paConfig, getCawgIdentityValue, getExifValue, getManifestIptc, getMetadataAssertion, isAssertionAttributed, getC2paChangeActions, hasC2paAction, isAiEditedManifest, isEditedManifest, readC2paFromBlob, readLegacyManifestStore } from '#helpers/c2pa'
 import { TRUSTED_CODES } from '#constants/trust'
 import { getManifestStatusCodes, getManifestValidation, getSignedTimestampSource, getTrust, getWeakestTrust, isManifestValid } from '#helpers/trust'
 import { getIptcDigitalSourceTypeKey, isIptcDigitalSourceTypeAi, isIptcDigitalSourceTypeCamera } from '#helpers/iptc'
@@ -310,6 +310,17 @@ export const getAssertionTrust = (
 		? getClaimTrust(signer)
 		: { level: DETAIL_TRUST_KEYS.REPORTED, source: DETAIL_TRUST_SOURCES.GATHERED }
 
+/**
+ * Gets how far a manifest's actions can be trusted, which is the least trusted of its actions assertions
+ * @function
+ * @param manifest - C2paManifest entry
+ * @param signer - Trust key of the claim signer
+ * @return Detail trust
+ */
+export const getActionsTrust = (manifest: C2paManifest | null | undefined, signer: TrustKey | null | undefined): DetailTrust =>
+	getWeakestTrust(getAssertions(manifest, 'c2pa.actions', true).map(a => getAssertionTrust(a, signer)))
+		?? getAssertionTrust(null, signer)
+
 /////////////// Manifest Fields ///////////////
 
 /**
@@ -328,12 +339,15 @@ export const getId = (data: C2paManifest | null | undefined) => data?.instance_i
  */
 export const getType = (manifest: C2paManifest | null | undefined): ManifestType | null => {
 	const iptc = getManifestIptc(manifest)
+	const nonEditorialTypeKey = getNonEditorialTypeKey(manifest)
 	let typeKey: ManifestTypeKey = MANIFEST_TYPES.UNKNOWN
 	if(isIptcDigitalSourceTypeCamera(iptc)) {
 		typeKey = MANIFEST_TYPES.CAMERA
 	} else if(isIptcDigitalSourceTypeAi(iptc)) {
 		typeKey = isAiEditedManifest(manifest, iptc) ? MANIFEST_TYPES.AI_EDIT : MANIFEST_TYPES.AI_CREATE
-	} else if(isEditedManifest(manifest)) {
+	} else if(nonEditorialTypeKey) {
+		typeKey = nonEditorialTypeKey
+	} else if(isEditedManifest(manifest) && getC2paChangeActions(manifest).length) {
 		typeKey = MANIFEST_TYPES.EDIT
 	} else {
 		typeKey = getGeneratorTypeKey(manifest) ?? MANIFEST_TYPES.UNKNOWN
@@ -378,9 +392,9 @@ export const getTimestamp = (manifest: C2paManifest | null | undefined, provenan
 	if(exifValue) {
 		return { value: exifValue, trust: getAssertionTrust(getAssertion(manifest, 'stds.exif'), signer) }
 	}
-	const actionValue = getIsoTimestampValue(getC2paActions(manifest)?.find(action => action?.when)?.when)
+	const actionValue = getIsoTimestampValue(getC2paActions(manifest).find(action => action?.when)?.when)
 	return actionValue
-		? { value: actionValue, trust: getAssertionTrust(getAssertion(manifest, 'c2pa.actions', true), signer) }
+		? { value: actionValue, trust: getActionsTrust(manifest, signer) }
 		: null
 }
 
@@ -540,23 +554,22 @@ export const getGenerator = async (
  */
 export const getActions = (manifest: C2paManifest | null | undefined, signer: TrustKey | null | undefined): ManifestActions | null => {
 	const c2paActions = getC2paActions(manifest)
-		?.map(action => {
-			const actionKey = action.action?.replace(".", "_")
+		.map(action => {
 			const iptcDigitalSourceType = getIptcDigitalSourceTypeKey(action?.digitalSourceType)
 			return {
-				key: actionKey,
+				key: action.action,
 				iptc: iptcDigitalSourceType,
 			}
 		})
-		?.reduce((arr: ManifestAction[], val) =>
+		.reduce((arr: ManifestAction[], val) =>
 			!arr.some(v =>
 				v.key === val.key && v.iptc === val.iptc
 			)
 				? [...arr, val]
 				: arr
 		, [])
-	return c2paActions?.length
-		? { value: c2paActions, trust: getAssertionTrust(getAssertion(manifest, 'c2pa.actions', true), signer) }
+	return c2paActions.length
+		? { value: c2paActions, trust: getActionsTrust(manifest, signer) }
 		: null
 }
 
@@ -663,6 +676,19 @@ export const resolveMediaType = (src: string | null | undefined, ...mediaTypes: 
 export const hasUnknownCreate = (manifests: Manifest[]): boolean =>
 	hasC2paAction(manifests[0]?.original, C2PA_ACTIONS.OPENED)
 	&& !manifests.some(m => hasC2paAction(m.original, C2PA_ACTIONS.CREATED))
+
+/**
+ * Gets manifest's type key from its most important non-editorial action, when it has no other actions than opened
+ * @function
+ * @param data - C2paManifest entry
+ * @return Manifest type key
+ */
+export const getNonEditorialTypeKey = (data: C2paManifest | null | undefined): ManifestTypeKey | undefined => {
+	const actions = getC2paChangeActions(data)
+	if(!actions.length || !actions.every(action => action in NON_EDITORIAL_MANIFEST_TYPES)) return
+	const action = Object.keys(NON_EDITORIAL_MANIFEST_TYPES).find(action => actions.includes(action))
+	return action ? NON_EDITORIAL_MANIFEST_TYPES[action] : undefined
+}
 
 /**
  * Gets manifest's type key from known claim generators, then the signing certificate's common name, then its issuer
