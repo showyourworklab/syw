@@ -1,6 +1,7 @@
 @import './globals.css';
 @import './App.css';
 @import './shared/Badge.css';
+@import './shared/Chip.css';
 @import './figure/FigureCaption.css';
 @import './shared/Collapse.css';
 @import './figure/FigureCutline.css';

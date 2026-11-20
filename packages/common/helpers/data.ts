@@ -4,9 +4,9 @@ import type { Manifest as C2paManifest, ManifestAssertion } from '@contentauth/c
 import { VERIFY_BASE_URL } from '#constants/ui'
 import { C2PA_ACTIONS } from '#constants/c2pa'
 import { PHASE_KEYS, C2PA_DATA_DEFAULT, DETAIL_TRUST_KEYS, DETAIL_TRUST_SOURCES, KNOWN_GENERATORS_BY_MANIFEST_TYPE, MANIFEST_TYPES, NON_EDITORIAL_MANIFEST_TYPES, MEDIA_TYPES, MEDIA_TYPE_EXTENSIONS_IMAGE, MEDIA_TYPE_EXTENSIONS_VIDEO } from '#constants/data'
-import { convertJumbfToBlobUrl, fetchMedia, getC2paActions, getAssertion, getAssertions, getC2paConfig, getCawgIdentityValue, getExifValue, getManifestIptc, getMetadataAssertion, isAssertionAttributed, getC2paChangeActions, hasC2paAction, isAiEditedManifest, isEditedManifest, readC2paFromBlob, readLegacyManifestStore } from '#helpers/c2pa'
-import { TRUSTED_CODES } from '#constants/trust'
-import { getManifestStatusCodes, getManifestValidation, getSignedTimestampSource, getTrust, getWeakestTrust, isManifestValid } from '#helpers/trust'
+import { convertJumbfToBlobUrl, fetchMedia, getC2paActions, getAssertion, getAssertions, getC2paConfig, getCawgIdentityAccounts, getCawgIdentityName, getExifValue, getManifestIptc, getMetadataAssertion, isAssertionAttributed, getC2paChangeActions, hasC2paAction, isAiEditedManifest, isEditedManifest, readC2paFromBlob, readLegacyManifestStore } from '#helpers/c2pa'
+import { EXPIRED_CODES, TRUSTED_CODES } from '#constants/trust'
+import { getAssertionStatusCodes, getManifestStatusCodes, getManifestValidation, getSignedTimestampSource, getTrust, getWeakestTrust, isManifestValid } from '#helpers/trust'
 import { getIptcDigitalSourceTypeKey, isIptcDigitalSourceTypeAi, isIptcDigitalSourceTypeCamera } from '#helpers/iptc'
 import type {
 	C2paOptions,
@@ -431,21 +431,25 @@ export const getExifTimestampValue = (manifest: C2paManifest | null | undefined)
 }
 
 /**
- * Gets a manifest's CAWG identity and how far its certificate is trusted
+ * Gets a manifest's CAWG identity name with how far its assertion is trusted, and its social media accounts
  * @function
  * @param manifest - C2paManifest entry
  * @param provenance - C2PA provenance
  * @return Identity, or null when manifest has no CAWG identity
  */
 export const getIdentity = (manifest: C2paManifest | null | undefined, provenance: C2paProvenance | null): ManifestIdentity | null => {
-	const value = getCawgIdentityValue(manifest)
-	if(!manifest || !value) return null
-	const statusCodes = getManifestStatusCodes(manifest, provenance?.manifestStore)
-	const legacyStatusCodes = getManifestStatusCodes(manifest, provenance?.legacyManifestStore)
+	const identity = getCawgIdentityName(manifest)
+	if(!manifest || !identity) return null
+	// Only the assertion the name came from decides its trust
+	const statusCodes = getAssertionStatusCodes(getManifestStatusCodes(manifest, provenance?.manifestStore), identity.assertion.label)
+	const legacyStatusCodes = getAssertionStatusCodes(getManifestStatusCodes(manifest, provenance?.legacyManifestStore), identity.assertion.label)
 	return {
-		value,
+		value: identity.name,
+		accounts: getCawgIdentityAccounts(manifest),
 		trust: {
-			level: getTrust(TRUSTED_CODES.IDENTITY, statusCodes, legacyStatusCodes),
+			level: statusCodes?.failure.some(({ code }) => code === EXPIRED_CODES.IDENTITY)
+				? DETAIL_TRUST_KEYS.UNTRUSTED_EXPIRED
+				: getTrust(TRUSTED_CODES.IDENTITY, statusCodes, legacyStatusCodes),
 			source: DETAIL_TRUST_SOURCES.IDENTITY,
 		},
 	}

@@ -170,4 +170,18 @@ export const DEMO_IMAGES: DemoImage[] = [
 	// 	},
 	// 	byline: 'Nora Savosnick'
 	// },
+	{
+		src: 'https://showyourworklab.github.io/c2pa-images/cawg-verified.jpg',
+		title: {
+			en_US: 'Beach (CAWG)',
+			no_NO: 'Beach (CAWG)',
+			// sv_SE: 'Vikingrodden (Leica)',
+		},
+		caption: {
+			en_US: '',
+			no_NO: '',
+			// sv_SE: 'Över tusen norska fotbollssupportrar samlades på Times Square i New York för att delta i ”Vikingrodden” två dagar före Norges match mot Brasilien.',
+		},
+		byline: 'Noga Hurwitz'
+	},
 ];

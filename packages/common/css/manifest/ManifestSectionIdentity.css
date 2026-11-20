@@ -2,3 +2,9 @@
 .Syw-ManifestSectionIdentity {
 	
 }
+/* Identity > Accounts */
+.Syw-ManifestSectionIdentityAccounts {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--syw-space-1);
+}

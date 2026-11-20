@@ -38,7 +38,7 @@
 		"@ark-ui/react": "^5.36.2",
 		"@contentauth/c2pa-types": "^0.7.5",
 		"@contentauth/c2pa-web": "0.15.3",
-		"lucide-react": "^1.14.0",
+		"lucide-react": "^1.74.0",
 		"maplibre-gl": "^5.18.0",
 		"syw-common": "^0.0.45"
 	},

@@ -65,6 +65,15 @@ export interface IconProps extends ComponentProps {
 	strokeWidth?: number
 }
 
+export interface ChipProps extends ComponentProps {
+	// Makes the chip a link, opened in a new tab
+	href?: string | null
+	// Small all caps text above the label
+	overline?: string | null
+	// Icon before the label
+	icon?: IconType | null
+}
+
 export interface MapProps extends ComponentProps {
 	location: ManifestLocationValue
 }

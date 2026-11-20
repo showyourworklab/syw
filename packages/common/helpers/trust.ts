@@ -196,6 +196,23 @@ export const getSignedTimestampSource = (
 }
 
 /**
+ * Gets the status codes of one assertion, keeping codes without a URL
+ * @function
+ * @param statusCodes - Status codes of the manifest
+ * @param label - Assertion label (i.e. cawg.identity__1)
+ * @return Status codes of the assertion
+ */
+export const getAssertionStatusCodes = (statusCodes: StatusCodes | null, label: string): StatusCodes | null => {
+	if(!statusCodes) return null
+	const isAssertion = ({ url }: ValidationStatus) => !url || url.endsWith(`c2pa.assertions/${label}`)
+	return {
+		success: statusCodes.success.filter(isAssertion),
+		informational: statusCodes.informational.filter(isAssertion),
+		failure: statusCodes.failure.filter(isAssertion),
+	}
+}
+
+/**
  * Gets the least trusted of several detail trusts, for a detail combined from several assertions
  * @function
  * @param trusts - Detail trusts

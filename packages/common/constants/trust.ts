@@ -84,10 +84,11 @@ export const TRUSTED_CODES = {
 	CLAIM: 'signingCredential.trusted',
 	IDENTITY: 'cawg.x509.credential.trusted',
 } as const
-// Validation code of an expired claim signing certificate, without a trusted time-stamp showing it was valid when signed
+// Validation codes of an expired claim signing certificate, without a trusted time-stamp showing it was valid when signed, and an identity signed outside its certificate's validity
 // https://spec.c2pa.org/specifications/specifications/2.2/ux/UX_Recommendations.html
 export const EXPIRED_CODES = {
 	CLAIM: 'signingCredential.expired',
+	IDENTITY: 'cawg.x509.signature.outside_validity',
 } as const
 // Validation codes of a claim signature's time-stamp
 export const TIMESTAMP_CODES = {
@@ -103,6 +104,7 @@ export const TIMESTAMP_CODES = {
 export const UNTRUSTED_CODES: string[] = [
 	'signingCredential.untrusted',
 	EXPIRED_CODES.CLAIM,
+	EXPIRED_CODES.IDENTITY,
 	TIMESTAMP_CODES.UNTRUSTED,
 	'cawg.x509.credential.untrusted',
 	// Identity claims aggregators have no trust list yet, so their identities are always untrusted
@@ -111,3 +113,9 @@ export const UNTRUSTED_CODES: string[] = [
 ]
 // Assertion label prefix of CAWG identity assertions
 export const CAWG_IDENTITY_LABEL = 'cawg.identity'
+// Verified identity types of identity claims aggregation identities
+// https://cawg.io/identity/1.2/#_verified_identities
+export const CAWG_VERIFIED_IDENTITY_TYPES = {
+	SOCIAL_MEDIA: 'cawg.social_media',
+	DOCUMENT_VERIFICATION: 'cawg.document_verification',
+} as const

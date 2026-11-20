@@ -2,10 +2,10 @@ import type { Reader, C2pa, Config, Settings } from '@contentauth/c2pa-web'
 import type { Manifest as C2paManifest, ManifestAssertion, ManifestStore, Action } from '@contentauth/c2pa-types'
 import { C2PA_ACTIONS, C2PA_INGREDIENT_RELATIONSHIPS, C2PA_WEB_WASM_CDN_URL } from '#constants/c2pa'
 import { getLegacyTrustSettings, getTrustListSettings, isFullyTrusted } from '#helpers/trust'
-import { CAWG_IDENTITY_LABEL, TRUST_LIST_SCOPES } from '#constants/trust'
+import { CAWG_IDENTITY_LABEL, CAWG_VERIFIED_IDENTITY_TYPES, TRUST_LIST_SCOPES } from '#constants/trust'
 import { getIptcDigitalSourceTypeKey, isIptcDigitalSourceTypeAi, isIptcDigitalSourceTypeAiComposite, isIptcDigitalSourceTypeCamera } from '#helpers/iptc'
 import type { C2paOptions } from '#types/c2pa'
-import type { ManifestTypeIptc } from '#types/data'
+import type { ManifestIdentityAccount, ManifestTypeIptc } from '#types/data'
 
 /////////////// Initialize ///////////////
 
@@ -251,23 +251,57 @@ export const getSchemaOrgValue = (data: C2paManifest | null | undefined, key: st
 }
 
 /**
- * Gets the name of manifest's first CAWG identity assertion
- * X.509 identities name the certificate's issuer
- * Identity claims aggregation identities name the first verified identity (i.e. a social media account)
+ * Gets the verified identities of a CAWG identity claims aggregation assertion
+ * @function
+ * @param assertion - CAWG identity assertion
+ * @return Verified identities
+ */
+export const getCawgVerifiedIdentities = (assertion: ManifestAssertion): { type?: string, name?: string, username?: string, uri?: string, provider?: { name?: string } }[] => {
+	const data = assertion.data as Record<string, any> | undefined
+	// The credential may be flattened into the assertion or nested under named_actor
+	return data?.verifiedIdentities ?? data?.named_actor?.verifiedIdentities ?? []
+}
+
+/**
+ * Gets the name of manifest's CAWG identity and the assertion it came from
+ * Prefers an X.509 certificate's organization or common name, then a verified document's name, then another verified identity's name, then a social media username
  * @function
  * @param data - C2paManifest entry
- * @return CAWG identity name
+ * @return CAWG identity name and assertion, or null when manifest has none
  */
-export const getCawgIdentityValue = (data: C2paManifest | null | undefined): string | null | undefined => {
-	const cawgIdentityData = getAssertionData(data, CAWG_IDENTITY_LABEL, true)
-	// The credential may be flattened into the assertion or nested under named_actor
-	const verifiedIdentities = (cawgIdentityData?.verifiedIdentities ?? cawgIdentityData?.named_actor?.verifiedIdentities) as { name?: string, username?: string }[] | undefined
-	const verifiedIdentity = verifiedIdentities?.find(i => i?.name || i?.username)
-	const cawgIdentityValue = cawgIdentityData?.signature_info?.issuer
-		?? verifiedIdentity?.name
-		?? verifiedIdentity?.username
-	return cawgIdentityValue
+export const getCawgIdentityName = (data: C2paManifest | null | undefined): { name: string, assertion: ManifestAssertion } | null => {
+	const assertions = getAssertions(data, CAWG_IDENTITY_LABEL, true)
+	const getNames: ((assertion: ManifestAssertion) => string | undefined)[] = [
+		// Despite its name, issuer is the organization of the certificate's subject
+		a => (a.data as Record<string, any>)?.signature_info?.issuer ?? (a.data as Record<string, any>)?.signature_info?.common_name,
+		a => getCawgVerifiedIdentities(a).find(i => i?.type === CAWG_VERIFIED_IDENTITY_TYPES.DOCUMENT_VERIFICATION && i.name)?.name,
+		a => getCawgVerifiedIdentities(a).find(i => i?.type !== CAWG_VERIFIED_IDENTITY_TYPES.SOCIAL_MEDIA && i?.name)?.name,
+		a => getCawgVerifiedIdentities(a).find(i => i?.type === CAWG_VERIFIED_IDENTITY_TYPES.SOCIAL_MEDIA && i.username)?.username,
+	]
+	for(const getName of getNames) {
+		for(const assertion of assertions) {
+			const name = getName(assertion)
+			if(name) return { name, assertion }
+		}
+	}
+	return null
 }
+
+/**
+ * Gets the social media accounts of manifest's CAWG identity assertions
+ * @function
+ * @param data - C2paManifest entry
+ * @return Social media accounts
+ */
+export const getCawgIdentityAccounts = (data: C2paManifest | null | undefined): ManifestIdentityAccount[] =>
+	getAssertions(data, CAWG_IDENTITY_LABEL, true)
+		.flatMap(getCawgVerifiedIdentities)
+		.flatMap(i =>
+			// Leaves out other schemes (i.e. javascript:) so the link is safe to open
+			i?.type === CAWG_VERIFIED_IDENTITY_TYPES.SOCIAL_MEDIA && i.username && i.uri && /^https?:\/\//i.test(i.uri)
+				? [{ username: i.username, provider: i.provider?.name ?? null, uri: i.uri }]
+				: []
+		)
 
 /**
  * Gets a CAWG metadata value from manifest

@@ -31,6 +31,7 @@ import {
 	ChevronUpIcon,
 	ChevronDownIcon,
 	XIcon,
+	SquareArrowUpRightExitIcon,
 } from 'lucide-react'
 import type { IconNode, LucideIcon } from 'lucide-react'
 import { ICON_DEFAULT_SIZE, ICON_DEFAULT_STROKE_WIDTH, SYW_ICONS } from 'syw-common/constants/ui'
@@ -82,6 +83,7 @@ const LUCIDE_ICONS: Record<LucideIconType, LucideIcon> = {
 	down: ChevronDownIcon,
 	info: InfoIcon,
 	close: XIcon,
+	external: SquareArrowUpRightExitIcon,
 }
 
 const getSywIconNode = (type: SywIconType): IconNode =>

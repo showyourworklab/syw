@@ -23,7 +23,7 @@ export type ManifestSectionIconKey = 'section_identity' | 'section_primary' | 's
 // Icons shown in the manifest content tab triggers
 export type ManifestTabIconKey = 'tab_info' | 'tab_image'
 
-export type LucideIconType = IntegrityKey | TrustKey | DetailTrustKey | ManifestTypeKey | ManifestDetailIconKey | ManifestSectionIconKey | ManifestTabIconKey | 'missing' | 'up' | 'down' | 'close' | 'info'
+export type LucideIconType = IntegrityKey | TrustKey | DetailTrustKey | ManifestTypeKey | ManifestDetailIconKey | ManifestSectionIconKey | ManifestTabIconKey | 'missing' | 'up' | 'down' | 'close' | 'info' | 'external'
 
 export type IconType = LucideIconType | SywIconType
 

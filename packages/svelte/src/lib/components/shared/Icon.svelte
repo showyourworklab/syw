@@ -32,6 +32,7 @@
 	import ChevronUpIcon from '@lucide/svelte/icons/chevron-up'
 	import ChevronDownIcon from '@lucide/svelte/icons/chevron-down'
 	import XIcon from '@lucide/svelte/icons/x'
+	import SquareArrowUpRightExitIcon from '@lucide/svelte/icons/square-arrow-up-right-exit'
 	import { ICON_DEFAULT_SIZE, ICON_DEFAULT_STROKE_WIDTH, SYW_ICONS } from 'syw-common/constants/ui'
 	import { classNames, isSywIcon } from 'syw-common/helpers/ui'
 	import type { IconProps } from 'syw-common/types/components'
@@ -89,6 +90,7 @@
 		down: ChevronDownIcon,
 		info: InfoIcon,
 		close: XIcon,
+		external: SquareArrowUpRightExitIcon,
 	}
 
 	const iconProps = $derived({

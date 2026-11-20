@@ -79,7 +79,17 @@ export type ManifestLocation = ManifestDetailValue<ManifestLocationValue>
 
 export type ManifestFieldKey = 'timestamp' | 'producer' | 'signator' | 'generator' | 'actions' | 'thumbnail' | 'location'
 
-export type ManifestIdentity = ManifestDetailValue<string>
+export interface ManifestIdentityAccount {
+	username: string
+	provider?: string | null
+	// Only web addresses (http and https)
+	uri: string
+}
+
+// Name of the identity, with its social media accounts, which its trust doesn't cover
+export interface ManifestIdentity extends ManifestDetailValue<string> {
+	accounts: ManifestIdentityAccount[]
+}
 
 export interface Manifest {
 	id?: ManifestId

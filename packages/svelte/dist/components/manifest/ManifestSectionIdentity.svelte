@@ -5,6 +5,7 @@
 	import { getDataContext } from '../../store/data.js'
 	import ManifestSection from './ManifestSection.svelte'
 	import ManifestDetail from './ManifestDetail.svelte'
+	import Chip from '../shared/Chip.svelte'
 
 	const { locale, getText } = getI18nContext()
 	const { mediaType } = getDataContext()
@@ -29,7 +30,24 @@
 				value={identity.value}
 				trust={identity.trust}
 				className={classNames('ManifestSectionIdentityName')}
-			/>
+			>
+				{#if identity.accounts.length}
+					<div
+						class={classNames('ManifestSectionIdentityAccounts')}
+					>
+						{#each identity.accounts as account}
+							<Chip
+								href={account.uri}
+								overline={account.provider}
+								icon="external"
+								className={classNames('ManifestSectionIdentityAccount')}
+							>
+								{account.username}
+							</Chip>
+						{/each}
+					</div>
+				{/if}
+			</ManifestDetail>
 		{/if}
 		{#if producer}
 			<ManifestDetail

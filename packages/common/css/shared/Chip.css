@@ -1,0 +1,35 @@
+/* Chip */
+.Syw-Chip {
+	display: inline-flex;
+	flex-direction: column;
+	padding: var(--syw-space-1) var(--syw-space-2);
+	border-radius: var(--syw-radius-md);
+	background-color: var(--syw-color-secondary);
+	color: inherit;
+	text-decoration: none;
+}
+.Syw-Chip_link:hover,
+.Syw-Chip_link:hover * {
+	color: var(--syw-color-quinary);
+}
+/* Chip > Overline */
+.Syw-ChipOverline {
+	font-size: var(--syw-text-xxs);
+	letter-spacing: var(--syw-letter-spacing-caps);
+	text-transform: uppercase;
+	color: var(--syw-color-tertiary);
+}
+/* Chip > Label */
+.Syw-ChipLabel {
+	display: flex;
+	align-items: center;
+	gap: var(--syw-space-1);
+	overflow-wrap: anywhere;
+	font-size: var(--syw-text-sm);
+}
+/* Chip > Icon */
+.Syw-ChipIcon {
+	flex-shrink: 0;
+	width: 0.8em;
+	height: 0.8em;
+}
