@@ -27,7 +27,6 @@ function ManifestDetailLocation({ manifest }: ManifestDetailLocationProps) {
 			open={mapOpen}
 			value={formatCoordinates(manifest.location.value)}
 			trust={manifest.location.trust}
-			prompt={getText('location', 'map', mapOpen ? 'hide' : 'show')}
 			onToggle={handleMapToggle}
 		>
 			{mapMounted ?

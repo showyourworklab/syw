@@ -7,6 +7,7 @@ import { getC2paConfig } from 'syw-common/helpers/c2pa'
 import { prepareData, disposeSywData, resolveMediaType } from 'syw-common/helpers/data'
 import type { C2paOptions } from 'syw-common/types/c2pa'
 import type { MediaType, SywData } from 'syw-common/types/data'
+import type { ManifestOverride } from 'syw-common/types/demo'
 
 const C2PA_CONTEXT_KEY = Symbol('c2pa')
 
@@ -46,7 +47,7 @@ const createC2paStore = () => {
 		}
 	}
 
-	const read = async ({ src, mediaType }: { src: string | null, mediaType?: MediaType | null }): Promise<SywData | null> => {
+	const read = async ({ src, mediaType, manifestOverrides }: { src: string | null, mediaType?: MediaType | null, manifestOverrides?: ManifestOverride[] }): Promise<SywData | null> => {
 		const c2paInstance = get(c2pa)
 		const id = ++requestId
 
@@ -77,6 +78,7 @@ const createC2paStore = () => {
 			c2pa: c2paInstance,
 			src,
 			mediaType,
+			manifestOverrides,
 		})
 
 		// If another request started before this one finished, dispose new data

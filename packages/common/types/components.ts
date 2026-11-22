@@ -21,11 +21,9 @@ export interface ManifestDetailProps extends ComponentProps {
 	titleIcon?: IconType | null
 	// A string or rendered content, like the generator's entries
 	value?: any
-	// Hint below the value, like "Click to show map"
-	prompt?: string | null
 	// How far the value can be trusted, stated below the children when open
 	trust?: DetailTrust | null
-	// Called on toggle, alongside open to control it from outside
+	// Called on toggle, alongside open to control it from outside, makes a titled detail toggleable
 	onToggle?: () => void
 }
 

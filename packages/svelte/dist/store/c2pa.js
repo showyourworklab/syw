@@ -40,7 +40,7 @@ const createC2paStore = () => {
             return null;
         }
     };
-    const read = async ({ src, mediaType }) => {
+    const read = async ({ src, mediaType, manifestOverrides }) => {
         const c2paInstance = get(c2pa);
         const id = ++requestId;
         if (!src) {
@@ -67,6 +67,7 @@ const createC2paStore = () => {
             c2pa: c2paInstance,
             src,
             mediaType,
+            manifestOverrides,
         });
         // If another request started before this one finished, dispose new data
         if (id !== requestId) {

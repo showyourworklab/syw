@@ -102,6 +102,7 @@
 		src={demoImage?.src}
 		caption={demoImage?.caption?.[locale]}
 		byline={demoImage?.byline}
+		__manifestOverrides={demoImage?.manifestOverrides}
 		c2paOptions={{
 			// wasmSrc
 			// trustLists: "c2pa"

@@ -30,6 +30,49 @@
 				src={`https://showyourworklab.github.io/c2pa-images/leica-nora-syria-2.jpg`}
 				caption='Post mortem: Syrias rettsmedisinere skal få lik til å snakke og avdekke sannheten om hvordan de døde. Slik kan landet forhåpentligvis heles. 28 år gamle Sara Melhem ble kastet inn i en ny epoke etter årtier med systematiske løgner fra regimet.'
 				byline='Nora Savosnick'
+				__manifestOverrides={[
+					{
+						location: {
+							value: {
+								lat: 33.51206939709036,
+								lng: 36.26352371885388
+							}
+						}
+					},
+					{
+						timestamp: {
+							value: {
+								date: new Date("2025-11-15"),
+							}
+						}
+					},
+					{
+						type: {
+							key: "published",
+						},
+						timestamp: {
+							value: {
+								date: new Date("2025-12-12"),
+								trust: {
+									level: "trusted",
+									source: "signer"
+								}
+							},
+							trust: {
+								level: "trusted",
+								source: "timestamp"
+							}
+						},
+						identity: {
+							value: "Morgenbladet",
+							trust: {
+								level: "trusted",
+								source: "identity"
+							}
+						},
+						thumbnail: "https://showyourworklab.github.io/c2pa-images/leica-nora-syria-2.jpg"
+					}
+				]}
 			/>
 
 			<p>Kjelleretasjen i al-Mowuasat universitetssykehus i Damaskus, beliggende så langt nede at solstråler aldri trenger inn, lukter søtt og innestengt. Det er slik oppreisning og rettferdighet lukter i Syria: som lik og død.</p>
@@ -51,6 +94,16 @@
 				src={`https://showyourworklab.github.io/c2pa-images/leica-nora-syria-3.jpg`}
 				caption='Kjellerkorridorene ved al-Mowuasat universitetssykehus i Damaskus leder inn til likhuset, Sara Melhems arbeidsplass.'
 				byline='Nora Savosnick'
+				__manifestOverrides={[
+					{
+						location: {
+							value: {
+								lat: 33.51206939709036,
+								lng: 36.26352371885388
+							}
+						}
+					}
+				]}
 			/>
 			
 			<p>Problemet er at drapene ikke stoppet da al-Assad flyktet fra landet i desember i fjor. Etter tiår med lovløshet, borgerkrig, tortur og klansamfunn er drap blitt normen i det syriske samfunnet. I tomrommet etter diktaturet har også sekteriske hevndrap blusset opp. Nøyaktig hvor mange mord og massakrer som forekommer i det nye Syria, er det få offisielle opplysninger om.</p>
@@ -78,6 +131,16 @@
 				src={`https://showyourworklab.github.io/c2pa-images/leica-nora-syria-7.jpg`}
 				caption='Spor av diktatur: To stjerner – ikke tre – var emblemet på flagget under Assads regime.'
 				byline='Nora Savosnick'
+				__manifestOverrides={[
+					{
+						location: {
+							value: {
+								lat: 33.508709535053505,
+								lng: 36.259505819101186
+							}
+						}
+					}
+				]}
 			/>
 
 			<p>***</p>
@@ -97,6 +160,16 @@
 				src={`https://showyourworklab.github.io/c2pa-images/leica-nora-syria-12.jpg`}
 				caption='Familien Alsayed: Pappa Abdulghafour har reist tilbake til Damaskus fra Kristiansand. Mamma Areej og den to måneder gamle datteren Affaf kommer fra Saudi-Arabia. Nå vil de bygge et nytt liv sammen i Syria.'
 				byline='Nora Savosnick'
+				__manifestOverrides={[
+					{
+						location: {
+							value: {
+								lat: 33.51864820417729,
+								lng: 36.27246915495041
+							}
+						}
+					}
+				]}
 			/>
 
 			<p>Nå vil han gi det nye Syria en sjanse. Men siden flukten for ti år siden er de to blitt tre: I dag jobber Alsayed også for å gi sin knapt to måneder gamle datter Affaf et syrisk pass.</p>
@@ -112,6 +185,16 @@
 				src={`https://showyourworklab.github.io/c2pa-images/leica-nora-syria-11.jpg`}
 				caption='150 kilo bagasje, en halv kilo baby: På et lite hotellrom i Damaskus planlegger familien Alsayed sin nye syriske fremtid.'
 				byline='Nora Savosnick'
+				__manifestOverrides={[
+					{
+						location: {
+							value: {
+								lat: 33.51493952712948,
+								lng: 36.29688023001321
+							}
+						}
+					}
+				]}
 			/>
 
 			<p>Utsagnet høres mest ut som en hypotese, det er spor av tvil i stemmen hans. Og samtidig som vi tømmer kaffekoppene våre i hotellobbyen, sperres en hel bydel i Damaskus av, nabolaget al-Sumariyah. Der bor tusenvis av fattige alawitter, samme folkegruppe som tidligere president al-Assad tilhører. </p>
@@ -135,6 +218,16 @@
 				src={`https://showyourworklab.github.io/c2pa-images/leica-nora-syria-6.jpg`}
 				caption='På kirkegården i al-Ghouta: Etter Assads fall er det igjen mulig for millioner av syrere å besøke sine pårørendes graver – for de som har en grav.'
 				byline='Nora Savosnick'
+				__manifestOverrides={[
+					{
+						location: {
+							value: {
+								lat: 33.507698535628755,
+								lng: 36.32116256696583
+							}
+						}
+					}
+				]}
 			/>
 
 			<p>I dag ligner hele bydeler i al-Ghouta gulnede svart-hvitt-fotografier av stein og betong. Det krever en viss fantasi, eller som i entreprenør Yaser Homsis tilfelle en god hukommelse, for å forestille seg hvordan det så ut før ødeleggelsen.</p>

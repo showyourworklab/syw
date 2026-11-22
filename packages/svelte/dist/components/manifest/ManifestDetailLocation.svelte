@@ -28,7 +28,6 @@
 		open={mapOpen}
 		value={formatCoordinates(manifest.location.value)}
 		trust={manifest.location.trust}
-		prompt={getText($locale, 'location', 'map', mapOpen ? 'hide' : 'show')}
 		onToggle={handleMapToggle}
 	>
 		{#if mapMounted}

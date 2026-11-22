@@ -21,8 +21,8 @@
 	const { locale, getText } = getI18nContext()
 
 	let innerOpen = $state(false)
-	// Titled details open when they have something to show
-	const isToggleable = $derived(!!title && !!(children || trust))
+	// Titled details open when they have something to show, including content the caller mounts on toggle
+	const isToggleable = $derived(!!title && !!(children || trust || onToggle))
 	// Callers can control whether it's open, otherwise it keeps its own state
 	const isOpen = $derived(open ?? innerOpen)
 	// The definition only states how far the value can be trusted

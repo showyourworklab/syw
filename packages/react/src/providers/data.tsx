@@ -3,11 +3,13 @@ import type { ReactNode } from 'react'
 import { PHASE_KEYS } from 'syw-common/constants/data'
 import { resolveMediaType } from 'syw-common/helpers/data'
 import type { MediaType, SywMediaData } from 'syw-common/types/data'
+import type { ManifestOverride } from 'syw-common/types/demo'
 import { DataContext } from '$src/context/data'
 import useC2pa from '$src/hooks/useC2pa'
 
 interface DataProviderProps extends Pick<SywMediaData, 'src' | 'alt' | 'caption' | 'byline'> {
 	mediaType?: MediaType | null
+	manifestOverrides?: ManifestOverride[]
 	children: ReactNode
 }
 
@@ -17,9 +19,10 @@ const DataProvider = ({
 	caption,
 	byline,
 	mediaType,
+	manifestOverrides,
 	children
 }: DataProviderProps) => {
-	const c2paData = useC2pa({ src, mediaType })
+	const c2paData = useC2pa({ src, mediaType, manifestOverrides })
 	// const c2paData = useC2pa({ src: null, mediaType })
 
 	const value = useMemo(() => ({

@@ -16,6 +16,7 @@ const SywReact: FC<SywReactProps> = ({
 	c2paOptions,
 	mapOptions = null,
 	onEvent,
+	__manifestOverrides,
 	...props
 }) => {
 
@@ -32,6 +33,7 @@ const SywReact: FC<SywReactProps> = ({
 					caption={caption}
 					byline={byline}
 					mediaType={mediaType}
+					manifestOverrides={__manifestOverrides}
 				>
 					<UiProvider
 						variant={variant}

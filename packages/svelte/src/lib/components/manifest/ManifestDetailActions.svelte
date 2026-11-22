@@ -10,8 +10,6 @@
 
 	const { manifest }: ManifestDetailActionsProps = $props()
 
-	let listOpen = $state(false)
-
 	const actions = $derived(getManifestDisplayActions(manifest))
 	const actionsIncludeAi = $derived(actions.some(action => isIptcDigitalSourceTypeAi(action.iptc)))
 </script>
@@ -22,10 +20,7 @@
 		titleIcon="actions"
 		trust={manifest.actions?.trust}
 		className={classNames('ManifestDetailActions')}
-		open={listOpen}
 		value={getText($locale, 'actions', actionsIncludeAi ? 'ai' : 'human')}
-		prompt={getText($locale, 'actions', 'list', listOpen ? 'hide' : 'show')}
-		onToggle={() => listOpen = !listOpen}
 	>
 		<ul
 			class={classNames('ManifestDetailActionsList')}

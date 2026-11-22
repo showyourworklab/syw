@@ -27,11 +27,11 @@ function ManifestSectionIdentity({ manifest }: ManifestSectionIdentityProps) {
 						trust={identity.trust}
 						className={classNames('ManifestSectionIdentityName')}
 					>
-						{identity.accounts.length ?
+						{identity?.accounts?.length ?
 							<div
 								className={classNames('ManifestSectionIdentityAccounts')}
 							>
-								{identity.accounts.map((account, index) =>
+								{identity?.accounts.map((account, index) =>
 									<Chip
 										key={index}
 										href={account.uri}

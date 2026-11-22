@@ -31,11 +31,11 @@
 				trust={identity.trust}
 				className={classNames('ManifestSectionIdentityName')}
 			>
-				{#if identity.accounts.length}
+				{#if identity?.accounts?.length}
 					<div
 						class={classNames('ManifestSectionIdentityAccounts')}
 					>
-						{#each identity.accounts as account}
+						{#each identity?.accounts as account}
 							<Chip
 								href={account.uri}
 								overline={account.provider}

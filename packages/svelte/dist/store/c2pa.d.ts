@@ -1,13 +1,15 @@
 import type { C2pa } from '@contentauth/c2pa-web';
 import type { C2paOptions } from 'syw-common/types/c2pa';
 import type { MediaType, SywData } from 'syw-common/types/data';
+import type { ManifestOverride } from 'syw-common/types/demo';
 declare const createC2paStore: () => {
     c2pa: import("svelte/store").Writable<C2pa | null>;
     data: import("svelte/store").Writable<SywData>;
     init: (config?: C2paOptions) => Promise<C2pa | null>;
-    read: ({ src, mediaType }: {
+    read: ({ src, mediaType, manifestOverrides }: {
         src: string | null;
         mediaType?: MediaType | null;
+        manifestOverrides?: ManifestOverride[];
     }) => Promise<SywData | null>;
     dispose: () => void;
 };
@@ -17,9 +19,10 @@ export declare const setC2paContext: (store: C2paStore) => {
     c2pa: import("svelte/store").Writable<C2pa | null>;
     data: import("svelte/store").Writable<SywData>;
     init: (config?: C2paOptions) => Promise<C2pa | null>;
-    read: ({ src, mediaType }: {
+    read: ({ src, mediaType, manifestOverrides }: {
         src: string | null;
         mediaType?: MediaType | null;
+        manifestOverrides?: ManifestOverride[];
     }) => Promise<SywData | null>;
     dispose: () => void;
 };
@@ -27,9 +30,10 @@ export declare const getC2paContext: () => {
     c2pa: import("svelte/store").Writable<C2pa | null>;
     data: import("svelte/store").Writable<SywData>;
     init: (config?: C2paOptions) => Promise<C2pa | null>;
-    read: ({ src, mediaType }: {
+    read: ({ src, mediaType, manifestOverrides }: {
         src: string | null;
         mediaType?: MediaType | null;
+        manifestOverrides?: ManifestOverride[];
     }) => Promise<SywData | null>;
     dispose: () => void;
 };

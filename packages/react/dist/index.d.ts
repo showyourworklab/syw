@@ -5,6 +5,7 @@ import type { SywReactProps } from './types';
 declare const parseSywData: (src: string, options?: {
     c2paOptions?: SywReactProps["c2paOptions"];
     mediaType?: SywReactProps["mediaType"];
+    __manifestOverrides?: SywReactProps["__manifestOverrides"];
 }) => Promise<SywData>;
 export type { SywReactProps };
 export { SywReact as default, SywReact, parseSywData, disposeSywData };

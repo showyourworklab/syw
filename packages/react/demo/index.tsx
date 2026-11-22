@@ -146,6 +146,7 @@ const Demo = () => {
 					src={demoImage?.src}
 					caption={demoImage?.caption?.[locale]}
 					byline={demoImage?.byline}
+					__manifestOverrides={demoImage?.manifestOverrides}
 					variant={variant}
 					mapOptions={{
 						// style: 'https://tiles.openfreemap.org/styles/positron'

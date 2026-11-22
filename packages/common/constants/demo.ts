@@ -1,16 +1,18 @@
 import type { Locale } from '#types/i18n'
+import type { ManifestOverride } from '#types/demo'
 
 interface DemoImage {
 	src: string
 	title?: Record<Locale, string>
 	caption?: Record<Locale, string>
 	byline?: string
+	manifestOverrides?: ManifestOverride[]
 }
 
 // Hosted at https://github.com/showyourworklab/c2pa-images
 export const DEMO_IMAGES: DemoImage[] = [
 	{
-		src: 'https://showyourworklab.github.io/c2pa-images/leica-nora-12.jpg',
+		src: 'https://showyourworklab.github.io/c2pa-images/leica-nora-12-signed.jpg',
 		title: {
 			en_US: 'Viking row (Leica)',
 			no_NO: 'Viking-roingen (Leica)',
@@ -49,7 +51,7 @@ export const DEMO_IMAGES: DemoImage[] = [
 			no_NO: 'Politibetjent Zach Whaley (27) og flere andre betjenter leter etter en mistenkt de har hørt befinner seg på motellrommet de står utenfor.',
 			// sv_SE: 'Deputy Zach Whaley, 27, tillsammans med flera andra poliser letar efter en misstänkt som de har hört ska befinna sig i det här motellrummet som de står utanför.',
 		},
-		byline: 'Nora Savosnick / Aftonbladet'
+		byline: 'Nora Savosnick / Aftonbladet',
 	},
 	{
 		src: 'https://showyourworklab.github.io/c2pa-images/leica-nora-syria-6.jpg',

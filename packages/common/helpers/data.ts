@@ -7,6 +7,7 @@ import { PHASE_KEYS, C2PA_DATA_DEFAULT, DETAIL_TRUST_KEYS, DETAIL_TRUST_SOURCES,
 import { convertJumbfToBlobUrl, fetchMedia, getC2paActions, getAssertion, getAssertions, getC2paConfig, getCawgIdentityAccounts, getCawgIdentityName, getExifValue, getManifestIptc, getMetadataAssertion, isAssertionAttributed, getC2paChangeActions, hasC2paAction, isAiEditedManifest, isEditedManifest, readC2paFromBlob, readLegacyManifestStore } from '#helpers/c2pa'
 import { EXPIRED_CODES, TRUSTED_CODES } from '#constants/trust'
 import { getAssertionStatusCodes, getManifestStatusCodes, getManifestValidation, getSignedTimestampSource, getTrust, getWeakestTrust, isManifestValid } from '#helpers/trust'
+import { applyManifestOverrides } from '#helpers/demo'
 import { getIptcDigitalSourceTypeKey, isIptcDigitalSourceTypeAi, isIptcDigitalSourceTypeCamera } from '#helpers/iptc'
 import type {
 	C2paOptions,
@@ -30,6 +31,7 @@ import type {
 	Manifest,
 	TrustKey,
 } from '#types/data'
+import type { ManifestOverride } from '#types/demo'
 import type { ManifestValidation } from '#types/trust'
 import type { DataEventType } from '#types/ui'
 
@@ -43,12 +45,14 @@ import type { DataEventType } from '#types/ui'
  * @param props.c2pa - C2PA instance
  * @param props.src - Media URL
  * @param props.mediaType - Media type, detected from src, the fetched file's MIME type and the C2PA manifest's format when not given
+ * @param props.manifestOverrides - Testing only, merged into prepared manifests by index
  * @return Prepared data, or default data with media type when c2pa or src is missing
  */
-export const prepareData = async ({ c2pa, src, mediaType: userMediaType }: {
+export const prepareData = async ({ c2pa, src, mediaType: userMediaType, manifestOverrides }: {
 	c2pa: C2pa | null | undefined
 	src: string
 	mediaType?: MediaType | null
+	manifestOverrides?: ManifestOverride[] | null
 }): Promise<SywData> => {
 	// Take the user's media type as fact, otherwise detect it from src, the fetched file's MIME type and the C2PA manifest's format
 	const isUserMediaType = !!userMediaType
@@ -64,7 +68,7 @@ export const prepareData = async ({ c2pa, src, mediaType: userMediaType }: {
 		const activeManifest = manifestStore?.manifests?.[manifestStore.active_manifest ?? '']
 		if(!isUserMediaType) mediaType = resolveMediaType(src, mimeMediaType, getMediaTypeFromMimeType(activeManifest?.format))
         const provenance = manifestStore ? { manifestStore, legacyManifestStore } : null
-        const manifests = await prepareManifests({ provenance, reader })
+        const manifests = applyManifestOverrides(await prepareManifests({ provenance, reader }), manifestOverrides)
         const types = getTypes(manifests)
         data = {
             phase: PHASE_KEYS.READY,
@@ -100,6 +104,7 @@ let cachedC2pa: C2pa | null = null
  * @param options.locale - User's locale
  * @param options.c2paOptions - C2PA instance options, only used on first call
  * @param options.mediaType - Media type, detected from src when not given
+ * @param options.__manifestOverrides - Testing only, merged into prepared manifests by index
  * @return Prepared data, or default data when src is empty or Web Workers are unavailable
  */
 export const parseSywData = async (
@@ -108,13 +113,14 @@ export const parseSywData = async (
 		locale?: string,
 		c2paOptions?: C2paOptions,
 		mediaType?: MediaType
+		__manifestOverrides?: ManifestOverride[]
 	} = {}
 ): Promise<SywData> => {
 	if(!src) return C2PA_DATA_DEFAULT
 	if(typeof Worker === 'undefined') return C2PA_DATA_DEFAULT
-	const { c2paOptions = {}, mediaType } = options
+	const { c2paOptions = {}, mediaType, __manifestOverrides } = options
 	if(!cachedC2pa) cachedC2pa = await createC2pa(await getC2paConfig(c2paOptions))
-	const preparedData = prepareData({ c2pa: cachedC2pa, src, mediaType })
+	const preparedData = prepareData({ c2pa: cachedC2pa, src, mediaType, manifestOverrides: __manifestOverrides })
 	return preparedData
 }
 

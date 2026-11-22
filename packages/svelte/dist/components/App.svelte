@@ -30,6 +30,7 @@
 		c2paOptions = {},
 		mapOptions = null,
 		onEvent = undefined,
+		__manifestOverrides,
 		class: className,
 		...props
 	}: SywEmbedProps & Omit<HTMLAttributes<HTMLDivElement>, 'class'> & { class?: string | null } = $props()
@@ -109,7 +110,7 @@
 			}
 			let c2paInstance = $c2pa
 			if (!c2paInstance) c2paInstance = await c2paStore.init(c2paOptions)
-			const newData = await c2paStore.read({ src, mediaType })
+			const newData = await c2paStore.read({ src, mediaType, manifestOverrides: __manifestOverrides })
 			if(newData) setC2paData(newData)
 		})()
 	})

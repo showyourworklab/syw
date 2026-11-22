@@ -2,20 +2,24 @@ import { useState, useEffect, useRef } from 'react'
 import { C2PA_DATA_DEFAULT, PHASE_KEYS } from 'syw-common/constants/data'
 import { prepareData, disposeSywData } from 'syw-common/helpers/data'
 import type { MediaType, SywData } from 'syw-common/types/data'
+import type { ManifestOverride } from 'syw-common/types/demo'
 import { useC2paContext } from '$src/context/c2pa'
 
 interface UseC2paProps {
 	src: string | null
 	mediaType?: MediaType | null
+	manifestOverrides?: ManifestOverride[]
 }
 
-const useC2pa = ({ src, mediaType }: UseC2paProps): SywData => {
+const useC2pa = ({ src, mediaType, manifestOverrides }: UseC2paProps): SywData => {
 	const { c2pa } = useC2paContext()
 	const [data, setData] = useState(C2PA_DATA_DEFAULT)
 	const requestIdRef = useRef(0)
 	// Read the latest media type without re-running the C2PA read when it changes
 	const mediaTypeRef = useRef(mediaType)
 	mediaTypeRef.current = mediaType
+	const manifestOverridesRef = useRef(manifestOverrides)
+	manifestOverridesRef.current = manifestOverrides
 
 	useEffect(() => {
 		const id = ++requestIdRef.current
@@ -33,7 +37,7 @@ const useC2pa = ({ src, mediaType }: UseC2paProps): SywData => {
 		})
 
 		;(async () => {
-			const newData = await prepareData({ c2pa, src, mediaType: mediaTypeRef.current })
+			const newData = await prepareData({ c2pa, src, mediaType: mediaTypeRef.current, manifestOverrides: manifestOverridesRef.current })
 			// if (import.meta.env.DEV) {
 			// 	console.log({ src, ...newData })
 			// }

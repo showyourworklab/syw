@@ -18,8 +18,8 @@ function ManifestDetail({
 }: ManifestDetailProps) {
 	const { getText } = useI18nContext()
 	const [innerOpen, setInnerOpen] = useState(false)
-	// Titled details open when they have something to show
-	const isToggleable = !!title && !!(children || trust)
+	// Titled details open when they have something to show, including content the caller mounts on toggle
+	const isToggleable = !!title && !!(children || trust || onToggle)
 	// Callers can control whether it's open, otherwise it keeps its own state
 	const isOpen = open ?? innerOpen
 	// The definition only states how far the value can be trusted

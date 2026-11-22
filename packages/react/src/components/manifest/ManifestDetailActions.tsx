@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { classNames, getManifestDisplayActions } from 'syw-common/helpers/ui'
 import { isIptcDigitalSourceTypeAi } from 'syw-common/helpers/iptc'
 import type { ManifestDetailActionsProps } from 'syw-common/types/components'
@@ -8,7 +7,6 @@ import ManifestDetailActionsItem from '$src/components/manifest/ManifestDetailAc
 
 function ManifestDetailActions({ manifest }: ManifestDetailActionsProps) {
 	const { getText } = useI18nContext()
-	const [listOpen, setListOpen] = useState(false)
 
 	const actions = getManifestDisplayActions(manifest)
 	const actionsIncludeAi = actions.some(action => isIptcDigitalSourceTypeAi(action.iptc))
@@ -21,10 +19,7 @@ function ManifestDetailActions({ manifest }: ManifestDetailActionsProps) {
 			titleIcon="actions"
 			trust={manifest.actions?.trust}
 			className={classNames('ManifestDetailActions')}
-			open={listOpen}
 			value={getText('actions', actionsIncludeAi ? 'ai' : 'human')}
-			prompt={getText('actions', 'list', listOpen ? 'hide' : 'show')}
-			onToggle={() => setListOpen(!listOpen)}
 		>
 			<ul
 				className={classNames('ManifestDetailActionsList')}

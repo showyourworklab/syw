@@ -51,6 +51,43 @@
 				src={`https://showyourworklab.github.io/c2pa-images/leica-nora-syria-2.jpg`}
 				caption='Post mortem: Syrias rettsmedisinere skal få lik til å snakke og avdekke sannheten om hvordan de døde. Slik kan landet forhåpentligvis heles. 28 år gamle Sara Melhem ble kastet inn i en ny epoke etter årtier med systematiske løgner fra regimet.'
 				byline='Nora Savosnick'
+				__manifestOverrides={[
+					{
+						location: {
+							value: {
+								lat: 33.51206939709036,
+								lng: 36.26352371885388
+							}
+						}
+					},
+					{},
+					{
+						type: {
+							key: "published",
+						},
+						timestamp: {
+							value: {
+								date: new Date("2025-04-28"),
+								trust: {
+									level: "trusted",
+									source: "signer"
+								}
+							},
+							trust: {
+								level: "trusted",
+								source: "timestamp"
+							}
+						},
+						identity: {
+							value: "Morgenbladet",
+							trust: {
+								level: "trusted",
+								source: "identity"
+							}
+						},
+						thumbnail: "https://showyourworklab.github.io/c2pa-images/leica-nora-syria-2.jpg"
+					}
+				]}
 			/>
 
 			<p>Kjelleretasjen i al-Mowuasat universitetssykehus i Damaskus, beliggende så langt nede at solstråler aldri trenger inn, lukter søtt og innestengt. Det er slik oppreisning og rettferdighet lukter i Syria: som lik og død.</p>
@@ -486,10 +523,10 @@
 		background-color: var(--color-primary);
 		font-family: var(--font-sans-serif);
 		font-size: 1rem;
-		position: sticky;
+		/* position: sticky;
 		top: 0;
 		left: 0;
-		z-index: 999;
+		z-index: 999; */
 	}
 	header .logo {
 		margin-right: auto;
