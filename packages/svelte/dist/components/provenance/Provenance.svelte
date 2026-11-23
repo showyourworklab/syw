@@ -47,7 +47,7 @@
 		class={classNames('ProvenanceFooter')}
 	>
 		<ProvenanceExplainerToggle />
-		<ProvenanceVerify />
+		<!-- <ProvenanceVerify /> -->
 	</div>
 	<ProvenanceExplainer />
 </div>

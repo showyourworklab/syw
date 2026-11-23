@@ -49,7 +49,7 @@ function Provenance() {
 				className={classNames('ProvenanceFooter')}
 			>
 				<ProvenanceExplainerToggle />
-				<ProvenanceVerify />
+				{/* <ProvenanceVerify /> */}
 			</div>
 			<ProvenanceExplainer />
 		</div>

@@ -2,11 +2,69 @@
     import SsrFallback from '$src/lib/components/SsrFallback.svelte';
 	import 'syw-common/css/globals.css'
 	import SywSvelte from 'syw-svelte'
+
+	const CAMERA_MANIFEST_OVERRIDE_LOCATION = {
+		location: {
+			value: {
+				lat: 33.51206939709036,
+				lng: 36.26352371885388
+			}
+		}
+	}
+
+	const EDIT_MANIFEST_OVERRIDE_TIMESTAMP = {
+		timestamp: {
+			value: {
+				date: new Date("2025-11-15"),
+			}
+		}
+	}
+
+	const PUBLISHED_MANIFEST_OVERRIDE = {
+		type: {
+			key: "published",
+		},
+		timestamp: {
+			value: {
+				date: new Date("2025-12-12"),
+			},
+			trust: {
+				level: "trusted",
+				source: "timestamp"
+			}
+		},
+		identity: {
+			value: "Morgenbladet",
+			trust: {
+				level: "trusted",
+				source: "identity"
+			}
+		}
+	}
 </script>
 
 <main
 	id="article-morgenbladet"
 >
+	<header>
+		<div class="logo">
+			Morgenbladet
+		</div>
+		<nav>
+			<ul>
+				<li>Verden</li>
+				<li>Kultur</li>
+				<li>Sport</li>
+				<li>Økonomi</li>
+				<li>Meninger</li>
+			</ul>
+		</nav>
+		<div id="menu">
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
+	</header>
 	<div
 		id="hero"
 	>
@@ -15,11 +73,13 @@
 			<p id="lede">Ett år etter diktatoren Assads fall havner lik fra hevndrap og konflikter fortsatt på obdusent Sara Melhems bord. Kan det nye Syria overleve?</p>
 
 			<div id="credit">
-			<p>Skrivet av Magnus Falkehed</p>
-			<p>Bilder av Nora Savosnick</p>
+			<div>Skrivet av <strong>Magnus Falkehed</strong> | Bilder av <strong>Nora Savosnick</strong></div>
+			</div>
+			<div id="meta">
+			<p>Publisert <strong>12.12.2025</strong></p>
 			</div>
 
-			<p id="disclaimer">This is a replication of an <a href="https://www.morgenbladet.no/samfunn/livene-vare-er-blitt-brikker-i-klanenes-kamp/10102777?signedInSuccess=true" rel="noopener noreferrer" target="_blank">article</a> originally published in Morgenbladet and republished here to demonstrate the Show Your Work Lab UI within an article format.</p>
+			<p id="disclaimer">This is a replication of an <a href="https://www.morgenbladet.no/samfunn/livene-vare-er-blitt-brikker-i-klanenes-kamp/10102777" rel="noopener noreferrer" target="_blank">article</a> originally published in Morgenbladet and republished here to demonstrate the Show Your Work Lab UI.</p>
 		</hgroup>
 	</div>
 	<SsrFallback>
@@ -31,45 +91,10 @@
 				caption='Post mortem: Syrias rettsmedisinere skal få lik til å snakke og avdekke sannheten om hvordan de døde. Slik kan landet forhåpentligvis heles. 28 år gamle Sara Melhem ble kastet inn i en ny epoke etter årtier med systematiske løgner fra regimet.'
 				byline='Nora Savosnick'
 				__manifestOverrides={[
+					CAMERA_MANIFEST_OVERRIDE_LOCATION,
+					EDIT_MANIFEST_OVERRIDE_TIMESTAMP,
 					{
-						location: {
-							value: {
-								lat: 33.51206939709036,
-								lng: 36.26352371885388
-							}
-						}
-					},
-					{
-						timestamp: {
-							value: {
-								date: new Date("2025-11-15"),
-							}
-						}
-					},
-					{
-						type: {
-							key: "published",
-						},
-						timestamp: {
-							value: {
-								date: new Date("2025-12-12"),
-								trust: {
-									level: "trusted",
-									source: "signer"
-								}
-							},
-							trust: {
-								level: "trusted",
-								source: "timestamp"
-							}
-						},
-						identity: {
-							value: "Morgenbladet",
-							trust: {
-								level: "trusted",
-								source: "identity"
-							}
-						},
+						...PUBLISHED_MANIFEST_OVERRIDE,
 						thumbnail: "https://showyourworklab.github.io/c2pa-images/leica-nora-syria-2.jpg"
 					}
 				]}
@@ -95,13 +120,11 @@
 				caption='Kjellerkorridorene ved al-Mowuasat universitetssykehus i Damaskus leder inn til likhuset, Sara Melhems arbeidsplass.'
 				byline='Nora Savosnick'
 				__manifestOverrides={[
+					CAMERA_MANIFEST_OVERRIDE_LOCATION,
+					EDIT_MANIFEST_OVERRIDE_TIMESTAMP,
 					{
-						location: {
-							value: {
-								lat: 33.51206939709036,
-								lng: 36.26352371885388
-							}
-						}
+						...PUBLISHED_MANIFEST_OVERRIDE,
+						thumbnail: "https://showyourworklab.github.io/c2pa-images/leica-nora-syria-3.jpg"
 					}
 				]}
 			/>
@@ -139,6 +162,11 @@
 								lng: 36.259505819101186
 							}
 						}
+					},
+					EDIT_MANIFEST_OVERRIDE_TIMESTAMP,
+					{
+						...PUBLISHED_MANIFEST_OVERRIDE,
+						thumbnail: "https://showyourworklab.github.io/c2pa-images/leica-nora-syria-7.jpg"
 					}
 				]}
 			/>
@@ -168,6 +196,11 @@
 								lng: 36.27246915495041
 							}
 						}
+					},
+					EDIT_MANIFEST_OVERRIDE_TIMESTAMP,
+					{
+						...PUBLISHED_MANIFEST_OVERRIDE,
+						thumbnail: "https://showyourworklab.github.io/c2pa-images/leica-nora-syria-12.jpg"
 					}
 				]}
 			/>
@@ -193,6 +226,11 @@
 								lng: 36.29688023001321
 							}
 						}
+					},
+					EDIT_MANIFEST_OVERRIDE_TIMESTAMP,
+					{
+						...PUBLISHED_MANIFEST_OVERRIDE,
+						thumbnail: "https://showyourworklab.github.io/c2pa-images/leica-nora-syria-11.jpg"
 					}
 				]}
 			/>
@@ -226,6 +264,11 @@
 								lng: 36.32116256696583
 							}
 						}
+					},
+					EDIT_MANIFEST_OVERRIDE_TIMESTAMP,
+					{
+						...PUBLISHED_MANIFEST_OVERRIDE,
+						thumbnail: "https://showyourworklab.github.io/c2pa-images/leica-nora-syria-6.jpg"
 					}
 				]}
 			/>
@@ -255,6 +298,14 @@
 				src={`https://showyourworklab.github.io/c2pa-images/leica-nora-syria-15.jpg`}
 				caption='Minerydder: Anwar Amoon.'
 				byline='Nora Savosnick'
+				__manifestOverrides={[
+					CAMERA_MANIFEST_OVERRIDE_LOCATION,
+					EDIT_MANIFEST_OVERRIDE_TIMESTAMP,
+					{
+						...PUBLISHED_MANIFEST_OVERRIDE,
+						thumbnail: "https://showyourworklab.github.io/c2pa-images/leica-nora-syria-15.jpg"
+					}
+				]}
 			/>
 
 			<p>Amoons brødre, og han selv, tjenestegjorde i Assad-regimets hær under borgerkrigen. Selv var Amoon general, men bare med administrative oppgaver, sier han selv. Det var nok til å bli satt i fare.</p>
@@ -280,6 +331,14 @@
 				src={`https://showyourworklab.github.io/c2pa-images/leica-nora-syria-4.jpg`}
 				caption=''
 				byline='Nora Savosnick'
+				__manifestOverrides={[
+					CAMERA_MANIFEST_OVERRIDE_LOCATION,
+					EDIT_MANIFEST_OVERRIDE_TIMESTAMP,
+					{
+						...PUBLISHED_MANIFEST_OVERRIDE,
+						thumbnail: "https://showyourworklab.github.io/c2pa-images/leica-nora-syria-4.jpg"
+					}
+				]}
 			/>
 
 			<p>Da Assad-regimet falt, åpnet dørene seg først til fengslene og deretter til flere av Syrias mange massegraver. Sara Melhems kollegaer er ofte misunnelige på henne. Hun er ung, velutdannet og arbeider allerede i massegravene med organisasjonen De hvite hjelmene, kjent for sitt redningsarbeid under borgerkrigen. En slik pangstart på en obdusentkarriere er noe man i dag bare får i land som Ukraina eller Sudan.</p>
@@ -301,6 +360,14 @@
 				src={`https://showyourworklab.github.io/c2pa-images/leica-nora-syria-1.jpg`}
 				caption='Sporsøker: Obdusenten må også fungere som detektiv overfor pårørende.'
 				byline='Nora Savosnick'
+				__manifestOverrides={[
+					CAMERA_MANIFEST_OVERRIDE_LOCATION,
+					EDIT_MANIFEST_OVERRIDE_TIMESTAMP,
+					{
+						...PUBLISHED_MANIFEST_OVERRIDE,
+						thumbnail: "https://showyourworklab.github.io/c2pa-images/leica-nora-syria-1.jpg"
+					}
+				]}
 			/>
 
 			<p>***</p>
@@ -322,6 +389,14 @@
 				src={`https://showyourworklab.github.io/c2pa-images/leica-nora-syria-16.jpg`}
 				caption='Uro: Inne i kafeen i Damaskus er det fredelig. Utenfor kretser et krigsfly på himmelen.'
 				byline='Nora Savosnick'
+				__manifestOverrides={[
+					CAMERA_MANIFEST_OVERRIDE_LOCATION,
+					EDIT_MANIFEST_OVERRIDE_TIMESTAMP,
+					{
+						...PUBLISHED_MANIFEST_OVERRIDE,
+						thumbnail: "https://showyourworklab.github.io/c2pa-images/leica-nora-syria-16.jpg"
+					}
+				]}
 			/>
 
 			<p>***</p>
@@ -341,6 +416,14 @@
 				src={`https://showyourworklab.github.io/c2pa-images/leica-nora-syria-5.jpg`}
 				caption='Eksplosivt: Midt på den trafikkerte veien mot Damaskus oppdager minerydderne en nedgravd bombe.'
 				byline='Nora Savosnick'
+				__manifestOverrides={[
+					CAMERA_MANIFEST_OVERRIDE_LOCATION,
+					EDIT_MANIFEST_OVERRIDE_TIMESTAMP,
+					{
+						...PUBLISHED_MANIFEST_OVERRIDE,
+						thumbnail: "https://showyourworklab.github.io/c2pa-images/leica-nora-syria-5.jpg"
+					}
+				]}
 			/>
 
 			<p>Dermed er de verdige en heltestatus. Samtidig snakker vi her om en koalisjon av opprørere som for ikke lenge siden het al-Nusra-fronten, en gruppe som hadde sverget troskap til al-Qaida. Lederen deres ble da kalt al-Julani, som i dag er den 43 år gamle statssjefen og presidenten for Syria, under sitt nye navn Ahmed al-Sharaa.</p>
@@ -360,6 +443,14 @@
 				src={`https://showyourworklab.github.io/c2pa-images/leica-nora-syria-10.jpg`}
 				caption='Delt by: I dag er mange kristne redde for å vende tilbake til Maaloula, som har flere tusen års turbulent historie som kristen landsby.'
 				byline='Nora Savosnick'
+				__manifestOverrides={[
+					CAMERA_MANIFEST_OVERRIDE_LOCATION,
+					EDIT_MANIFEST_OVERRIDE_TIMESTAMP,
+					{
+						...PUBLISHED_MANIFEST_OVERRIDE,
+						thumbnail: "https://showyourworklab.github.io/c2pa-images/leica-nora-syria-10.jpg"
+					}
+				]}
 			/>
 
 			<p>Den lille kristne landsbyen nord for Damaskus bærer på både smertefulle og stolte minner, i et område der man skryter av å snakke samme språk som Jesus: arameisk. Her har Aleksander den Stores hærer herjet, så vel som romere, korsfarere og ottomaner. Men en av byens verste stunder inntraff høsten 2013 og våren 2014. Da ble Maaloula angrepet, blant annet av fortroppene til al-Nusra-fronten. Opprørerne befestet seg oppe i fjellområdet som omgir byen.</p>
@@ -379,6 +470,14 @@
 				src={`https://showyourworklab.github.io/c2pa-images/leica-nora-syria-8.jpg`}
 				caption='Helomvending: Under borgerkrigen ble Fadi Al Bar Keels lillebror kidnappet og mishandlet av al-Nusra-bevegelsen. I dag er al-Nusras tidligere leder blitt Syrias president.'
 				byline='Nora Savosnick'
+				__manifestOverrides={[
+					CAMERA_MANIFEST_OVERRIDE_LOCATION,
+					EDIT_MANIFEST_OVERRIDE_TIMESTAMP,
+					{
+						...PUBLISHED_MANIFEST_OVERRIDE,
+						thumbnail: "https://showyourworklab.github.io/c2pa-images/leica-nora-syria-8.jpg"
+					}
+				]}
 			/>
 
 			<p>En masseflukt av de siste kristne fra Syrias mest berømte kristne by ville være et nederlag for Syrias nye president, som ønsker å bli sett på som beskytter av alle grupper. Hvis Maaloula ble tømt for kristne, ville det sende sjokkbølger helt til Vatikanet og Washington. Det var faktisk først etter trusselen om en slik utvandring at sentralregjeringen i Damaskus presset på for forhandlinger mellom kristne og muslimer i Maaloula.</p>
@@ -408,6 +507,14 @@
 				src={`https://showyourworklab.github.io/c2pa-images/leica-nora-syria-9.jpg`}
 				caption='Bortført fra klosteret: Nonnen Miriam Al Haber er 65 år og har overlevd to borgerkriger og to kidnappinger – én i Libanon og én i Syria.'
 				byline='Nora Savosnick'
+				__manifestOverrides={[
+					CAMERA_MANIFEST_OVERRIDE_LOCATION,
+					EDIT_MANIFEST_OVERRIDE_TIMESTAMP,
+					{
+						...PUBLISHED_MANIFEST_OVERRIDE,
+						thumbnail: "https://showyourworklab.github.io/c2pa-images/leica-nora-syria-9.jpg"
+					}
+				]}
 			/>
 
 			<p>Men ingen ble drept den dagen. I stedet ble alle nonnene kidnappet og holdt fanget i flere måneder, mens forhandlinger pågikk mellom al-Nusra-fronten, Qatar, Vatikanet og regimet i Damaskus. Millioner av dollar og omfattende  fangeutvekslingsavtaler lå på forhandlingsbordet.</p>
@@ -441,6 +548,14 @@
 				src={`https://image.morgenbladet.no/10104909.webp?imageId=10104909&width=706&height=474&format=webp`}
 				caption='Jubileum: Syrias president Ahmed al-Sharaa holder tale i Damaskus 8. desember i år, på ettårsdagen for Assads fall.'
 				byline='Khalil Ashawi / Reuters / NTB'
+				__manifestOverrides={[
+					CAMERA_MANIFEST_OVERRIDE_LOCATION,
+					EDIT_MANIFEST_OVERRIDE_TIMESTAMP,
+					{
+						...PUBLISHED_MANIFEST_OVERRIDE,
+						thumbnail: "https://image.morgenbladet.no/10104909.webp?imageId=10104909&width=706&height=474&format=webp"
+					}
+				]}
 			/>
 
 			<p>Samtidig går al-Sharaa hardt til verks mot flere av sine tidligere allierte. I slutten av oktober omringet regjeringsstyrker en mektig gruppe utenlandske jihadister i Idlib. Deres leder, en fransk-senegaleser ved navn Oumar Diaby, skal nå være fengslet.</p>
@@ -464,6 +579,14 @@
 				src={`https://showyourworklab.github.io/c2pa-images/leica-nora-syria-14.jpg`}
 				caption='Lappeteppe: Disse guttene er mellom 18 og 21 år og har ulik bakgrunn. «Oss imellom bryr vi oss ikke om religion, men det siste året har alt handlet om religion i Syria», sier én frustrert. De vil først la seg intervjue med navn, men når de senere har snakket med familiene sine, tar frykten overhånd og oppfølgingsavtalene blir avlyst.'
 				byline='Nora Savosnick'
+				__manifestOverrides={[
+					CAMERA_MANIFEST_OVERRIDE_LOCATION,
+					EDIT_MANIFEST_OVERRIDE_TIMESTAMP,
+					{
+						...PUBLISHED_MANIFEST_OVERRIDE,
+						thumbnail: "https://showyourworklab.github.io/c2pa-images/leica-nora-syria-14.jpg"
+					}
+				]}
 			/>
 
 			<p>***</p>
@@ -483,6 +606,14 @@
 				src={`https://showyourworklab.github.io/c2pa-images/leica-nora-syria-13.jpg`}
 				caption='Broket fremtid: To måneder gamle Affaf Alsayed vil ha bånd til både Norge og Syria. Men nå skal hun til Saudi-Arabia.'
 				byline='Nora Savosnick'
+				__manifestOverrides={[
+					CAMERA_MANIFEST_OVERRIDE_LOCATION,
+					EDIT_MANIFEST_OVERRIDE_TIMESTAMP,
+					{
+						...PUBLISHED_MANIFEST_OVERRIDE,
+						thumbnail: "https://showyourworklab.github.io/c2pa-images/leica-nora-syria-13.jpg"
+					}
+				]}
 			/>
 
 			<p>Han har ikke gitt opp håpet helt: Datteren er bare to måneder gammel, det finnes fortsatt tid for reell fred. Men foreløpig har ikke regjeringen i Damaskus forhandlet en endelig avtale med kurderne om hvem som skal styre Alsayeds gamle hjemby Raqqa, dit han hadde planer om å vende tilbake. Det ferske rakettangrepet i sentrum av Damaskus bidro også til beslutningen.</p>
@@ -490,6 +621,25 @@
 			<p>– Vi legger dette prosjektet på is, sier Abdulghafour Alsayed.</p>
 		</article>
 	</SsrFallback>
+	<footer>
+		<div class="footer-columns">
+			<div class="footer-column">
+				<div class="logo">
+					Morgenbladet
+				</div>
+				<small>© 2026 Morgenbladet</small>
+			</div>
+			<div class="footer-column">
+				<ul>
+					<li>Verden</li>
+					<li>Kultur</li>
+					<li>Sport</li>
+					<li>Økonomi</li>
+					<li>Meninger</li>
+				</ul>
+			</div>
+		</div>
+	</footer>
 </main>
 
 <style>
@@ -516,24 +666,78 @@
 		--text-base: 18px;
 		--font-serif: "Libre Baskerville", "Times New Roman", times, serif;
 		--font-sans-serif: "Rubik", Arial, Helvetica, sans-serif;
-		--color-primary: #333;
+		--color-primary: #160401;
 		--color-secondary: white;
 		--color-ui: #E2E5F1;
+		--color-brand: #8F1C0B;
 
-		/* --syw-color-primary: #1A1A1A;
-		--syw-color-primary-light: #AEA281;
-		--syw-color-secondary: #fdf7e6;
-		--syw-color-secondary-light: #faf7f0;
-		--syw-color-secondary-dark: #877a54;
-		--syw-color-tertiary: rgba(255,229,217,1);
-		--syw-color-quaternary: rgba(255, 241, 201, 0);
-		--syw-color-quinary: rgba(153,1,1,1);
-		--syw-color-quinary-light: rgba(250,246,245,1); */
+		--syw-color-primary: #160401;
+		--syw-color-secondary: rgb(246, 242, 248);
+		--syw-color-tertiary: rgb(149, 142, 145);
+		--syw-color-quaternary: rgb(232, 227, 236);
+		--syw-color-quinary: #8F1C0B;
+	}
+	.logo {
+		color: white;
+		background: var(--color-brand);
+		padding: 10px 20px;
+		font-family: var(--font-sans-serif);
+		text-transform: uppercase;
+		letter-spacing: 2px;
+		width: fit-content;
+	}
+	header {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		padding: 1rem 2rem;
+		color: var(--color-secondary);
+		background-color: var(--color-primary);
+		font-family: var(--font-sans-serif);
+		font-size: 1rem;
+		/* position: sticky;
+		top: 0;
+		left: 0;
+		z-index: 999; */
+	}
+	header .logo {
+		margin-right: auto;
+	}
+	header > nav {
+		@media (max-width: 740px) {
+			display: none;
+		}
+	}
+	header > nav > ul {
+		height: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+	header > nav > ul > li {
+		margin-left: 1rem;
+	}
+	header #menu {
+		width: 1.25rem;
+		height: 1rem;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		margin-left: 2rem;
+		
+	}
+	header #menu > div {
+		width: 100%;
+		height: 2px;
+		background-color: var(--color-secondary);
 	}
 	#hero {
 		max-width: 900px;
+		padding: 4rem 2rem 2rem 2rem;
 		margin: auto;
-		padding: 4rem 0 2rem 0;
 		display: flex;
 		position: relative;
 		overflow: hidden;
@@ -548,32 +752,31 @@
 		line-height: 1.2em;
 		letter-spacing: -0.05em;
 	}
-	/* #hero hgroup p {
-		font-size: 1rem;
-		margin: 0 auto;
-	} */
 	#lede {
 		font-size: 1.5rem;
 		line-height: 1.25em;
 	}
 	#credit {
 		margin-top: 0.5rem;
-		margin-bottom: 2rem;
+		margin-bottom: 1rem;
 		font-family: var(--font-sans-serif);
 	}
-	#credit p {
-		margin: 0;
+	#meta {
+		font-family: var(--font-sans-serif);
 	}
 	#disclaimer {
 		opacity: 0.5;
 		font-style: italic;
 		font-size: 1rem;
+		padding: 0.5rem;
+		border-left: 2px solid currentColor;
+		background: var(--syw-color-quaternary);
 	}
 	#disclaimer a {
 		color: inherit;
 	}
 	main {
-		padding: 0 2rem;
+		
 	}
 	main h1, main h2 {
 		/* font-family: var(--font-sans-serif); */
@@ -581,6 +784,9 @@
 	main p {
 		font-size: var(--text-base);
 		line-height: 1.5em;
+	}
+	article {
+		padding: 0 2rem 10rem 2rem;
 	}
 	article p, article h2 {
 		max-width: 40rem;
@@ -601,6 +807,10 @@
 	article :global(.Syw-App) {
 		max-width: 900px;
 		margin: 4rem auto;
+		@media (max-width: 740px) {
+			margin-left: -1.5rem;
+			margin-right: -1.5rem;
+		}
 	}
 	article :global(.Syw-App):first-child {
 		margin-top: 0;
@@ -616,5 +826,36 @@
 	} */
 	article :global(.Syw-App .Syw-FigureCaption) {
 		font-family: var(--font-serif);
+	}
+	footer {
+		padding: 4rem 2rem;
+		color: var(--color-secondary);
+		background-color: var(--color-primary);
+		font-family: var(--font-sans-serif);
+		font-size: 1rem;
+	}
+	footer .footer-columns {
+		display: flex;
+	}
+	footer .footer-column {
+		flex: 1;
+		width: 50%;
+		display: flex;
+		flex-direction: column;
+	}
+	footer .logo {
+		margin-bottom: auto;
+	}
+	footer ul {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		text-align: right;
+	}
+	footer ul li {
+		margin-bottom: 0.5rem;
+	}
+	footer ul li:last-child {
+		margin-bottom: 0;
 	}
 </style>

@@ -2,6 +2,45 @@
     import SsrFallback from '$src/lib/components/SsrFallback.svelte';
 	import 'syw-common/css/globals.css'
 	import SywSvelte from 'syw-svelte'
+
+	const CAMERA_MANIFEST_OVERRIDE_LOCATION = {
+		location: {
+			value: {
+				lat: 33.51206939709036,
+				lng: 36.26352371885388
+			}
+		}
+	}
+
+	const EDIT_MANIFEST_OVERRIDE_TIMESTAMP = {
+		timestamp: {
+			value: {
+				date: new Date("2025-11-15"),
+			}
+		}
+	}
+
+	const PUBLISHED_MANIFEST_OVERRIDE = {
+		type: {
+			key: "published",
+		},
+		timestamp: {
+			value: {
+				date: new Date("2025-12-12"),
+			},
+			trust: {
+				level: "trusted",
+				source: "timestamp"
+			}
+		},
+		identity: {
+			value: "Morgenbladet",
+			trust: {
+				level: "trusted",
+				source: "identity"
+			}
+		}
+	}
 </script>
 
 <main
@@ -52,39 +91,10 @@
 				caption='Post mortem: Syrias rettsmedisinere skal få lik til å snakke og avdekke sannheten om hvordan de døde. Slik kan landet forhåpentligvis heles. 28 år gamle Sara Melhem ble kastet inn i en ny epoke etter årtier med systematiske løgner fra regimet.'
 				byline='Nora Savosnick'
 				__manifestOverrides={[
+					CAMERA_MANIFEST_OVERRIDE_LOCATION,
+					EDIT_MANIFEST_OVERRIDE_TIMESTAMP,
 					{
-						location: {
-							value: {
-								lat: 33.51206939709036,
-								lng: 36.26352371885388
-							}
-						}
-					},
-					{},
-					{
-						type: {
-							key: "published",
-						},
-						timestamp: {
-							value: {
-								date: new Date("2025-04-28"),
-								trust: {
-									level: "trusted",
-									source: "signer"
-								}
-							},
-							trust: {
-								level: "trusted",
-								source: "timestamp"
-							}
-						},
-						identity: {
-							value: "Morgenbladet",
-							trust: {
-								level: "trusted",
-								source: "identity"
-							}
-						},
+						...PUBLISHED_MANIFEST_OVERRIDE,
 						thumbnail: "https://showyourworklab.github.io/c2pa-images/leica-nora-syria-2.jpg"
 					}
 				]}
@@ -109,6 +119,14 @@
 				src={`https://showyourworklab.github.io/c2pa-images/leica-nora-syria-3.jpg`}
 				caption='Kjellerkorridorene ved al-Mowuasat universitetssykehus i Damaskus leder inn til likhuset, Sara Melhems arbeidsplass.'
 				byline='Nora Savosnick'
+				__manifestOverrides={[
+					CAMERA_MANIFEST_OVERRIDE_LOCATION,
+					EDIT_MANIFEST_OVERRIDE_TIMESTAMP,
+					{
+						...PUBLISHED_MANIFEST_OVERRIDE,
+						thumbnail: "https://showyourworklab.github.io/c2pa-images/leica-nora-syria-3.jpg"
+					}
+				]}
 			/>
 			
 			<p>Problemet er at drapene ikke stoppet da al-Assad flyktet fra landet i desember i fjor. Etter tiår med lovløshet, borgerkrig, tortur og klansamfunn er drap blitt normen i det syriske samfunnet. I tomrommet etter diktaturet har også sekteriske hevndrap blusset opp. Nøyaktig hvor mange mord og massakrer som forekommer i det nye Syria, er det få offisielle opplysninger om.</p>
@@ -136,6 +154,21 @@
 				src={`https://showyourworklab.github.io/c2pa-images/leica-nora-syria-7.jpg`}
 				caption='Spor av diktatur: To stjerner – ikke tre – var emblemet på flagget under Assads regime.'
 				byline='Nora Savosnick'
+				__manifestOverrides={[
+					{
+						location: {
+							value: {
+								lat: 33.508709535053505,
+								lng: 36.259505819101186
+							}
+						}
+					},
+					EDIT_MANIFEST_OVERRIDE_TIMESTAMP,
+					{
+						...PUBLISHED_MANIFEST_OVERRIDE,
+						thumbnail: "https://showyourworklab.github.io/c2pa-images/leica-nora-syria-7.jpg"
+					}
+				]}
 			/>
 
 			<p>***</p>
@@ -155,6 +188,21 @@
 				src={`https://showyourworklab.github.io/c2pa-images/leica-nora-syria-12.jpg`}
 				caption='Familien Alsayed: Pappa Abdulghafour har reist tilbake til Damaskus fra Kristiansand. Mamma Areej og den to måneder gamle datteren Affaf kommer fra Saudi-Arabia. Nå vil de bygge et nytt liv sammen i Syria.'
 				byline='Nora Savosnick'
+				__manifestOverrides={[
+					{
+						location: {
+							value: {
+								lat: 33.51864820417729,
+								lng: 36.27246915495041
+							}
+						}
+					},
+					EDIT_MANIFEST_OVERRIDE_TIMESTAMP,
+					{
+						...PUBLISHED_MANIFEST_OVERRIDE,
+						thumbnail: "https://showyourworklab.github.io/c2pa-images/leica-nora-syria-12.jpg"
+					}
+				]}
 			/>
 
 			<p>Nå vil han gi det nye Syria en sjanse. Men siden flukten for ti år siden er de to blitt tre: I dag jobber Alsayed også for å gi sin knapt to måneder gamle datter Affaf et syrisk pass.</p>
@@ -170,6 +218,21 @@
 				src={`https://showyourworklab.github.io/c2pa-images/leica-nora-syria-11.jpg`}
 				caption='150 kilo bagasje, en halv kilo baby: På et lite hotellrom i Damaskus planlegger familien Alsayed sin nye syriske fremtid.'
 				byline='Nora Savosnick'
+				__manifestOverrides={[
+					{
+						location: {
+							value: {
+								lat: 33.51493952712948,
+								lng: 36.29688023001321
+							}
+						}
+					},
+					EDIT_MANIFEST_OVERRIDE_TIMESTAMP,
+					{
+						...PUBLISHED_MANIFEST_OVERRIDE,
+						thumbnail: "https://showyourworklab.github.io/c2pa-images/leica-nora-syria-11.jpg"
+					}
+				]}
 			/>
 
 			<p>Utsagnet høres mest ut som en hypotese, det er spor av tvil i stemmen hans. Og samtidig som vi tømmer kaffekoppene våre i hotellobbyen, sperres en hel bydel i Damaskus av, nabolaget al-Sumariyah. Der bor tusenvis av fattige alawitter, samme folkegruppe som tidligere president al-Assad tilhører. </p>
@@ -193,6 +256,21 @@
 				src={`https://showyourworklab.github.io/c2pa-images/leica-nora-syria-6.jpg`}
 				caption='På kirkegården i al-Ghouta: Etter Assads fall er det igjen mulig for millioner av syrere å besøke sine pårørendes graver – for de som har en grav.'
 				byline='Nora Savosnick'
+				__manifestOverrides={[
+					{
+						location: {
+							value: {
+								lat: 33.507698535628755,
+								lng: 36.32116256696583
+							}
+						}
+					},
+					EDIT_MANIFEST_OVERRIDE_TIMESTAMP,
+					{
+						...PUBLISHED_MANIFEST_OVERRIDE,
+						thumbnail: "https://showyourworklab.github.io/c2pa-images/leica-nora-syria-6.jpg"
+					}
+				]}
 			/>
 
 			<p>I dag ligner hele bydeler i al-Ghouta gulnede svart-hvitt-fotografier av stein og betong. Det krever en viss fantasi, eller som i entreprenør Yaser Homsis tilfelle en god hukommelse, for å forestille seg hvordan det så ut før ødeleggelsen.</p>
@@ -220,6 +298,14 @@
 				src={`https://showyourworklab.github.io/c2pa-images/leica-nora-syria-15.jpg`}
 				caption='Minerydder: Anwar Amoon.'
 				byline='Nora Savosnick'
+				__manifestOverrides={[
+					CAMERA_MANIFEST_OVERRIDE_LOCATION,
+					EDIT_MANIFEST_OVERRIDE_TIMESTAMP,
+					{
+						...PUBLISHED_MANIFEST_OVERRIDE,
+						thumbnail: "https://showyourworklab.github.io/c2pa-images/leica-nora-syria-15.jpg"
+					}
+				]}
 			/>
 
 			<p>Amoons brødre, og han selv, tjenestegjorde i Assad-regimets hær under borgerkrigen. Selv var Amoon general, men bare med administrative oppgaver, sier han selv. Det var nok til å bli satt i fare.</p>
@@ -245,6 +331,14 @@
 				src={`https://showyourworklab.github.io/c2pa-images/leica-nora-syria-4.jpg`}
 				caption=''
 				byline='Nora Savosnick'
+				__manifestOverrides={[
+					CAMERA_MANIFEST_OVERRIDE_LOCATION,
+					EDIT_MANIFEST_OVERRIDE_TIMESTAMP,
+					{
+						...PUBLISHED_MANIFEST_OVERRIDE,
+						thumbnail: "https://showyourworklab.github.io/c2pa-images/leica-nora-syria-4.jpg"
+					}
+				]}
 			/>
 
 			<p>Da Assad-regimet falt, åpnet dørene seg først til fengslene og deretter til flere av Syrias mange massegraver. Sara Melhems kollegaer er ofte misunnelige på henne. Hun er ung, velutdannet og arbeider allerede i massegravene med organisasjonen De hvite hjelmene, kjent for sitt redningsarbeid under borgerkrigen. En slik pangstart på en obdusentkarriere er noe man i dag bare får i land som Ukraina eller Sudan.</p>
@@ -266,6 +360,14 @@
 				src={`https://showyourworklab.github.io/c2pa-images/leica-nora-syria-1.jpg`}
 				caption='Sporsøker: Obdusenten må også fungere som detektiv overfor pårørende.'
 				byline='Nora Savosnick'
+				__manifestOverrides={[
+					CAMERA_MANIFEST_OVERRIDE_LOCATION,
+					EDIT_MANIFEST_OVERRIDE_TIMESTAMP,
+					{
+						...PUBLISHED_MANIFEST_OVERRIDE,
+						thumbnail: "https://showyourworklab.github.io/c2pa-images/leica-nora-syria-1.jpg"
+					}
+				]}
 			/>
 
 			<p>***</p>
@@ -287,6 +389,14 @@
 				src={`https://showyourworklab.github.io/c2pa-images/leica-nora-syria-16.jpg`}
 				caption='Uro: Inne i kafeen i Damaskus er det fredelig. Utenfor kretser et krigsfly på himmelen.'
 				byline='Nora Savosnick'
+				__manifestOverrides={[
+					CAMERA_MANIFEST_OVERRIDE_LOCATION,
+					EDIT_MANIFEST_OVERRIDE_TIMESTAMP,
+					{
+						...PUBLISHED_MANIFEST_OVERRIDE,
+						thumbnail: "https://showyourworklab.github.io/c2pa-images/leica-nora-syria-16.jpg"
+					}
+				]}
 			/>
 
 			<p>***</p>
@@ -306,6 +416,14 @@
 				src={`https://showyourworklab.github.io/c2pa-images/leica-nora-syria-5.jpg`}
 				caption='Eksplosivt: Midt på den trafikkerte veien mot Damaskus oppdager minerydderne en nedgravd bombe.'
 				byline='Nora Savosnick'
+				__manifestOverrides={[
+					CAMERA_MANIFEST_OVERRIDE_LOCATION,
+					EDIT_MANIFEST_OVERRIDE_TIMESTAMP,
+					{
+						...PUBLISHED_MANIFEST_OVERRIDE,
+						thumbnail: "https://showyourworklab.github.io/c2pa-images/leica-nora-syria-5.jpg"
+					}
+				]}
 			/>
 
 			<p>Dermed er de verdige en heltestatus. Samtidig snakker vi her om en koalisjon av opprørere som for ikke lenge siden het al-Nusra-fronten, en gruppe som hadde sverget troskap til al-Qaida. Lederen deres ble da kalt al-Julani, som i dag er den 43 år gamle statssjefen og presidenten for Syria, under sitt nye navn Ahmed al-Sharaa.</p>
@@ -325,6 +443,14 @@
 				src={`https://showyourworklab.github.io/c2pa-images/leica-nora-syria-10.jpg`}
 				caption='Delt by: I dag er mange kristne redde for å vende tilbake til Maaloula, som har flere tusen års turbulent historie som kristen landsby.'
 				byline='Nora Savosnick'
+				__manifestOverrides={[
+					CAMERA_MANIFEST_OVERRIDE_LOCATION,
+					EDIT_MANIFEST_OVERRIDE_TIMESTAMP,
+					{
+						...PUBLISHED_MANIFEST_OVERRIDE,
+						thumbnail: "https://showyourworklab.github.io/c2pa-images/leica-nora-syria-10.jpg"
+					}
+				]}
 			/>
 
 			<p>Den lille kristne landsbyen nord for Damaskus bærer på både smertefulle og stolte minner, i et område der man skryter av å snakke samme språk som Jesus: arameisk. Her har Aleksander den Stores hærer herjet, så vel som romere, korsfarere og ottomaner. Men en av byens verste stunder inntraff høsten 2013 og våren 2014. Da ble Maaloula angrepet, blant annet av fortroppene til al-Nusra-fronten. Opprørerne befestet seg oppe i fjellområdet som omgir byen.</p>
@@ -344,6 +470,14 @@
 				src={`https://showyourworklab.github.io/c2pa-images/leica-nora-syria-8.jpg`}
 				caption='Helomvending: Under borgerkrigen ble Fadi Al Bar Keels lillebror kidnappet og mishandlet av al-Nusra-bevegelsen. I dag er al-Nusras tidligere leder blitt Syrias president.'
 				byline='Nora Savosnick'
+				__manifestOverrides={[
+					CAMERA_MANIFEST_OVERRIDE_LOCATION,
+					EDIT_MANIFEST_OVERRIDE_TIMESTAMP,
+					{
+						...PUBLISHED_MANIFEST_OVERRIDE,
+						thumbnail: "https://showyourworklab.github.io/c2pa-images/leica-nora-syria-8.jpg"
+					}
+				]}
 			/>
 
 			<p>En masseflukt av de siste kristne fra Syrias mest berømte kristne by ville være et nederlag for Syrias nye president, som ønsker å bli sett på som beskytter av alle grupper. Hvis Maaloula ble tømt for kristne, ville det sende sjokkbølger helt til Vatikanet og Washington. Det var faktisk først etter trusselen om en slik utvandring at sentralregjeringen i Damaskus presset på for forhandlinger mellom kristne og muslimer i Maaloula.</p>
@@ -373,6 +507,14 @@
 				src={`https://showyourworklab.github.io/c2pa-images/leica-nora-syria-9.jpg`}
 				caption='Bortført fra klosteret: Nonnen Miriam Al Haber er 65 år og har overlevd to borgerkriger og to kidnappinger – én i Libanon og én i Syria.'
 				byline='Nora Savosnick'
+				__manifestOverrides={[
+					CAMERA_MANIFEST_OVERRIDE_LOCATION,
+					EDIT_MANIFEST_OVERRIDE_TIMESTAMP,
+					{
+						...PUBLISHED_MANIFEST_OVERRIDE,
+						thumbnail: "https://showyourworklab.github.io/c2pa-images/leica-nora-syria-9.jpg"
+					}
+				]}
 			/>
 
 			<p>Men ingen ble drept den dagen. I stedet ble alle nonnene kidnappet og holdt fanget i flere måneder, mens forhandlinger pågikk mellom al-Nusra-fronten, Qatar, Vatikanet og regimet i Damaskus. Millioner av dollar og omfattende  fangeutvekslingsavtaler lå på forhandlingsbordet.</p>
@@ -406,6 +548,14 @@
 				src={`https://image.morgenbladet.no/10104909.webp?imageId=10104909&width=706&height=474&format=webp`}
 				caption='Jubileum: Syrias president Ahmed al-Sharaa holder tale i Damaskus 8. desember i år, på ettårsdagen for Assads fall.'
 				byline='Khalil Ashawi / Reuters / NTB'
+				__manifestOverrides={[
+					CAMERA_MANIFEST_OVERRIDE_LOCATION,
+					EDIT_MANIFEST_OVERRIDE_TIMESTAMP,
+					{
+						...PUBLISHED_MANIFEST_OVERRIDE,
+						thumbnail: "https://image.morgenbladet.no/10104909.webp?imageId=10104909&width=706&height=474&format=webp"
+					}
+				]}
 			/>
 
 			<p>Samtidig går al-Sharaa hardt til verks mot flere av sine tidligere allierte. I slutten av oktober omringet regjeringsstyrker en mektig gruppe utenlandske jihadister i Idlib. Deres leder, en fransk-senegaleser ved navn Oumar Diaby, skal nå være fengslet.</p>
@@ -429,6 +579,14 @@
 				src={`https://showyourworklab.github.io/c2pa-images/leica-nora-syria-14.jpg`}
 				caption='Lappeteppe: Disse guttene er mellom 18 og 21 år og har ulik bakgrunn. «Oss imellom bryr vi oss ikke om religion, men det siste året har alt handlet om religion i Syria», sier én frustrert. De vil først la seg intervjue med navn, men når de senere har snakket med familiene sine, tar frykten overhånd og oppfølgingsavtalene blir avlyst.'
 				byline='Nora Savosnick'
+				__manifestOverrides={[
+					CAMERA_MANIFEST_OVERRIDE_LOCATION,
+					EDIT_MANIFEST_OVERRIDE_TIMESTAMP,
+					{
+						...PUBLISHED_MANIFEST_OVERRIDE,
+						thumbnail: "https://showyourworklab.github.io/c2pa-images/leica-nora-syria-14.jpg"
+					}
+				]}
 			/>
 
 			<p>***</p>
@@ -448,6 +606,14 @@
 				src={`https://showyourworklab.github.io/c2pa-images/leica-nora-syria-13.jpg`}
 				caption='Broket fremtid: To måneder gamle Affaf Alsayed vil ha bånd til både Norge og Syria. Men nå skal hun til Saudi-Arabia.'
 				byline='Nora Savosnick'
+				__manifestOverrides={[
+					CAMERA_MANIFEST_OVERRIDE_LOCATION,
+					EDIT_MANIFEST_OVERRIDE_TIMESTAMP,
+					{
+						...PUBLISHED_MANIFEST_OVERRIDE,
+						thumbnail: "https://showyourworklab.github.io/c2pa-images/leica-nora-syria-13.jpg"
+					}
+				]}
 			/>
 
 			<p>Han har ikke gitt opp håpet helt: Datteren er bare to måneder gammel, det finnes fortsatt tid for reell fred. Men foreløpig har ikke regjeringen i Damaskus forhandlet en endelig avtale med kurderne om hvem som skal styre Alsayeds gamle hjemby Raqqa, dit han hadde planer om å vende tilbake. Det ferske rakettangrepet i sentrum av Damaskus bidro også til beslutningen.</p>
