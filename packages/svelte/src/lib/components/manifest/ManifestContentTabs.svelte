@@ -2,11 +2,11 @@
 	import { Tabs } from '@ark-ui/svelte/tabs'
 	import { classNames, getAvailableTabs } from 'syw-common/helpers/ui'
 	import type { ManifestContentTabsProps } from 'syw-common/types/components'
+	import { getI18nContext } from '$lib/store/i18n.js'
+	import { getDataContext } from '$lib/store/data.js'
 	import ManifestInfo from '$lib/components/manifest/ManifestInfo.svelte'
 	import ManifestImage from '$lib/components/manifest/ManifestImage.svelte'
 	import ManifestDetailDefinition from '$lib/components/manifest/ManifestDetailDefinition.svelte'
-	import { getI18nContext } from '$lib/store/i18n.js'
-	import { getDataContext } from '$lib/store/data.js'
 
 	const { locale, getText } = getI18nContext()
 	const { mediaType } = getDataContext()

@@ -54,17 +54,20 @@
 
 	const { c2pa } = c2paStore
 	const { lang } = i18nStore
-	const { phase } = dataStore
+	const { phase, manifests } = dataStore
 	const {
 		isHoverImage,
 		isProvenanceOpen,
 	} = uiStore
+
+	const isEmpty = $derived(getDataEventType({ phase: $phase, manifests: $manifests }) === 'data.empty')
 
 	const classes = $derived(
 		classNames(
 			'App',
 			`App_${$phase}`,
 			`App_${variant}`,
+			isEmpty ? 'App_empty' : false,
 			$isHoverImage ? 'App_hovered' : false,
 			$isProvenanceOpen ? 'App_active' : false,
 			className

@@ -137,20 +137,6 @@ export const DEMO_IMAGES: DemoImage[] = [
 		},
 		byline: 'NewsGuard'
 	},
-	// {
-	// 	src: "https://showyourworklab.org/_next/image?url=%2Fuploads%2Fabout-5.jpg&w=1920&q=90",
-	// 	title: {
-	// 		en_US: 'No C2PA',
-	// 		no_NO: 'No C2PA',
-	// 		// sv_SE: 'Vikingrodden (Leica)',
-	// 	},
-	// 	caption: {
-	// 		en_US: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ultricies ligula non turpis sagittis ornare. Sed id cursus leo. Aliquam ut eleifend massa.',
-	// 		no_NO: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ultricies ligula non turpis sagittis ornare. Sed id cursus leo. Aliquam ut eleifend massa.',
-	// 		// sv_SE: 'Över tusen norska fotbollssupportrar samlades på Times Square i New York för att delta i ”Vikingrodden” två dagar före Norges match mot Brasilien.',
-	// 	},
-	// 	byline: 'Nora Savosnick'
-	// },
 	{
 		src: 'https://showyourworklab.github.io/c2pa-images/iptc-1.png',
 		title: {
@@ -185,5 +171,19 @@ export const DEMO_IMAGES: DemoImage[] = [
 			// sv_SE: 'Över tusen norska fotbollssupportrar samlades på Times Square i New York för att delta i ”Vikingrodden” två dagar före Norges match mot Brasilien.',
 		},
 		byline: 'Noga Hurwitz'
+	},
+	{
+		src: "https://showyourworklab.org/_next/image?url=%2Fuploads%2Fabout-5.jpg&w=1920&q=90",
+		title: {
+			en_US: 'No C2PA',
+			no_NO: 'No C2PA',
+			// sv_SE: 'Vikingrodden (Leica)',
+		},
+		caption: {
+			en_US: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ultricies ligula non turpis sagittis ornare. Sed id cursus leo. Aliquam ut eleifend massa.',
+			no_NO: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ultricies ligula non turpis sagittis ornare. Sed id cursus leo. Aliquam ut eleifend massa.',
+			// sv_SE: 'Över tusen norska fotbollssupportrar samlades på Times Square i New York för att delta i ”Vikingrodden” två dagar före Norges match mot Brasilien.',
+		},
+		byline: 'Nora Savosnick'
 	},
 ];

@@ -548,14 +548,6 @@
 				src={`https://image.morgenbladet.no/10104909.webp?imageId=10104909&width=706&height=474&format=webp`}
 				caption='Jubileum: Syrias president Ahmed al-Sharaa holder tale i Damaskus 8. desember i år, på ettårsdagen for Assads fall.'
 				byline='Khalil Ashawi / Reuters / NTB'
-				__manifestOverrides={[
-					CAMERA_MANIFEST_OVERRIDE_LOCATION,
-					EDIT_MANIFEST_OVERRIDE_TIMESTAMP,
-					{
-						...PUBLISHED_MANIFEST_OVERRIDE,
-						thumbnail: "https://image.morgenbladet.no/10104909.webp?imageId=10104909&width=706&height=474&format=webp"
-					}
-				]}
 			/>
 
 			<p>Samtidig går al-Sharaa hardt til verks mot flere av sine tidligere allierte. I slutten av oktober omringet regjeringsstyrker en mektig gruppe utenlandske jihadister i Idlib. Deres leder, en fransk-senegaleser ved navn Oumar Diaby, skal nå være fengslet.</p>

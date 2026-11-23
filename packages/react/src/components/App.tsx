@@ -33,7 +33,8 @@ function App({
 		eventHandler
 	} = useUiContext()
 	const data = useDataContext()
-	const { phase } = data
+	const { phase, manifests } = data
+	const isEmpty = getDataEventType({ phase, manifests }) === 'data.empty'
 	// Read the latest data when the phase changes without firing again on other data changes
 	const dataRef = useRef(data)
 	dataRef.current = data
@@ -43,11 +44,12 @@ function App({
 			'App',
 			`App_${phase}`,
 			`App_${variant}`,
+			isEmpty ? 'App_empty' : false,
 			isHoverImage ? 'App_hovered' : false,
 			isProvenanceOpen ? 'App_active' : false,
 			className
 		)
-	, [phase, variant, isHoverImage, isProvenanceOpen, className])
+	, [phase, variant, isEmpty, isHoverImage, isProvenanceOpen, className])
 
 	useEffect(() => {
 		setElem(ref.current)
