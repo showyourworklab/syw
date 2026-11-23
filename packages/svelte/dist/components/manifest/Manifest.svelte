@@ -35,7 +35,10 @@
 		availableTabKeys[0])
 	)
 
+	const tabsId = $props.id()
+
 	const tabs = useTabs(() => ({
+		id: tabsId,
 		value: tabValue,
 		onValueChange: (details: { value: string }) =>
 			tabValue = details.value

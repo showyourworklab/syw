@@ -22,7 +22,7 @@
 	const {
 		variant = VARIANT_DEFAULT,
 		src = '',
-		alt = '',
+		alt: altProp,
 		caption = '',
 		byline = '',
 		mediaType: mediaTypeProp,
@@ -36,6 +36,8 @@
 	}: SywEmbedProps & Omit<HTMLAttributes<HTMLDivElement>, 'class'> & { class?: string | null } = $props()
 
 	const mediaType = $derived(mediaTypeProp)
+	// Without alt text the attribute is left out, since an empty alt would mark the image as decorative
+	const alt = $derived(altProp ?? null)
 
 	let mounted = $state(false)
 	let elemRef: HTMLElement | null = $state(null)
