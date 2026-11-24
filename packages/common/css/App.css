@@ -42,10 +42,6 @@
 	appearance: none;
 	cursor: pointer;
 }
-/* App > Hovered */
-.Syw-App.Syw-App_hovered {
-	/* transform: translate(0, 0); */
-}
 /* App > Active */
 /* App > Active > Expand */
 .Syw-App.Syw-App_active.Syw-App_expand {

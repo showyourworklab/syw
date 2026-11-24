@@ -26,7 +26,6 @@ function App({
 	const ref = useRef<HTMLDivElement>(null)
 	const {
 		variant,
-		isHoverImage,
 		isProvenanceOpen,
 		setElem,
 		setMapOptions,
@@ -45,11 +44,10 @@ function App({
 			`App_${phase}`,
 			`App_${variant}`,
 			isEmpty ? 'App_empty' : false,
-			isHoverImage ? 'App_hovered' : false,
 			isProvenanceOpen ? 'App_active' : false,
 			className
 		)
-	, [phase, variant, isEmpty, isHoverImage, isProvenanceOpen, className])
+	, [phase, variant, isEmpty, isProvenanceOpen, className])
 
 	useEffect(() => {
 		setElem(ref.current)

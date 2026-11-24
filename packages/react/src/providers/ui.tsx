@@ -21,7 +21,6 @@ const UiProvider = ({
 }: UiProviderProps) => {
 	const [elem, setElem] = useState<HTMLElement | null>(null)
 	const [mapOptions, setMapOptions] = useState<MapOptions>(null)
-	const [isHoverImage, setIsHoverImage] = useState(false)
 	const [isProvenanceOpen, setIsProvenanceOpen] = useState(false)
 	const [isExplainerOpen, setIsExplainerOpen] = useState(false)
 	const openManifests = useRef<Record<string, Manifest>>({})
@@ -33,14 +32,6 @@ const UiProvider = ({
 		const eventHandlerFunc = eventHandler.current
 		const nativeEvent = eventLike?.nativeEvent ?? eventLike?.detail?.originalEvent ?? event
 		if(typeof eventHandlerFunc === "function") eventHandlerFunc(type, nativeEvent, ...args)
-	}
-	const hoverImage = (event?: unknown) => {
-		setIsHoverImage(true)
-		handleEvent("image.hover", event)
-	}
-	const unhoverImage = (event?: unknown) => {
-		setIsHoverImage(false)
-		handleEvent("image.unhover", event)
 	}
 	const openProvenance = (event?: unknown) => {
 		setIsProvenanceOpen(true)
@@ -77,14 +68,11 @@ const UiProvider = ({
 				elem,
 				variant,
 				mapOptions,
-				isHoverImage,
 				isProvenanceOpen,
 				isExplainerOpen,
 				openManifests: openManifests.current,
 				setElem,
 				setMapOptions,
-				hoverImage,
-				unhoverImage,
 				openProvenance,
 				closeProvenance,
 				openExplainer,

@@ -19,7 +19,6 @@ export default function createUiStore() {
 	const elem = writable<HTMLElement | null>(null)
 	const variant = writable<Variant | string>(VARIANT_DEFAULT)
 	const mapOptions = writable<MapOptions>(null)
-	const isHoverImage = writable(false)
 	const isProvenanceOpen = writable(false)
 	const isExplainerOpen = writable(false)
 	const openManifests = writable<Record<string, Manifest>>({})
@@ -40,15 +39,6 @@ export default function createUiStore() {
 	const handleEvent: UiEventHandler = (type, event, ...args) => {
 		const eventHandlerFunc = get(eventHandler)
 		if(typeof eventHandlerFunc === "function") eventHandlerFunc(type, event, ...args)
-	}
-
-	const hoverImage = (event?: unknown) => {
-		isHoverImage.set(true)
-		handleEvent("image.hover", event)
-	}
-	const unhoverImage = (event?: unknown) => {
-		isHoverImage.set(false)
-		handleEvent("image.unhover", event)
 	}
 
 	const openProvenance = (event?: unknown) => {
@@ -91,7 +81,6 @@ export default function createUiStore() {
 		elem,
 		variant,
 		mapOptions,
-		isHoverImage,
 		isProvenanceOpen,
 		isExplainerOpen,
 		openManifests,
@@ -99,8 +88,6 @@ export default function createUiStore() {
 		setElem,
 		setVariant,
 		setMapOptions,
-		hoverImage,
-		unhoverImage,
 		openProvenance,
 		closeProvenance,
 		openExplainer,

@@ -58,7 +58,6 @@
 	const { lang } = i18nStore
 	const { phase, manifests } = dataStore
 	const {
-		isHoverImage,
 		isProvenanceOpen,
 	} = uiStore
 
@@ -70,7 +69,6 @@
 			`App_${$phase}`,
 			`App_${variant}`,
 			isEmpty ? 'App_empty' : false,
-			$isHoverImage ? 'App_hovered' : false,
 			$isProvenanceOpen ? 'App_active' : false,
 			className
 		)

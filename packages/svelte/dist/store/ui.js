@@ -13,7 +13,6 @@ export default function createUiStore() {
     const elem = writable(null);
     const variant = writable(VARIANT_DEFAULT);
     const mapOptions = writable(null);
-    const isHoverImage = writable(false);
     const isProvenanceOpen = writable(false);
     const isExplainerOpen = writable(false);
     const openManifests = writable({});
@@ -31,14 +30,6 @@ export default function createUiStore() {
         const eventHandlerFunc = get(eventHandler);
         if (typeof eventHandlerFunc === "function")
             eventHandlerFunc(type, event, ...args);
-    };
-    const hoverImage = (event) => {
-        isHoverImage.set(true);
-        handleEvent("image.hover", event);
-    };
-    const unhoverImage = (event) => {
-        isHoverImage.set(false);
-        handleEvent("image.unhover", event);
     };
     const openProvenance = (event) => {
         isProvenanceOpen.set(true);
@@ -76,7 +67,6 @@ export default function createUiStore() {
         elem,
         variant,
         mapOptions,
-        isHoverImage,
         isProvenanceOpen,
         isExplainerOpen,
         openManifests,
@@ -84,8 +74,6 @@ export default function createUiStore() {
         setElem,
         setVariant,
         setMapOptions,
-        hoverImage,
-        unhoverImage,
         openProvenance,
         closeProvenance,
         openExplainer,

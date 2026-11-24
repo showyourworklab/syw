@@ -11,7 +11,6 @@ export default function createUiStore(): {
     elem: import("svelte/store").Writable<HTMLElement | null>;
     variant: import("svelte/store").Writable<string>;
     mapOptions: import("svelte/store").Writable<MapOptions>;
-    isHoverImage: import("svelte/store").Writable<boolean>;
     isProvenanceOpen: import("svelte/store").Writable<boolean>;
     isExplainerOpen: import("svelte/store").Writable<boolean>;
     openManifests: import("svelte/store").Writable<Record<string, Manifest>>;
@@ -19,8 +18,6 @@ export default function createUiStore(): {
     setElem: (value: HTMLElement | null) => void;
     setVariant: (value: Variant | string) => void;
     setMapOptions: (value: MapOptions) => void;
-    hoverImage: (event?: unknown) => void;
-    unhoverImage: (event?: unknown) => void;
     openProvenance: (event?: unknown) => void;
     closeProvenance: (event?: unknown) => void;
     openExplainer: (event?: unknown) => void;
@@ -35,7 +32,6 @@ export declare const setUiContext: (store: UiStore) => {
     elem: import("svelte/store").Writable<HTMLElement | null>;
     variant: import("svelte/store").Writable<string>;
     mapOptions: import("svelte/store").Writable<MapOptions>;
-    isHoverImage: import("svelte/store").Writable<boolean>;
     isProvenanceOpen: import("svelte/store").Writable<boolean>;
     isExplainerOpen: import("svelte/store").Writable<boolean>;
     openManifests: import("svelte/store").Writable<Record<string, Manifest>>;
@@ -43,8 +39,6 @@ export declare const setUiContext: (store: UiStore) => {
     setElem: (value: HTMLElement | null) => void;
     setVariant: (value: Variant | string) => void;
     setMapOptions: (value: MapOptions) => void;
-    hoverImage: (event?: unknown) => void;
-    unhoverImage: (event?: unknown) => void;
     openProvenance: (event?: unknown) => void;
     closeProvenance: (event?: unknown) => void;
     openExplainer: (event?: unknown) => void;
@@ -58,7 +52,6 @@ export declare const getUiContext: () => {
     elem: import("svelte/store").Writable<HTMLElement | null>;
     variant: import("svelte/store").Writable<string>;
     mapOptions: import("svelte/store").Writable<MapOptions>;
-    isHoverImage: import("svelte/store").Writable<boolean>;
     isProvenanceOpen: import("svelte/store").Writable<boolean>;
     isExplainerOpen: import("svelte/store").Writable<boolean>;
     openManifests: import("svelte/store").Writable<Record<string, Manifest>>;
@@ -66,8 +59,6 @@ export declare const getUiContext: () => {
     setElem: (value: HTMLElement | null) => void;
     setVariant: (value: Variant | string) => void;
     setMapOptions: (value: MapOptions) => void;
-    hoverImage: (event?: unknown) => void;
-    unhoverImage: (event?: unknown) => void;
     openProvenance: (event?: unknown) => void;
     closeProvenance: (event?: unknown) => void;
     openExplainer: (event?: unknown) => void;

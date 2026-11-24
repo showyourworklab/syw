@@ -31,15 +31,12 @@ export interface UiState {
 	variant: Variant | string
 	elem: HTMLElement | null
 	mapOptions: MapOptions
-	isHoverImage: boolean
 	isProvenanceOpen: boolean
 	isExplainerOpen: boolean
 	openManifests: Record<string, Manifest>
 }
 
 export type UiEventType =
-	| 'image.hover'
-	| 'image.unhover'
 	| 'provenance.open'
 	| 'provenance.close'
 	| 'explainer.open'

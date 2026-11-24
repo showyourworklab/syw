@@ -72,8 +72,6 @@ export default function Example() {
 
 #### Event names (`onEvent`)
 
-- `image.hover`
-- `image.unhover`
 - `provenance.open`
 - `provenance.close`
 - `explainer.open`
