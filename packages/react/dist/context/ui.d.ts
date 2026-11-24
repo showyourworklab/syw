@@ -1,7 +1,8 @@
 import type { MutableRefObject } from 'react';
 import type { Manifest } from 'syw-common/types/data';
 import type { UiState, UiEventHandler } from 'syw-common/types/ui';
-interface UiContextValue extends UiState {
+import type { SywImageAttrs } from '../types';
+interface UiContextValue extends UiState<SywImageAttrs> {
     setElem: (elem: HTMLElement | null) => void;
     setMapOptions: (options: Record<string, unknown> | null) => void;
     openProvenance: (event?: unknown) => void;

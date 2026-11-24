@@ -5,6 +5,12 @@ export type Variant = typeof VARIANT_KEYS[number]
 
 export type MapOptions = Record<string, unknown> | null
 
+export interface ImageAttrs {
+	width?: number
+	height?: number
+	loading?: 'lazy' | 'eager'
+}
+
 export type MediaQueryKey = keyof typeof MEDIA_QUERIES
 
 export type SywIconNode = [
@@ -27,10 +33,11 @@ export type LucideIconType = IntegrityKey | TrustKey | DetailTrustKey | Manifest
 
 export type IconType = LucideIconType | SywIconType
 
-export interface UiState {
+export interface UiState<TImageAttrs = ImageAttrs> {
 	variant: Variant | string
 	elem: HTMLElement | null
 	mapOptions: MapOptions
+	imageAttrs: TImageAttrs
 	isProvenanceOpen: boolean
 	isExplainerOpen: boolean
 	openManifests: Record<string, Manifest>

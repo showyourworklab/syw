@@ -4,8 +4,9 @@ import { VARIANT_DEFAULT } from 'syw-common/constants/ui'
 import type { Manifest } from 'syw-common/types/data'
 import type { MapOptions, UiEventHandler, UiState } from 'syw-common/types/ui'
 import { UiContext } from '$src/context/ui'
+import type { SywImageAttrs } from '../types'
 
-interface UiProviderProps extends Pick<Partial<UiState>, 'variant'> {
+interface UiProviderProps extends Pick<Partial<UiState<SywImageAttrs>>, 'variant' | 'imageAttrs'> {
 	children: ReactNode
 }
 
@@ -17,6 +18,7 @@ interface EventLike {
 
 const UiProvider = ({
 	variant = VARIANT_DEFAULT,
+	imageAttrs = {},
 	children
 }: UiProviderProps) => {
 	const [elem, setElem] = useState<HTMLElement | null>(null)
@@ -68,6 +70,7 @@ const UiProvider = ({
 				elem,
 				variant,
 				mapOptions,
+				imageAttrs,
 				isProvenanceOpen,
 				isExplainerOpen,
 				openManifests: openManifests.current,

@@ -77,6 +77,7 @@ function ManifestPreview({
 					>
 						{thumbnailUrl ?
 							<img
+								loading='lazy'
 								src={thumbnailUrl}
 								alt=''
 							/>

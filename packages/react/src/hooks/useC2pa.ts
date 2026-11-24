@@ -12,7 +12,7 @@ interface UseC2paProps {
 }
 
 const useC2pa = ({ src, mediaType, manifestOverrides }: UseC2paProps): SywData => {
-	const { c2pa } = useC2paContext()
+	const { c2pa, error } = useC2paContext()
 	const [data, setData] = useState(C2PA_DATA_DEFAULT)
 	const requestIdRef = useRef(0)
 	// Read the latest media type without re-running the C2PA read when it changes
@@ -26,7 +26,7 @@ const useC2pa = ({ src, mediaType, manifestOverrides }: UseC2paProps): SywData =
 		const cancel = () => { requestIdRef.current++ }
 
 		if (!src || !c2pa) {
-			setData(C2PA_DATA_DEFAULT)
+			setData(src && error ? { ...C2PA_DATA_DEFAULT, phase: PHASE_KEYS.ERROR, error } : C2PA_DATA_DEFAULT)
 			return cancel
 		}
 
@@ -50,7 +50,7 @@ const useC2pa = ({ src, mediaType, manifestOverrides }: UseC2paProps): SywData =
 		})()
 
 		return cancel
-	}, [src, c2pa])
+	}, [src, c2pa, error])
 
 	// If data is replaced or unmounted, dispose old data
 	useEffect(() => () => disposeSywData(data), [data.manifests, data.reader])

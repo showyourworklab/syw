@@ -29,6 +29,7 @@
 	{#if manifest?.thumbnail}
 		<img
 			alt=''
+			loading='lazy'
 			src={manifest.thumbnail}
 			class={classNames('ManifestImageThumbnail')}
 			onload={handleLoad}

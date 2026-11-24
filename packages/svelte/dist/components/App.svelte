@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { onMount, onDestroy, untrack } from 'svelte'
+	import { onDestroy, untrack } from 'svelte'
 	import type { HTMLAttributes } from 'svelte/elements'
 	import 'syw-common/css/styles.css'
-	import { classNames } from 'syw-common/helpers/ui'
+	import { classNames, getImageAttrs, observeNearViewport } from 'syw-common/helpers/ui'
 	import { resolveMediaType, getDataEventType } from 'syw-common/helpers/data'
 	import { VARIANT_DEFAULT } from 'syw-common/constants/ui'
 	import { LOCALE_DEFAULT } from 'syw-common/constants/i18n'
@@ -12,7 +12,7 @@
 	import createC2paStore, { setC2paContext } from '../store/c2pa.js'
 	import createDataStore, { setDataContext } from '../store/data.js'
 	import createI18nStore, { setI18nContext } from '../store/i18n.js'
-	import createUiStore, { setUiContext } from '../store/ui.js'
+	import createUiStore, { setUiContext, type SywImageAttrs } from '../store/ui.js'
 	import Figure from './figure/Figure.svelte'
 	import ProvenanceExpand from './provenance/ProvenanceExpand.svelte'
 	import ProvenanceModal from './provenance/ProvenanceModal.svelte'
@@ -30,16 +30,21 @@
 		c2paOptions = {},
 		mapOptions = null,
 		onEvent = undefined,
+		width,
+		height,
+		loading,
+		imageAttrs,
 		__manifestOverrides,
 		class: className,
 		...props
-	}: SywEmbedProps & Omit<HTMLAttributes<HTMLDivElement>, 'class'> & { class?: string | null } = $props()
+	}: SywEmbedProps & Omit<HTMLAttributes<HTMLDivElement>, 'class'> & { class?: string | null, imageAttrs?: SywImageAttrs } = $props()
 
 	const mediaType = $derived(mediaTypeProp)
 	// Without alt text the attribute is left out, since an empty alt would mark the image as decorative
 	const alt = $derived(altProp ?? null)
+	const resolvedImageAttrs = $derived(getImageAttrs(imageAttrs, { width, height, loading }))
 
-	let mounted = $state(false)
+	let shouldRead = $state(false)
 	let elemRef: HTMLElement | null = $state(null)
 	let prevSrc: string | null = $state(null)
 
@@ -47,7 +52,7 @@
 	// Seed with initial props so SSR renders real data; the $effect below keeps it in sync
 	const dataStore = createDataStore(untrack(() => ({ src, alt, caption, byline, mediaType })))
 	const i18nStore = createI18nStore()
-	const uiStore = createUiStore()
+	const uiStore = createUiStore(untrack(() => resolvedImageAttrs))
 
 	setC2paContext(c2paStore)
 	setDataContext(dataStore)
@@ -64,14 +69,16 @@
 	const isEmpty = $derived(getDataEventType({ phase: $phase, manifests: $manifests }) === 'data.empty')
 
 	const classes = $derived(
-		classNames(
-			'App',
-			`App_${$phase}`,
-			`App_${variant}`,
-			isEmpty ? 'App_empty' : false,
-			$isProvenanceOpen ? 'App_active' : false,
+		[
+			classNames(
+				'App',
+				`App_${$phase}`,
+				`App_${variant}`,
+				isEmpty ? 'App_empty' : false,
+				$isProvenanceOpen ? 'App_active' : false
+			),
 			className
-		)
+		]
 	)
 
 	// Separate from other props so their changes don't replace a media type confirmed by the C2PA read
@@ -91,6 +98,15 @@
 		uiStore.setEventHandler(onEvent ?? null)
 		uiStore.setVariant(variant)
 		uiStore.setMapOptions(mapOptions)
+		uiStore.setImageAttrs(resolvedImageAttrs)
+	})
+
+	$effect(() => {
+		if(elemRef) return observeNearViewport(elemRef, () => shouldRead = true)
+	})
+
+	$effect(() => {
+		if($isProvenanceOpen) shouldRead = true
 	})
 
 	$effect(() => {
@@ -98,7 +114,7 @@
 	})
 
 	$effect(() => {
-		if (!mounted) return
+		if (!shouldRead) return
 		if(src === prevSrc) return
 		prevSrc = src
 
@@ -124,10 +140,6 @@
 		const type = getDataEventType(data)
 		if(type) uiStore.handleEvent(type, null, { ...data, src, alt, caption, byline })
 	}
-
-	onMount(() => {
-		mounted = true
-	})
 
 	onDestroy(() => {
 		c2paStore.dispose()

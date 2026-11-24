@@ -1,8 +1,7 @@
 import { getContext, setContext } from 'svelte';
 import { writable, get } from 'svelte/store';
-import { createC2pa } from '@contentauth/c2pa-web';
 import { C2PA_DATA_DEFAULT, PHASE_KEYS } from 'syw-common/constants/data';
-import { getC2paConfig } from 'syw-common/helpers/c2pa';
+import { getSharedC2pa } from 'syw-common/helpers/c2pa';
 import { prepareData, disposeSywData, resolveMediaType } from 'syw-common/helpers/data';
 const C2PA_CONTEXT_KEY = Symbol('c2pa');
 const createC2paStore = () => {
@@ -14,18 +13,9 @@ const createC2paStore = () => {
     let initError = null;
     const init = async (config = {}) => {
         try {
-            const c2paInstance = await createC2pa(await getC2paConfig(config));
-            // If disposed before init finished, dispose new instance
-            if (disposed) {
-                c2paInstance.dispose();
+            const c2paInstance = await getSharedC2pa(config);
+            if (disposed)
                 return null;
-            }
-            // If another init already set an instance, keep it and dispose new instance
-            const existing = get(c2pa);
-            if (existing) {
-                c2paInstance.dispose();
-                return existing;
-            }
             initError = null;
             c2pa.set(c2paInstance);
             return c2paInstance;
@@ -84,7 +74,6 @@ const createC2paStore = () => {
         requestId++;
         disposeSywData(get(data));
         data.set(C2PA_DATA_DEFAULT);
-        get(c2pa)?.dispose();
         c2pa.set(null);
     };
     return { c2pa, data, init, read, dispose };

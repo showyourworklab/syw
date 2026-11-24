@@ -92,6 +92,7 @@
 			>
 				{#if manifest?.thumbnail}
 					<img
+						loading='lazy'
 						src={manifest?.thumbnail}
 						alt=''
 					/>

@@ -1,6 +1,7 @@
 // Relative imports on purpose: tsc copies them into the published .d.ts files, which can't resolve the $src alias
 import type { FC } from 'react'
 import { LOCALE_DEFAULT } from 'syw-common/constants/i18n'
+import { getImageAttrs } from 'syw-common/helpers/ui'
 import type { SywReactProps } from './types'
 import { C2paProvider, I18nProvider, DataProvider, UiProvider } from './providers'
 import App from './components/App'
@@ -16,6 +17,10 @@ const SywReact: FC<SywReactProps> = ({
 	c2paOptions,
 	mapOptions = null,
 	onEvent,
+	width,
+	height,
+	loading,
+	imageAttrs,
 	__manifestOverrides,
 	...props
 }) => {
@@ -37,6 +42,7 @@ const SywReact: FC<SywReactProps> = ({
 				>
 					<UiProvider
 						variant={variant}
+						imageAttrs={getImageAttrs(imageAttrs, { width, height, loading })}
 					>
 						<App
 							mapOptions={mapOptions}

@@ -9,10 +9,11 @@ const UI_CONTEXT_KEY = Symbol('ui');
  * @return Media query, false when rendered on the server
  */
 export const useMediaQuery = (key) => new MediaQuery(MEDIA_QUERIES[key], false);
-export default function createUiStore() {
+export default function createUiStore(initialImageAttrs = {}) {
     const elem = writable(null);
     const variant = writable(VARIANT_DEFAULT);
     const mapOptions = writable(null);
+    const imageAttrs = writable(initialImageAttrs);
     const isProvenanceOpen = writable(false);
     const isExplainerOpen = writable(false);
     const openManifests = writable({});
@@ -25,6 +26,9 @@ export default function createUiStore() {
     };
     const setMapOptions = (value) => {
         mapOptions.set(value);
+    };
+    const setImageAttrs = (value) => {
+        imageAttrs.set(value);
     };
     const handleEvent = (type, event, ...args) => {
         const eventHandlerFunc = get(eventHandler);
@@ -67,6 +71,7 @@ export default function createUiStore() {
         elem,
         variant,
         mapOptions,
+        imageAttrs,
         isProvenanceOpen,
         isExplainerOpen,
         openManifests,
@@ -74,6 +79,7 @@ export default function createUiStore() {
         setElem,
         setVariant,
         setMapOptions,
+        setImageAttrs,
         openProvenance,
         closeProvenance,
         openExplainer,

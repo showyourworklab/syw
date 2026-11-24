@@ -28,6 +28,7 @@ function ManifestImage({ manifest, className }: ManifestImageProps) {
 			{manifest?.thumbnail ?
 				<img
 					alt=''
+					loading='lazy'
 					src={manifest.thumbnail}
 					className={classNames('ManifestImageThumbnail')}
 					onLoad={handleLoad}

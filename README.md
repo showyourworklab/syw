@@ -64,6 +64,10 @@ export default function Example() {
 | `alt` | `string` | No | Alt text for image content. |
 | `caption` | `string` | No | Caption text rendered in UI. |
 | `byline` | `string` | No | Attribution/byline text. |
+| `width` | `number` | No | Intrinsic image width, set with `height` to reserve space before the image loads. |
+| `height` | `number` | No | Intrinsic image height. |
+| `loading` | `'lazy' \| 'eager'` | No | Image loading. `lazy` (default). Use `eager` for an image at the top of the page. |
+| `imageAttrs` | `object` | No | Any attributes for the main `<img>`, such as `srcset`, `sizes` or `fetchpriority` (`srcSet`, `sizes`, `fetchPriority` in React). `src` and `alt` come from their own props, and `width`, `height` and `loading` props take priority. |
 | `variant` | `'expand' \| 'modal' \| string` | No | UI mode. `expand` (default) or `modal`. |
 | `locale` | `string` | No | Locale key. `en_US` (default), `no_NO`, or `sv_SE`. |
 | `c2paOptions` | `{ wasmSrc?: string; settings?: { trust?: { trustAnchors?: string }}}` | No | Passed to C2PA reader setup. |

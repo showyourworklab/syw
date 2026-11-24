@@ -1,10 +1,9 @@
-import { createC2pa } from '@contentauth/c2pa-web'
 import type { Reader, C2pa } from '@contentauth/c2pa-web'
 import type { Manifest as C2paManifest, ManifestAssertion } from '@contentauth/c2pa-types'
 import { VERIFY_BASE_URL } from '#constants/ui'
 import { C2PA_ACTIONS } from '#constants/c2pa'
 import { PHASE_KEYS, C2PA_DATA_DEFAULT, DETAIL_TRUST_KEYS, DETAIL_TRUST_SOURCES, KNOWN_GENERATORS_BY_MANIFEST_TYPE, MANIFEST_TYPES, NON_EDITORIAL_MANIFEST_TYPES, MEDIA_TYPES, MEDIA_TYPE_EXTENSIONS_IMAGE, MEDIA_TYPE_EXTENSIONS_VIDEO } from '#constants/data'
-import { convertJumbfToBlobUrl, fetchMedia, getC2paActions, getAssertion, getAssertions, getC2paConfig, getCawgIdentityAccounts, getCawgIdentityName, getExifValue, getManifestIptc, getMetadataAssertion, isAssertionAttributed, getC2paChangeActions, hasC2paAction, isAiEditedManifest, isEditedManifest, readC2paFromBlob, readLegacyManifestStore } from '#helpers/c2pa'
+import { convertJumbfToBlobUrl, fetchMedia, getC2paActions, getAssertion, getAssertions, getCawgIdentityAccounts, getCawgIdentityName, getExifValue, getManifestIptc, getMetadataAssertion, isAssertionAttributed, getC2paChangeActions, hasC2paAction, isAiEditedManifest, isEditedManifest, readC2paFromBlob, readLegacyManifestStore, getSharedC2pa } from '#helpers/c2pa'
 import { EXPIRED_CODES, TRUSTED_CODES } from '#constants/trust'
 import { getAssertionStatusCodes, getManifestStatusCodes, getManifestValidation, getSignedTimestampSource, getTrust, getWeakestTrust, isManifestValid } from '#helpers/trust'
 import { applyManifestOverrides } from '#helpers/demo'
@@ -92,17 +91,15 @@ export const prepareData = async ({ c2pa, src, mediaType: userMediaType, manifes
 	return data
 }
 
-let cachedC2pa: C2pa | null = null
-
 /**
  * Public API for consumer apps to get the same prepared data the UI components use, outside of the UI components
- * Creates and caches its own C2PA instance on first call
+ * Uses the C2PA instance shared with the UI components
  * @async
  * @function
  * @param src - Media URL
  * @param options - Optional overrides
  * @param options.locale - User's locale
- * @param options.c2paOptions - C2PA instance options, only used on first call
+ * @param options.c2paOptions - C2PA instance options
  * @param options.mediaType - Media type, detected from src when not given
  * @param options.__manifestOverrides - Testing only, merged into prepared manifests by index
  * @return Prepared data, or default data when src is empty or Web Workers are unavailable
@@ -119,8 +116,8 @@ export const parseSywData = async (
 	if(!src) return C2PA_DATA_DEFAULT
 	if(typeof Worker === 'undefined') return C2PA_DATA_DEFAULT
 	const { c2paOptions = {}, mediaType, __manifestOverrides } = options
-	if(!cachedC2pa) cachedC2pa = await createC2pa(await getC2paConfig(c2paOptions))
-	const preparedData = prepareData({ c2pa: cachedC2pa, src, mediaType, manifestOverrides: __manifestOverrides })
+	const c2pa = await getSharedC2pa(c2paOptions)
+	const preparedData = prepareData({ c2pa, src, mediaType, manifestOverrides: __manifestOverrides })
 	return preparedData
 }
 

@@ -1,6 +1,6 @@
 import type { Manifest, ManifestAction } from '#types/data'
-import type { ManifestDetailIconKey, SywIconType } from '#types/ui'
-import { MANIFEST_ACTIONS_HIDDEN, MANIFEST_PREVIEW_TITLE_KEYS, SYW_ICONS } from '#constants/ui'
+import type { ImageAttrs, ManifestDetailIconKey, SywIconType } from '#types/ui'
+import { MANIFEST_ACTIONS_HIDDEN, MANIFEST_PREVIEW_TITLE_KEYS, VIEWPORT_NEAR_MARGIN, SYW_ICONS } from '#constants/ui'
 import { getObjectValue } from '#helpers/utils'
 
 interface A11yClickEvent {
@@ -70,6 +70,43 @@ export const getManifestDetailIcon = (key: string | null | undefined): ManifestD
  */
 export const getManifestDisplayActions = (manifest: Manifest | null | undefined): ManifestAction[] =>
 	manifest?.actions?.value.filter(action => !MANIFEST_ACTIONS_HIDDEN.includes(action.key)) ?? []
+
+/**
+ * Combines default image attributes, passed image attributes and the width, height and loading props, in that order
+ * @function
+ * @param imageAttrs - Attributes for the image element
+ * @param props - Width, height and loading props
+ * @return Attributes for the image element
+ */
+export const getImageAttrs = <T extends object,>(imageAttrs: T | null | undefined, { width, height, loading }: ImageAttrs): T => ({
+	loading: 'lazy',
+	decoding: 'async',
+	...imageAttrs,
+	...(width !== undefined ? { width } : {}),
+	...(height !== undefined ? { height } : {}),
+	...(loading !== undefined ? { loading } : {}),
+}) as unknown as T
+
+/**
+ * Calls back once when an element first comes near the viewport
+ * @function
+ * @param elem - Element to observe
+ * @param onNear - Called once
+ * @return Function that stops observing
+ */
+export const observeNearViewport = (elem: Element, onNear: () => void): (() => void) => {
+	if(typeof IntersectionObserver === 'undefined') {
+		onNear()
+		return () => {}
+	}
+	const observer = new IntersectionObserver(entries => {
+		if(!entries.some(entry => entry.isIntersecting)) return
+		observer.disconnect()
+		onNear()
+	}, { rootMargin: VIEWPORT_NEAR_MARGIN })
+	observer.observe(elem)
+	return () => observer.disconnect()
+}
 
 /**
  * Title for a manifest preview without a type, from its generator names and signator

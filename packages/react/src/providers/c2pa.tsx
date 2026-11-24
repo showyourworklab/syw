@@ -1,8 +1,7 @@
-import { useState, useEffect } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import type { ReactNode } from 'react'
-import { createC2pa } from '@contentauth/c2pa-web'
 import type { C2pa } from '@contentauth/c2pa-web'
-import { getC2paConfig } from 'syw-common/helpers/c2pa'
+import { getSharedC2pa } from 'syw-common/helpers/c2pa'
 import type { C2paOptions } from 'syw-common/types/c2pa'
 import { C2paContext } from '$src/context/c2pa'
 
@@ -16,31 +15,25 @@ const C2paProvider = ({
 	children
 }: C2paProviderProps) => {
 	const [c2pa, setC2pa] = useState<C2pa | null>(null)
+	const [error, setError] = useState<Error | null>(null)
+	const [isRequested, setIsRequested] = useState(false)
+	const loadC2pa = useCallback(() => setIsRequested(true), [])
+
 	useEffect(() => {
-		let disposed = false
-		let instance: C2pa | null = null
-		const initC2pa = async () => {
-			const c2paInstance = await createC2pa(await getC2paConfig(c2paOptions))
-			// If another init already set an instance, keep it and dispose new instance
-			if(disposed) {
-				c2paInstance.dispose()
-				return
-			}
-			instance = c2paInstance
-			setC2pa(c2paInstance)
-		}
-		initC2pa()
-		return () => {
-			disposed = true
-			instance?.dispose()
-			setC2pa(null)
-		}
-	}, [])
+		if(!isRequested) return
+		let cancelled = false
+		getSharedC2pa(c2paOptions)
+			.then(instance => { if(!cancelled) setC2pa(instance) })
+			.catch(err => { if(!cancelled) setError(err as Error) })
+		return () => { cancelled = true }
+	}, [isRequested])
 
 	return (
 		<C2paContext.Provider
 			value={{
 				c2pa,
+				error,
+				loadC2pa,
 			}}
 		>
 			{children}

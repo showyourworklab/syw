@@ -1,11 +1,14 @@
 import { getContext, setContext } from 'svelte'
 import { writable, get } from 'svelte/store'
 import { MediaQuery } from 'svelte/reactivity'
+import type { HTMLImgAttributes } from 'svelte/elements'
 import { MEDIA_QUERIES, VARIANT_DEFAULT } from 'syw-common/constants/ui'
 import type { Manifest } from 'syw-common/types/data'
 import type { MapOptions, MediaQueryKey, UiEventHandler, Variant } from 'syw-common/types/ui'
 
 const UI_CONTEXT_KEY = Symbol('ui')
+
+export type SywImageAttrs = Omit<HTMLImgAttributes, 'src' | 'alt'>
 
 /**
  * Whether a named media query currently matches, read from its current value
@@ -14,11 +17,12 @@ const UI_CONTEXT_KEY = Symbol('ui')
  */
 export const useMediaQuery = (key: MediaQueryKey) => new MediaQuery(MEDIA_QUERIES[key], false)
 
-export default function createUiStore() {
+export default function createUiStore(initialImageAttrs: SywImageAttrs = {}) {
 
 	const elem = writable<HTMLElement | null>(null)
 	const variant = writable<Variant | string>(VARIANT_DEFAULT)
 	const mapOptions = writable<MapOptions>(null)
+	const imageAttrs = writable<SywImageAttrs>(initialImageAttrs)
 	const isProvenanceOpen = writable(false)
 	const isExplainerOpen = writable(false)
 	const openManifests = writable<Record<string, Manifest>>({})
@@ -34,6 +38,10 @@ export default function createUiStore() {
 
 	const setMapOptions = (value: MapOptions) => {
 		mapOptions.set(value)
+	}
+
+	const setImageAttrs = (value: SywImageAttrs) => {
+		imageAttrs.set(value)
 	}
 
 	const handleEvent: UiEventHandler = (type, event, ...args) => {
@@ -81,6 +89,7 @@ export default function createUiStore() {
 		elem,
 		variant,
 		mapOptions,
+		imageAttrs,
 		isProvenanceOpen,
 		isExplainerOpen,
 		openManifests,
@@ -88,6 +97,7 @@ export default function createUiStore() {
 		setElem,
 		setVariant,
 		setMapOptions,
+		setImageAttrs,
 		openProvenance,
 		closeProvenance,
 		openExplainer,

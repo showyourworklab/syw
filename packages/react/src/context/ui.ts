@@ -3,8 +3,9 @@ import type { MutableRefObject } from 'react'
 import { VARIANT_DEFAULT } from 'syw-common/constants/ui';
 import type { Manifest } from 'syw-common/types/data'
 import type { UiState, UiEventHandler } from 'syw-common/types/ui'
+import type { SywImageAttrs } from '../types'
 
-interface UiContextValue extends UiState {
+interface UiContextValue extends UiState<SywImageAttrs> {
 	setElem: (elem: HTMLElement | null) => void
 	setMapOptions: (options: Record<string, unknown> | null) => void
 	openProvenance: (event?: unknown) => void
@@ -20,6 +21,7 @@ const UiContext = createContext<UiContextValue>({
 	variant: VARIANT_DEFAULT,
 	elem: null,
 	mapOptions: {},
+	imageAttrs: {},
 	isProvenanceOpen: false,
 	isExplainerOpen: false,
 	openManifests: {},

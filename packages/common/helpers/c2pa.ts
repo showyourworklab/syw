@@ -1,3 +1,4 @@
+import { createC2pa } from '@contentauth/c2pa-web'
 import type { Reader, C2pa, Config, Settings } from '@contentauth/c2pa-web'
 import type { Manifest as C2paManifest, ManifestAssertion, ManifestStore, Action } from '@contentauth/c2pa-types'
 import { C2PA_ACTIONS, C2PA_INGREDIENT_RELATIONSHIPS, C2PA_WEB_WASM_CDN_URL } from '#constants/c2pa'
@@ -32,6 +33,26 @@ export const getC2paConfig = async (c2paOptions: C2paOptions = {}): Promise<Conf
 		}
 	}
 })
+
+const sharedC2pa = new Map<string, Promise<C2pa>>()
+
+/**
+ * Gets the C2PA instance shared by everything on the page using the same options. Its worker and WASM stay loaded for the life of the page, a failed init is retried on the next call
+ * @async
+ * @function
+ * @param c2paOptions - Optional overrides
+ * @return C2PA instance
+ */
+export const getSharedC2pa = (c2paOptions: C2paOptions = {}): Promise<C2pa> => {
+	const key = JSON.stringify(c2paOptions)
+	let instance = sharedC2pa.get(key)
+	if(!instance) {
+		instance = getC2paConfig(c2paOptions).then(createC2pa)
+		instance.catch(() => sharedC2pa.delete(key))
+		sharedC2pa.set(key, instance)
+	}
+	return instance
+}
 
 /**
  * Fetches a media source

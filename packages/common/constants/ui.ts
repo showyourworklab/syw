@@ -72,3 +72,6 @@ export const SYW_ICONS = {
 		}],
 	],
 } satisfies Record<string, SywIconNode>
+
+///////////////// VIEWPORT ////////////////
+export const VIEWPORT_NEAR_MARGIN = '600px'

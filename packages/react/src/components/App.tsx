@@ -2,8 +2,9 @@ import 'syw-common/css/styles.css'
 import { useEffect, useMemo, useRef } from 'react'
 import type { ComponentPropsWithoutRef } from 'react'
 import type { MapOptions, UiEventHandler } from 'syw-common/types/ui'
-import { classNames } from 'syw-common/helpers/ui'
+import { classNames, observeNearViewport } from 'syw-common/helpers/ui'
 import { getDataEventType } from 'syw-common/helpers/data'
+import { useC2paContext } from '$src/context/c2pa'
 import { useUiContext } from '$src/context/ui'
 import { useDataContext } from '$src/context'
 import Figure from '$src/components/figure/Figure'
@@ -31,6 +32,7 @@ function App({
 		setMapOptions,
 		eventHandler
 	} = useUiContext()
+	const { loadC2pa } = useC2paContext()
 	const data = useDataContext()
 	const { phase, manifests } = data
 	const isEmpty = getDataEventType({ phase, manifests }) === 'data.empty'
@@ -39,19 +41,29 @@ function App({
 	dataRef.current = data
 
 	const classes = useMemo(() =>
-		classNames(
-			'App',
-			`App_${phase}`,
-			`App_${variant}`,
-			isEmpty ? 'App_empty' : false,
-			isProvenanceOpen ? 'App_active' : false,
+		[
+			classNames(
+				'App',
+				`App_${phase}`,
+				`App_${variant}`,
+				isEmpty ? 'App_empty' : false,
+				isProvenanceOpen ? 'App_active' : false,
+			),
 			className
-		)
+		].join(' ')
 	, [phase, variant, isEmpty, isProvenanceOpen, className])
 
 	useEffect(() => {
 		setElem(ref.current)
 	}, [setElem])
+
+	useEffect(() => {
+		if(ref.current) return observeNearViewport(ref.current, loadC2pa)
+	}, [loadC2pa])
+
+	useEffect(() => {
+		if(isProvenanceOpen) loadC2pa()
+	}, [isProvenanceOpen, loadC2pa])
 
 	useEffect(() => {
 		setMapOptions(mapOptions)
