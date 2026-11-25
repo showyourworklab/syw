@@ -1,15 +1,12 @@
 import type { VARIANT_KEYS, SYW_ICONS, MEDIA_QUERIES } from '#constants/ui'
-import type { IntegrityKey, TrustKey, DetailTrustKey, Manifest, ManifestTypeKey } from './data.js'
+import type { IntegrityKey, TrustKey, DetailTrustKey, Manifest, ManifestTypeKey, SywMediaData } from './data.js'
 
 export type Variant = typeof VARIANT_KEYS[number]
 
 export type MapOptions = Record<string, unknown> | null
 
-export interface ImageAttrs {
-	width?: number
-	height?: number
-	loading?: 'lazy' | 'eager'
-}
+// Attributes for the <img> element, typed per framework (SywImageAttrs in react and svelte)
+export type ImageAttrs = Record<string, unknown>
 
 export type MediaQueryKey = keyof typeof MEDIA_QUERIES
 
@@ -50,13 +47,17 @@ export type UiEventType =
 	| 'explainer.close'
 	| 'manifest.open'
 	| 'manifest.close'
-	| DataEventType
+	| C2paEventType
 
-// Fired when media data starts loading and when it finishes, with the media data as the first arg
-export type DataEventType =
-	| 'data.load'
-	| 'data.ready'
-	| 'data.empty'
-	| 'data.error'
+// Fired when reading the media's C2PA data starts and when it finishes, with the media data as data
+export type C2paEventType =
+	| 'c2pa.load'
+	| 'c2pa.ready'
+	| 'c2pa.empty'
+	| 'c2pa.error'
 
-export type UiEventHandler = (type: UiEventType | string, event: unknown, ...args: unknown[]) => void
+// The manifest for manifest.* events, the media data for c2pa.* events, otherwise undefined
+export type UiEventData = Manifest | SywMediaData | undefined
+
+// event is the DOM event behind an open or close, and null for c2pa.* events
+export type UiEventHandler = (type: UiEventType | string, event: Event | null | undefined, data?: UiEventData) => void

@@ -14,12 +14,12 @@
 	const { locale, getText } = getI18nContext()
 	const { mediaType } = getDataContext()
 
-	const handleOpenChange = (newOpen: boolean) => {
+	const handleOpenChange = (newOpen: boolean, event?: Event) => {
 		if(newOpen) {
-			openProvenance()
+			openProvenance(event)
 		} else {
-			closeProvenance()
-			closeExplainer()
+			closeProvenance(event)
+			closeExplainer(event)
 		}
 	}
 

@@ -1,6 +1,19 @@
 import { resolve } from 'path'
+import { readFileSync } from 'fs'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+
+// Leave every dependency (and its subpaths, e.g. react/jsx-runtime) for the
+// consumer's bundler to resolve and dedupe. CSS imports are the exception: they're
+// bundled into dist/styles.css so consumers only import 'syw-react/styles.css',
+// except fonts.css, which stays an import so the consumer's bundler emits the font files,
+// and maplibre's CSS, which the map loads on demand together with maplibre itself.
+const pkg = JSON.parse(readFileSync(resolve(__dirname, 'package.json'), 'utf8'))
+const externalDeps = Object.keys({ ...pkg.dependencies, ...pkg.peerDependencies })
+const isExternal = (id) =>
+	id === 'syw-common/css/fonts.css' ||
+	id === 'maplibre-gl/dist/maplibre-gl.css' ||
+	(!id.endsWith('.css') && externalDeps.some((dep) => id === dep || id.startsWith(`${dep}/`)))
 
 export default defineConfig({
 	publicDir: 'public',
@@ -12,34 +25,23 @@ export default defineConfig({
 	},
 	build: {
 		outDir: 'dist',
+		emptyOutDir: true,
 		copyPublicDir: false,
 		lib: {
-			name: 'SywReact',
 			entry: resolve(__dirname, 'src/index.ts'),
-			formats: ['es', 'umd'],
-			fileName: (format) =>
-				`index.${format}.js`
-				// format === 'es'
-				// 	? `index.js`
-				// 	: `index.${format}.js`
-			,
-			cssFileName: "style"
+			formats: ['es'],
+			fileName: () => 'index.js',
+			cssFileName: 'style'
 		},
 		rollupOptions: {
-			// Match react/react-dom AND their subpaths (react/jsx-runtime,
-			// react-dom/client, etc). A plain ['react', 'react-dom'] array only
-			// matches those exact specifiers — "jsx": "react-jsx" makes every
-			// .tsx file import from 'react/jsx-runtime', a different specifier,
-			// which was silently NOT excluded and got bundled wholesale,
-			// hardcoding React 18's internals property name into our output and
-			// breaking under React 19 (which renamed it).
-			external: (id) => /^react(-dom)?(\/.*)?$/.test(id),
+			external: isExternal,
 			output: {
-				globals: (id) =>
-					id === 'react' ? 'React'
-					: id === 'react-dom' ? 'ReactDOM'
-					: id,
-				assetFileNames: 'styles.[ext]',
+				// Next.js App Router: the components use hooks/context, so mark the
+				// entry as a client module and it can be imported from Server Components
+				banner: "'use client';",
+				// styles.css at the root; bundled fonts and other assets under assets/
+				assetFileNames: (asset) =>
+					asset.names?.some((n) => n.endsWith('.css')) ? 'styles.css' : 'assets/[name][extname]',
 			},
 		},
 		cssCodeSplit: false
@@ -55,7 +57,6 @@ export default defineConfig({
 				'.js': 'jsx',
 			},
 		},
-		exclude: ['c2pa', '@contentauth/react-hooks'],
 	},
 	css: {
 		modules: {

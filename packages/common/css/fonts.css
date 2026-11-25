@@ -1,0 +1,7 @@
+/*
+ * Work Sans, self-hosted so it loads in every bundler (Next drops remote @imports).
+ * Imported from JS by the React and Svelte components so the consumer's bundler
+ * emits the .woff2 files and the browser only fetches the subsets it needs.
+ */
+@import '@fontsource-variable/work-sans/wght.css';
+@import '@fontsource-variable/work-sans/wght-italic.css';

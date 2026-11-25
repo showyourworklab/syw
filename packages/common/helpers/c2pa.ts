@@ -15,12 +15,14 @@ import type { ManifestIdentityAccount, ManifestTypeIptc } from '#types/data'
  * @async
  * @param c2paOptions - Optional overrides
  * @param c2paOptions.wasmSrc - Custom WASM source URL
+ * @param c2paOptions.workerSrc - Custom worker script URL, for a CSP that blocks blob: workers
  * @param c2paOptions.settings.trust - Custom C2PA trust anchors, user anchors and allowed list
  * @param c2paOptions.settings.cawgTrust - Custom CAWG trust anchors, user anchors and allowed list
  * @return C2PA configuration object
  */
 export const getC2paConfig = async (c2paOptions: C2paOptions = {}): Promise<Config> => ({
 	wasmSrc: c2paOptions.wasmSrc || C2PA_WEB_WASM_CDN_URL,
+	...(c2paOptions.workerSrc ? { workerSrc: c2paOptions.workerSrc } : {}),
 	settings: {
 		...(c2paOptions?.settings || {}),
 		trust: {

@@ -1,9 +1,10 @@
+import 'syw-common/css/fonts.css'
 import 'syw-common/css/styles.css'
 import { useEffect, useMemo, useRef } from 'react'
 import type { ComponentPropsWithoutRef } from 'react'
 import type { MapOptions, UiEventHandler } from 'syw-common/types/ui'
 import { classNames, observeNearViewport } from 'syw-common/helpers/ui'
-import { getDataEventType } from 'syw-common/helpers/data'
+import { getC2paEventType } from 'syw-common/helpers/data'
 import { useC2paContext } from '$src/context/c2pa'
 import { useUiContext } from '$src/context/ui'
 import { useDataContext } from '$src/context'
@@ -35,7 +36,7 @@ function App({
 	const { loadC2pa } = useC2paContext()
 	const data = useDataContext()
 	const { phase, manifests } = data
-	const isEmpty = getDataEventType({ phase, manifests }) === 'data.empty'
+	const isEmpty = getC2paEventType({ phase, manifests }) === 'c2pa.empty'
 	// Read the latest data when the phase changes without firing again on other data changes
 	const dataRef = useRef(data)
 	dataRef.current = data
@@ -75,7 +76,7 @@ function App({
 
 	// After the event handler effect so the handler is set on first load
 	useEffect(() => {
-		const type = getDataEventType(dataRef.current)
+		const type = getC2paEventType(dataRef.current)
 		if(type) eventHandler.current?.(type, null, dataRef.current)
 	}, [phase, eventHandler])
 

@@ -1,4 +1,5 @@
 <script>
+	import 'syw-common/css/fonts.css'
 	import 'syw-common/css/globals.css'
 	import 'syw-docs/src/styles.css'
 	import { DEMO_IMAGES } from 'syw-common/constants/demo'

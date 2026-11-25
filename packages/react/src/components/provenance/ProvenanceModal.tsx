@@ -13,12 +13,12 @@ const ProvenanceModal = () => {
 	const { getText } = useI18nContext()
 	const { mediaType } = useDataContext()
 
-	const handleOpenChange = (newOpen: boolean) => {
+	const handleOpenChange = (newOpen: boolean, event?: Event) => {
 		if(newOpen) {
-			openProvenance()
+			openProvenance(event)
 		} else {
-			closeProvenance()
-			closeExplainer()
+			closeProvenance(event)
+			closeExplainer(event)
 		}
 	}
 

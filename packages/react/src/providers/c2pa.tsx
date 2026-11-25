@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import type { ReactNode } from 'react'
-import type { C2pa } from '@contentauth/c2pa-web'
+import type { C2pa } from 'syw-common/types/c2pa'
 import { getSharedC2pa } from 'syw-common/helpers/c2pa'
 import type { C2paOptions } from 'syw-common/types/c2pa'
 import { C2paContext } from '$src/context/c2pa'

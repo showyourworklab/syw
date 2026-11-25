@@ -1,4 +1,5 @@
 <script>
+	import 'syw-common/css/fonts.css'
 	import 'syw-common/css/globals.css'
 	import 'syw-docs/src/styles.css'
 	import Header from 'syw-docs/src/lib/components/Header.svelte'

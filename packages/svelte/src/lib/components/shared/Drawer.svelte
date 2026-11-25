@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Drawer as ArkDrawer } from '@ark-ui/svelte/drawer'
-	import { classNames } from 'syw-common/helpers/ui'
+	import { classNames, createOpenChangeEvents } from 'syw-common/helpers/ui'
 	import Icon from '$lib/components/shared/Icon.svelte'
 
 	let {
@@ -19,8 +19,10 @@
 		return safeSwipeDirection
 	})
 
-	const handleOpenChange = (event: any) => {
-		onOpenChange(event.open)
+	// Ark's onOpenChange has no DOM event, so remember the one that caused the change
+	const openChangeEvents = createOpenChangeEvents()
+	const handleOpenChange = (event: { open: boolean }) => {
+		onOpenChange(event.open, openChangeEvents.take())
 	}
 </script>
 
@@ -31,6 +33,8 @@
 	lazyMount={true}
 	closeOnInteractOutside={true}
 	onOpenChange={handleOpenChange}
+	onEscapeKeyDown={openChangeEvents.record}
+	onInteractOutside={openChangeEvents.record}
 >
 	<ArkDrawer.Backdrop
 		class={classNames('DrawerBackdrop')}
@@ -39,6 +43,8 @@
 		class={classNames('DrawerPositioner')}
 	>
 		<ArkDrawer.Content
+			onclickcapture={openChangeEvents.record}
+			onpointerdowncapture={openChangeEvents.record}
 			class={classNames(
 				className,
 				'DrawerContent'

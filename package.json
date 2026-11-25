@@ -32,18 +32,17 @@
     "common:release": "npm run common:lerna release",
     "common:trustlists": "npm run common:lerna trustlists",
     "common:typecheck": "npm run common:lerna typecheck",
-    "build": "npm run svelte:package && npm run docs:build && npm run react:build && npm run svelte:build",
+    "build": "npm run common:build && npm run docs:build && npm run react:build && npm run svelte:build",
     "typecheck": "npm run react:typecheck && npm run svelte:typecheck && npm run common:typecheck",
-    "bump": "lerna version --no-git-tag-version --no-push --yes"
+    "bump": "lerna version --no-git-tag-version --no-push --yes",
+    "postinstall": "npm --prefix packages/common run build",
+    "common:build": "npm run common:lerna build",
+    "common:watch": "npm --prefix packages/common run watch"
   },
   "devDependencies": {
     "gh-pages": "^6.3.0",
     "lerna": "^8.2.2",
     "svelte-check": "^4.7.6",
     "typescript": "^6.0.3"
-  },
-  "dependencies": {
-    "@contentauth/c2pa-web": "0.15.3",
-    "@videojs/react": "^10.0.0-beta.5"
   }
 }

@@ -36,7 +36,7 @@ export interface PopoverProps extends ComponentProps {
 	positioning?: any
 	title?: string | null
 	description?: string | null
-	onOpenChange: (open: boolean) => void
+	onOpenChange: (open: boolean, event?: Event) => void
 }
 
 export type DrawerDirection = 'bottom' | 'left' | 'right'
@@ -46,7 +46,7 @@ export interface DrawerProps extends ComponentProps {
 	title?: string | null
 	description?: string | null
 	direction?: DrawerDirection
-	onOpenChange: (open: boolean) => void
+	onOpenChange: (open: boolean, event?: Event) => void
 }
 
 export interface ProvenanceDrawerProps {
@@ -161,7 +161,7 @@ export interface ModalProps extends ComponentProps {
 	open?: boolean
 	title?: string | null
 	description?: string | null
-	onOpenChange: (open: boolean) => void
+	onOpenChange: (open: boolean, event?: Event) => void
 }
 
 export interface ManifestSectionTrustProps extends ComponentProps {

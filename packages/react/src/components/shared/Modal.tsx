@@ -1,5 +1,6 @@
 import { Dialog } from '@ark-ui/react/dialog'
-import { classNames } from 'syw-common/helpers/ui'
+import { useMemo } from 'react'
+import { classNames, createOpenChangeEvents } from 'syw-common/helpers/ui'
 import type { ModalProps } from 'syw-common/types/components'
 import Icon from '$src/components/shared/Icon'
 
@@ -12,8 +13,10 @@ const Modal = ({
 	className
 }: ModalProps) => {
 
+	// Ark's onOpenChange has no DOM event, so remember the one that caused the change
+	const openChangeEvents = useMemo(createOpenChangeEvents, [])
 	const handleOpenChange = (event: { open: boolean }) => {
-		onOpenChange(event.open)
+		onOpenChange(event.open, openChangeEvents.take())
 	}
 
 	return (
@@ -23,6 +26,8 @@ const Modal = ({
 			lazyMount={true}
 			closeOnInteractOutside={true}
 			onOpenChange={handleOpenChange}
+			onEscapeKeyDown={openChangeEvents.record}
+			onInteractOutside={openChangeEvents.record}
 		>
 			{/* <Portal> */}
 				<Dialog.Backdrop
@@ -32,6 +37,8 @@ const Modal = ({
 					className={classNames('ModalPositioner')}
 				>
 					<Dialog.Content
+						onClickCapture={openChangeEvents.record}
+						onPointerDownCapture={openChangeEvents.record}
 						className={classNames(
 							className,
 							'ModalContent'

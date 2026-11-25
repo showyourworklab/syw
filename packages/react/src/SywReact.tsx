@@ -17,9 +17,6 @@ const SywReact: FC<SywReactProps> = ({
 	c2paOptions,
 	mapOptions = null,
 	onEvent,
-	width,
-	height,
-	loading,
 	imageAttrs,
 	__manifestOverrides,
 	...props
@@ -42,7 +39,7 @@ const SywReact: FC<SywReactProps> = ({
 				>
 					<UiProvider
 						variant={variant}
-						imageAttrs={getImageAttrs(imageAttrs, { width, height, loading })}
+						imageAttrs={getImageAttrs(imageAttrs)}
 					>
 						<App
 							mapOptions={mapOptions}

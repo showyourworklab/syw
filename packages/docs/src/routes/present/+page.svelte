@@ -1,4 +1,5 @@
 <script>
+	import 'syw-common/css/fonts.css'
 	import 'syw-common/css/globals.css'
 	import SywSvelte from 'syw-svelte'
 </script>
@@ -33,7 +34,7 @@
 		--text-base: 16px;
 		--font-serif: "Libre Baskerville", "Times New Roman", times, serif;
 		--font-sans-serif: "Rubik", Arial, Helvetica, sans-serif;
-		--font-ui: "Work Sans", arial, sans-serif;
+		--font-ui: "Work Sans Variable", "Work Sans", arial, sans-serif;
 		--color-primary: #333;
 		--color-secondary: white;
 		--color-ui: #E2E5F1;

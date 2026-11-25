@@ -17,13 +17,12 @@ const ProvenanceDrawer = ({
 	const { getText } = useI18nContext()
 	const { mediaType } = useDataContext()
 
-	const handleOpenChange = (newOpen: boolean, event?: unknown) => {
-		const originalEvent = event
+	const handleOpenChange = (newOpen: boolean, event?: Event) => {
 		if(newOpen) {
-			openProvenance(originalEvent)
+			openProvenance(event)
 		} else {
-			closeProvenance(originalEvent)
-			closeExplainer(originalEvent)
+			closeProvenance(event)
+			closeExplainer(event)
 		}
 	}
 

@@ -1,5 +1,5 @@
 import type { Manifest, ManifestAction } from '#types/data'
-import type { ImageAttrs, ManifestDetailIconKey, SywIconType } from '#types/ui'
+import type { ManifestDetailIconKey, SywIconType } from '#types/ui'
 import { MANIFEST_ACTIONS_HIDDEN, MANIFEST_PREVIEW_TITLE_KEYS, VIEWPORT_NEAR_MARGIN, SYW_ICONS } from '#constants/ui'
 import { getObjectValue } from '#helpers/utils'
 
@@ -72,19 +72,15 @@ export const getManifestDisplayActions = (manifest: Manifest | null | undefined)
 	manifest?.actions?.value.filter(action => !MANIFEST_ACTIONS_HIDDEN.includes(action.key)) ?? []
 
 /**
- * Combines default image attributes, passed image attributes and the width, height and loading props, in that order
+ * Applies passed image attributes over the default ones (lazy loading, async decoding)
  * @function
  * @param imageAttrs - Attributes for the image element
- * @param props - Width, height and loading props
  * @return Attributes for the image element
  */
-export const getImageAttrs = <T extends object,>(imageAttrs: T | null | undefined, { width, height, loading }: ImageAttrs): T => ({
+export const getImageAttrs = <T extends object,>(imageAttrs: T | null | undefined): T => ({
 	loading: 'lazy',
 	decoding: 'async',
 	...imageAttrs,
-	...(width !== undefined ? { width } : {}),
-	...(height !== undefined ? { height } : {}),
-	...(loading !== undefined ? { loading } : {}),
 }) as unknown as T
 
 /**
@@ -119,3 +115,35 @@ export const getManifestPreviewTitle = (manifest: Manifest | null | undefined): 
 			? manifest?.generator?.value.map(entry => entry.name).filter(Boolean).join(', ')
 			: manifest?.[key]
 	).filter(Boolean).join(' ')
+
+/**
+ * Gets the DOM event from a framework or Ark UI event: React's nativeEvent, Ark's detail.originalEvent, or the event itself
+ * @function
+ * @param event - Any event
+ * @return DOM event, if there is one
+ */
+export const getDomEvent = (event: unknown): Event | undefined => {
+	const eventLike = event as { nativeEvent?: unknown, detail?: { originalEvent?: unknown } } | null | undefined
+	const domEvent = eventLike?.nativeEvent ?? eventLike?.detail?.originalEvent ?? event
+	return typeof Event !== 'undefined' && domEvent instanceof Event ? domEvent : undefined
+}
+
+/**
+ * Remembers the latest DOM event inside a modal, popover or drawer, since Ark UI's onOpenChange doesn't include one.
+ * Record from the close button click, Escape, outside interactions and pointer down (drawer swipes), then take it in onOpenChange
+ * @function
+ * @return Functions to record an event and take (and clear) the latest one
+ */
+export const createOpenChangeEvents = () => {
+	let latest: Event | undefined
+	return {
+		record: (event: unknown) => {
+			latest = getDomEvent(event) ?? latest
+		},
+		take: (): Event | undefined => {
+			const event = latest
+			latest = undefined
+			return event
+		},
+	}
+}

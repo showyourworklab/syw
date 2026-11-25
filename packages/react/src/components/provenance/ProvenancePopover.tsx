@@ -14,7 +14,7 @@ const ProvenancePopover = () => {
 	const { getText } = useI18nContext()
 	const { mediaType } = useDataContext()
 
-	const handleOpenChange = (newOpen: boolean, event?: unknown) => {
+	const handleOpenChange = (newOpen: boolean, event?: Event) => {
 		if(newOpen) {
 			openProvenance(event)
 		} else {

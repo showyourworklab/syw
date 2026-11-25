@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { onDestroy, untrack } from 'svelte'
 	import type { HTMLAttributes } from 'svelte/elements'
+	import 'syw-common/css/fonts.css'
 	import 'syw-common/css/styles.css'
 	import { classNames, getImageAttrs, observeNearViewport } from 'syw-common/helpers/ui'
-	import { resolveMediaType, getDataEventType } from 'syw-common/helpers/data'
+	import { resolveMediaType, getC2paEventType } from 'syw-common/helpers/data'
 	import { VARIANT_DEFAULT } from 'syw-common/constants/ui'
 	import { LOCALE_DEFAULT } from 'syw-common/constants/i18n'
 	import { C2PA_DATA_DEFAULT, PHASE_KEYS } from 'syw-common/constants/data'
@@ -30,9 +31,6 @@
 		c2paOptions = {},
 		mapOptions = null,
 		onEvent = undefined,
-		width,
-		height,
-		loading,
 		imageAttrs,
 		__manifestOverrides,
 		class: className,
@@ -42,7 +40,7 @@
 	const mediaType = $derived(mediaTypeProp)
 	// Without alt text the attribute is left out, since an empty alt would mark the image as decorative
 	const alt = $derived(altProp ?? null)
-	const resolvedImageAttrs = $derived(getImageAttrs(imageAttrs, { width, height, loading }))
+	const resolvedImageAttrs = $derived(getImageAttrs(imageAttrs))
 
 	let shouldRead = $state(false)
 	let elemRef: HTMLElement | null = $state(null)
@@ -66,7 +64,7 @@
 		isProvenanceOpen,
 	} = uiStore
 
-	const isEmpty = $derived(getDataEventType({ phase: $phase, manifests: $manifests }) === 'data.empty')
+	const isEmpty = $derived(getC2paEventType({ phase: $phase, manifests: $manifests }) === 'c2pa.empty')
 
 	const classes = $derived(
 		[
@@ -137,7 +135,7 @@
 	// Sets C2PA data and fires its data event
 	const setC2paData = (data: SywData) => {
 		dataStore.setC2paData(data)
-		const type = getDataEventType(data)
+		const type = getC2paEventType(data)
 		if(type) uiStore.handleEvent(type, null, { ...data, src, alt, caption, byline })
 	}
 

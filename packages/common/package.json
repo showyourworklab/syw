@@ -1,14 +1,11 @@
 {
   "name": "syw-common",
-  "version": "0.0.47",
+  "version": "0.0.35",
   "license": "MIT",
   "private": false,
   "type": "module",
   "files": [
-    "constants/",
-    "helpers/",
-    "types/",
-    "trustlists/",
+    "dist/",
     "css/",
     "images/",
     "package.json",
@@ -16,76 +13,249 @@
     "LICENSE"
   ],
   "exports": {
-    "./constants/c2pa": "./constants/c2pa.ts",
-    "./constants/data": "./constants/data.ts",
-    "./constants/demo": "./constants/demo.ts",
-    "./constants/i18n": "./constants/i18n.ts",
-    "./constants/ui": "./constants/ui.ts",
-    "./constants/iptc": "./constants/iptc.ts",
-    "./constants/map": "./constants/map.ts",
-    "./constants/trust": "./constants/trust.ts",
-    "./helpers/c2pa": "./helpers/c2pa.ts",
-    "./helpers/data": "./helpers/data.ts",
-    "./helpers/i18n": "./helpers/i18n.ts",
-    "./helpers/iptc": "./helpers/iptc.ts",
-    "./helpers/map": "./helpers/map.ts",
-    "./helpers/markdown": "./helpers/markdown.ts",
-    "./helpers/trust": "./helpers/trust.ts",
-    "./helpers/ui": "./helpers/ui.ts",
-    "./helpers/utils": "./helpers/utils.ts",
-    "./trustlists": "./trustlists/index.ts",
-    "./types/c2pa": "./types/c2pa.ts",
-    "./types/data": "./types/data.ts",
-    "./types/demo": "./types/demo.ts",
-    "./types/components": "./types/components.ts",
-    "./types/embed": "./types/embed.ts",
-    "./types/i18n": "./types/i18n.ts",
-    "./types/trust": "./types/trust.ts",
-    "./types/ui": "./types/ui.ts",
+    "./constants/c2pa": {
+      "types": "./dist/constants/c2pa.d.ts",
+      "default": "./dist/constants/c2pa.js"
+    },
+    "./constants/data": {
+      "types": "./dist/constants/data.d.ts",
+      "default": "./dist/constants/data.js"
+    },
+    "./constants/demo": {
+      "types": "./dist/constants/demo.d.ts",
+      "default": "./dist/constants/demo.js"
+    },
+    "./constants/i18n": {
+      "types": "./dist/constants/i18n.d.ts",
+      "default": "./dist/constants/i18n.js"
+    },
+    "./constants/ui": {
+      "types": "./dist/constants/ui.d.ts",
+      "default": "./dist/constants/ui.js"
+    },
+    "./constants/iptc": {
+      "types": "./dist/constants/iptc.d.ts",
+      "default": "./dist/constants/iptc.js"
+    },
+    "./constants/map": {
+      "types": "./dist/constants/map.d.ts",
+      "default": "./dist/constants/map.js"
+    },
+    "./constants/trust": {
+      "types": "./dist/constants/trust.d.ts",
+      "default": "./dist/constants/trust.js"
+    },
+    "./helpers/c2pa": {
+      "types": "./dist/helpers/c2pa.d.ts",
+      "default": "./dist/helpers/c2pa.js"
+    },
+    "./helpers/data": {
+      "types": "./dist/helpers/data.d.ts",
+      "default": "./dist/helpers/data.js"
+    },
+    "./helpers/i18n": {
+      "types": "./dist/helpers/i18n.d.ts",
+      "default": "./dist/helpers/i18n.js"
+    },
+    "./helpers/iptc": {
+      "types": "./dist/helpers/iptc.d.ts",
+      "default": "./dist/helpers/iptc.js"
+    },
+    "./helpers/map": {
+      "types": "./dist/helpers/map.d.ts",
+      "default": "./dist/helpers/map.js"
+    },
+    "./helpers/markdown": {
+      "types": "./dist/helpers/markdown.d.ts",
+      "default": "./dist/helpers/markdown.js"
+    },
+    "./helpers/trust": {
+      "types": "./dist/helpers/trust.d.ts",
+      "default": "./dist/helpers/trust.js"
+    },
+    "./helpers/ui": {
+      "types": "./dist/helpers/ui.d.ts",
+      "default": "./dist/helpers/ui.js"
+    },
+    "./helpers/utils": {
+      "types": "./dist/helpers/utils.d.ts",
+      "default": "./dist/helpers/utils.js"
+    },
+    "./trustlists": {
+      "types": "./dist/trustlists/index.d.ts",
+      "default": "./dist/trustlists/index.js"
+    },
+    "./types/c2pa": {
+      "types": "./dist/types/c2pa.d.ts",
+      "default": "./dist/types/c2pa.js"
+    },
+    "./types/data": {
+      "types": "./dist/types/data.d.ts",
+      "default": "./dist/types/data.js"
+    },
+    "./types/demo": {
+      "types": "./dist/types/demo.d.ts",
+      "default": "./dist/types/demo.js"
+    },
+    "./types/components": {
+      "types": "./dist/types/components.d.ts",
+      "default": "./dist/types/components.js"
+    },
+    "./types/embed": {
+      "types": "./dist/types/embed.d.ts",
+      "default": "./dist/types/embed.js"
+    },
+    "./types/i18n": {
+      "types": "./dist/types/i18n.d.ts",
+      "default": "./dist/types/i18n.js"
+    },
+    "./types/trust": {
+      "types": "./dist/types/trust.d.ts",
+      "default": "./dist/types/trust.js"
+    },
+    "./types/ui": {
+      "types": "./dist/types/ui.d.ts",
+      "default": "./dist/types/ui.js"
+    },
     "./css": "./css/styles.css",
     "./css/*": "./css/*",
     "./images/*": "./images/*"
   },
   "imports": {
-    "#constants/c2pa": "./constants/c2pa.ts",
-    "#constants/data": "./constants/data.ts",
-    "#constants/demo": "./constants/demo.ts",
-    "#constants/i18n": "./constants/i18n.ts",
-    "#constants/ui": "./constants/ui.ts",
-    "#constants/iptc": "./constants/iptc.ts",
-    "#constants/map": "./constants/map.ts",
-    "#constants/trust": "./constants/trust.ts",
-    "#helpers/c2pa": "./helpers/c2pa.ts",
-    "#helpers/data": "./helpers/data.ts",
-    "#helpers/demo": "./helpers/demo.ts",
-    "#helpers/i18n": "./helpers/i18n.ts",
-    "#helpers/iptc": "./helpers/iptc.ts",
-    "#helpers/map": "./helpers/map.ts",
-    "#helpers/markdown": "./helpers/markdown.ts",
-    "#helpers/trust": "./helpers/trust.ts",
-    "#helpers/ui": "./helpers/ui.ts",
-    "#helpers/utils": "./helpers/utils.ts",
-    "#trustlists": "./trustlists/index.ts",
-    "#types/c2pa": "./types/c2pa.ts",
-    "#types/data": "./types/data.ts",
-    "#types/demo": "./types/demo.ts",
-    "#types/components": "./types/components.ts",
-    "#types/embed": "./types/embed.ts",
-    "#types/i18n": "./types/i18n.ts",
-    "#types/trust": "./types/trust.ts",
-    "#types/ui": "./types/ui.ts"
+    "#constants/c2pa": {
+      "types": "./dist/constants/c2pa.d.ts",
+      "default": "./dist/constants/c2pa.js"
+    },
+    "#constants/data": {
+      "types": "./dist/constants/data.d.ts",
+      "default": "./dist/constants/data.js"
+    },
+    "#constants/demo": {
+      "types": "./dist/constants/demo.d.ts",
+      "default": "./dist/constants/demo.js"
+    },
+    "#constants/i18n": {
+      "types": "./dist/constants/i18n.d.ts",
+      "default": "./dist/constants/i18n.js"
+    },
+    "#constants/ui": {
+      "types": "./dist/constants/ui.d.ts",
+      "default": "./dist/constants/ui.js"
+    },
+    "#constants/iptc": {
+      "types": "./dist/constants/iptc.d.ts",
+      "default": "./dist/constants/iptc.js"
+    },
+    "#constants/map": {
+      "types": "./dist/constants/map.d.ts",
+      "default": "./dist/constants/map.js"
+    },
+    "#constants/trust": {
+      "types": "./dist/constants/trust.d.ts",
+      "default": "./dist/constants/trust.js"
+    },
+    "#helpers/c2pa": {
+      "types": "./dist/helpers/c2pa.d.ts",
+      "default": "./dist/helpers/c2pa.js"
+    },
+    "#helpers/data": {
+      "types": "./dist/helpers/data.d.ts",
+      "default": "./dist/helpers/data.js"
+    },
+    "#helpers/demo": {
+      "types": "./dist/helpers/demo.d.ts",
+      "default": "./dist/helpers/demo.js"
+    },
+    "#helpers/i18n": {
+      "types": "./dist/helpers/i18n.d.ts",
+      "default": "./dist/helpers/i18n.js"
+    },
+    "#helpers/iptc": {
+      "types": "./dist/helpers/iptc.d.ts",
+      "default": "./dist/helpers/iptc.js"
+    },
+    "#helpers/map": {
+      "types": "./dist/helpers/map.d.ts",
+      "default": "./dist/helpers/map.js"
+    },
+    "#helpers/markdown": {
+      "types": "./dist/helpers/markdown.d.ts",
+      "default": "./dist/helpers/markdown.js"
+    },
+    "#helpers/trust": {
+      "types": "./dist/helpers/trust.d.ts",
+      "default": "./dist/helpers/trust.js"
+    },
+    "#helpers/ui": {
+      "types": "./dist/helpers/ui.d.ts",
+      "default": "./dist/helpers/ui.js"
+    },
+    "#helpers/utils": {
+      "types": "./dist/helpers/utils.d.ts",
+      "default": "./dist/helpers/utils.js"
+    },
+    "#trustlists": {
+      "types": "./dist/trustlists/index.d.ts",
+      "default": "./dist/trustlists/index.js"
+    },
+    "#types/c2pa": {
+      "types": "./dist/types/c2pa.d.ts",
+      "default": "./dist/types/c2pa.js"
+    },
+    "#types/data": {
+      "types": "./dist/types/data.d.ts",
+      "default": "./dist/types/data.js"
+    },
+    "#types/demo": {
+      "types": "./dist/types/demo.d.ts",
+      "default": "./dist/types/demo.js"
+    },
+    "#types/components": {
+      "types": "./dist/types/components.d.ts",
+      "default": "./dist/types/components.js"
+    },
+    "#types/embed": {
+      "types": "./dist/types/embed.d.ts",
+      "default": "./dist/types/embed.js"
+    },
+    "#types/i18n": {
+      "types": "./dist/types/i18n.d.ts",
+      "default": "./dist/types/i18n.js"
+    },
+    "#types/trust": {
+      "types": "./dist/types/trust.d.ts",
+      "default": "./dist/types/trust.js"
+    },
+    "#types/ui": {
+      "types": "./dist/types/ui.d.ts",
+      "default": "./dist/types/ui.js"
+    }
   },
   "scripts": {
+    "prebuild": "node scripts/c2pa-version.js && node -e \"fs.rmSync('dist',{recursive:true,force:true})\"",
+    "build": "tsc -p tsconfig.build.json",
+    "prepublishOnly": "npm run build",
     "release": "npm publish",
     "trustlists": "node scripts/update-trustlists.js",
-    "typecheck": "tsc --noEmit"
+    "c2pa-version": "node scripts/c2pa-version.js",
+    "typecheck": "tsc --noEmit",
+    "watch": "tsc -p tsconfig.build.json --watch"
   },
   "devDependencies": {
     "typescript": "^5.9.3"
   },
   "dependencies": {
+    "@contentauth/c2pa-types": "^0.7.5",
     "@contentauth/c2pa-web": "0.15.3",
+    "@fontsource-variable/work-sans": "^5.3.0",
     "dompurify": "^3.2.4",
+    "maplibre-gl": "^5.18.0",
     "marked": "^15.0.7"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/showyourworklab/syw.git",
+    "directory": "packages/common"
+  },
+  "homepage": "https://github.com/showyourworklab/syw#readme"
 }

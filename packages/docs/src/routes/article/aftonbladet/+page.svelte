@@ -1,4 +1,5 @@
 <script>
+	import 'syw-common/css/fonts.css'
 	import 'syw-common/css/globals.css'
 	import SywSvelte from 'syw-svelte'
 </script>

@@ -32,7 +32,7 @@ import type {
 } from '#types/data'
 import type { ManifestOverride } from '#types/demo'
 import type { ManifestValidation } from '#types/trust'
-import type { DataEventType } from '#types/ui'
+import type { C2paEventType } from '#types/ui'
 
 /////////////// Data ///////////////
 
@@ -87,7 +87,7 @@ export const prepareData = async ({ c2pa, src, mediaType: userMediaType, manifes
             error: error as Error,
         }
     }
-	console.log(data)
+	// console.log(data)
 	return data
 }
 
@@ -98,7 +98,6 @@ export const prepareData = async ({ c2pa, src, mediaType: userMediaType, manifes
  * @function
  * @param src - Media URL
  * @param options - Optional overrides
- * @param options.locale - User's locale
  * @param options.c2paOptions - C2PA instance options
  * @param options.mediaType - Media type, detected from src when not given
  * @param options.__manifestOverrides - Testing only, merged into prepared manifests by index
@@ -107,7 +106,6 @@ export const prepareData = async ({ c2pa, src, mediaType: userMediaType, manifes
 export const parseSywData = async (
 	src: string,
 	options: {
-		locale?: string,
 		c2paOptions?: C2paOptions,
 		mediaType?: MediaType
 		__manifestOverrides?: ManifestOverride[]
@@ -139,10 +137,10 @@ export const isDataLoading = ({ phase, src }: Pick<SywData, 'phase'> & { src?: s
  * @param data - Media data
  * @return Event type, or null when idle
  */
-export const getDataEventType = ({ phase, manifests }: Pick<SywData, 'phase' | 'manifests'>): DataEventType | null => {
-	if(phase === PHASE_KEYS.LOADING) return 'data.load'
-	if(phase === PHASE_KEYS.ERROR) return 'data.error'
-	if(phase === PHASE_KEYS.READY) return manifests?.length ? 'data.ready' : 'data.empty'
+export const getC2paEventType = ({ phase, manifests }: Pick<SywData, 'phase' | 'manifests'>): C2paEventType | null => {
+	if(phase === PHASE_KEYS.LOADING) return 'c2pa.load'
+	if(phase === PHASE_KEYS.ERROR) return 'c2pa.error'
+	if(phase === PHASE_KEYS.READY) return manifests?.length ? 'c2pa.ready' : 'c2pa.empty'
 	return null
 }
 

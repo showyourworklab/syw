@@ -1,6 +1,7 @@
 <script>
     import SsrFallback from '$src/lib/components/SsrFallback.svelte';
 	import SywSvelte from 'syw-svelte'
+	import 'syw-common/css/fonts.css'
 	import 'syw-common/css/globals.css'
 	import { DICTIONARIES } from './constants.js'
 
@@ -99,7 +100,7 @@
 		display: flex;
 		justify-content: center;
 		/* justify-content: space-between; */
-		font-family: "Work Sans", Helvetica, Arial, sans-serif;
+		font-family: "Work Sans Variable", "Work Sans", Helvetica, Arial, sans-serif;
 		font-size: 12px;
 		border-style: solid;
 		border-color: currentColor;

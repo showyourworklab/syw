@@ -1,6 +1,6 @@
 <script lang="ts">
     import { untrack } from 'svelte';
-	import MapLibre from 'maplibre-gl'
+	import type { Map as MapLibreMap } from 'maplibre-gl'
 	import { classNames } from 'syw-common/helpers/ui'
 	import { getLangFromLocale } from 'syw-common/helpers/i18n'
 	import { createMapLayer, createMapSource, updateMapLang } from 'syw-common/helpers/map'
@@ -13,7 +13,7 @@
 	const id = $props.id();
 	const { locale } = getI18nContext()
 	const { mapOptions } = getUiContext()
-	let map: MapLibre.Map | null = $state(null)
+	let map: MapLibreMap | null = $state(null)
 	let loaded = $state(false)
 	let container: HTMLDivElement | undefined = $state()
 
@@ -24,17 +24,24 @@
 		const options = untrack(() => $mapOptions)
 		const el = container
 		if(!el) return
-		let mapInstance: MapLibre.Map | null = null
+		let mapInstance: MapLibreMap | null = null
+		let destroyed = false
 		// The map is mounted while its collapse is still hidden (0x0),
 		// so wait for a real size before creating it or it centers wrong
-		const createMap = () => {
+		const createMap = async () => {
 			try {
+				// Loaded on first open only, so maplibre's JS and CSS stay out of the main bundle
+				const [{ default: MapLibre }] = await Promise.all([
+					import('maplibre-gl'),
+					import('maplibre-gl/dist/maplibre-gl.css')
+				])
+				if(destroyed) return
 				mapInstance = new MapLibre.Map({
+					...MAP_PROPS,
+					...options,
+					// Set last so mapOptions can't move the map off the manifest's location
 					container: classNames(id),
 					center: [lng, lat],
-					// interactive: false,
-					...MAP_PROPS,
-					...options
 				})
 				// mapInstance.addControl(new MapLibre.AttributionControl({
 				// 	compact: true
@@ -58,6 +65,7 @@
 		})
 		observer.observe(el)
 		return () => {
+			destroyed = true
 			observer.disconnect()
 			mapInstance?.remove()
 			map = null

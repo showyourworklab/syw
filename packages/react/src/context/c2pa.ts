@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react'
-import type { C2pa } from '@contentauth/c2pa-web'
+import type { C2pa } from 'syw-common/types/c2pa'
 
 interface C2paContextValue {
 	c2pa: C2pa | null

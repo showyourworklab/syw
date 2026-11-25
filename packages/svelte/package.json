@@ -1,6 +1,6 @@
 {
 	"name": "syw-svelte",
-	"version": "0.0.47",
+	"version": "0.0.35",
 	"description": "",
 	"author": "Show Your Work Lab",
 	"license": "MIT",
@@ -36,15 +36,15 @@
 		"preview": "vite preview",
 		"release": "npm publish --access=public",
 		"lint": "eslint .",
-		"typecheck": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json"
+		"typecheck": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"prepublishOnly": "npm run build:lib"
 	},
 	"dependencies": {
 		"@ark-ui/svelte": "^5.21.2",
-		"@contentauth/c2pa-web": "0.15.3",
 		"@lucide/svelte": "^1.74.0",
 		"@videojs/html": "^10.0.0-beta.6",
 		"maplibre-gl": "^5.18.0",
-		"syw-common": "^0.0.47"
+		"syw-common": "^0.0.35"
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.28.1",
@@ -69,5 +69,11 @@
 	},
 	"peerDependencies": {
 		"svelte": "^5.0.0"
-	}
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/showyourworklab/syw.git",
+		"directory": "packages/svelte"
+	},
+	"homepage": "https://github.com/showyourworklab/syw#readme"
 }

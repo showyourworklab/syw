@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { Drawer as ArkDrawer } from '@ark-ui/react/drawer'
 import type { DrawerRootProps } from '@ark-ui/react/drawer'
-import { classNames } from 'syw-common/helpers/ui'
+import { classNames, createOpenChangeEvents } from 'syw-common/helpers/ui'
 import type { DrawerProps } from 'syw-common/types/components'
 import Icon from '$src/components/shared/Icon'
 
@@ -14,8 +14,10 @@ const Drawer = ({
 	children,
 	className
 }: DrawerProps) => {
+	// Ark's onOpenChange has no DOM event, so remember the one that caused the change
+	const openChangeEvents = useMemo(createOpenChangeEvents, [])
 	const handleOpenChange = (event: { open: boolean }) => {
-		onOpenChange(event.open)
+		onOpenChange(event.open, openChangeEvents.take())
 	}
 
 	// Ark only types logical directions, but physical left and right are passed through as is
@@ -33,6 +35,8 @@ const Drawer = ({
 			lazyMount={true}
 			closeOnInteractOutside={true}
 			onOpenChange={handleOpenChange}
+			onEscapeKeyDown={openChangeEvents.record}
+			onInteractOutside={openChangeEvents.record}
 		>
 			{/* <Portal> */}
 				<ArkDrawer.Backdrop
@@ -42,6 +46,8 @@ const Drawer = ({
 					className={classNames('DrawerPositioner')}
 				>
 					<ArkDrawer.Content
+						onClickCapture={openChangeEvents.record}
+						onPointerDownCapture={openChangeEvents.record}
 						className={classNames(
 							className,
 							'DrawerContent'

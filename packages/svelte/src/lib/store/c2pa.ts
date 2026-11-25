@@ -1,6 +1,6 @@
 import { getContext, setContext } from 'svelte'
 import { writable, get } from 'svelte/store'
-import type { C2pa } from '@contentauth/c2pa-web'
+import type { C2pa } from 'syw-common/types/c2pa'
 import { C2PA_DATA_DEFAULT, PHASE_KEYS } from 'syw-common/constants/data'
 import { getSharedC2pa } from 'syw-common/helpers/c2pa'
 import { prepareData, disposeSywData, resolveMediaType } from 'syw-common/helpers/data'

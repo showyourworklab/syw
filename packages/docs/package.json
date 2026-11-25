@@ -1,6 +1,6 @@
 {
 	"name": "syw-docs",
-	"version": "0.0.47",
+	"version": "0.0.35",
 	"license": "MIT",
 	"private": true,
 	"type": "module",
@@ -8,10 +8,12 @@
 		"dev": "vite dev",
 		"build": "vite build",
 		"preview": "vite preview",
-		"deploy": "npx gh-pages -d build -t true"
+		"deploy": "npx gh-pages -d build -t true",
+		"predev": "npm --prefix ../svelte run package",
+		"prebuild": "npm --prefix ../svelte run package"
 	},
 	"dependencies": {
-		"syw-svelte": "^0.0.47"
+		"syw-svelte": "^0.0.35"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^6.0.1",

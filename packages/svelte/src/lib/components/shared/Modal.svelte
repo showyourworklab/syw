@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Dialog } from '@ark-ui/svelte/dialog'
-	import { classNames } from 'syw-common/helpers/ui'
+	import { classNames, createOpenChangeEvents } from 'syw-common/helpers/ui'
 	import type { ModalProps } from 'syw-common/types/components'
 	import Icon from '$lib/components/shared/Icon.svelte'
 
@@ -13,8 +13,10 @@
 		children
 	}: ModalProps = $props()
 
+	// Ark's onOpenChange has no DOM event, so remember the one that caused the change
+	const openChangeEvents = createOpenChangeEvents()
 	const handleOpenChange = (event: { open: boolean }) => {
-		onOpenChange(event.open)
+		onOpenChange(event.open, openChangeEvents.take())
 	}
 </script>
 
@@ -24,6 +26,8 @@
 	lazyMount={true}
 	closeOnInteractOutside={true}
 	onOpenChange={handleOpenChange}
+	onEscapeKeyDown={openChangeEvents.record}
+	onInteractOutside={openChangeEvents.record}
 >
 	<Dialog.Backdrop
 		class={classNames('ModalBackdrop')}
@@ -32,6 +36,8 @@
 		class={classNames('ModalPositioner')}
 	>
 		<Dialog.Content
+			onclickcapture={openChangeEvents.record}
+			onpointerdowncapture={openChangeEvents.record}
 			class={classNames(
 				className,
 				'ModalContent'

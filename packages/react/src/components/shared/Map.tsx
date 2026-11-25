@@ -1,6 +1,5 @@
-import 'maplibre-gl/dist/maplibre-gl.css'
 import { useEffect, useId, useRef, useState } from 'react'
-import MapLibre from 'maplibre-gl'
+import type { Map as MapLibreMap } from 'maplibre-gl'
 import { classNames } from 'syw-common/helpers/ui'
 import { getLangFromLocale } from 'syw-common/helpers/i18n'
 import { createMapLayer, createMapSource, updateMapLang } from 'syw-common/helpers/map'
@@ -16,21 +15,28 @@ const Map = ({
 	const id = useId()
 	const { locale } = useI18nContext()
 	const { mapOptions } = useUiContext()
-	const [map, setMap] = useState<MapLibre.Map | null>(null)
+	const [map, setMap] = useState<MapLibreMap | null>(null)
 	const [loaded, setLoaded] = useState(false)
 	const containerRef = useRef<HTMLDivElement>(null)
 	useEffect(() => {
 		const container = containerRef.current
 		if(!container) return
-		let mapInstance: MapLibre.Map | null = null
-		const createMap = () => {
+		let mapInstance: MapLibreMap | null = null
+		let destroyed = false
+		const createMap = async () => {
 			try {
+				// Loaded on first open only, so maplibre's JS and CSS stay out of the main bundle
+				const [{ default: MapLibre }] = await Promise.all([
+					import('maplibre-gl'),
+					import('maplibre-gl/dist/maplibre-gl.css')
+				])
+				if(destroyed) return
 				mapInstance = new MapLibre.Map({
+					...MAP_PROPS,
+					...(mapOptions ?? {}),
+					// Set last so mapOptions can't move the map off the manifest's location
 					container: classNames(id),
 					center: [location.lng, location.lat],
-					// interactive: false,
-					...MAP_PROPS,
-					...(mapOptions ?? {})
 				})
 				// mapInstance.addControl(new MapLibre.AttributionControl({
 				// 	compact: true
@@ -54,6 +60,7 @@ const Map = ({
 		})
 		observer.observe(container)
 		return () => {
+			destroyed = true
 			observer.disconnect()
 			mapInstance?.remove()
 			setMap(null)

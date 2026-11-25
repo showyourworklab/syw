@@ -4,7 +4,7 @@ import { MediaQuery } from 'svelte/reactivity'
 import type { HTMLImgAttributes } from 'svelte/elements'
 import { MEDIA_QUERIES, VARIANT_DEFAULT } from 'syw-common/constants/ui'
 import type { Manifest } from 'syw-common/types/data'
-import type { MapOptions, MediaQueryKey, UiEventHandler, Variant } from 'syw-common/types/ui'
+import type { MapOptions, MediaQueryKey, UiEventData, UiEventHandler, Variant } from 'syw-common/types/ui'
 
 const UI_CONTEXT_KEY = Symbol('ui')
 
@@ -44,26 +44,31 @@ export default function createUiStore(initialImageAttrs: SywImageAttrs = {}) {
 		imageAttrs.set(value)
 	}
 
-	const handleEvent: UiEventHandler = (type, event, ...args) => {
+	const handleEvent = (type: string, event: unknown, data?: UiEventData) => {
 		const eventHandlerFunc = get(eventHandler)
-		if(typeof eventHandlerFunc === "function") eventHandlerFunc(type, event, ...args)
+		if(typeof eventHandlerFunc === "function") eventHandlerFunc(type, event as Event | null | undefined, data)
 	}
 
+	// Each open/close event is only reported when the state actually changes
 	const openProvenance = (event?: unknown) => {
+		if(get(isProvenanceOpen)) return
 		isProvenanceOpen.set(true)
 		handleEvent("provenance.open", event)
 	}
 	const closeProvenance = (event?: unknown) => {
+		if(!get(isProvenanceOpen)) return
 		isProvenanceOpen.set(false)
 		openManifests.set({})
 		handleEvent("provenance.close", event)
 	}
 
 	const openExplainer = (event?: unknown) => {
+		if(get(isExplainerOpen)) return
 		isExplainerOpen.set(true)
 		handleEvent("explainer.open", event)
 	}
 	const closeExplainer = (event?: unknown) => {
+		if(!get(isExplainerOpen)) return
 		isExplainerOpen.set(false)
 		handleEvent("explainer.close", event)
 	}

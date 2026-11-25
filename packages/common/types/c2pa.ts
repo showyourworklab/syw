@@ -1,5 +1,7 @@
 import type { Manifest as C2paManifest, ManifestStore } from '@contentauth/c2pa-types'
-import type { Config } from '@contentauth/c2pa-web'
+import type { C2pa, Config } from '@contentauth/c2pa-web'
+
+export type { C2pa }
 
 export type { C2paManifest }
 

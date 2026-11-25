@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { Popover as ArkPopover } from '@ark-ui/react/popover'
-import { classNames } from 'syw-common/helpers/ui'
+import { classNames, createOpenChangeEvents } from 'syw-common/helpers/ui'
 import type { PopoverProps } from 'syw-common/types/components'
 
 const Popover = ({
@@ -13,8 +13,10 @@ const Popover = ({
 	className
 } : PopoverProps) => {
 
+	// Ark's onOpenChange has no DOM event, so remember the one that caused the change
+	const openChangeEvents = useMemo(createOpenChangeEvents, [])
 	const handleOpenChange = (event: { open: boolean }) => {
-		onOpenChange(event.open)
+		onOpenChange(event.open, openChangeEvents.take())
 	}
 
 	return (
@@ -26,12 +28,16 @@ const Popover = ({
 			closeOnInteractOutside={true}
 			positioning={positioning}
 			onOpenChange={handleOpenChange}
+			onEscapeKeyDown={openChangeEvents.record}
+			onInteractOutside={openChangeEvents.record}
 		>
 			{/* <Portal> */}
 				<ArkPopover.Positioner
 					className={classNames('PopoverPositioner')}
 				>
 					<ArkPopover.Content
+						onClickCapture={openChangeEvents.record}
+						onPointerDownCapture={openChangeEvents.record}
 						className={classNames(
 							className,
 							'PopoverContent'

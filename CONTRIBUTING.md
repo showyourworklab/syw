@@ -12,6 +12,12 @@ Install dependencies at the project root:
 npm install
 ```
 
+This also builds `common` to `packages/common/dist`, which `react`, `svelte` and `docs` use for its types and published imports. The dev servers read `common`'s source directly, but type-checking reads its `dist`. When you change `common`, keep it rebuilt with:
+
+```bash
+npm run common:watch
+```
+
 Run a package locally:
 
 ```bash
@@ -25,7 +31,9 @@ npm run svelte:dev
 npm run build
 ```
 
-Builds `react` and `svelte` (library + demo for each) and `docs`, and populates the root `public/` folder used for the GitHub Pages deploy.
+Builds `common`, `react` and `svelte` (library + demo for each) and `docs`, and populates the root `public/` folder used for the GitHub Pages deploy.
+
+Build output (`dist/`) isn't committed. Each package rebuilds its `dist` automatically before `npm publish` (`prepublishOnly`).
 
 ## Releasing
 

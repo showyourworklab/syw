@@ -1,5 +1,6 @@
 <script>
     import SsrFallback from '$src/lib/components/SsrFallback.svelte';
+	import 'syw-common/css/fonts.css'
 	import 'syw-common/css/globals.css'
 	import SywSvelte from 'syw-svelte'
 
