@@ -6,14 +6,41 @@ import react from '@vitejs/plugin-react'
 // Leave every dependency (and its subpaths, e.g. react/jsx-runtime) for the
 // consumer's bundler to resolve and dedupe. CSS imports are the exception: they're
 // bundled into dist/styles.css so consumers only import 'syw-react/styles.css',
-// except fonts.css, which stays an import so the consumer's bundler emits the font files,
-// and maplibre's CSS, which the map loads on demand together with maplibre itself.
+// except maplibre's CSS, which the map loads on demand together with maplibre itself.
 const pkg = JSON.parse(readFileSync(resolve(__dirname, 'package.json'), 'utf8'))
 const externalDeps = Object.keys({ ...pkg.dependencies, ...pkg.peerDependencies })
 const isExternal = (id) =>
-	id === 'syw-common/css/fonts.css' ||
 	id === 'maplibre-gl/dist/maplibre-gl.css' ||
 	(!id.endsWith('.css') && externalDeps.some((dep) => id === dep || id.startsWith(`${dep}/`)))
+
+// The fonts are imported from App.tsx so they load in dev, but a CSS import in the published
+// JS breaks anything that loads it with plain Node (server rendering). For the library build,
+// drop that import from the JS and add it as the first line of dist/styles.css instead, unbundled,
+// so the consumer's bundler emits the font files and the browser only fetches the subsets it needs.
+const FONTS_CSS = 'syw-common/css/fonts.css'
+const fontsInStylesheet = () => [
+	{
+		name: 'syw-fonts-out-of-js',
+		apply: 'build',
+		enforce: 'pre',
+		// Matched after the syw-common alias has turned it into a path
+		resolveId: (id) => (id === FONTS_CSS || id.endsWith('/common/css/fonts.css')) ? '\0syw-fonts' : null,
+		load: (id) => id === '\0syw-fonts' ? '' : null,
+	},
+	{
+		name: 'syw-fonts-into-stylesheet',
+		apply: 'build',
+		// After Vite has emitted dist/styles.css
+		enforce: 'post',
+		generateBundle(_options, bundle) {
+			for(const file of Object.values(bundle)) {
+				if(file.type === 'asset' && file.fileName === 'styles.css') {
+					file.source = `@import "${FONTS_CSS}";\n${file.source}`
+				}
+			}
+		},
+	},
+]
 
 export default defineConfig({
 	publicDir: 'public',
@@ -67,6 +94,7 @@ export default defineConfig({
 		},
 	},
 	plugins: [
+		fontsInStylesheet(),
 		react({
 			// Disabling this since to stop re-registration custom element error when
 			// hot-reloading web components
