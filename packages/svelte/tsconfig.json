@@ -1,6 +1,7 @@
 {
 	"extends": "./.svelte-kit/tsconfig.json",
 	"compilerOptions": {
+		"customConditions": ["syw-common-source"],
 		"declaration": true,
         "declarationDir": "./dist",
 		"esModuleInterop": true,

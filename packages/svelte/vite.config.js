@@ -1,5 +1,5 @@
 import { resolve } from 'path';
-import { defineConfig } from 'vite';
+import { defineConfig, defaultClientConditions, defaultServerConditions } from 'vite';
 import { svelte } from '@sveltejs/vite-plugin-svelte';
 import devtoolsJson from 'vite-plugin-devtools-json';
 
@@ -26,6 +26,8 @@ export default defineConfig({
 		cssCodeSplit: false
 	},
 	resolve: {
+		// syw-common-source: resolve syw-common (and its internal #imports) to its TypeScript source, so dev never needs common built
+		conditions: ['syw-common-source', ...defaultClientConditions],
 		alias: {
 			$src: resolve(__dirname, '/src'),
 			$lib: resolve(__dirname, '/src/lib'),
@@ -42,6 +44,9 @@ export default defineConfig({
 		devtoolsJson()
 	],
 	ssr: {
+		resolve: {
+			conditions: ['syw-common-source', ...defaultServerConditions],
+		},
 		noExternal: [
 			'@ark-ui/svelte',
 			'@lucide/svelte'

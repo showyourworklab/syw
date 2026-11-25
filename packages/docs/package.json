@@ -9,7 +9,6 @@
 		"build": "vite build",
 		"preview": "vite preview",
 		"deploy": "npx gh-pages -d build -t true",
-		"predev": "npm --prefix ../svelte run package",
 		"prebuild": "npm --prefix ../svelte run package"
 	},
 	"dependencies": {

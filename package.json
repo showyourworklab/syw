@@ -29,15 +29,14 @@
     "docs:preview": "npm run docs:lerna preview",
     "docs:deploy": "npx gh-pages -d public",
     "common:lerna": "lerna run --scope syw-common",
+    "common:build": "npm run common:lerna build",
     "common:release": "npm run common:lerna release",
     "common:trustlists": "npm run common:lerna trustlists",
     "common:typecheck": "npm run common:lerna typecheck",
     "build": "npm run common:build && npm run docs:build && npm run react:build && npm run svelte:build",
     "typecheck": "npm run react:typecheck && npm run svelte:typecheck && npm run common:typecheck",
     "bump": "lerna version --no-git-tag-version --no-push --yes",
-    "postinstall": "npm --prefix packages/common run build",
-    "common:build": "npm run common:lerna build",
-    "common:watch": "npm --prefix packages/common run watch"
+    "postinstall": "node packages/common/scripts/c2pa-version.js"
   },
   "devDependencies": {
     "gh-pages": "^6.3.0",

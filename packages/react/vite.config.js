@@ -1,6 +1,6 @@
 import { resolve } from 'path'
 import { readFileSync } from 'fs'
-import { defineConfig } from 'vite'
+import { defineConfig, defaultClientConditions } from 'vite'
 import react from '@vitejs/plugin-react'
 
 // Leave every dependency (and its subpaths, e.g. react/jsx-runtime) for the
@@ -18,6 +18,8 @@ const isExternal = (id) =>
 export default defineConfig({
 	publicDir: 'public',
 	resolve: {
+		// syw-common-source: resolve syw-common (and its internal #imports) to its TypeScript source, so dev never needs common built
+		conditions: ['syw-common-source', ...defaultClientConditions],
 		alias: {
 			'$src': resolve(__dirname, 'src'),
 			'syw-common': resolve(__dirname, '../common')

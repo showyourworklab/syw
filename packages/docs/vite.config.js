@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite';
+import { defineConfig, defaultClientConditions, defaultServerConditions } from 'vite';
 import { sveltekit } from '@sveltejs/kit/vite';
 import devtoolsJson from 'vite-plugin-devtools-json';
 import { resolve } from 'path';
@@ -33,9 +33,14 @@ export default defineConfig({
 		devtoolsJson()
 	],
 	ssr: {
+		resolve: {
+			conditions: ['syw-common-source', ...defaultServerConditions],
+		},
 		noExternal: ['@ark-ui/svelte']
 	},
 	resolve: {
+		// syw-common-source: resolve syw-common (and its internal #imports) to its TypeScript source, so dev never needs common built
+		conditions: ['syw-common-source', ...defaultClientConditions],
 		dedupe: ['svelte', '@ark-ui/svelte'],
 	},
 	css: {

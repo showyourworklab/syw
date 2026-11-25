@@ -12,11 +12,7 @@ Install dependencies at the project root:
 npm install
 ```
 
-This also builds `common` to `packages/common/dist`, which `react`, `svelte` and `docs` use for its types and published imports. The dev servers read `common`'s source directly, but type-checking reads its `dist`. When you change `common`, keep it rebuilt with:
-
-```bash
-npm run common:watch
-```
+In this repo, `syw-common` is always used from its TypeScript source, by the dev servers, the docs and type-checking. Changes to `common` show up right away, with no build step. This works through a `syw-common-source` export condition that this repo opts into (`customConditions` in each `tsconfig.json`, `resolve.conditions` in each Vite config). Apps that install the packages from npm don't use it, so they get the compiled `dist`.
 
 Run a package locally:
 
@@ -45,29 +41,35 @@ Build output (`dist/`) isn't committed. Each package rebuilds its `dist` automat
 ```bash
 npm run bump <newversion>
 ```
+
 Bumps `common`, `react`, `svelte`, and `docs` together, and automatically updates `react`/`svelte`'s `syw-common` dependency range (and `docs`'s `syw-svelte` range) to match, no manual editing needed.
 
-### 2. Refresh and rebuild
+### 2. Install and rebuild
 
 ```bash
 npm install
 npm run build
 ```
 
+`build` also refreshes the bundled trust lists from their sources, so check `git status` for updated files under `packages/common/trustlists/`.
+
 ### 3. Commit and tag the release
 
+Describe the work in the commit message, and let the tag mark the version:
+
 ```bash
-git add -A && git commit -m "Release v<newversion>"
+git add -A && git commit
 git tag v<newversion>
 git push && git push --tags
 ```
 
-### 4. Publish, in this order
+### 4. Publish
 
 > [!IMPORTANT]
 > `common` must go first; `react` and `svelte` will fail if the updated `common` isn't in the registry yet
 
 ```bash
+npm login
 npm run common:release
 npm run react:release
 npm run svelte:release

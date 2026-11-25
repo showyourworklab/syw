@@ -1,5 +1,5 @@
 // import { resolve } from 'path'
-import { defineConfig } from 'vite'
+import { defineConfig, defaultClientConditions } from 'vite'
 import react from '@vitejs/plugin-react'
 
 export default defineConfig({
@@ -8,6 +8,8 @@ export default defineConfig({
 		? '/syw/react/'
 		: '',
 	resolve: {
+		// syw-common-source: resolve syw-common (and its internal #imports) to its TypeScript source, so dev never needs common built
+		conditions: ['syw-common-source', ...defaultClientConditions],
 		fs: false,
 		path: false,
 		alias: {

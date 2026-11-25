@@ -6,6 +6,10 @@
   "type": "module",
   "files": [
     "dist/",
+    "constants/**/*.ts",
+    "helpers/**/*.ts",
+    "types/**/*.ts",
+    "trustlists/**/*.ts",
     "css/",
     "images/",
     "package.json",
@@ -14,107 +18,211 @@
   ],
   "exports": {
     "./constants/c2pa": {
-      "types": "./dist/constants/c2pa.d.ts",
+      "types": {
+        "syw-common-source": "./constants/c2pa.ts",
+        "default": "./dist/constants/c2pa.d.ts"
+      },
+      "syw-common-source": "./constants/c2pa.ts",
       "default": "./dist/constants/c2pa.js"
     },
     "./constants/data": {
-      "types": "./dist/constants/data.d.ts",
+      "types": {
+        "syw-common-source": "./constants/data.ts",
+        "default": "./dist/constants/data.d.ts"
+      },
+      "syw-common-source": "./constants/data.ts",
       "default": "./dist/constants/data.js"
     },
     "./constants/demo": {
-      "types": "./dist/constants/demo.d.ts",
+      "types": {
+        "syw-common-source": "./constants/demo.ts",
+        "default": "./dist/constants/demo.d.ts"
+      },
+      "syw-common-source": "./constants/demo.ts",
       "default": "./dist/constants/demo.js"
     },
     "./constants/i18n": {
-      "types": "./dist/constants/i18n.d.ts",
+      "types": {
+        "syw-common-source": "./constants/i18n.ts",
+        "default": "./dist/constants/i18n.d.ts"
+      },
+      "syw-common-source": "./constants/i18n.ts",
       "default": "./dist/constants/i18n.js"
     },
     "./constants/ui": {
-      "types": "./dist/constants/ui.d.ts",
+      "types": {
+        "syw-common-source": "./constants/ui.ts",
+        "default": "./dist/constants/ui.d.ts"
+      },
+      "syw-common-source": "./constants/ui.ts",
       "default": "./dist/constants/ui.js"
     },
     "./constants/iptc": {
-      "types": "./dist/constants/iptc.d.ts",
+      "types": {
+        "syw-common-source": "./constants/iptc.ts",
+        "default": "./dist/constants/iptc.d.ts"
+      },
+      "syw-common-source": "./constants/iptc.ts",
       "default": "./dist/constants/iptc.js"
     },
     "./constants/map": {
-      "types": "./dist/constants/map.d.ts",
+      "types": {
+        "syw-common-source": "./constants/map.ts",
+        "default": "./dist/constants/map.d.ts"
+      },
+      "syw-common-source": "./constants/map.ts",
       "default": "./dist/constants/map.js"
     },
     "./constants/trust": {
-      "types": "./dist/constants/trust.d.ts",
+      "types": {
+        "syw-common-source": "./constants/trust.ts",
+        "default": "./dist/constants/trust.d.ts"
+      },
+      "syw-common-source": "./constants/trust.ts",
       "default": "./dist/constants/trust.js"
     },
     "./helpers/c2pa": {
-      "types": "./dist/helpers/c2pa.d.ts",
+      "types": {
+        "syw-common-source": "./helpers/c2pa.ts",
+        "default": "./dist/helpers/c2pa.d.ts"
+      },
+      "syw-common-source": "./helpers/c2pa.ts",
       "default": "./dist/helpers/c2pa.js"
     },
     "./helpers/data": {
-      "types": "./dist/helpers/data.d.ts",
+      "types": {
+        "syw-common-source": "./helpers/data.ts",
+        "default": "./dist/helpers/data.d.ts"
+      },
+      "syw-common-source": "./helpers/data.ts",
       "default": "./dist/helpers/data.js"
     },
     "./helpers/i18n": {
-      "types": "./dist/helpers/i18n.d.ts",
+      "types": {
+        "syw-common-source": "./helpers/i18n.ts",
+        "default": "./dist/helpers/i18n.d.ts"
+      },
+      "syw-common-source": "./helpers/i18n.ts",
       "default": "./dist/helpers/i18n.js"
     },
     "./helpers/iptc": {
-      "types": "./dist/helpers/iptc.d.ts",
+      "types": {
+        "syw-common-source": "./helpers/iptc.ts",
+        "default": "./dist/helpers/iptc.d.ts"
+      },
+      "syw-common-source": "./helpers/iptc.ts",
       "default": "./dist/helpers/iptc.js"
     },
     "./helpers/map": {
-      "types": "./dist/helpers/map.d.ts",
+      "types": {
+        "syw-common-source": "./helpers/map.ts",
+        "default": "./dist/helpers/map.d.ts"
+      },
+      "syw-common-source": "./helpers/map.ts",
       "default": "./dist/helpers/map.js"
     },
     "./helpers/markdown": {
-      "types": "./dist/helpers/markdown.d.ts",
+      "types": {
+        "syw-common-source": "./helpers/markdown.ts",
+        "default": "./dist/helpers/markdown.d.ts"
+      },
+      "syw-common-source": "./helpers/markdown.ts",
       "default": "./dist/helpers/markdown.js"
     },
     "./helpers/trust": {
-      "types": "./dist/helpers/trust.d.ts",
+      "types": {
+        "syw-common-source": "./helpers/trust.ts",
+        "default": "./dist/helpers/trust.d.ts"
+      },
+      "syw-common-source": "./helpers/trust.ts",
       "default": "./dist/helpers/trust.js"
     },
     "./helpers/ui": {
-      "types": "./dist/helpers/ui.d.ts",
+      "types": {
+        "syw-common-source": "./helpers/ui.ts",
+        "default": "./dist/helpers/ui.d.ts"
+      },
+      "syw-common-source": "./helpers/ui.ts",
       "default": "./dist/helpers/ui.js"
     },
     "./helpers/utils": {
-      "types": "./dist/helpers/utils.d.ts",
+      "types": {
+        "syw-common-source": "./helpers/utils.ts",
+        "default": "./dist/helpers/utils.d.ts"
+      },
+      "syw-common-source": "./helpers/utils.ts",
       "default": "./dist/helpers/utils.js"
     },
     "./trustlists": {
-      "types": "./dist/trustlists/index.d.ts",
+      "types": {
+        "syw-common-source": "./trustlists/index.ts",
+        "default": "./dist/trustlists/index.d.ts"
+      },
+      "syw-common-source": "./trustlists/index.ts",
       "default": "./dist/trustlists/index.js"
     },
     "./types/c2pa": {
-      "types": "./dist/types/c2pa.d.ts",
+      "types": {
+        "syw-common-source": "./types/c2pa.ts",
+        "default": "./dist/types/c2pa.d.ts"
+      },
+      "syw-common-source": "./types/c2pa.ts",
       "default": "./dist/types/c2pa.js"
     },
     "./types/data": {
-      "types": "./dist/types/data.d.ts",
+      "types": {
+        "syw-common-source": "./types/data.ts",
+        "default": "./dist/types/data.d.ts"
+      },
+      "syw-common-source": "./types/data.ts",
       "default": "./dist/types/data.js"
     },
     "./types/demo": {
-      "types": "./dist/types/demo.d.ts",
+      "types": {
+        "syw-common-source": "./types/demo.ts",
+        "default": "./dist/types/demo.d.ts"
+      },
+      "syw-common-source": "./types/demo.ts",
       "default": "./dist/types/demo.js"
     },
     "./types/components": {
-      "types": "./dist/types/components.d.ts",
+      "types": {
+        "syw-common-source": "./types/components.ts",
+        "default": "./dist/types/components.d.ts"
+      },
+      "syw-common-source": "./types/components.ts",
       "default": "./dist/types/components.js"
     },
     "./types/embed": {
-      "types": "./dist/types/embed.d.ts",
+      "types": {
+        "syw-common-source": "./types/embed.ts",
+        "default": "./dist/types/embed.d.ts"
+      },
+      "syw-common-source": "./types/embed.ts",
       "default": "./dist/types/embed.js"
     },
     "./types/i18n": {
-      "types": "./dist/types/i18n.d.ts",
+      "types": {
+        "syw-common-source": "./types/i18n.ts",
+        "default": "./dist/types/i18n.d.ts"
+      },
+      "syw-common-source": "./types/i18n.ts",
       "default": "./dist/types/i18n.js"
     },
     "./types/trust": {
-      "types": "./dist/types/trust.d.ts",
+      "types": {
+        "syw-common-source": "./types/trust.ts",
+        "default": "./dist/types/trust.d.ts"
+      },
+      "syw-common-source": "./types/trust.ts",
       "default": "./dist/types/trust.js"
     },
     "./types/ui": {
-      "types": "./dist/types/ui.d.ts",
+      "types": {
+        "syw-common-source": "./types/ui.ts",
+        "default": "./dist/types/ui.d.ts"
+      },
+      "syw-common-source": "./types/ui.ts",
       "default": "./dist/types/ui.js"
     },
     "./css": "./css/styles.css",
@@ -123,111 +231,219 @@
   },
   "imports": {
     "#constants/c2pa": {
-      "types": "./dist/constants/c2pa.d.ts",
+      "types": {
+        "syw-common-source": "./constants/c2pa.ts",
+        "default": "./dist/constants/c2pa.d.ts"
+      },
+      "syw-common-source": "./constants/c2pa.ts",
       "default": "./dist/constants/c2pa.js"
     },
     "#constants/data": {
-      "types": "./dist/constants/data.d.ts",
+      "types": {
+        "syw-common-source": "./constants/data.ts",
+        "default": "./dist/constants/data.d.ts"
+      },
+      "syw-common-source": "./constants/data.ts",
       "default": "./dist/constants/data.js"
     },
     "#constants/demo": {
-      "types": "./dist/constants/demo.d.ts",
+      "types": {
+        "syw-common-source": "./constants/demo.ts",
+        "default": "./dist/constants/demo.d.ts"
+      },
+      "syw-common-source": "./constants/demo.ts",
       "default": "./dist/constants/demo.js"
     },
     "#constants/i18n": {
-      "types": "./dist/constants/i18n.d.ts",
+      "types": {
+        "syw-common-source": "./constants/i18n.ts",
+        "default": "./dist/constants/i18n.d.ts"
+      },
+      "syw-common-source": "./constants/i18n.ts",
       "default": "./dist/constants/i18n.js"
     },
     "#constants/ui": {
-      "types": "./dist/constants/ui.d.ts",
+      "types": {
+        "syw-common-source": "./constants/ui.ts",
+        "default": "./dist/constants/ui.d.ts"
+      },
+      "syw-common-source": "./constants/ui.ts",
       "default": "./dist/constants/ui.js"
     },
     "#constants/iptc": {
-      "types": "./dist/constants/iptc.d.ts",
+      "types": {
+        "syw-common-source": "./constants/iptc.ts",
+        "default": "./dist/constants/iptc.d.ts"
+      },
+      "syw-common-source": "./constants/iptc.ts",
       "default": "./dist/constants/iptc.js"
     },
     "#constants/map": {
-      "types": "./dist/constants/map.d.ts",
+      "types": {
+        "syw-common-source": "./constants/map.ts",
+        "default": "./dist/constants/map.d.ts"
+      },
+      "syw-common-source": "./constants/map.ts",
       "default": "./dist/constants/map.js"
     },
     "#constants/trust": {
-      "types": "./dist/constants/trust.d.ts",
+      "types": {
+        "syw-common-source": "./constants/trust.ts",
+        "default": "./dist/constants/trust.d.ts"
+      },
+      "syw-common-source": "./constants/trust.ts",
       "default": "./dist/constants/trust.js"
     },
     "#helpers/c2pa": {
-      "types": "./dist/helpers/c2pa.d.ts",
+      "types": {
+        "syw-common-source": "./helpers/c2pa.ts",
+        "default": "./dist/helpers/c2pa.d.ts"
+      },
+      "syw-common-source": "./helpers/c2pa.ts",
       "default": "./dist/helpers/c2pa.js"
     },
     "#helpers/data": {
-      "types": "./dist/helpers/data.d.ts",
+      "types": {
+        "syw-common-source": "./helpers/data.ts",
+        "default": "./dist/helpers/data.d.ts"
+      },
+      "syw-common-source": "./helpers/data.ts",
       "default": "./dist/helpers/data.js"
     },
     "#helpers/demo": {
-      "types": "./dist/helpers/demo.d.ts",
+      "types": {
+        "syw-common-source": "./helpers/demo.ts",
+        "default": "./dist/helpers/demo.d.ts"
+      },
+      "syw-common-source": "./helpers/demo.ts",
       "default": "./dist/helpers/demo.js"
     },
     "#helpers/i18n": {
-      "types": "./dist/helpers/i18n.d.ts",
+      "types": {
+        "syw-common-source": "./helpers/i18n.ts",
+        "default": "./dist/helpers/i18n.d.ts"
+      },
+      "syw-common-source": "./helpers/i18n.ts",
       "default": "./dist/helpers/i18n.js"
     },
     "#helpers/iptc": {
-      "types": "./dist/helpers/iptc.d.ts",
+      "types": {
+        "syw-common-source": "./helpers/iptc.ts",
+        "default": "./dist/helpers/iptc.d.ts"
+      },
+      "syw-common-source": "./helpers/iptc.ts",
       "default": "./dist/helpers/iptc.js"
     },
     "#helpers/map": {
-      "types": "./dist/helpers/map.d.ts",
+      "types": {
+        "syw-common-source": "./helpers/map.ts",
+        "default": "./dist/helpers/map.d.ts"
+      },
+      "syw-common-source": "./helpers/map.ts",
       "default": "./dist/helpers/map.js"
     },
     "#helpers/markdown": {
-      "types": "./dist/helpers/markdown.d.ts",
+      "types": {
+        "syw-common-source": "./helpers/markdown.ts",
+        "default": "./dist/helpers/markdown.d.ts"
+      },
+      "syw-common-source": "./helpers/markdown.ts",
       "default": "./dist/helpers/markdown.js"
     },
     "#helpers/trust": {
-      "types": "./dist/helpers/trust.d.ts",
+      "types": {
+        "syw-common-source": "./helpers/trust.ts",
+        "default": "./dist/helpers/trust.d.ts"
+      },
+      "syw-common-source": "./helpers/trust.ts",
       "default": "./dist/helpers/trust.js"
     },
     "#helpers/ui": {
-      "types": "./dist/helpers/ui.d.ts",
+      "types": {
+        "syw-common-source": "./helpers/ui.ts",
+        "default": "./dist/helpers/ui.d.ts"
+      },
+      "syw-common-source": "./helpers/ui.ts",
       "default": "./dist/helpers/ui.js"
     },
     "#helpers/utils": {
-      "types": "./dist/helpers/utils.d.ts",
+      "types": {
+        "syw-common-source": "./helpers/utils.ts",
+        "default": "./dist/helpers/utils.d.ts"
+      },
+      "syw-common-source": "./helpers/utils.ts",
       "default": "./dist/helpers/utils.js"
     },
     "#trustlists": {
-      "types": "./dist/trustlists/index.d.ts",
+      "types": {
+        "syw-common-source": "./trustlists/index.ts",
+        "default": "./dist/trustlists/index.d.ts"
+      },
+      "syw-common-source": "./trustlists/index.ts",
       "default": "./dist/trustlists/index.js"
     },
     "#types/c2pa": {
-      "types": "./dist/types/c2pa.d.ts",
+      "types": {
+        "syw-common-source": "./types/c2pa.ts",
+        "default": "./dist/types/c2pa.d.ts"
+      },
+      "syw-common-source": "./types/c2pa.ts",
       "default": "./dist/types/c2pa.js"
     },
     "#types/data": {
-      "types": "./dist/types/data.d.ts",
+      "types": {
+        "syw-common-source": "./types/data.ts",
+        "default": "./dist/types/data.d.ts"
+      },
+      "syw-common-source": "./types/data.ts",
       "default": "./dist/types/data.js"
     },
     "#types/demo": {
-      "types": "./dist/types/demo.d.ts",
+      "types": {
+        "syw-common-source": "./types/demo.ts",
+        "default": "./dist/types/demo.d.ts"
+      },
+      "syw-common-source": "./types/demo.ts",
       "default": "./dist/types/demo.js"
     },
     "#types/components": {
-      "types": "./dist/types/components.d.ts",
+      "types": {
+        "syw-common-source": "./types/components.ts",
+        "default": "./dist/types/components.d.ts"
+      },
+      "syw-common-source": "./types/components.ts",
       "default": "./dist/types/components.js"
     },
     "#types/embed": {
-      "types": "./dist/types/embed.d.ts",
+      "types": {
+        "syw-common-source": "./types/embed.ts",
+        "default": "./dist/types/embed.d.ts"
+      },
+      "syw-common-source": "./types/embed.ts",
       "default": "./dist/types/embed.js"
     },
     "#types/i18n": {
-      "types": "./dist/types/i18n.d.ts",
+      "types": {
+        "syw-common-source": "./types/i18n.ts",
+        "default": "./dist/types/i18n.d.ts"
+      },
+      "syw-common-source": "./types/i18n.ts",
       "default": "./dist/types/i18n.js"
     },
     "#types/trust": {
-      "types": "./dist/types/trust.d.ts",
+      "types": {
+        "syw-common-source": "./types/trust.ts",
+        "default": "./dist/types/trust.d.ts"
+      },
+      "syw-common-source": "./types/trust.ts",
       "default": "./dist/types/trust.js"
     },
     "#types/ui": {
-      "types": "./dist/types/ui.d.ts",
+      "types": {
+        "syw-common-source": "./types/ui.ts",
+        "default": "./dist/types/ui.d.ts"
+      },
+      "syw-common-source": "./types/ui.ts",
       "default": "./dist/types/ui.js"
     }
   },
@@ -238,8 +454,7 @@
     "release": "npm publish",
     "trustlists": "node scripts/update-trustlists.js",
     "c2pa-version": "node scripts/c2pa-version.js",
-    "typecheck": "tsc --noEmit",
-    "watch": "tsc -p tsconfig.build.json --watch"
+    "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
     "typescript": "^5.9.3"
